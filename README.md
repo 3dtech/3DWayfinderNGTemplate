@@ -5,4 +5,4 @@ Free to use 3D Wayfinder Front End template (AngularJS)
 
 You need to install:
 
-* [https://github.com/3dtech/3DWayfinderAngular]3DWayfinderAngular service
+* [3DWayfinderAngular service](https://github.com/3dtech/3DWayfinderAngular)
