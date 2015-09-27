@@ -1,0 +1,28 @@
+{
+  "name": "wayfinder3d-angular-template",
+  "version": "0.0.1",
+  "description": "Free to use Angular template for 3D Wayfinder",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "^3.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3dtech/3DWayfinderNGTemplate.git"
+  },
+  "keywords": [
+    "3dwayfinder",
+    "angular",
+    "template"
+  ],
+  "author": "3D Technologies R&D",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/3dtech/3DWayfinderNGTemplate/issues"
+  },
+  "homepage": "https://github.com/3dtech/3DWayfinderNGTemplate#readme"
+}
