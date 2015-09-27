@@ -1,0 +1,29 @@
+{
+  "name": "3DWayfinderNGTemplate",
+  "version": "0.0.1",
+  "homepage": "https://github.com/3dtech/3DWayfinderNGTemplate",
+  "authors": [
+    "3D Technologies R&D <developers@3dwayfinder.com>"
+  ],
+  "description": "",
+  "main": "index.js",
+  "moduleType": [],
+  "keywords": [
+    "Angular",
+    "template",
+    "for",
+    "3D",
+    "Wayfinder"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "3dwayfinder-angular": "~0.0.1"
+  }
+}
