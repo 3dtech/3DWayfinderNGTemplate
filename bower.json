@@ -24,6 +24,6 @@
     "tests"
   ],
   "dependencies": {
-    "3dwayfinder-angular": "~0.0.1"
+    "3dwayfinder-angular": "latest"
   }
 }
