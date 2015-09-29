@@ -2,12 +2,14 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var debug = require('gulp-debug');
 var del = require('del');
+var less = require('gulp-less');
+var path = require('path');
 var vendor = [
 	"./bower_components/3dwayfinder-angular/index.js"
 ];
 
 gulp.task('default', function() {
-	gulp.start('clean', 'html', 'scripts', 'vendor');
+	gulp.start('clean', 'html', 'scripts', 'vendor', 'less');
 });
 
 gulp.task('clean', function() {
@@ -28,6 +30,14 @@ gulp.task('vendor', function() {
 
 gulp.task('html', function() {
 	return gulp.src('./src/index.html').pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('less', function () {
+  return gulp.src('./src/less/*.less')
+    .pipe(less({
+      paths: [ path.join(__dirname, 'less') ]
+    }))
+    .pipe(gulp.dest('./dist/css'));
 });
 
 gulp.task('watch', function() {

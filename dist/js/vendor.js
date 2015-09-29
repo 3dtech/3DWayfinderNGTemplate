@@ -5,9 +5,4 @@ wfangular.factory('wfangular3d', ['$rootScope', function($rootScope) {
   	$rootScope.$broadcast('wf.data.loaded', []);
   }
   return wf;
-}])
-.run(['wfangular3d', function(wayfinder) {
-	WayfinderAPI.LOCATION = "http://api.3dwayfinder.com/";
-	wayfinder.options.assetsLocation = 'http://static.3dwayfinder.com/shared/';
-	wayfinder.open();
 }]);

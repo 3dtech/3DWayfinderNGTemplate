@@ -6,15 +6,29 @@
 
 <body ng-app="app">
 	<canvas id="map" width="400" height="300"></canvas>
-
-  <div ng-controller="LanguagesController">
-    <div ng-repeat="language in languages">{{language.getName()}}</div>
+  <div ng-controller="LanguagesCtrl">
+    <button type="button" style="font-color:red; width:50px; height:50px">
+      {{ activeLanguage }}
+    </button>
+    <div ng-repeat="language in languages">
+      <a href="" ng-model="activeLanguage" ng-click="setLanguage(language.getName())">{{language.getName()}}</a>
+    </div>
+  </div>
+  <div ng-controller="FloorsCtrl">
+    <div ng-repeat="floor in floors">
+      <div ng-repeat="translation in floor.getNames()">
+        <button type="button" style="font-color:red; padding: 5px; width:100px; height:50px">
+          {{ translation[activeLanguage] }}
+        </button>
+      </div>
+    </div>
   </div>
 
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	<script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
 	<script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
   <script type="text/javascript" src="js/vendor.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </body>
