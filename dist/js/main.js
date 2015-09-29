@@ -22,15 +22,20 @@ floorsModule.controller('FloorsCtrl', [
 	function($scope, wayfinder, FloorSrv) 
 	{
 		$scope.floors = {};
-
+		$scope.activeFloor = {};
+		$scope.kioskNode = {};
 		$scope.activeLanguage = {};
+
+		$scope.getFloor = function() {
+			$scope.kioskNode = wayfinder.getKioskNode();
+			console.log("getKioskNode="+$scope.kioskNode);
+		}
 
 		$scope.$on('wf.data.loaded', function(event, data)
 		{
 			$scope.$apply(function () 
 			{
 				$scope.activeLanguage = FloorSrv.getLanguage();
-				console.log("floors_lang:"+$scope.activeLanguage);
 				$scope.floors = wayfinder.building.getFloors();
 			});
 		});

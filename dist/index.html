@@ -17,10 +17,13 @@
   <div ng-controller="FloorsCtrl">
     <div ng-repeat="floor in floors">
       <div ng-repeat="translation in floor.getNames()">
-        <button type="button" style="font-color:red; padding: 5px; width:100px; height:50px">
+        <button type="button" ng-click="getFloor()" style="font-color:red; padding: 5px; width:100px; height:50px">
           {{ translation[activeLanguage] }}
         </button>
       </div>
+    </div>
+    <div>
+      {{kioskNode.floor.getID()}}
     </div>
   </div>
 
