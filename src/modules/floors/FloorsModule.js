@@ -16,8 +16,8 @@ floorsModule.controller('FloorsCtrl', [
                 return LanguagesSrv.getLanguage()
             },
             function(newValue, oldValue) {
-            		$scope.activeLanguage = FloorSrv.getLanguage();
-            		console.log("watch.getLanguage("+FloorSrv.getLanguage()+")");
+                $scope.activeLanguage = FloorSrv.getLanguage();
+                console.log("watch.getLanguage(" + FloorSrv.getLanguage() + ")");
             });
 
         $scope.getFloor = function() {
@@ -34,9 +34,15 @@ floorsModule.controller('FloorsCtrl', [
             return $scope.activeFloor;
         }
 
+        $scope.setFloor = function(floor) {
+        	$scope.activeFloor = floor;
+        	wayfinder.showFloor(floor);
+        }
+
         $scope.$on('wf.data.loaded', function(event, data) {
             $scope.$apply(function() {
                 $scope.activeLanguage = FloorSrv.getLanguage();
+                $scope.kioskNode = wayfinder.getKioskNode();
                 $scope.floors = wayfinder.building.getFloors();
             });
         });
