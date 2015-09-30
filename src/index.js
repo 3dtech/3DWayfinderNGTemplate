@@ -3,8 +3,8 @@ var wayfinderApp = angular.module('app', [
 	'ngRoute',
 	'wfangular',
 	'wf.languages',
-	'wf.floors'//,
-	// 'wf.zoom' // all modules go here, and into separate files and into the folder modules/<modulename>
+	'wf.floors',
+	'wf.zoom' // all modules go here, and into separate files and into the folder modules/<modulename>
 ]);
 
 wayfinderApp.run(['wfangular3d', function(wayfinder) {

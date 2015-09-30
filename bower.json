@@ -25,5 +25,9 @@
   ],
   "dependencies": {
     "3dwayfinder-angular": "latest"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.3.5",
+    "grunt-cli": "~0.1.13"
   }
 }

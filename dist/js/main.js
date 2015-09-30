@@ -3,8 +3,8 @@ var wayfinderApp = angular.module('app', [
 	'ngRoute',
 	'wfangular',
 	'wf.languages',
-	'wf.floors'//,
-	// 'wf.zoom' // all modules go here, and into separate files and into the folder modules/<modulename>
+	'wf.floors',
+	'wf.zoom' // all modules go here, and into separate files and into the folder modules/<modulename>
 ]);
 
 wayfinderApp.run(['wfangular3d', function(wayfinder) {
@@ -126,3 +126,21 @@ languagesModule.service('LanguagesSrv', function() {
     }
 });
 
+
+var zoomModule = angular.module('wf.zoom', ['wfangular']);
+
+zoomModule.controller('ZoomCtrl', [
+    '$scope',
+    'wfangular3d',
+    function($scope, wayfinder) {
+        $scope.zoomIn = function() {
+            wayfinder.zoomIn();
+            console.log("zoomIn()");
+        }
+
+        $scope.zoomOut = function() {
+            wayfinder.zoomOut();
+            console.log("zoomOut()");
+        }
+    }
+]);

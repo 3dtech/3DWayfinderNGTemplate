@@ -1,36 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>3D Wayfinder Angular Template</title>
-</head>
-
-<body ng-app="app">
-    <canvas id="map" width="400" height="300"></canvas>
-    <div ng-controller="LanguagesCtrl">
-        <button type="button" ng-click="getLanguage()" style="font-color:red; width:50px; height:50px">
-            {{ activeLanguage }}
-        </button>
-        <div ng-repeat="language in languages">
-            <a href="" ng-model="activeLanguage" ng-click="setLanguage(language.getName())">
-                {{ language.getName() }}
-            </a>
-        </div>
-    </div>
-    <div ng-controller="FloorsCtrl">
-        <div>
-            <button style="font-color:red; padding: 5px; width:50px; height:50px">
-                {{ kioskNode.floor.getID() }}
-            </button>
-        </div>
-        <div ng-repeat="floor in floors">
-            <div ng-repeat="translation in floor.getNames()">
-                <button type="button" id="{{floor.getID()}}" ng-model="activeLanguage" ng-click="setFloor(floor)" style="font-color:red; padding: 5px; width:100px; height:50px">
-                    {{ translation[activeLanguage] }} : {{ floor.getID() }}
-                </button>
-            </div>
-        </div>
-    </div>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>3D Wayfinder</title>
+    <meta charset="utf-8">
+    <meta name="description" content="3DWayfinder WebGL">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="js/script.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
     <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
@@ -38,6 +18,150 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
     <script type="text/javascript" src="js/vendor.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-</body>
+</head>
 
-</html>
+<body ng-app="app">
+    <div class="container">
+        <div class="header">
+            <p id="menu-btn">
+                <a title="Menu" href="#" class="icon icon-search">
+                    <span>Menu</span>
+                </a>
+            </p>
+            <ul class="shortcuts">
+                <li>
+                    <a title="You are here" href="#" class="icon icon-yah"><span>You are here</span></a>
+                </li>
+                <li>
+                    <a title="Toilet" href="#" class="icon icon-wc"><span>Toilet</span></a>
+                </li>
+                <li>
+                    <a title="ATM" href="#" class="icon icon-atm"><span>ATM</span></a>
+                </li>
+            </ul>
+            <p class="logo">Bystasjonen</p>
+            <div class="lang-menu" ng-controller="LanguagesCtrl">
+                <p class="lang-current">
+                    <a title="In English" href="#">
+                        <span class="lang-{{activeLanguage}}"></span>
+                    </a>
+                </p>
+                <ul>
+                    <li ng-repeat="language in languages">
+                        <a title="In English" class="active" href="#" ng-model="activeLanguage" ng-click="setLanguage(language.getName())">
+                            <span class="lang-{{language.getName()}}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="map-container">
+            <canvas id="map" width="1024" height="768"></canvas>
+            <div class="map-controls">
+                <ul class="floors" ng-controller="FloorsCtrl">
+                    <li ng-repeat="floor in floors">
+                        <div ng-repeat="translation in floor.getNames()">
+                            <a ng-model="activeLanguage" ng-click="setFloor(floor)" title="Third floor" href="#">{{ translation[activeLanguage] }}</a>
+                        </div>
+                    </li>
+                </ul>
+                <p class="zoom" ng-controller="ZoomCtrl">
+                    <button title="Zoom in" class="zoom-in" ng-click="zoomIn()"></button>
+                    <span class="slider">
+                            <a title="Drag to zoom"></a>
+                        </span>
+                    <button title="Zoom out" class="zoom-out" ng-click="zoomOut()"></button>
+                </p>
+            </div>
+        </div>
+        <div class="nav-menu">
+            <ul class="shortcuts">
+                <li>
+                    <a title="You are here" href="#" class="icon icon-yah"><span>You are here</span></a>
+                </li>
+                <li>
+                    <a title="Toilet" href="#" class="icon icon-wc"><span>Toilet</span></a>
+                </li>
+                <li>
+                    <a title="ATM" href="#" class="icon icon-atm"><span>ATM</span></a>
+                </li>
+            </ul>
+            <ul class="tabs">
+                <li><a title="Filter by topics" class="active" href="#">Topics</a></li>
+                <li><a title="Alphabetical order" href="#">A-Z</a></li>
+                <li><a title="Filter by floors" href="#">Floors</a></li>
+            </ul>
+            <p class="search-wrapper">
+                <input class="search" type="text">
+                <button class="search-btn icon-search"><span>Search</span></button>
+            </p>
+            <ul class="facilities-menu">
+                <li><a href="#">ATM</a></li>
+                <li><a href="#">Toilet</a></li>
+                <li><a href="#">Cafe & Dining</a></li>
+                <li><a href="#">Clothes, Shoes & Travel</a></li>
+                <li><a href="#">Health & Wellness</a></li>
+                <li><a href="#">Home & Decoration</a></li>
+                <li><a href="#">Spesialbutikker</a></li>
+                <li><a href="#">Sports, Leisure & Toys</a></li>
+            </ul>
+        </div>
+        <div id="keyboard_container">
+            <div id="keyboard">
+                <div class="keyboard_row">
+                    <div class="keyboard_key 1" row="0" index="0">1</div>
+                    <div class="keyboard_key 2" row="0" index="1">2</div>
+                    <div class="keyboard_key 3" row="0" index="2">3</div>
+                    <div class="keyboard_key 4" row="0" index="3">4</div>
+                    <div class="keyboard_key 5" row="0" index="4">5</div>
+                    <div class="keyboard_key 6" row="0" index="5">6</div>
+                    <div class="keyboard_key 7" row="0" index="6">7</div>
+                    <div class="keyboard_key 8" row="0" index="7">8</div>
+                    <div class="keyboard_key 9" row="0" index="8">9</div>
+                    <div class="keyboard_key 0" row="0" index="9">0</div>
+                    <div class="keyboard_key key2x « Bksp" object="" row="0" index="10">« Bksp</div>
+                </div>
+                <div class="keyboard_row">
+                    <div class="keyboard_key q" row="1" index="0">q</div>
+                    <div class="keyboard_key w" row="1" index="1">w</div>
+                    <div class="keyboard_key e" row="1" index="2">e</div>
+                    <div class="keyboard_key r" row="1" index="3">r</div>
+                    <div class="keyboard_key t" row="1" index="4">t</div>
+                    <div class="keyboard_key y" row="1" index="5">y</div>
+                    <div class="keyboard_key u" row="1" index="6">u</div>
+                    <div class="keyboard_key i" row="1" index="7">i</div>
+                    <div class="keyboard_key o" row="1" index="8">o</div>
+                    <div class="keyboard_key p" row="1" index="9">p</div>
+                    <div class="keyboard_key å" row="1" index="10">å</div>
+                </div>
+                <div class="keyboard_row">
+                    <div class="keyboard_key a" row="2" index="0">a</div>
+                    <div class="keyboard_key s" row="2" index="1">s</div>
+                    <div class="keyboard_key d" row="2" index="2">d</div>
+                    <div class="keyboard_key f" row="2" index="3">f</div>
+                    <div class="keyboard_key g" row="2" index="4">g</div>
+                    <div class="keyboard_key h" row="2" index="5">h</div>
+                    <div class="keyboard_key j" row="2" index="6">j</div>
+                    <div class="keyboard_key k" row="2" index="7">k</div>
+                    <div class="keyboard_key l" row="2" index="8">l</div>
+                    <div class="keyboard_key ø" row="2" index="9">ø</div>
+                    <div class="keyboard_key æ" row="2" index="10">æ</div>
+                </div>
+                <div class="keyboard_row">
+                    <div class="keyboard_key z" row="3" index="0">z</div>
+                    <div class="keyboard_key x" row="3" index="1">x</div>
+                    <div class="keyboard_key c" row="3" index="2">c</div>
+                    <div class="keyboard_key v" row="3" index="3">v</div>
+                    <div class="keyboard_key b" row="3" index="4">b</div>
+                    <div class="keyboard_key n" row="3" index="5">n</div>
+                    <div class="keyboard_key m" row="3" index="6">m</div>
+                    <div class="keyboard_key ," row="3" index="7">,</div>
+                    <div class="keyboard_key -" row="3" index="8">-</div>
+                </div>
+                <div class="keyboard_row">
+                    <div class="keyboard_key key_spacebar" object="" row="4" index="0"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
