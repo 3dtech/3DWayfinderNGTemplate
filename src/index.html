@@ -9,15 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="js/script.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
-    <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
-    <script type="text/javascript" src="js/vendor.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
 </head>
 
 <body ng-app="app">
@@ -48,20 +39,22 @@
                 </p>
                 <ul>
                     <li ng-repeat="language in languages">
-                        <a title="In English" class="active" href="#" ng-model="activeLanguage" ng-click="setLanguage(language.getName())">
+                        <a title="{{language.getName()}}" href="#" ng-model="activeLanguage" ng-click="setLanguage(language.getName())">
                             <span class="lang-{{language.getName()}}"></span>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="map-container">
-            <canvas id="map" width="1024" height="768"></canvas>
+        <div class="map-container" id="map-tab">
+            <canvas id="map" ng-style="style()" resizeDir></canvas>
             <div class="map-controls">
                 <ul class="floors" ng-controller="FloorsCtrl">
-                    <li ng-repeat="floor in floors">
+                    <li ng-repeat="floor in buildingFloors | reverseArrayOnly">
                         <div ng-repeat="translation in floor.getNames()">
-                            <a ng-model="activeLanguage" ng-click="setFloor(floor)" title="Third floor" href="#">{{ translation[activeLanguage] }}</a>
+                            <a ng-model="activeLanguage" ng-click="setFloor(floor)" title="Third floor" href="#">
+                              {{ translation[activeLanguage] }}
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -163,5 +156,59 @@
                 </div>
             </div>
         </div>
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+        <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
+        <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
+        <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
+        <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/WayfinderUI.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
+        <script type="text/javascript" src="js/vendor.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+        <!-- <script type="text/javascript" src="js/DefaultUI.js"></script> -->
+        <!-- <script type="text/javascript">
+        var wayfinder = new Wayfinder3D();
+        var gui;
+
+        $(function() {
+            var gui = new DefaultUI(wayfinder);
+            wayfinder.open();
+        });
+
+        // Un-comment this once you switch to customizable stylesheets
+        // and comment out the styles.css in the <head>
+
+        //Search button, display search box
+        var searchbox = function() {
+            //event.preventDefault();
+            var button = ".menu-btn .icon";
+            var elem = $('.right-menubar-wrapper');
+            if (elem.hasClass('active')) {
+                $(button).removeClass("search-icon");
+                elem.removeClass('active').css('min-height', 0);
+                $(this).removeClass('active');
+            } else {
+                $(button).addClass("search-icon");
+                elem.addClass('active');
+                $(this).addClass('active');
+                $('input[name=search-box]').val('');
+            }
+        }
+
+        $('#search-button').wrap('<div class="menu-btn" onclick=searchbox();></div>');
+        var e = $('<div class="icon"></div>');
+        $('.menu-btn').append(e);
+        $('body input[type=text]').addClass('search-box');
+        $(".search-box").attr("id", "search-box-id");
+        $(".search-box").attr("name", "search-box");
+        //Keyboard
+        var search = function() {
+            $('#keyboard').css('display', 'block');
+        };
+        </script> -->
     </div>
 </body>
+
+</html>
