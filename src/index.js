@@ -27,8 +27,9 @@ wayfinderApp.filter('reverse', function() {
     };
 });
 
-wayfinderApp.filter('reverseArrayOnly', function() {
+wayfinderApp.filter('reverseArrayOnly', function() {7
     return function(items) {
+        console.log(typeof items);
         if (!angular.isArray(items)) {
             return items;
         }

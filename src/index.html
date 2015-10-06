@@ -34,12 +34,12 @@
             <div class="lang-menu" ng-controller="LanguagesCtrl">
                 <p class="lang-current">
                     <a title="In English" href="#">
-                        <span class="lang-{{activeLanguage}}"></span>
+                        <span class="lang-{{getLanguage()}}"></span>
                     </a>
                 </p>
                 <ul>
                     <li ng-repeat="language in languages">
-                        <a title="{{language.getName()}}" href="#" ng-model="activeLanguage" ng-click="setLanguage(language.getName())">
+                        <a title="{{language.getName()}}" href="#" ng-model="getLanguage()" ng-click="setLanguage(language.getName())">
                             <span class="lang-{{language.getName()}}"></span>
                         </a>
                     </li>
@@ -47,13 +47,13 @@
             </div>
         </div>
         <div class="map-container" id="map-tab">
-            <canvas id="map" ng-style="style()" resizeDir></canvas>
+            <canvas class="map" id="map" ng-style="style()" resizeDir></canvas>
             <div class="map-controls">
                 <ul class="floors" ng-controller="FloorsCtrl">
-                    <li ng-repeat="floor in buildingFloors | reverseArrayOnly">
-                        <div ng-repeat="translation in floor.getNames()">
+                    <li ng-repeat="floor in buildingFloors">
+                        <div>
                             <a ng-model="activeLanguage" ng-click="setFloor(floor)" title="Third floor" href="#">
-                              {{ translation[activeLanguage] }}
+                              {{ floor.getNames() | wfCurrentLanguage }}
                             </a>
                         </div>
                     </li>

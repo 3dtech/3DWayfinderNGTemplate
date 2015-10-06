@@ -335,6 +335,10 @@ input::-ms-clear {
 .map-container {
   height: 100%;
 }
+.map {
+  height: 100%;
+  width: 100%;
+}
 .floors {
   position: absolute;
   top: 110px;

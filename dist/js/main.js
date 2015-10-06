@@ -27,8 +27,9 @@ wayfinderApp.filter('reverse', function() {
     };
 });
 
-wayfinderApp.filter('reverseArrayOnly', function() {
+wayfinderApp.filter('reverseArrayOnly', function() {7
     return function(items) {
+        console.log(typeof items);
         if (!angular.isArray(items)) {
             return items;
         }
@@ -36,9 +37,9 @@ wayfinderApp.filter('reverseArrayOnly', function() {
     };
 });
 
-wayfinderApp.directive('resizeDir', ['$compile', 'wfangular3d', function($window, $compile, wayfinder) {
+wayfinderApp.directive('resizeDir', function($window) {
     return {
-        restrict: 'C',
+        restrict: 'AEC',
         link: function(scope, element, attrs) {
             var w = angular.element($window);
             scope.getWindowDimensions = function() {
@@ -69,28 +70,63 @@ wayfinderApp.directive('resizeDir', ['$compile', 'wfangular3d', function($window
             });
         }
     }
-}]);
+});
+
+var languagesModule = angular.module('wf.languages', ['wfangular']);
+
+languagesModule.controller('LanguagesCtrl', [
+    '$scope',
+    'wfangular3d',
+    function($scope, wayfinder) {
+        $scope.languages = {};
+
+        $scope.getLanguage = function() {
+            return wayfinder.getLanguage();
+        }
+
+        $scope.getLanguages = function() {
+            return wayfinder.getLanguages();
+        }
+
+        $scope.setLanguage = function(language) {
+            wayfinder.setLanguage(language);
+        }
+
+        $scope.$on('wf.data.loaded', function(event, data) {
+            $scope.$apply(function() {
+                $scope.languages = wayfinder.getLanguages();
+            });
+        });
+    }
+]);
+
 
 var floorsModule = angular.module('wf.floors', ['wfangular', 'wf.languages']);
 
 floorsModule.controller('FloorsCtrl', [
     '$scope',
     'wfangular3d',
-    'FloorSrv',
-    'LanguagesSrv',
-    function($scope, wayfinder, FloorSrv, LanguagesSrv) {
-        $scope.buildingFloors = {};
+    function($scope, wayfinder) {
+        $scope.buildingFloors = [];
         $scope.activeFloor = {};
         $scope.kioskNode = {};
         $scope.activeLanguage = {};
+        
+        $scope.floorsOrdered = function() {
+            var orderedFloors = [];
+            for (var i = $scope.buildingFloors.length - 1; i >= 0; i--) {
+                orderedFloors.push($scope.buildingFloors[i]);
+            };
+            return orderedFloors;
+        }
 
         $scope.$watch(
             function() {
-                return LanguagesSrv.getLanguage()
+                return wayfinder.getLanguage()
             },
             function(newValue, oldValue) {
-                $scope.activeLanguage = FloorSrv.getLanguage();
-                console.log("watch.getLanguage(" + FloorSrv.getLanguage() + ")");
+                $scope.activeLanguage = wayfinder.getLanguage();
+                console.log("watch.getLanguage(" + wayfinder.getLanguage() + ")");
             });
 
         $scope.getFloor = function() {
@@ -114,76 +150,21 @@ floorsModule.controller('FloorsCtrl', [
 
         $scope.$on('wf.data.loaded', function(event, data) {
             $scope.$apply(function() {
-                $scope.activeLanguage = FloorSrv.getLanguage();
+                $scope.activeLanguage = wayfinder.getLanguage();
                 $scope.kioskNode = wayfinder.getKioskNode();
-                $scope.buildingFloors = wayfinder.building.getFloors();
+                var arr = [];
+                for (var key in wayfinder.building.getFloors()) {
+                    // add hasOwnPropertyCheck if needed
+                    arr.push(wayfinder.building.getFloors()[key]);
+                  }
+                for (var i = arr.length - 1; i >= 0; i--) {
+                    $scope.buildingFloors.push(arr[i]);
+                };
+                console.log("buildingFloors:", $scope.buildingFloors);
             });
         });
     }
 ]);
-
-floorsModule.service('FloorSrv', function(LanguagesSrv) {
-    this.getLanguage = function() {
-        return LanguagesSrv.getLanguage();
-    }
-});
-
-var languagesModule = angular.module('wf.languages', ['wfangular']);
-
-languagesModule.controller('LanguagesCtrl', [
-    '$scope',
-    'wfangular3d',
-    'LanguagesSrv',
-    function($scope, wayfinder, LanguagesSrv) {
-        $scope.languages = {};
-        $scope.activeLanguage = {};
-
-        $scope.getLanguage = function() {
-            return LanguagesSrv.getLanguage();
-        }
-
-        $scope.getLanguages = function() {
-            return LanguagesSrv.getLanguages();
-        }
-
-        $scope.setLanguage = function(language) {
-            console.log("setLanguage(" + language + ")");
-            $scope.activeLanguage = language;
-            LanguagesSrv.setLanguage(language);
-            wayfinder.setLanguage(language);
-        }
-
-        $scope.$on('wf.data.loaded', function(event, data) {
-            $scope.$apply(function() {
-                LanguagesSrv.setLanguages(wayfinder.getLanguages());
-                LanguagesSrv.setLanguage(wayfinder.getLanguage());
-                $scope.languages = LanguagesSrv.getLanguages();
-                $scope.activeLanguage = LanguagesSrv.getLanguage();
-            });
-        });
-    }
-]);
-
-languagesModule.service('LanguagesSrv', function() {
-    var activeLanguage = {};
-    var wfLanguages = {};
-
-    return {
-        getLanguage: function() {
-            return activeLanguage;
-        },
-        setLanguage: function(language) {
-            activeLanguage = language;
-        },
-        getLanguages: function() {
-            return wfLanguages;
-        },
-        setLanguages: function(languages) {
-            wfLanguages = languages;
-        }
-    }
-});
-
 
 var zoomModule = angular.module('wf.zoom', ['wfangular']);
 
