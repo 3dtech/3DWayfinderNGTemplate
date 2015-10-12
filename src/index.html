@@ -39,7 +39,7 @@
                 </p>
                 <ul>
                     <li ng-repeat="language in languages">
-                        <a title="{{language.getName()}}" href="#" ng-model="getLanguage()" ng-click="setLanguage(language.getName())">
+                        <a title="{{language.getName()}}" href="#" ng-click="setLanguage(language.getName())">
                             <span class="lang-{{language.getName()}}"></span>
                         </a>
                     </li>
@@ -51,7 +51,7 @@
             <div class="map-controls">
                 <ul class="floors" ng-controller="FloorsCtrl">
                     <li ng-repeat="floor in buildingFloors">
-                        <div>
+                        <div id="floor-button" button-width>
                             <a ng-model="activeLanguage" ng-click="setFloor(floor)" title="Third floor" href="#">
                               {{ floor.getNames() | wfCurrentLanguage }}
                             </a>
@@ -88,16 +88,13 @@
                 <input class="search" type="text">
                 <button class="search-btn icon-search"><span>Search</span></button>
             </p>
-            <ul class="facilities-menu">
-                <li><a href="#">ATM</a></li>
-                <li><a href="#">Toilet</a></li>
-                <li><a href="#">Cafe & Dining</a></li>
-                <li><a href="#">Clothes, Shoes & Travel</a></li>
-                <li><a href="#">Health & Wellness</a></li>
-                <li><a href="#">Home & Decoration</a></li>
-                <li><a href="#">Spesialbutikker</a></li>
-                <li><a href="#">Sports, Leisure & Toys</a></li>
-            </ul>
+            <div class="groups" >
+              <ul class="facilities-menu" ng-controller="GroupsCtrl">
+                  <li ng-repeat="group in groups">
+                    <a href="#">{{ group.getNames() | wfCurrentLanguage }}</a>
+                  </li>
+              </ul>
+            </div>
         </div>
         <div id="keyboard_container">
             <div id="keyboard">

@@ -71,3 +71,28 @@ wayfinderApp.directive('resizeDir', function($window) {
         }
     }
 });
+
+wayfinderApp.directive('buttonWidth', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            var maxWidth = 0;
+            if (scope.$last === true) {
+                scope.$emit('lastButton');
+                console.log("lastButton!");
+            }
+            scope.$watch('lastButton', function() {
+                console.log("lastButton watch reached!, maxWidth:", maxWidth);
+                var allButtons = $(element).find('floor-button');
+                console.log("allButtons:", allButtons);
+                //check the maximum width of element
+                angular.forEach(allButtons, function(ele, ind) {
+                    console.log("ele:",ele,"ind:",ind);
+                    //below code will find maxWidth
+                    maxWidth = ele.innerWidth > maxWidth ? ele.innerWidth : maxWidth;
+                });
+                allButtons.css('width', maxWidth)
+            });
+        }
+    }
+})

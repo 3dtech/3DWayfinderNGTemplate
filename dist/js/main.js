@@ -72,34 +72,30 @@ wayfinderApp.directive('resizeDir', function($window) {
     }
 });
 
-var languagesModule = angular.module('wf.languages', ['wfangular']);
-
-languagesModule.controller('LanguagesCtrl', [
-    '$scope',
-    'wfangular3d',
-    function($scope, wayfinder) {
-        $scope.languages = {};
-
-        $scope.getLanguage = function() {
-            return wayfinder.getLanguage();
-        }
-
-        $scope.getLanguages = function() {
-            return wayfinder.getLanguages();
-        }
-
-        $scope.setLanguage = function(language) {
-            wayfinder.setLanguage(language);
-        }
-
-        $scope.$on('wf.data.loaded', function(event, data) {
-            $scope.$apply(function() {
-                $scope.languages = wayfinder.getLanguages();
+wayfinderApp.directive('buttonWidth', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            var maxWidth = 0;
+            if (scope.$last === true) {
+                scope.$emit('lastButton');
+                console.log("lastButton!");
+            }
+            scope.$watch('lastButton', function() {
+                console.log("lastButton watch reached!, maxWidth:", maxWidth);
+                var allButtons = $(element).find('floor-button');
+                console.log("allButtons:", allButtons);
+                //check the maximum width of element
+                angular.forEach(allButtons, function(ele, ind) {
+                    console.log("ele:",ele,"ind:",ind);
+                    //below code will find maxWidth
+                    maxWidth = ele.innerWidth > maxWidth ? ele.innerWidth : maxWidth;
+                });
+                allButtons.css('width', maxWidth)
             });
-        });
+        }
     }
-]);
-
+})
 
 var floorsModule = angular.module('wf.floors', ['wfangular', 'wf.languages']);
 
@@ -165,6 +161,64 @@ floorsModule.controller('FloorsCtrl', [
         });
     }
 ]);
+
+var groupsModule = angular.module('wf.groups', ['wfangular']);
+
+groupsModule.controller('GroupsGtrl', [
+    '$scope',
+    'wfangular3d',
+    function($scope, wayfinder) {
+        $scope.groups = {};
+
+        $scope.getLanguage = function() {
+            return wayfinder.getLanguage();
+        }
+
+        $scope.getLanguages = function() {
+            return wayfinder.getLanguages();
+        }
+
+        $scope.setLanguage = function(language) {
+            wayfinder.setLanguage(language);
+        }
+
+        $scope.$on('wf.data.loaded', function(event, data) {
+            $scope.$apply(function() {
+                $scope.groups = wayfinder.getLanguages();
+            });
+        });
+    }
+]);
+
+
+var languagesModule = angular.module('wf.languages', ['wfangular']);
+
+languagesModule.controller('LanguagesCtrl', [
+    '$scope',
+    'wfangular3d',
+    function($scope, wayfinder) {
+        $scope.languages = {};
+
+        $scope.getLanguage = function() {
+            return wayfinder.getLanguage();
+        }
+
+        $scope.getLanguages = function() {
+            return wayfinder.getLanguages();
+        }
+
+        $scope.setLanguage = function(language) {
+            wayfinder.setLanguage(language);
+        }
+
+        $scope.$on('wf.data.loaded', function(event, data) {
+            $scope.$apply(function() {
+                $scope.languages = wayfinder.getLanguages();
+            });
+        });
+    }
+]);
+
 
 var zoomModule = angular.module('wf.zoom', ['wfangular']);
 
