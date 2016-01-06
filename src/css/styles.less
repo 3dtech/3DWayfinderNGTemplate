@@ -173,7 +173,7 @@ input::-ms-clear {
 }
 
 /*** DROPDOWN MENU ***/
-.nav-menu {
+.tabs-container {
     position: absolute;
     height: 0;
     width: 345px;
@@ -479,7 +479,7 @@ input::-ms-clear {
     .shortcuts {
         display: none;
     }
-    .nav-menu .shortcuts {
+    .tabs-container .shortcuts {
         display: table;
     }
     .lang-current {
@@ -511,7 +511,7 @@ input::-ms-clear {
         height: @header-height-m;
         padding: 0;
     }
-    .nav-menu {
+    .tabs-container {
         top: -15px;
         padding-top: @header-height-m;
         width: 100%;
@@ -560,6 +560,15 @@ input::-ms-clear {
     .map-container {
         background-size: 90%;
     }
+}
+
+.screensaver {
+    position: absolute;
+    top: @header-height;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: @color-primary;
 }
 
 /*** ICON FONT ***/

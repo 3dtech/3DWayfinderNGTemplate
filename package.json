@@ -4,10 +4,11 @@
   "description": "Free to use Angular template for 3D Wayfinder",
   "main": "index.js",
   "dependencies": {
+    "bower": "^1.6.5",
     "gulp": "^3.9.0"
   },
   "devDependencies": {
-    "bootstrap": "^3.3.5",
+    "brace-expansion": "^1.1.2",
     "del": "^2.0.2",
     "gulp-concat": "^2.6.0",
     "gulp-debug": "^2.1.0",

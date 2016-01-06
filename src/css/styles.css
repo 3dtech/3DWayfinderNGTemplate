@@ -189,7 +189,7 @@ input::-ms-clear {
     content: '\e804' !important
 }
 
-.nav-menu {
+.tabs-container {
     position: absolute;
     height: 0;
     width: 345px;
@@ -204,12 +204,12 @@ input::-ms-clear {
     z-index: 8
 }
 
-.nav-menu.active {
+.tabs-container.active {
     top: 0;
     height: 100%
 }
 
-.nav-menu .shortcuts {
+.tabs-container .shortcuts {
     display: none;
     float: none;
     width: 100%;
@@ -217,20 +217,20 @@ input::-ms-clear {
     border-bottom: 10px solid #eee
 }
 
-.nav-menu .shortcuts span {
+.tabs-container .shortcuts span {
     display: none
 }
 
-.nav-menu .shortcuts li {
+.tabs-container .shortcuts li {
     display: table-cell
 }
 
-.nav-menu .shortcuts li:hover .icon,
-.nav-menu .shortcuts li.on-touch .icon {
+.tabs-container .shortcuts li:hover .icon,
+.tabs-container .shortcuts li.on-touch .icon {
     color: #c9238c
 }
 
-.nav-menu .shortcuts .icon {
+.tabs-container .shortcuts .icon {
     float: right;
     width: 100%;
     height: 80px;
@@ -526,7 +526,7 @@ input::-ms-clear {
     .shortcuts {
         display: none
     }
-    .nav-menu .shortcuts {
+    .tabs-container .shortcuts {
         display: table
     }
     .lang-current {
@@ -559,7 +559,7 @@ input::-ms-clear {
         height: 65px;
         padding: 0
     }
-    .nav-menu {
+    .tabs-container {
         top: -15px;
         padding-top: 65px;
         width: 100%

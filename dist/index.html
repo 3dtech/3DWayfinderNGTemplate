@@ -1,211 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>3D Wayfinder</title>
-    <meta charset="utf-8">
-    <meta name="description" content="3DWayfinder WebGL">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/styles.css">
+  <title>3D Wayfinder</title>
+  <meta charset="utf-8">
+  <meta name="description" content="3DWayfinder WebGL">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/script.js"></script>
 </head>
 
-<body ng-app="app">
-    <div class="container">
-        <div class="header">
-            <p id="menu-btn">
-                <a title="Menu" href="#" class="icon icon-search">
-                    <span>Menu</span>
-                </a>
-            </p>
-            <ul class="shortcuts">
-                <li>
-                    <a title="You are here" href="#" class="icon icon-yah"><span>You are here</span></a>
-                </li>
-                <li>
-                    <a title="Toilet" href="#" class="icon icon-wc"><span>Toilet</span></a>
-                </li>
-                <li>
-                    <a title="ATM" href="#" class="icon icon-atm"><span>ATM</span></a>
-                </li>
-            </ul>
-            <p class="logo">Bystasjonen</p>
-            <div class="lang-menu" ng-controller="LanguagesCtrl">
-                <p class="lang-current">
-                    <a title="In English" href="#">
-                        <span class="lang-{{getLanguage()}}"></span>
-                    </a>
-                </p>
-                <ul>
-                    <li ng-repeat="language in languages">
-                        <a title="{{language.getName()}}" href="#" ng-click="setLanguage(language.getName())">
-                            <span class="lang-{{language.getName()}}"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<body ng-controller="WayfinderCtrl">
+  <div class="container" ng-click="trigger()">
+    <!-- MODAL -->
+    <script type="text/ng-template" id="modalContent.html">
+      <div class="modal-window">
+        <div class="modal-body">
+          <div class="modal-poi-name">
+            <b>{{ poi.getNames() | wfCurrentLanguage }}</b>
+          </div>
+          <div class="modal-buttons">
+            <div class="show-path btn-circle icon-goto" ng-click="ShowPath()"></div>
+            <div class="extra-info btn-circle icon-modal-info" ng-click="setActiveTab('extra-info'); setTabContent(poi); close();"></div>
+            <div class="close-modal" data-dismiss="modal" ng-click="close()">SULGE</div>
+          </div>
         </div>
-        <div class="map-container" id="map-tab">
-            <canvas class="map" id="map" ng-style="style()" resizeDir></canvas>
-            <div class="map-controls">
-                <ul class="floors" ng-controller="FloorsCtrl">
-                    <li ng-repeat="floor in buildingFloors">
-                        <div id="floor-button" button-width>
-                            <a ng-model="activeLanguage" ng-click="setFloor(floor)" title="Third floor" href="#">
-                              {{ floor.getNames() | wfCurrentLanguage }}
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-                <p class="zoom" ng-controller="ZoomCtrl">
-                    <button title="Zoom in" class="zoom-in" ng-click="zoomIn()"></button>
-                    <span class="slider">
-                            <a title="Drag to zoom"></a>
-                        </span>
-                    <button title="Zoom out" class="zoom-out" ng-click="zoomOut()"></button>
-                </p>
-            </div>
+        <div class="modal-footer">
+          <div class="modal-poi-group-name" my-style style="background-color: {{getColorRGBA(poi.getGroups()[0])}}">
+            <span>{{ poi.getGroups()[0].getNames() | wfCurrentLanguage }}</span>
+          </div>
         </div>
-        <div class="nav-menu">
-            <ul class="shortcuts">
-                <li>
-                    <a title="You are here" href="#" class="icon icon-yah"><span>You are here</span></a>
-                </li>
-                <li>
-                    <a title="Toilet" href="#" class="icon icon-wc"><span>Toilet</span></a>
-                </li>
-                <li>
-                    <a title="ATM" href="#" class="icon icon-atm"><span>ATM</span></a>
-                </li>
-            </ul>
-            <ul class="tabs">
-                <li><a title="Filter by topics" class="active" href="#">Topics</a></li>
-                <li><a title="Alphabetical order" href="#">A-Z</a></li>
-                <li><a title="Filter by floors" href="#">Floors</a></li>
-            </ul>
-            <p class="search-wrapper">
-                <input class="search" type="text">
-                <button class="search-btn icon-search"><span>Search</span></button>
-            </p>
-            <div class="groups" >
-              <ul class="facilities-menu" ng-controller="GroupsCtrl">
-                  <li ng-repeat="group in groups">
-                    <a href="#">{{ group.getNames() | wfCurrentLanguage }}</a>
-                  </li>
-              </ul>
-            </div>
-        </div>
-        <div id="keyboard_container">
-            <div id="keyboard">
-                <div class="keyboard_row">
-                    <div class="keyboard_key 1" row="0" index="0">1</div>
-                    <div class="keyboard_key 2" row="0" index="1">2</div>
-                    <div class="keyboard_key 3" row="0" index="2">3</div>
-                    <div class="keyboard_key 4" row="0" index="3">4</div>
-                    <div class="keyboard_key 5" row="0" index="4">5</div>
-                    <div class="keyboard_key 6" row="0" index="5">6</div>
-                    <div class="keyboard_key 7" row="0" index="6">7</div>
-                    <div class="keyboard_key 8" row="0" index="7">8</div>
-                    <div class="keyboard_key 9" row="0" index="8">9</div>
-                    <div class="keyboard_key 0" row="0" index="9">0</div>
-                    <div class="keyboard_key key2x « Bksp" object="" row="0" index="10">« Bksp</div>
-                </div>
-                <div class="keyboard_row">
-                    <div class="keyboard_key q" row="1" index="0">q</div>
-                    <div class="keyboard_key w" row="1" index="1">w</div>
-                    <div class="keyboard_key e" row="1" index="2">e</div>
-                    <div class="keyboard_key r" row="1" index="3">r</div>
-                    <div class="keyboard_key t" row="1" index="4">t</div>
-                    <div class="keyboard_key y" row="1" index="5">y</div>
-                    <div class="keyboard_key u" row="1" index="6">u</div>
-                    <div class="keyboard_key i" row="1" index="7">i</div>
-                    <div class="keyboard_key o" row="1" index="8">o</div>
-                    <div class="keyboard_key p" row="1" index="9">p</div>
-                    <div class="keyboard_key å" row="1" index="10">å</div>
-                </div>
-                <div class="keyboard_row">
-                    <div class="keyboard_key a" row="2" index="0">a</div>
-                    <div class="keyboard_key s" row="2" index="1">s</div>
-                    <div class="keyboard_key d" row="2" index="2">d</div>
-                    <div class="keyboard_key f" row="2" index="3">f</div>
-                    <div class="keyboard_key g" row="2" index="4">g</div>
-                    <div class="keyboard_key h" row="2" index="5">h</div>
-                    <div class="keyboard_key j" row="2" index="6">j</div>
-                    <div class="keyboard_key k" row="2" index="7">k</div>
-                    <div class="keyboard_key l" row="2" index="8">l</div>
-                    <div class="keyboard_key ø" row="2" index="9">ø</div>
-                    <div class="keyboard_key æ" row="2" index="10">æ</div>
-                </div>
-                <div class="keyboard_row">
-                    <div class="keyboard_key z" row="3" index="0">z</div>
-                    <div class="keyboard_key x" row="3" index="1">x</div>
-                    <div class="keyboard_key c" row="3" index="2">c</div>
-                    <div class="keyboard_key v" row="3" index="3">v</div>
-                    <div class="keyboard_key b" row="3" index="4">b</div>
-                    <div class="keyboard_key n" row="3" index="5">n</div>
-                    <div class="keyboard_key m" row="3" index="6">m</div>
-                    <div class="keyboard_key ," row="3" index="7">,</div>
-                    <div class="keyboard_key -" row="3" index="8">-</div>
-                </div>
-                <div class="keyboard_row">
-                    <div class="keyboard_key key_spacebar" object="" row="4" index="0"> </div>
-                </div>
-            </div>
-        </div>
-        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-        <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
-        <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
-        <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
-        <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/WayfinderUI.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
-        <script type="text/javascript" src="js/vendor.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
-        <script type="text/javascript" src="js/script.js"></script>
-        <!-- <script type="text/javascript" src="js/DefaultUI.js"></script> -->
-        <!-- <script type="text/javascript">
-        var wayfinder = new Wayfinder3D();
-        var gui;
-
-        $(function() {
-            var gui = new DefaultUI(wayfinder);
-            wayfinder.open();
-        });
-
-        // Un-comment this once you switch to customizable stylesheets
-        // and comment out the styles.css in the <head>
-
-        //Search button, display search box
-        var searchbox = function() {
-            //event.preventDefault();
-            var button = ".menu-btn .icon";
-            var elem = $('.right-menubar-wrapper');
-            if (elem.hasClass('active')) {
-                $(button).removeClass("search-icon");
-                elem.removeClass('active').css('min-height', 0);
-                $(this).removeClass('active');
-            } else {
-                $(button).addClass("search-icon");
-                elem.addClass('active');
-                $(this).addClass('active');
-                $('input[name=search-box]').val('');
-            }
-        }
-
-        $('#search-button').wrap('<div class="menu-btn" onclick=searchbox();></div>');
-        var e = $('<div class="icon"></div>');
-        $('.menu-btn').append(e);
-        $('body input[type=text]').addClass('search-box');
-        $(".search-box").attr("id", "search-box-id");
-        $(".search-box").attr("name", "search-box");
-        //Keyboard
-        var search = function() {
-            $('#keyboard').css('display', 'block');
-        };
-        </script> -->
+      </div>
+    </script>
+    <div class="logo">IGLU</div>
+    <!-- HEADER -->
+    <div class="header">
+      <div class="title">IGLU</div>
     </div>
+    <!-- CONTENT CONTAINER -->
+    <div class="content-container">
+      <!-- MAP CONTAINER -->
+      <div class="map-container" id="map-tab" resize cb-resize="cbResizeCtrl()">
+        <canvas class="map" id="map" ng-style="style()"></canvas>
+        <!-- MAP CONTROLS -->
+        <div class="map-controls">
+          <!-- LANGUAGE BUTTONS -->
+          <div class="lang-menu" ng-controller="LanguagesCtrl">
+            <div class="language-button" title="{{language.getNativeName()}}" ng-repeat="language in languages | reverseObjects" ng-click="setLanguage(language.getName())" ng-class="{'active': language.getName() == activeLanguage}">
+              {{ language.getNativeName() }}
+            </div>
+          </div>
+          <!-- FLOOR BUTTONS -->
+          <div class="floor-buttons floors" ng-controller="FloorsCtrl">
+            <div id="floor-button" class="floor" ng-repeat="floor in orderedFloors | reverse" ng-class="{ 'active': getActiveFloor() == floor }" ng-click="setFloor(floor)" ng-model="activeLanguage" button-width>
+              <div class="floor-number btn-circle">
+                {{ floor.getNames() | wfCurrentLanguage }}
+              </div>
+            </div>
+          </div>
+          <!-- SHORTCUTS -->
+          <div class="shortcuts" ng-controller="HotGroupCtrl">
+            <div class="shortcut ng-scope">
+              <div title="You are here" class="icon icon-yah" ng-click="showYAH()">
+              </div>
+            </div>
+            <div class="shortcut" ng-repeat="hotGroup in hotGroups">
+              <div class="icon" ng-class="'group-icon-{{hotGroup.getID()}}'" ng-click="showGroup(hotGroup)" alt="{{hotGroup.names | wfCurrentLanguage}}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- NAV MENU -->
+    <div class="nav-menu">
+      <div class="tabs" ng-controller="TabsCtrl">
+        <!-- TAB HEADS -->
+        <div class="tab-heads">
+          <div class="left">
+            <div class="tab-head btn-circle icon-search" ng-class="{'active':getActiveTab()=='search'}" ng-click="setActiveTab('search')" title="{{ getTabNameTranslation('search') | wfCurrentLanguage }}" alt="{{ getTabNameTranslation('search') | wfCurrentLanguage }}">
+            </div>
+            <div class="tab-head btn-circle icon-atoz" ng-class="{'active':getActiveTab()=='aToZ'}" ng-click="setActiveTab('aToZ')" title="{{ getTabNameTranslation('az') | wfCurrentLanguage }}" alt="{{ getTabNameTranslation('az') | wfCurrentLanguage }}">
+            </div>
+            <div class="tab-head btn-circle icon-topics" ng-class="{'active':getActiveTab()=='topics'}" ng-click="setActiveTab('topics')" title="{{ getTabNameTranslation('topics') | wfCurrentLanguage }}" alt="{{ getTabNameTranslation('topics') | wfCurrentLanguage }}">
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <hr class="tab-heads-divider clearfix">
+        </div>
+        <!-- TAB CONTENTS -->
+        <div class="tab-contents">
+          <!-- DEFAULT -->
+          <div class="tab-content" ng-class="{'active': getActiveTab()=='default'}">
+            <div class="tab-content-default">
+              <div id="bottom-banner" template="angular" wf-banner class="add">
+                <div class="logo-2"></div>
+              </div>
+              <div class="open-times" ng-bind-html="trustedOpenTimes('open-times')"></div>
+            </div>
+          </div>
+          <!-- EXTRAINFO -->
+          <div class="tab-content" ng-class="{'active': getActiveTab()=='extra-info'}">
+            <div id="extra-info" class="poi">
+              <span id="icon" class="icon-goto" ng-show="tabContent.getNode()" ng-click="ShowPath(tabContent)"></span>
+              <span>{{ tabContent.names | wfCurrentLanguage }}</span>
+              <div class="image"></div>
+              <div class="description" ng-show="hasDescription(tabContent)">{{ tabContent.descriptions | wfCurrentLanguage }}</div>
+            </div>
+          </div>
+          <!-- TOPICS -->
+          <div class="tab-content" ng-class="{'active':getActiveTab()=='topics'}">
+            <div class="topics groups dragscroll facilities-menu" ng-controller="GroupsCtrl" id="style-7">
+              <div ng-repeat="group in groups | reverse" class="group">
+                <div class="topic" ng-click="collapsed[$index]=!collapsed[$index]">
+                  <span class="topic-toggle btn-circle" ng-class="(collapsed[$index] == false ? 'icon-topic-open':'icon-topic-close')" ng-style="{ 'background-color' : '{{getColorRGBA(group)}}' }"></span>
+                  <span class="topic-name">
+                    {{ group.getNames() | wfCurrentLanguage }} 
+                  </span>
+                </div>
+                <div class="pois" ng-animate="'animate'" ng-show="collapsed[$index]">
+                  <div class="poi" ng-repeat="poi in group.getPOIs()">
+                    <span id="icon" class="icon-goto" ng-click="$parent.$parent.ShowPath(poi)"></span>
+                    <span id="icon" class="icon-info" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');"></span>
+                    <span class="name" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');">
+                      {{ poi.getName(getLanguage()) }}
+                    </span>
+                    <div class="floor btn-circle">
+                      {{ poi.getFloor().getName(getLanguage()) }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- A-Z -->
+          <div class="tab-content" ng-class="{'active':getActiveTab()=='aToZ'}">
+            <div class="aToZ facilities-menu" ng-controller="GroupsCtrl" id="style-7">
+              <div class="alphabet active">
+                <div class="letter btn-circle" ng-class="{'active': (getActiveLetter() == letter)}" ng-click="setActiveLetter(letter)" ng-repeat="letter in alphabet track by $index" ng-style="{'color': checkForPOIs(letter) ? '#ffffff' : '#26afc1', 'border': checkForPOIs(letter) ? '2px solid #ffffff' : '2px solid #26afc1' }">
+                  {{ letter }}
+                </div>
+              </div>
+              <div class="list dragscroll" ng-class="{'active':activeLetter}" id="style-7">
+                <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:criteriaMatch(activeLetter)">
+                  <span id="icon" class="icon-goto" ng-click="$parent.$parent.ShowPath(poi)"></span>
+                  <span id="icon" class="icon-info" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');"></span>
+                  <span class="name" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');">{{ poi.getName(getLanguage()) }}</span>
+                  <span class="group" ng-style="criteriaMatch(activeLetter) ? {'color': '{{getColorRGBA(poi.getGroups()[0])}}'}:''">{{ poi.getGroups()[0].getName(getLanguage()) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- SEARCH -->
+          <div class="tab-content" ng-class="{'active':getActiveTab()=='search'}">
+            <div class="search" ng-controller="GroupsCtrl">
+              <div class="search-wrapper">
+                <input id="search-bar" ng-model="searchText" placeholder="{{$parent.$parent.getGUITranslation('searc-bar-placeholder')}}">
+                <div id="search-btn" class="icon-search"></div>
+              </div>
+              <div class="result-container">
+                <div class="result dragscroll" id="style-7">
+                  <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:filterText">
+                    <div class="name" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');">
+                      <span>{{ poi.getName(getLanguage()) }}</span>
+                      <hr>
+                    </div>
+                  </div>
+                </div>
+                <div class="keyboard-container">
+                  <div ng-controller="keyboardCtrl">
+                    <div class="search-keyboard keyboard">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
+  <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
+  <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
+  <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
+  <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
+  <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular-sanitize.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.2.js"></script>
+  <script type="text/javascript" src="js/vendor.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script>
+  var clicked = false,
+    clickY;
+  $(document).on({
+    'mousemove': function(e) {
+      clicked && updateScrollPos(e);
+    },
+    'mousedown': function(e) {
+      clicked = true;
+      clickY = e.pageY;
+    },
+    'mouseup': function() {
+      clicked = false;
+      $('html').css('cursor', 'auto');
+    }
+  });
+
+  var updateScrollPos = function(e) {
+    $('html').css('cursor', 'row-resize');
+    $(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
+  }
+  </script>
+  </div>
 </body>
 
 </html>
