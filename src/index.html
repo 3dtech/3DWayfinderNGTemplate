@@ -40,6 +40,25 @@
     <!-- HEADER -->
     <div class="header">
       <div class="title">IGLU</div>
+      <!-- SHORTCUTS -->
+      <div class="shortcuts" ng-controller="HotGroupCtrl">
+        <div class="shortcut ng-scope">
+          <div title="You are here" class="icon icon-yah" ng-click="showYAH()">
+          </div>
+        </div>
+        <div class="shortcut" ng-repeat="hotGroup in hotGroups">
+          <div class="icon" ng-class="'group-icon-{{hotGroup.getID()}}'" ng-click="showGroup(hotGroup)" alt="{{hotGroup.names | wfCurrentLanguage}}">
+          </div>
+        </div>
+      </div>
+      <!-- LANGUAGE BUTTONS -->
+      <div class="lang-menu" ng-controller="LanguagesCtrl">
+        <div class="language-button" title="{{language.getNativeName()}}" ng-repeat="language in languages | reverseObjects" ng-click="setLanguage(language.getName())" ng-class="{'active': language.getName() == activeLanguage}">
+          {{ language.getNativeName() }}
+        </div>
+      </div>
+      <!-- TOGGLE NAV MENU BUTTON -->
+      <div class="toggle-nav-menu icon-nav-menu" onclick="toggleNavMenu()"></div>
     </div>
     <!-- CONTENT CONTAINER -->
     <div class="content-container">
@@ -48,12 +67,6 @@
         <canvas class="map" id="map" ng-style="style()"></canvas>
         <!-- MAP CONTROLS -->
         <div class="map-controls">
-          <!-- LANGUAGE BUTTONS -->
-          <div class="lang-menu" ng-controller="LanguagesCtrl">
-            <div class="language-button" title="{{language.getNativeName()}}" ng-repeat="language in languages | reverseObjects" ng-click="setLanguage(language.getName())" ng-class="{'active': language.getName() == activeLanguage}">
-              {{ language.getNativeName() }}
-            </div>
-          </div>
           <!-- FLOOR BUTTONS -->
           <div class="floor-buttons floors" ng-controller="FloorsCtrl">
             <div id="floor-button" class="floor" ng-repeat="floor in orderedFloors | reverse" ng-class="{ 'active': getActiveFloor() == floor }" ng-click="setFloor(floor)" ng-model="activeLanguage" button-width>
@@ -62,26 +75,15 @@
               </div>
             </div>
           </div>
-          <!-- SHORTCUTS -->
-          <div class="shortcuts" ng-controller="HotGroupCtrl">
-            <div class="shortcut ng-scope">
-              <div title="You are here" class="icon icon-yah" ng-click="showYAH()">
-              </div>
-            </div>
-            <div class="shortcut" ng-repeat="hotGroup in hotGroups">
-              <div class="icon" ng-class="'group-icon-{{hotGroup.getID()}}'" ng-click="showGroup(hotGroup)" alt="{{hotGroup.names | wfCurrentLanguage}}">
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
     <!-- NAV MENU -->
-    <div class="nav-menu">
+    <div id="nav-menu" class="nav-menu slideable">
       <div class="tabs" ng-controller="TabsCtrl">
         <!-- TAB HEADS -->
         <div class="tab-heads">
-          <div class="left">
+          <div class="right">
             <div class="tab-head btn-circle icon-search" ng-class="{'active':getActiveTab()=='search'}" ng-click="setActiveTab('search')" title="{{ getTabNameTranslation('search') | wfCurrentLanguage }}" alt="{{ getTabNameTranslation('search') | wfCurrentLanguage }}">
             </div>
             <div class="tab-head btn-circle icon-atoz" ng-class="{'active':getActiveTab()=='aToZ'}" ng-click="setActiveTab('aToZ')" title="{{ getTabNameTranslation('az') | wfCurrentLanguage }}" alt="{{ getTabNameTranslation('az') | wfCurrentLanguage }}">
@@ -94,15 +96,6 @@
         </div>
         <!-- TAB CONTENTS -->
         <div class="tab-contents">
-          <!-- DEFAULT -->
-          <div class="tab-content" ng-class="{'active': getActiveTab()=='default'}">
-            <div class="tab-content-default">
-              <div id="bottom-banner" template="angular" wf-banner class="add">
-                <div class="logo-2"></div>
-              </div>
-              <div class="open-times" ng-bind-html="trustedOpenTimes('open-times')"></div>
-            </div>
-          </div>
           <!-- EXTRAINFO -->
           <div class="tab-content" ng-class="{'active': getActiveTab()=='extra-info'}">
             <div id="extra-info" class="poi">
@@ -199,7 +192,7 @@
   <script type="text/javascript" src="js/main.js"></script>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script>
+  <script type="text/javascript">
   var clicked = false,
     clickY;
   $(document).on({
@@ -219,6 +212,28 @@
   var updateScrollPos = function(e) {
     $('html').css('cursor', 'row-resize');
     $(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
+  }
+
+  function toggleNavMenu() {
+    $('#nav-menu').show();
+    console.log("left:",parseInt($('#nav-menu').css('left')));
+
+    if (parseInt($('#nav-menu').css('left')) == $(window).innerWidth()) {
+      $('#nav-menu').animate({
+        left: ($(window).innerWidth()/2)+'px',
+      }, 500, function() {
+        $(this).css({'display': "block"});
+      });
+    } else {
+      $('#nav-menu').animate({
+        left: $(window).innerWidth()+'px',
+      }, 500, function() {
+
+      });
+      setTimeout(function() {
+        $('#nav-menu').hide();
+      }, 500);
+    }
   }
   </script>
   </div>

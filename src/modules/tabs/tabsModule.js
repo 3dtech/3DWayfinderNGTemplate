@@ -7,7 +7,7 @@ tabsModule.controller('TabsCtrl', [
   'wfangular3d',
   'tabsService',
   function($scope, $rootScope, $window, wayfinder, tabsService) {
-    $scope.activeTab = "default";
+    $scope.activeTab = "search";
     $scope.tabContent = null;
     $scope.activePOI = '';
 

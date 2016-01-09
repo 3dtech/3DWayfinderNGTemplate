@@ -7,12 +7,12 @@ var wayfinderApp = angular.module('app', [
   'wf.groups',
   'wf.keyboard',
   'wf.tabs',
-  'wf.zoom', // all modules go here, and into separate files and into the folder modules/<modulename>
-  'wf.screensaver'
+  'wf.zoom' // all modules go here, and into separate files and into the folder modules/<modulename>
 ]);
 
 wayfinderApp.run(['wfangular3d', '$rootScope', '$http', function(wayfinder, $rootScope, $http) {
-  WayfinderAPI.LOCATION = "http://api.3dwayfinder.com/";
+  //WayfinderAPI.LOCATION = "http://api.3dwayfinder.com/";
+  wayfinder.options.apiLocation="http://api.3dwayfinder.com/";
   wayfinder.options.assetsLocation = 'http://static.3dwayfinder.com/shared/';
   wayfinder.open();
 }]);
@@ -1012,7 +1012,7 @@ tabsModule.controller('TabsCtrl', [
   'wfangular3d',
   'tabsService',
   function($scope, $rootScope, $window, wayfinder, tabsService) {
-    $scope.activeTab = "default";
+    $scope.activeTab = "search";
     $scope.tabContent = null;
     $scope.activePOI = '';
 
