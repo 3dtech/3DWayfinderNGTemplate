@@ -14,7 +14,7 @@ wayfinderApp.run(['wfangular3d', '$rootScope', '$http', function(wayfinder, $roo
   //WayfinderAPI.LOCATION = "http://api.3dwayfinder.com/";
   wayfinder.options.apiLocation="http://api.3dwayfinder.com/";
   wayfinder.options.assetsLocation = 'http://static.3dwayfinder.com/shared/';
-  wayfinder.open();
+  wayfinder.open("4f5a26598d545ff28c399f8dc868f7d1"); // horisont dummy
 }]);
 
 // -------------------------------------------
@@ -782,7 +782,6 @@ groupsModule.controller('GroupsCtrl', [
     }
 
     $scope.getLanguage = function() {
-      console.log("getLanguage():",wayfinder.getLanguage());
       return wayfinder.getLanguage();
     }
 
@@ -841,10 +840,8 @@ groupsModule.controller('GroupsCtrl', [
         for (var i = arr.length - 1; i >= 0; i--) {
           $scope.groups.push(arr[i]);
           var pois = arr[i].getPOIs();
-          console.log("arr[i]:", arr[i]);
           for (var j in pois) {
             if (pois[j].showInMenu) {
-              console.log("arr[i].poi:", pois[j]);
               $scope.poiObjects.push(arr[i].getPOIs()[j]);
             };
           };
@@ -953,56 +950,6 @@ keyboardModule.directive('myEnter', function() {
   };
 });
 
-var languagesModule = angular.module('wf.languages', ['wfangular']);
-
-languagesModule.controller('LanguagesCtrl', [
-  '$scope',
-  'wfangular3d',
-  function($scope, wayfinder) {
-    $scope.languages = {};
-    $scope.activeLanguage = {};
-    $scope.activeIndex = 1;
-
-    $scope.activateIndex = function($index) {
-      console.log("language clicked[", $index, "]");
-      $scope.activeIndex = $index;
-    }
-
-    $scope.getLanguage = function() {
-      $scope.activeLanguage = wayfinder.getLanguage();
-      return $scope.activeLanguage;
-    }
-
-    $scope.getLanguages = function() {
-      return wayfinder.getLanguages();
-    }
-
-    $scope.setLanguage = function(language) {
-      console.info("setLanguage", language)
-      wayfinder.setLanguage(language);
-      $scope.activeLanguage = language;
-    }
-
-    $scope.$on('app.screensaving', function(event, screensaving) {
-      if (screensaving) {
-        setDefaults();
-      };
-    });
-
-    function setDefaults() {
-      $scope.activeIndex = 1;
-      $scope.activeLanguage = wayfinder.getLanguage();
-    }
-
-    $scope.$on('wf.data.loaded', function(event, data) {
-      $scope.$apply(function() {
-        $scope.languages = wayfinder.getLanguages();
-        $scope.activeLanguage = wayfinder.getLanguage();
-      });
-    });
-  }
-]);
-
 var tabsModule = angular.module('wf.tabs', ['wfangular', 'ngAnimate', 'ui.bootstrap']);
 
 tabsModule.controller('TabsCtrl', [
@@ -1101,6 +1048,56 @@ tabsModule.service('tabsService', function() {
     }
   };
 })
+
+var languagesModule = angular.module('wf.languages', ['wfangular']);
+
+languagesModule.controller('LanguagesCtrl', [
+  '$scope',
+  'wfangular3d',
+  function($scope, wayfinder) {
+    $scope.languages = {};
+    $scope.activeLanguage = {};
+    $scope.activeIndex = 1;
+
+    $scope.activateIndex = function($index) {
+      console.log("language clicked[", $index, "]");
+      $scope.activeIndex = $index;
+    }
+
+    $scope.getLanguage = function() {
+      $scope.activeLanguage = wayfinder.getLanguage();
+      return $scope.activeLanguage;
+    }
+
+    $scope.getLanguages = function() {
+      return wayfinder.getLanguages();
+    }
+
+    $scope.setLanguage = function(language) {
+      console.info("setLanguage", language)
+      wayfinder.setLanguage(language);
+      $scope.activeLanguage = language;
+    }
+
+    $scope.$on('app.screensaving', function(event, screensaving) {
+      if (screensaving) {
+        setDefaults();
+      };
+    });
+
+    function setDefaults() {
+      $scope.activeIndex = 1;
+      $scope.activeLanguage = wayfinder.getLanguage();
+    }
+
+    $scope.$on('wf.data.loaded', function(event, data) {
+      $scope.$apply(function() {
+        $scope.languages = wayfinder.getLanguages();
+        $scope.activeLanguage = wayfinder.getLanguage();
+      });
+    });
+  }
+]);
 
 var zoomModule = angular.module('wf.zoom', ['wfangular']);
 

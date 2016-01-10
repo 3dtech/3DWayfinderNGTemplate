@@ -105,7 +105,6 @@ groupsModule.controller('GroupsCtrl', [
     }
 
     $scope.getLanguage = function() {
-      console.log("getLanguage():",wayfinder.getLanguage());
       return wayfinder.getLanguage();
     }
 
@@ -164,10 +163,8 @@ groupsModule.controller('GroupsCtrl', [
         for (var i = arr.length - 1; i >= 0; i--) {
           $scope.groups.push(arr[i]);
           var pois = arr[i].getPOIs();
-          console.log("arr[i]:", arr[i]);
           for (var j in pois) {
             if (pois[j].showInMenu) {
-              console.log("arr[i].poi:", pois[j]);
               $scope.poiObjects.push(arr[i].getPOIs()[j]);
             };
           };
