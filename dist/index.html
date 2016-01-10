@@ -70,9 +70,7 @@
           <!-- FLOOR BUTTONS -->
           <div class="floor-buttons floors" ng-controller="FloorsCtrl">
             <div id="floor-button" class="floor" ng-repeat="floor in orderedFloors | reverse" ng-class="{ 'active': getActiveFloor() == floor }" ng-click="setFloor(floor)" ng-model="activeLanguage" button-width>
-              <div class="floor-number btn-circle">
                 {{ floor.getNames() | wfCurrentLanguage }}
-              </div>
             </div>
           </div>
         </div>
@@ -110,7 +108,7 @@
             <div class="topics groups dragscroll facilities-menu" ng-controller="GroupsCtrl" id="style-7">
               <div ng-repeat="group in groups | reverse" class="group">
                 <div class="topic" ng-click="collapsed[$index]=!collapsed[$index]">
-                  <span class="topic-toggle btn-circle" ng-class="(collapsed[$index] == false ? 'icon-topic-open':'icon-topic-close')" ng-style="{ 'background-color' : '{{getColorRGBA(group)}}' }"></span>
+                  <span class="topic-toggle btn-circle" ng-class="(collapsed[$index] == false ? 'icon-down-open':'icon-up-open')" ng-style="{ 'background-color' : '{{getColorRGBA(group)}}' }"></span>
                   <span class="topic-name">
                     {{ group.getNames() | wfCurrentLanguage }} 
                   </span>
@@ -152,7 +150,7 @@
           <div class="tab-content" ng-class="{'active':getActiveTab()=='search'}">
             <div class="search" ng-controller="GroupsCtrl">
               <div class="search-wrapper">
-                <input id="search-bar" ng-model="searchText" placeholder="{{$parent.$parent.getGUITranslation('searc-bar-placeholder')}}">
+                <input id="search-bar" ng-model="searchText" placeholder="{{$parent.$parent.getGUITranslation('search-bar-placeholder')}}">
                 <div id="search-btn" class="icon-search"></div>
               </div>
               <div class="result-container">

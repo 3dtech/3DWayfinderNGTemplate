@@ -82,9 +82,8 @@ groupsModule.controller('GroupsCtrl', [
       var poiCntr = 0;
       var pois = wayfinder.getPOIsArray();
       for (var i = pois.length - 1; i >= 0; i--) {
-        if ((criteria == pois[i].names.translations[wayfinder.getLanguage()].toLowerCase().charAt(0)) && 
-            (pois[i].showInMenu)) 
-        {
+        if ((criteria == pois[i].names.translations[wayfinder.getLanguage()].toLowerCase().charAt(0)) &&
+          (pois[i].showInMenu)) {
           poiCntr++;
         };
       };
@@ -106,6 +105,7 @@ groupsModule.controller('GroupsCtrl', [
     }
 
     $scope.getLanguage = function() {
+      console.log("getLanguage():",wayfinder.getLanguage());
       return wayfinder.getLanguage();
     }
 
@@ -156,18 +156,18 @@ groupsModule.controller('GroupsCtrl', [
         var arr = [];
         for (var key in wayfinder.getPOIGroups()) {
           // add hasOwnPropertyCheck if needed
-          if (wayfinder.getPOIGroups()[key].showInMenu == "1") 
-          {
+          if (wayfinder.getPOIGroups()[key].showInMenu == "1") {
             arr.push(wayfinder.getPOIGroups()[key]);
             $scope.collapsed.push(false);
           };
         };
         for (var i = arr.length - 1; i >= 0; i--) {
           $scope.groups.push(arr[i]);
-          for (var j in arr[i].getPOIs()) {
-            if (arr[i].getPOIs()[j].showInMenu &&
-                arr[i].getName("et") != "Büroo") 
-            {
+          var pois = arr[i].getPOIs();
+          console.log("arr[i]:", arr[i]);
+          for (var j in pois) {
+            if (pois[j].showInMenu) {
+              console.log("arr[i].poi:", pois[j]);
               $scope.poiObjects.push(arr[i].getPOIs()[j]);
             };
           };

@@ -1,5 +1,5 @@
 {
-  "name": "angular_template",
+  "name": "angular_icons",
   "css_prefix_text": "icon-",
   "css_use_suffix": false,
   "hinting": true,
@@ -7,15 +7,39 @@
   "ascent": 850,
   "glyphs": [
     {
-      "uid": "7222571caa5c15f83dcfd447c58d68d9",
-      "css": "search",
-      "code": 59395,
+      "uid": "ccddff8e8670dcd130e3cb55fdfc2fd0",
+      "css": "down-open",
+      "code": 59401,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "fe6697b391355dec12f3d86d6d490397",
+      "css": "up-open",
+      "code": 59402,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "84bb9695b8662fa4783242f84c9e4682",
+      "css": "expand",
+      "code": 59400,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "7960517a504e42aea0641f15bc55fbed",
+      "css": "collapse",
+      "code": 59399,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "9e1c33b6849ceb08db8acfaf02188b7d",
+      "css": "plus-squared",
+      "code": 59397,
       "src": "entypo"
     },
     {
-      "uid": "c9b928dc82d7d77033644fcf59dca3b3",
-      "css": "flashlight",
-      "code": 59392,
+      "uid": "4ffa544c1a81c905f0a8a5745d8b9faa",
+      "css": "minus-squared",
+      "code": 59398,
       "src": "entypo"
     },
     {
@@ -27,8 +51,26 @@
     {
       "uid": "67f793f91864e379458a92ccc61d9ccf",
       "css": "sort-alphabet",
-      "code": 59393,
+      "code": 59396,
       "src": "typicons"
+    },
+    {
+      "uid": "c6344a6ed148da12354cc90705287696",
+      "css": "search",
+      "code": 59395,
+      "src": "iconic"
+    },
+    {
+      "uid": "96418ab910c40c3bf61a9ba7b718c49d",
+      "css": "list-nested",
+      "code": 59393,
+      "src": "iconic"
+    },
+    {
+      "uid": "06301c50d89b5d3e651bd07ebd6d7de7",
+      "css": "cancel",
+      "code": 59392,
+      "src": "mfglabs"
     }
   ]
 }

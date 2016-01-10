@@ -45,6 +45,7 @@ tabsModule.controller('TabsCtrl', [
 
     $scope.hasDescription = function(poi) {
       if (!poi) return 0;
+      console.log("poi.description:",poi.getDescription(wayfinder.getLanguage()));
       return poi.getDescription(wayfinder.getLanguage()) ? 1 : 0;
     }
 

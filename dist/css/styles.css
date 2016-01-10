@@ -1,4 +1,4 @@
-@import "../font/angular_template.css";
+@import "../font/angular_icons.css";
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -7274,7 +7274,7 @@ hr {
 }
 .search .result-container {
   position: absolute;
-  top: 120px;
+  top: 8rem;
   bottom: 0;
   width: 100%;
   padding-top: 10px;
@@ -7282,6 +7282,9 @@ hr {
 .search .result-container .result {
   position: absolute;
   background: none;
+  top: 13rem;
+  width: 100%;
+  bottom: 0;
   display: block;
 }
 .search .result-container .result .poi {
@@ -7304,8 +7307,8 @@ hr {
 }
 @media all and (orientation: portrait) {
   .search .result-container #search-keyboard {
-    width: 57.5%;
-    height: 100%;
+    width: 100%;
+    height: 10rem;
     top: 0;
     right: 0;
   }
@@ -7313,7 +7316,7 @@ hr {
 @media all and (orientation: landscape) {
   .search .result-container #search-keyboard {
     width: 100%;
-    height: 40%;
+    height: 10rem;
     top: 0;
     right: 0;
   }
@@ -7359,7 +7362,7 @@ hr {
 @media all and (orientation: portrait) {
   .keyboard-container {
     width: 100%;
-    height: 100%;
+    height: 12rem;
     top: 0;
     right: 0;
   }
@@ -7367,7 +7370,7 @@ hr {
 @media all and (orientation: landscape) {
   .keyboard-container {
     width: 100%;
-    height: 40%;
+    height: 12rem;
     top: 0;
     right: 0;
   }
@@ -7463,49 +7466,33 @@ hr {
   position: absolute;
   top: 1em;
   left: 1em;
-}
-.map-controls .floors .btn-circle {
-  width: 60px;
-  height: 60px;
-  text-align: center;
-  padding: 13px;
-  font-size: 31px;
-  border-radius: 30px;
-  border: 3px;
-  margin: 2px;
-  border: 2px solid;
-}
-.map-controls .floors .active .floor-number {
-  color: #00a1b6;
-}
-.map-controls .floors .active .floor-name {
+  border-radius: 5px;
   display: block;
 }
 .map-controls .floors .floor {
   vertical-align: top;
   display: block;
-}
-.map-controls .floors .floor-number {
-  display: block;
+  width: 60px;
+  height: 60px;
+  box-sizing: border-box;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 60px;
+  border-bottom: 1px solid #eee;
   text-align: center;
   background: #fff;
   color: #f613f6;
-  line-height: 1em;
   text-decoration: none;
-  float: left;
-  display: inline-block;
 }
-.map-controls .floors .floor-number:hover,
-.map-controls .floors .floor-number.active {
+.map-controls .floors .floor:hover {
   color: #00a1b6;
 }
-.map-controls .floors .floor-name {
-  display: none;
-  margin-top: 5px;
-  font-size: 13px;
-  text-transform: uppercase;
-  text-align: center;
-  left: -50px;
+.map-controls .floors .floor.active {
+  color: #fff;
+  background: #f613f6;
+}
+.map-controls .floors .floor:last-child {
+  border: none;
 }
 .zoom {
   display: block;
