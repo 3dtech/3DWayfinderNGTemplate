@@ -1,0 +1,22 @@
+<!-- A-Z -->
+<div class="tab-content" ng-class="{'active':getActiveTab()=='aToZ'}">
+    <div class="aToZ facilities-menu" id="style-7">
+        <div class="alphabet active">
+            <div class="letter btn-circle" ng-class="{'active': (getActiveLetter() == letter.name)}"
+                ng-click="setActiveLetter(letter.name)" ng-repeat="letter in atoz track by $index"
+                ng-style="{'color': checkForPOIs(letter.name) ? '#ffffff' : '#26afc1', 'border': checkForPOIs(letter.name) ? '2px solid #ffffff' : '2px solid #26afc1' }"
+                ng-bind-html="letter.name">
+            </div>
+        </div>
+        <div class="list dragscroll" ng-class="{'active':activeLetter}" id="style-7">
+            <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:criteriaMatch(activeLetter)">
+                <span id="icon" class="icon-goto" ng-click="$parent.$parent.ShowPath(poi)"></span>
+                <span id="icon" class="icon-info" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');"></span>
+                <span class="name" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');"
+                    ng-bind-html="poi.getName(getLanguage())"></span>
+                <span class="group" ng-style="criteriaMatch(activeLetter) ? {'color': '{{getColorRGBA(poi.getGroups()[0])}}'}:''"
+                    ng-bind-html="poi.getGroups()[0].getName(getLanguage())"></span>
+            </div>
+        </div>
+    </div>
+</div>

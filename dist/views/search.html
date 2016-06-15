@@ -1,0 +1,25 @@
+<!-- SEARCH -->
+<div class="tab-content" ng-class="{'active':getActiveTab()=='search'}">
+    <div class="search" ng-controller="GroupsCtrl">
+        <div class="search-wrapper">
+            <input id="search-bar" ng-model="searchText" placeholder="{{$parent.$parent.getGUITranslation('search-bar-placeholder')}}">
+            <div id="search-btn" class="icon-search"></div>
+        </div>
+        <div class="result-container">
+            <div class="result dragscroll" id="style-7">
+                <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:filterText">
+                    <div class="name" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');">
+                        <span ng-bind-html="poi.getName(getLanguage())"></span>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="keyboard-container">
+                <div ng-controller="keyboardCtrl">
+                    <div class="search-keyboard keyboard">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

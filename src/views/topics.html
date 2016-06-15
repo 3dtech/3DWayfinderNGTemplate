@@ -1,0 +1,24 @@
+<!-- TOPICS -->
+<div class="tab-content" ng-class="{'active':getActiveTab()=='topics'}">
+    <div class="topics groups dragscroll facilities-menu" id="style-7">
+        <div ng-repeat="group in groups | reverse" class="group">
+            <div class="topic" ng-click="collapsed[$index]=!collapsed[$index]">
+                <span class="topic-toggle btn-circle" ng-class="(collapsed[$index] == false ? 'icon-down-open':'icon-up-open')"
+                    ng-style="{ 'background-color' : '{{getColorRGBA(group)}}' }"></span>
+                <span class="topic-name" ng-bind-html="group.getNames() | wfCurrentLanguage">
+                  </span>
+            </div>
+            <div class="pois" ng-animate="'animate'" ng-show="collapsed[$index]">
+                <div class="poi" ng-repeat="poi in group.getPOIs()">
+                    <span id="icon" class="icon-goto" ng-click="$parent.$parent.ShowPath(poi)"></span>
+                    <span id="icon" class="icon-info" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');"></span>
+                    <span class="name" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');"
+                        ng-bind-html="poi.getName(getLanguage())">
+                    </span>
+                    <div class="floor btn-circle" ng-bind-html="poi.getFloor().getName(getLanguage())">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

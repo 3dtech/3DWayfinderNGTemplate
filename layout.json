@@ -1,6 +1,6 @@
 {
-	"id": "template-angular",
-	"name": "angular",
+	"id": "template-Tasku",
+	"name": "Tasku",
 	"stylesheet": "css/styles.less",
 
 	"expose": [

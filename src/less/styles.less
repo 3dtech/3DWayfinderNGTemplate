@@ -1,15 +1,21 @@
 // out: styles.css, compress: true
 @import "../font/angular_icons.css";
+@import "../../bower_components/font-awesome/less/font-awesome.less";
 @import "../../bower_components/bootstrap/less/bootstrap.less";
 @color-primary: #f613f6; //magenta
 @color-secondary: #00a1b6; //cyan
 @color-inactive: #cccccc;
 @color-topic-even: #26afc1;
 @color-topic-odd: #57c1cf;
-@header-height: 100px;
-@content-container-bottom: 0;
+@color-text-dark: #444;
+@color-text-light: #fff;
+@color-tabs-hover: #e9e9e9;
+@color-tabs-active: #fff;
+@color-tabs-inactive: #eee;
+@header-height: 20%;
+@content-container-bottom: 45%;
 @portrait-nav-menu-w: 100%;
-@portrait-nav-menu-h: 46%;
+@portrait-nav-menu-h: 100%;
 @header-height-m: 65px;
 @logo-width: 200px;
 @logo-height: 10%;
@@ -168,11 +174,14 @@ input::-ms-clear {
 
 .container {
   position: relative;
+  max-height: 100%;
+  max-width: 100%;
   height: 100%;
   width: 100%;
   padding: 0px;
   background: #ffffff;
   display: block;
+  margin: 0;
 }
 
 .content-container {
@@ -230,11 +239,12 @@ input::-ms-clear {
 .logo {
   position: absolute;
   top: 0;
-  left: 7%;
+  left: 0;
+  right: 0;
   height: @logo-height;
   width: @logo-width;
   z-index: 9000;
-  margin: 0;
+  margin: 0 auto;
   background-image: url("../img/logo.png");
   background-repeat: no-repeat;
   background-position: 50% 0%;
@@ -246,10 +256,9 @@ input::-ms-clear {
   text-transform: uppercase;
   position: absolute;
   float: left;
-  bottom: 0.7em;
+  top: 0.7em;
   left: 0.7em;
   width: 50px;
-  height: 6em;
   line-height: 2em;
   z-index: 13;
   .language-button {
@@ -264,19 +273,14 @@ input::-ms-clear {
 }
 
 .lang-current {
-  display: block;
-  margin: 0;
-  a {
-    display: block;
-    padding: 18px 13px 16px;
-    &:hover span,
-    &.on-touch span {
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    }
-    &:active span {
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    }
-  }
+  text-transform: uppercase;
+  position: absolute;
+  float: left;
+  top: 0.7em;
+  left: 0.7em;
+  width: 50px;
+  line-height: 2em;
+  z-index: 13;
 }
 
 #menu-btn {
@@ -301,49 +305,33 @@ input::-ms-clear {
 
 .nav-menu {
   position: absolute;
-  top: @header-height;
+  top: 55%;
   bottom: 0;
-  left: 100%;
-  width: 50%;
+  right: 0;
+  width: 100%;
   margin: 0;
   box-sizing: border-box;
   background: @color-inactive;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   transition: .5s;
   z-index: 1;
-  .tabs {
+  .tabs-container {
     position: absolute;
-    width: 90%;
-    left: 5%;
+    width: 100%;
     height: 100%;
+    margin: 0;
     .tab-heads {
       width: 100%;
       height: @header-height;
-      @media (max-height: @window-height-xl) {
-        height: @tab-height-xl;
-      }
-      @media (max-height: @window-height-md) {
-        height: @tab-height-md;
-      }
-      @media (max-height: @window-height-sm) {
-        height: @tab-height-sm;
-      }
       text-align: center;
       vertical-align: middle;
+      margin: 0;
       .tab-head {
-        vertical-align: middle;
-        top: 0;
-        bottom: 0;
-        display: inline-block;
-        color: #fff;
+        color: @color-text-dark;
         text-align: center;
-        border-radius: 5rem;
-        border: 0px;
-        margin: 10px;
         border: 0px solid;
-        background: @color-primary;
+        background: @color-tabs-inactive;
         height: 5rem;
-        width: 5rem;
         line-height: 5rem;
         font-size: 2.5rem;
       }
@@ -355,23 +343,23 @@ input::-ms-clear {
         float: right;
       }
       .active {
-        color: white;
-        background-color: @color-secondary;
+        background-color: @color-tabs-active;
+      }
+      :hover {
+        background-color: @color-tabs-hover;
       }
     }
     .tab-contents {
-      position: absolute;
-      bottom: 0;
+      height: (100%-@header-height);
       width: 100%;
       padding: 10px 0 0 0;
-      top: 150px;
+      >div {
+        height: 100%;
+        width: 100%;
+      }
       .tab-content {
-        position: absolute;
-        display: none;
         width: 96%;
-        left: 2%;
-        top: 10px;
-        bottom: 0;
+        height: 100%;        
         .topics {
           position: relative;
           height: 100%;
@@ -570,12 +558,10 @@ hr {
 }
 
 .search {
-  position: absolute;
   width: 100%;
   top: 0;
   bottom: 10px;
   .search-wrapper {
-    position: absolute;
     top: 0;
     height: 120px;
     width: 100%;
@@ -584,7 +570,6 @@ hr {
     vertical-align: middle;
     border: none;
     #search-bar {
-      position: absolute;
       top: 0;
       height: 5rem;
       border: none;
@@ -594,7 +579,6 @@ hr {
       width: 100%;
     }
     #search-btn {
-      position: absolute;
       float: right;
       right: 0;
       border: none;
@@ -606,13 +590,9 @@ hr {
     }
   }
   .result-container {
-    position: absolute;
-    top: 8rem;
-    bottom: 0;
     width: 100%;
     padding-top: 10px;
     .result {
-      position: absolute;
       background: none;
       top: 13rem;
       width: 100%;
@@ -653,7 +633,6 @@ hr {
 }
 
 .search-btn {
-  position: absolute;
   top: 15px;
   right: 20px;
   font-size: 24px;
@@ -695,7 +674,6 @@ hr {
 /*** KEYBOARD ***/
 
 .keyboard-container {
-  position: absolute;
   @media all and (orientation: portrait) {
     width: 100%;
     height: 12rem;
@@ -712,7 +690,6 @@ hr {
 
 #keyboard {
   display: none;
-  position: absolute;
   top: @header-height + 10px;
   right: 355px;
   padding: 10px;
@@ -805,10 +782,11 @@ hr {
       }
     }
   }
-  .floors {
+  #floors {
     position: absolute;
-    top: 1em;
-    left: 1em;
+    top: 1rem;
+    left: 1rem;
+    width: @button-dimension;
     border-radius: 5px;
     display: block;
     .floor {
@@ -817,25 +795,30 @@ hr {
       width: @button-dimension;
       height: @button-dimension;
       box-sizing: border-box;
+      padding: 0;
       text-align: center;
       font-weight: 600;
       font-size: 24px;
       line-height: @button-dimension;
       text-decoration: none;
-      border-bottom: 1px solid #eee;
       text-align: center;
-      background: #fff;
-      color: @color-primary;
-      text-decoration: none;
+      color: @color-text-dark;
+      background-color: @color-text-light;
       &:hover {
-        color: @color-secondary;
+        background-color: @color-primary;
       }
       &.active {
-        color: #fff;
-        background: @color-primary;
+        color: @color-text-light;
+        background-color: @color-primary;
+      }
+      &:first-child {
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
       }
       &:last-child {
         border: none;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
       }
     }
   }
@@ -981,4 +964,30 @@ hr {
 #style-7::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.75, @color-topic-even), color-stop(0.25, @color-topic-odd));
+}
+
+.animate-hide {
+  -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+  -moz-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+  -o-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+}
+
+.animate-hide.ng-hide {
+  right: -100%;
+  opacity: 0;
+}
+
+#adverts {
+  top: 55%;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  #bottom-banner {
+    height: 100%;
+    width:100%;
+  }
 }
