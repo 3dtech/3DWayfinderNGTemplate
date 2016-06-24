@@ -9,76 +9,22 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'
         rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body ng-controller="WayfinderCtrl">
     <div class="container row" ng-click="trigger()">
-        <!-- MODAL -->
-        <script type="text/ng-template" id="modalContent.html">
-            <div class="modal-window">
-                <div class="modal-body">
-                    <div class="modal-poi-name">
-                        <b ng-bind-html="poi.getNames() | wfCurrentLanguage"></b>
-                    </div>
-                    <div class="modal-buttons">
-                        <div class="show-path btn-circle icon-goto" ng-click="ShowPath()"></div>
-                        <div class="extra-info btn-circle icon-modal-info" ng-click="setActiveTab('extra-info'); setTabContent(poi); close();"></div>
-                        <div class="close-modal" data-dismiss="modal" ng-click="close()" ng-bind-html="getGUITranslation('close')"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="modal-poi-group-name" my-style style="background-color: {{getColorRGBA(poi.getGroups()[0])}}">
-                        <span ng-bind-html="poi.getGroups()[0].getNames() | wfCurrentLanguage"></span>
-                    </div>
-                </div>
-            </div>
-        </script>
         <div class="logo"></div>
         <!-- HEADER -->
         <div class="header row columns small-12 expanded">
-            <!-- LANGUAGE BUTTONS -->
-            <div class="columns small-2 lang-current" ng-controller="LanguagesCtrl" ng-bind-html="activeLanguage.getName()">
-            </div>
-            <div class="lang-menu" ng-controller="LanguagesCtrl">
-                <div class="language-button" title="{{language.getName()}}" ng-repeat="language in languages | reverseObjects"
-                    ng-click="setLanguage(language.getName())" ng-class="{'active': language.getName() == activeLanguage}"
-                    ng-bind-html="language.getName()">
-                </div>
-            </div>
             <div class="title" ng-bind-html="getGUITranslation(title)"></div>
-            <!-- SHORTCUTS -->
-            <div class="shortcuts" ng-controller="HotGroupCtrl">
-                <div class="shortcut ng-scope">
-                    <div title="You are here" class="icon icon-yah" ng-click="showYAH()">
-                    </div>
-                </div>
-                <div class="shortcut" ng-repeat="hotGroup in hotGroups">
-                    <div class="icon" ng-class="'group-icon-{{hotGroup.getID()}}'" ng-click="showGroup(hotGroup)"
-                        alt="{{hotGroup.names | wfCurrentLanguage}}">
-                    </div>
-                </div>
-            </div>
-            <!-- TOGGLE NAV MENU BUTTON -->
-            <div ng-controller="TabsCtrl">
-                <div class="toggle-nav-menu icon-nav-menu" ng-click="toggleNavMenu()"></div>
-            </div>
         </div>
         <!-- CONTENT CONTAINER -->
         <div class="content-container">
             <!-- MAP CONTAINER -->
             <div class="map-container" id="map-tab" resize cb-resize="cbResizeCtrl()">
                 <canvas class="map" id="map" ng-style="style()"></canvas>
-                <!-- MAP CONTROLS -->
-                <div class="map-controls">
-                    <!-- FLOOR BUTTONS -->
-                    <div id="floors" class="floor-buttons floors button-group vertical top" ng-controller="FloorsCtrl">
-                        <div id="floor-button" class="floor button" ng-repeat="floor in orderedFloors | reverse"
-                            ng-class="{ 'active': getActiveFloor() == floor }" ng-click="setFloor(floor)"
-                            ng-model="activeLanguage" button-width ng-bind-html="floor.getNames() | wfCurrentLanguage">
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- Adverts -->
@@ -86,21 +32,18 @@
             <div id="bottom-banner" template="Tasku" wf-banner class="add"></div>
         </div>
         <!-- NAV MENU -->
-        <div id="nav-menu" class="animate-hide nav-menu slideable" ng-hide="toggleActive">
-            <div class="tabs-container row" ng-controller="TabsCtrl">
-                <!-- TAB HEADS -->
-                <div class="tab-heads row">
-                    <ul class="columns small-12 expanded tabs" data-tabs id="tabs">
-                        <li ng-repeat="tab in tabs" class="tabs-title columns small-4 tab-head" ng-class="(getActiveTab() == tab.name ? 'active': '')"
-                            ng-click="setActiveTab(tab.name)">
-                            <a href="#/{{tab.name}}" ng-class="(tab.icon)"></a>
-                        </li>
-                    </ul>
+        <div id="nav-menu">
+            <div class="tabs-container">
+                <div class="tab-heads button-group expanded">
+                    <div class="tab-head button" ng-repeat="tab in tabs">
+                        <a class="icon" ng-class="tab.icon" href="{{tab.link}}"></a>
+                    </div>
+                    <!--
+                    <a class="icon-atoz" href="#/atoz"></a>
+                    <a class="icon-topics" href="#/topics"></a>
+                    -->
                 </div>
-                <!-- TAB CONTENTS -->
-                <div class="tab-contents row tabs-content" data-tabs-content="tabs">
-                    <div ng-view></div>
-                </div>
+                <div class="tab-contents" ng-view></div>
             </div>
         </div>
     </div>
@@ -111,13 +54,17 @@
     <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
     <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
     <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/controllers/floors/FloorsModule.js"></script>
-    <script type="text/javascript" src="js/controllers/groups/GroupsModule.js"></script>
-    <script type="text/javascript" src="js/controllers/keyboard/KeyboardModule.js"></script>
-    <script type="text/javascript" src="js/controllers/languages/LanguagesModule.js"></script>
-    <script type="text/javascript" src="js/controllers/tabs/TabsModule.js"></script>
-    <script type="text/javascript" src="js/controllers/zoom/ZoomModule.js"></script>
+    <!-- ANGULAR APP -->
+    <script type="text/javascript" src="js/app.js"></script>
+    <!-- CONTROLLERS -->
+    <script type="text/javascript" src="js/controllers/AtozController.js"></script>
+    <script type="text/javascript" src="js/controllers/TopicsController.js"></script>
+    <script type="text/javascript" src="js/controllers/InfoController.js"></script>
+    <script type="text/javascript" src="js/controllers/SearchController.js"></script>
+    <script type="text/javascript" src="js/controllers/KeyboardController.js"></script>
+    <!-- SERVICES -->
+    <script type="text/javascript" src="js/services/wayfinderService.js"></script>
+    <script type="text/javascript" src="js/services/keyboardService.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script type="text/javascript">
     var clicked = false,

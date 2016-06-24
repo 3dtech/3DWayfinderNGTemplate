@@ -1,9 +1,9 @@
 <!-- EXTRAINFO -->
-<div class="tab-content columns small-12" ng-class="{'active': getActiveTab()=='extra-info'}">
+<div class="tab-content columns small-12">
     <div id="extra-info" class="poi">
-        <span id="icon" class="icon-goto" ng-show="tabContent.getNode()" ng-click="ShowPath(tabContent)"></span>
-        <span ng-bind-html="tabContent.names | wfCurrentLanguage"></span>
+        <span id="icon" class="icon-goto" ng-show="tabContent.getNode()" ng-click="showPath(poi)"></span>
+        <span ng-bind-html="poi.names | wfCurrentLanguage"></span>
         <div class="image"></div>
-        <div class="description" ng-show="hasDescription(tabContent)" ng-bind-html="tabContent.descriptions | wfCurrentLanguage"></div>
+        <div class="description" ng-show="hasDescription(poi)" ng-bind-html="poi.descriptions | wfCurrentLanguage"></div>
     </div>
 </div>

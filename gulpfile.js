@@ -26,14 +26,14 @@ var vendor = [
 
 var distFolder = "dist/";
 
-gulp.task('default', function() {
-    gulp.start('clean', 'html', /*'controllers',*/ 'views', 'vendor',
+gulp.task('default', ['clean'], function() {
+    gulp.start('html', /*'controllers',*/ 'views', 'vendor',
         'font', 'js',
-        'json', 'img', 'foundation-css', 'less', /*'sass',*/
+        'json', 'img', 'css', 'less', /*'sass',*/
         'layout');
 });
 
-gulp.task('browserSync', function() {
+gulp.task('browserSync', ['default'], function() {
     browserSync.init({
         server: {
             baseDir: 'dist/'
@@ -46,14 +46,6 @@ gulp.task('browserSync', function() {
 
 gulp.task('clean', function() {
     return del([distFolder + '**', '!' + distFolder], { force: true });
-});
-
-gulp.task('controllers', function() {
-    return gulp.src(['./src/index.js', './src/js/controllers/**/*.js'])
-        .pipe(gulp.dest(distFolder + 'js/'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
 });
 
 gulp.task('html', function() {
@@ -82,8 +74,16 @@ gulp.task('vendor', function() {
 });
 
 gulp.task('font', function() {
-    return gulp.src('./src/font/*')
-        .pipe(gulp.dest(distFolder + 'font/'))
+    return gulp.src(['./src/font/*', './bower_components/font-awesome/fonts/*'])
+        .pipe(gulp.dest(distFolder + 'fonts/'))
+        .pipe(browserSync.reload({
+            stream: true
+        }));
+});
+
+gulp.task('controllers', [''], function() {
+    return gulp.src(['./src/index.js', './src/js/controllers/**/*.js'])
+        .pipe(gulp.dest(distFolder + 'js/'))
         .pipe(browserSync.reload({
             stream: true
         }));
@@ -113,8 +113,10 @@ gulp.task('img', function() {
         }));
 });
 
-gulp.task('foundation-css', function() {
-    return gulp.src('./bower_components/foundation-sites/dist/*.css')
+gulp.task('css', function() {
+    return gulp.src([
+        './bower_components/foundation-sites/dist/*.css',
+        './bower_components/font-awesome/css/*'])
         .pipe(gulp.dest(distFolder + 'css/'))
         .pipe(browserSync.reload({
             stream: true
@@ -132,7 +134,7 @@ gulp.task('less', function() {
         }));
 });
 
-gulp.task('sass', function() {
+gulp.task('sass', [''], function() {
     return gulp.src(
             './bower_components/foundation-sites/scss/**/*.scss')
         .pipe(sass().on('error', sass.logError))
@@ -149,13 +151,12 @@ gulp.task('layout', function() {
 
 gulp.task('watch', ['default', 'browserSync'], function() {
     gulp.watch('src/*.html', ['html']);
+    gulp.watch('src/views/*.html', ['views']);
     gulp.watch('src/less/*.less', ['less']);
     gulp.watch('./src/font/*', ['font']);
-    gulp.watch(['./src/index.js', './src/modules/**/*.js'], [
-        'controllers']);
     gulp.watch(vendor, ['vendor']);
     gulp.watch('src/images/png/*', ['img']);
-    gulp.watch('src/js/*.js', ['js']);
+    gulp.watch('src/js/**/*.js', ['js']);
     gulp.watch('./bower_components/foundation-sites/scss/**/*.scss', [
         'sass'
     ]);

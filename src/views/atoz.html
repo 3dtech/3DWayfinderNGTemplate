@@ -1,19 +1,17 @@
 <!-- A-Z -->
-<div class="tab-content" ng-class="{'active':getActiveTab()=='aToZ'}">
-    <div class="aToZ facilities-menu" id="style-7">
-        <div class="alphabet active">
-            <div class="letter btn-circle" ng-class="{'active': (getActiveLetter() == letter.name)}"
-                ng-click="setActiveLetter(letter.name)" ng-repeat="letter in atoz track by $index"
-                ng-style="{'color': checkForPOIs(letter.name) ? '#ffffff' : '#26afc1', 'border': checkForPOIs(letter.name) ? '2px solid #ffffff' : '2px solid #26afc1' }"
+<div class="tab-content">
+    <div class="atoz" id="style-7">
+        <div class="alphabet">
+            <div class="letter btn-circle" ng-class="{'active': (letter.active)}"
+                ng-click="setLetterActive(letter, atoz)" ng-repeat="letter in atoz | orderBy: 'name'"
                 ng-bind-html="letter.name">
             </div>
         </div>
-        <div class="list dragscroll" ng-class="{'active':activeLetter}" id="style-7">
-            <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:criteriaMatch(activeLetter)">
-                <span id="icon" class="icon-goto" ng-click="$parent.$parent.ShowPath(poi)"></span>
-                <span id="icon" class="icon-info" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');"></span>
-                <span class="name" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');"
-                    ng-bind-html="poi.getName(getLanguage())"></span>
+        <div class="list dragscroll" ng-class="{'active':getActiveLetter(atoz).name}" id="style-7">
+            <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:criteriaMatch(getActiveLetter(atoz).name)">
+                <span id="icon" class="icon-goto" ng-click="showPath(poi)"></span>
+                <a id="icon" class="icon-info" href="#/info/{{poi.id}}"></a>
+                <a class="name" href="#/info/{{poi.id}}" ng-bind-html="poi.getName(getLanguage())"></a>
                 <span class="group" ng-style="criteriaMatch(activeLetter) ? {'color': '{{getColorRGBA(poi.getGroups()[0])}}'}:''"
                     ng-bind-html="poi.getGroups()[0].getName(getLanguage())"></span>
             </div>
