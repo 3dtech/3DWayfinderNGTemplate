@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="description" content="3DWayfinder WebGL">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'
         rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/font-awesome.css">
@@ -24,7 +24,7 @@
         <div class="content-container">
             <!-- MAP CONTAINER -->
             <div class="map-container" id="map-tab" resize cb-resize="cbResizeCtrl()">
-                <canvas class="map" id="map" ng-style="style()"></canvas>
+                <!-- <canvas class="map" id="map" ng-style="style()"></canvas> -->
             </div>
         </div>
         <!-- Adverts -->
@@ -48,12 +48,12 @@
         </div>
     </div>
     <script type="text/javascript" src="js/vendor.js"></script>
-    <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
-    <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
-    <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
-    <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
-    <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
-    <script type="text/javascript" src="http://static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
+    <script type="text/javascript" src="js/external/frak-stable.min.js"></script>
+    <script type="text/javascript" src="js/external/BasicUI.min.js"></script>
+    <script type="text/javascript" src="js/external/Wayfinder3D.min.js"></script>
+    <script type="text/javascript" src="js/external/Keyboard.js"></script>
+    <script type="text/javascript" src="js/external/KeyboardActions.js"></script>
+    <script type="text/javascript" src="js/external/KeyboardLayouts.js"></script>
     <!-- ANGULAR APP -->
     <script type="text/javascript" src="js/app.js"></script>
     <!-- CONTROLLERS -->
