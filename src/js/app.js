@@ -16,7 +16,7 @@ var wayfinderApp = angular.module('app', [
 
 wayfinderApp.run(['wfangular3d', '$rootScope', '$http', function(wayfinder,
     $rootScope, $http) {
-    //WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
+    WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
     wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
     wayfinder.options.assetsLocation =
         '//static.3dwayfinder.com/shared/';
