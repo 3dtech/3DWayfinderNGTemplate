@@ -41,7 +41,7 @@ gulp.task('browserSync', ['default'], function() {
                   "bower_components": "bower_components"
                 }*/
         },
-        https: true
+        /*https: true*/
     })
 });
 
