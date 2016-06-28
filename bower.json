@@ -47,7 +47,6 @@
     "watch.js": "watch#*"
   },
   "resolutions": {
-    "angular": "1.5.6",
-    "foundation-sites": "^6.2.3"
+    "angular": "1.5.6"
   }
 }

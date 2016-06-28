@@ -16,10 +16,10 @@ var wayfinderApp = angular.module('app', [
 
 wayfinderApp.run(['wfangular3d', '$rootScope', '$http', function(wayfinder,
     $rootScope, $http) {
-    //WayfinderAPI.LOCATION = "http://api.3dwayfinder.com/";
-    wayfinder.options.apiLocation = "http://api.3dwayfinder.com/";
+    WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
+    wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
     wayfinder.options.assetsLocation =
-        'http://static.3dwayfinder.com/shared/';
+        '//static.3dwayfinder.com/shared/';
     wayfinder.open(); //tasku
 }]);
 
