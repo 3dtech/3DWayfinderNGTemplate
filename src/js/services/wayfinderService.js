@@ -7,23 +7,23 @@ wayfinderApp.factory('wayfinderService', ['$rootScope', function($scope) {
     $scope.tabs = [{
         name: 'search',
         icon: 'icon-search',
-        link: '#/search',
+        link: '/search',
         active: false
     }, {
         name: 'topics',
         icon: 'icon-topics',
-        link: '#/topics',
+        link: '/topics',
         active: false
     }, {
         name: 'atoz',
         icon: 'icon-atoz',
-        link: '#/atoz',
+        link: '/atoz',
         active: false
     }, {
         name: 'floors',
         //icon: 'icon-floors',
         icon: 'fa fa-list-ol',
-        link: '#/floors',
+        link: '/floors',
         active: false
     }];
 

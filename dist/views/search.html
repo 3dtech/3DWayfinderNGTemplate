@@ -1,16 +1,18 @@
 <!-- SEARCH -->
-<div class="tab-content" ng-class="{'active':getActiveTab()=='search'}">
+<div class="tab-content">
     <div class="search">
         <div class="search-wrapper">
             <input id="search-bar" ng-model="searchText" placeholder="{{getGUITranslation('search-bar-placeholder')}}">
             <div id="search-btn" class="icon-search"></div>
         </div>
         <div class="result-container">
-            <div class="result dragscroll" id="style-7">
-                <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:filterText">
-                    <div class="name" ng-click="$parent.setActivePOI(poi.getName(getLanguage())); $parent.setTabContent(poi);  $parent.setActiveTab('extra-info');">
-                        <span ng-bind-html="poi.getName(getLanguage())"></span>
-                        <hr>
+            <div class="list dragscroll" ng-class="{'active':getActiveLetter(atoz).name}" id="style-7">
+                <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:criteriaMatch(getActiveLetter(atoz).name)">
+                    <span id="icon" class="icon-goto" ng-click="showPath(poi)"></span>
+                    <a id="icon" class="icon-info" href="/info&{{poi.id}}"></a>
+                    <a class="name" href="/info&{{poi.id}}" ng-bind-html="poi.getName(getLanguage())"></a>
+                    <div class="poi-groups" style="display:inline-block;">
+                        <a class="group" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" href="/topics&{{group.id}}"></a>
                     </div>
                 </div>
             </div>
@@ -19,7 +21,7 @@
 </div>
 <!-- SEARCH KEYBOARD -->
 <div class="keyboard-container">
-    <div class="keyboard-backdrop" ng-controller="KeyboardController">
+    <div class="keyboard-backdrop" ng-controller="KeyboardController as KBC">
         <div class="search-keyboard keyboard">
         </div>
     </div>

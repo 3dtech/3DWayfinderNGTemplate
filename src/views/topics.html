@@ -2,9 +2,8 @@
 <div class="tab-content">
     <div class="topics dragscroll" id="style-7">
         <div ng-repeat="group in groups" class="topic">
-            <div class="topic-head">
-                <span class="topic-toggle btn-circle fa" 
-                    ng-click="group.active = !group.active"
+            <div class="topic-head" ng-click="group.active = !group.active">
+                <span class="topic-toggle btn-circle fa"
                     ng-class="group.active ? 'fa-angle-up':'fa-angle-down'"></span>
                 <span class="topic-name" ng-bind-html="group.getNames() | wfCurrentLanguage">
                   </span>
@@ -12,8 +11,8 @@
             <div class="topic-pois" ng-class="group.active ? 'active':''">
                 <div class="poi" ng-repeat="poi in group.pois">
                     <span id="icon" class="icon-goto" ng-click="showPath(poi)"></span>
-                    <a id="icon" class="icon-info" href="#/info/{{poi.id}}"></a>
-                    <a class="name" href="#/info/{{poi.id}}" ng-bind-html="poi.getName(getLanguage())">
+                    <a id="icon" class="icon-info" href="/info&{{poi.id}}"></a>
+                    <a class="name" href="/info&{{poi.id}}" ng-bind-html="poi.getName(getLanguage())">
                     </a>
                     <div class="floor btn-circle" ng-bind-html="poi.getFloor().getName(getLanguage())">
                     </div>
