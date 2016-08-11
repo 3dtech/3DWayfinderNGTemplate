@@ -5,9 +5,10 @@ wayfinderApp.controller('TopicsController', [
     '$rootScope',
     '$scope',
     '$timeout',
+    '$routeParams',
     'wayfinderService',
     'wfangular3d',
-    function($rootScope, $scope, $timeout, wayfinderService, wayfinder) {
+    function($rootScope, $scope, $timeout, $routeParams, wayfinderService, wayfinder) {
         $scope.groups = [];
         $scope.activeGroup = "";
 
@@ -34,6 +35,14 @@ wayfinderApp.controller('TopicsController', [
 
         $timeout(function() {
             $scope.groups = wayfinderService.getGroups();
+            if ($routeParams) {
+                for (var key in $scope.groups) {
+                    if ($scope.groups[key].id == $routeParams.id)
+                        $scope.groups[key].active = true;
+                    else 
+                        $scope.groups[key].active = false;
+                }
+            }
             console.log("TopicsController-wf.data.loaded");
         }, 20);
     }

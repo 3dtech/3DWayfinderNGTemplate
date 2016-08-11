@@ -10,8 +10,8 @@
         <div class="list dragscroll" ng-class="{'active':getActiveLetter(atoz).name}" id="style-7">
             <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:criteriaMatch(getActiveLetter(atoz).name)">
                 <span id="icon" class="icon-goto" ng-click="showPath(poi)"></span>
-                <a id="icon" class="icon-info" href="#/info/{{poi.id}}"></a>
-                <a class="name" href="#/info/{{poi.id}}" ng-bind-html="poi.getName(getLanguage())"></a>
+                <a id="icon" class="icon-info" href="/info&{{poi.id}}"></a>
+                <a class="name" href="/info&{{poi.id}}" ng-bind-html="poi.getName(getLanguage())"></a>
                 <span class="group" ng-style="criteriaMatch(activeLetter) ? {'color': '{{getColorRGBA(poi.getGroups()[0])}}'}:''"
                     ng-bind-html="poi.getGroups()[0].getName(getLanguage())"></span>
             </div>

@@ -14,8 +14,9 @@ var wayfinderApp = angular.module('app', [
     'wf.zoom' */ // all modules go here, and into separate files and into the folder modules/<modulename>
 ]);
 
-wayfinderApp.run(['wfangular3d', '$rootScope', '$http', function(wayfinder,
-    $rootScope, $http) {
+wayfinderApp.run(['wfangular3d', '$rootScope', '$http', '$route', function(wayfinder,
+    $rootScope, $http, $route) {
+    $route.reload();
     WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
     wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
     wayfinder.options.assetsLocation =
@@ -27,36 +28,48 @@ wayfinderApp.run(['wfangular3d', '$rootScope', '$http', function(wayfinder,
 // ----------------- config -----------------
 // ------------------------------------------
 
-wayfinderApp.config(['$routeProvider', function($route) {
+wayfinderApp.config(['$routeProvider', '$locationProvider', '$httpProvider', function($route, $locationProvider, $httpProvider) {
     $route
         .when('/', {
             templateUrl: "views/default.html",
-            controller: 'WayfinderCtrl'
+            controller: 'WayfinderCtrl as WFC'
         })
-        .when('/info/:id', {
-            templateUrl: "views/extra-info.html",
-            controller: 'InfoController'
+        .when('/info&:id', {
+            templateUrl: "views/info.html",
+            controller: 'InfoController as IC'
         })
         .when('/search', {
             templateUrl: "views/search.html",
-            controller: 'SearchController'
+            controller: 'SearchController as SC'
         })
         .when('/atoz', {
             templateUrl: "views/atoz.html",
-            controller: 'AtozController'
+            controller: 'AtozController as AZC'
         })
         /*
                .when('/floors', {
-                   tempalteUrl: "views/floors.html",
+                   templateUrl: "views/floors.html",
                    controller: 'GroupsCtrl'
                }) */
         .when('/topics', {
             templateUrl: 'views/topics.html',
-            controller: 'TopicsController'
+            controller: 'TopicsController as TC'
+        })
+        .when('/topics&:id?', {
+            templateUrl: 'views/topics.html',
+            controller: 'TopicsController as TC'
         })
         .otherwise({
             redirectTo: '/'
         });
+
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: true
+    });
+    $locationProvider.hashPrefix('!');
+
+    $httpProvider.useApplyAsync(true);
 }]);
 
 // -------------------------------------------
@@ -67,10 +80,11 @@ wayfinderApp.controller('WayfinderCtrl', [
   '$scope',
   '$timeout',
   '$rootScope',
+  '$location',
   'wayfinderService',
   'keyboardService',
   'wfangular3d',
-  function($scope, $timeout, $rootScope, wayfinderService, keyboardService,
+  function($scope, $timeout, $rootScope, $location, wayfinderService, keyboardService,
         wayfinder) {
         $scope.animationsEnabled = true;
         $scope.bold = ['\<b\>', '\<\/b\>'];
@@ -80,6 +94,11 @@ wayfinderApp.controller('WayfinderCtrl', [
         var lastTouch = -1;
         lastTouch = (new Date()).getTime();
         var maxInactivityTime = 3000;
+
+        $scope.go = function(path) {
+            console.debug("path:", path);
+            $location.path(path);
+        };
 
         $scope.showPath = function(poi) {
             wayfinder.showPath(poi.getNode(), poi);

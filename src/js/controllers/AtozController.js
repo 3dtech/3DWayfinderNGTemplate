@@ -15,6 +15,8 @@ wayfinderApp.controller('AtozController', [
         $scope.activeLetter = "";
 
         $scope.showPath = function(poi) {
+            console.log("showPath.poi:", poi, wayfinder.getKiosk(), wayfinder.getKioskNode());
+            wayfinder.showKiosk();
             wayfinder.showPath(poi.getNode(), poi);
         };
 

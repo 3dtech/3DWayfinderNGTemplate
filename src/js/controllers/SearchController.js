@@ -55,6 +55,18 @@ wayfinderApp.controller('SearchController', [
             return wayfinder.getLanguage();
         };
 
+        $scope.getColorRGBA = function(group) {
+            //Function to convert hex format to a rgb textColor
+            if (!group) return;
+            var rgb = group.getColor();
+            var r = rgb["r"];
+            var g = rgb["g"];
+            var b = rgb["b"];
+            var a = rgb["a"];
+            var textColor = "rgba(" + parseInt(r.toString(10) * 255) + "," + parseInt(g.toString(10) * 255) + "," + parseInt(b.toString(10) * 255) + "," + parseInt(a.toString(10) * 255) + ")";
+            return textColor;
+        };
+
         $scope.$watch('searchText', function(val) {
             console.log("SearchController.searchText.changed:",
                 val);

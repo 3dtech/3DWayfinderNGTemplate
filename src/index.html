@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/styles.css">
+    <base href="/" />
 </head>
 
 <body ng-controller="WayfinderCtrl">
@@ -36,8 +37,8 @@
         <div id="nav-menu">
             <div class="tabs-container">
                 <div class="tab-heads button-group expanded">
-                    <div class="tab-head button" ng-repeat="tab in tabs">
-                        <a class="icon" ng-class="tab.icon" href="{{tab.link}}"></a>
+                    <div class="tab-head button" ng-repeat="tab in tabs" ng-click="go(tab.link)">
+                        <a class="icon" ng-class="tab.icon"></a>
                     </div>
                     <!--
                     <a class="icon-atoz" href="#/atoz"></a>

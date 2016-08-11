@@ -7,6 +7,8 @@ var sass = require('gulp-sass');
 var del = require('del');
 var path = require('path');
 var browserSync = require('browser-sync').create();
+var spa = require('browser-sync-spa');
+var baseDir = __dirname + '/dist';
 var vendor = [
     "bower_components/jquery/dist/jquery.min.js",
     "bower_components/jquery-ui/jquery-ui.min.js",
@@ -34,13 +36,21 @@ gulp.task('default', ['clean'], function() {
 });
 
 gulp.task('browserSync', ['default'], function() {
+    browserSync.use(spa({
+        selector: "[ng-app]",
+        history: {
+            index: '/index.html'
+        }
+    }));
     browserSync.init({
         server: {
-            baseDir: 'dist/'
+            baseDir: baseDir,
+            files: baseDir+"/*"
                 /*routes: {
                   "bower_components": "bower_components"
                 }*/
         },
+        logLevel: "info",
         /* https: true */
     })
 });
@@ -85,9 +95,7 @@ gulp.task('font', function() {
 gulp.task('controllers', [''], function() {
     return gulp.src(['./src/index.js', './src/js/controllers/**/*.js'])
         .pipe(gulp.dest(distFolder + 'js/'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
+        .pipe(browserSync.reload());
 });
 
 gulp.task('js', function() {
@@ -116,8 +124,9 @@ gulp.task('img', function() {
 
 gulp.task('css', function() {
     return gulp.src([
-        './bower_components/foundation-sites/dist/*.css',
-        './bower_components/font-awesome/css/*'])
+            './bower_components/foundation-sites/dist/*.css',
+            './bower_components/font-awesome/css/*'
+        ])
         .pipe(gulp.dest(distFolder + 'css/'))
         .pipe(browserSync.reload({
             stream: true
