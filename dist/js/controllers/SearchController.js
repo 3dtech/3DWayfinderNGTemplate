@@ -12,6 +12,26 @@ wayfinderApp.controller('SearchController', [
         var searchKeyboard = {};
         searchKeyboard.handle = '.search-keyboard';
         searchKeyboard.target = '#search-bar';
+        $scope.textToSearch = "";
+        $scope.showKeyboard = true;
+
+        $scope.showPath = function(poi) {
+            wayfinder.showPath(poi.getNode(), poi);
+        };
+
+        $scope.getLanguage = function() {
+            return wayfinder.getLanguage();
+        };
+
+        $scope.searchPOIsNames = function(poi) {
+            if (!poi) return;
+            if (poi
+                .names.translations[$scope.getLanguage()]
+                .toLowerCase()
+                .match($scope.textToSearch.toLowerCase()))
+                return true;
+            return false;
+        };
 
         $scope.searchText = "";
 
@@ -20,7 +40,7 @@ wayfinderApp.controller('SearchController', [
         $scope.filterText = {};
         $scope.filterText.names = {};
         $scope.filterText.names.translations = {};
-        $scope.filterText.names.translations[wayfinder.getLanguage()] =
+        $scope.filterText.names.translations[$scope.getLanguage()] =
             "";
 
         // Instantiate these variables outside the watch
@@ -29,7 +49,8 @@ wayfinderApp.controller('SearchController', [
 
         function createKeyboard(keyboard, layouts) {
             var newKeyboard = new Keyboard($(keyboard.handle),
-                wayfinder.getLanguage());
+                $scope.getLanguage());
+            console.debug("createKeyboard.newKeyboard:", newKeyboard);
 
             for (var i in layouts)
                 newKeyboard.addLayout(layouts[i].lang, layouts[i]);
@@ -47,15 +68,7 @@ wayfinderApp.controller('SearchController', [
             return newKeyboard;
         }
 
-        $scope.showPath = function(poi) {
-            wayfinder.showPath(poi.getNode(), poi);
-        };
-
-        $scope.getLanguage = function() {
-            return wayfinder.getLanguage();
-        };
-
-        $scope.getColorRGBA = function(group) {
+        /*$scope.getColorRGBA = function(group) {
             //Function to convert hex format to a rgb textColor
             if (!group) return;
             var rgb = group.getColor();
@@ -65,9 +78,22 @@ wayfinderApp.controller('SearchController', [
             var a = rgb["a"];
             var textColor = "rgba(" + parseInt(r.toString(10) * 255) + "," + parseInt(g.toString(10) * 255) + "," + parseInt(b.toString(10) * 255) + "," + parseInt(a.toString(10) * 255) + ")";
             return textColor;
-        };
+        };*/
+
+        $scope.$watch('textToSearch', function(data) {
+            if (!data) return;
+            console.debug("filtered poiObjects:", data);
+            $timeout(function() {
+                console.debug("filtered:", $scope.filteredPois.length);
+                if ($scope.filteredPois.length != 0)
+                    wayfinder.statistics.onSearch(data, "successful");
+                else 
+                    wayfinder.statistics.onSearch(data, "unsuccessful");
+            }, 20);
+        });
 
         $scope.$watch('searchText', function(val) {
+            if (tempFilterText == val) return;
             console.log("SearchController.searchText.changed:",
                 val);
             if (filterTextTimeout) $timeout.cancel(
@@ -76,11 +102,11 @@ wayfinderApp.controller('SearchController', [
             tempFilterText = val;
             filterTextTimeout = $timeout(function() {
                 $scope.filterText.names.translations[
-                        wayfinder.getLanguage()] =
+                        $scope.getLanguage()] =
                     tempFilterText;
-            }, 250); // delay 250 ms
+            }, 10); // delay 250 ms
         });
-
+        /*
         $rootScope.$on("wf.search-text.change", function(event, val) {
             console.log("search-event:", val);
             $scope.searchText = val;
@@ -94,11 +120,11 @@ wayfinderApp.controller('SearchController', [
                     tempFilterText;
             }, 10); // delay 250 ms
         });
-
+*/
         $rootScope.$on("wf.language.change", function(event, language) {
             console.log("searchKeyboard:", searchKeyboard);
             if (searchKeyboard.keyboard)
-                searchKeyboard.changeLayout(language);
+                searchKeyboard.keyboard.changeLayout(language);
         });
 
         $timeout(function() {
@@ -109,5 +135,6 @@ wayfinderApp.controller('SearchController', [
             $scope.poiObjects = wayfinderService.getPOIs();
             console.log("SearchController.data.loaded");
         }, 20);
+
     }
 ]);

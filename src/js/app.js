@@ -21,8 +21,10 @@ wayfinderApp.run(['wfangular3d', '$rootScope', '$http', '$route', function(wayfi
     //wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
     //wayfinder.options.assetsLocation =
     //    '//static.3dwayfinder.com/shared/';
-    wayfinder.open(); //tasku
-    wayfinder.open("94d921a4e23e79634cd110483e6796a7"); //0.25
+    //wayfinder.open(); //tasku
+    //wayfinder.open("94d921a4e23e79634cd110483e6796a7"); //0.25
+    wayfinder.open("e547ad92ddc8774307993faff5ad79d0"); //tasku
+    wayfinder.statistics.start();
 }]);
 
 // ------------------------------------------
@@ -101,8 +103,36 @@ wayfinderApp.controller('WayfinderCtrl', [
             $location.path(path);
         };
 
+        $scope.showTopic = function(group) {
+            var path = '/topics&'+group.id;
+            for (var k in wayfinderService.getTabs()) {
+                if (wayfinderService.getTabs()[k].name == "topics") {
+                    wayfinderService.setActiveTab(wayfinderService.getTabs()[k]);
+                    break;
+                }
+            }
+            $location.path(path);
+        };
+
+        $scope.showInfo = function(poi) {
+            var path = '/info&'+poi.id;
+            $location.path(path);
+        };
+
         $scope.showPath = function(poi) {
             wayfinder.showPath(poi.getNode(), poi);
+        };
+
+        $scope.getColorRGBA = function(group) {
+            //Function to convert hex format to a rgb textColor
+            if (!group) return;
+            var rgb = group.getColor();
+            var r = rgb["r"];
+            var g = rgb["g"];
+            var b = rgb["b"];
+            var a = rgb["a"];
+            var textColor = "rgba(" + parseInt(r.toString(10) * 255) + "," + parseInt(g.toString(10) * 255) + "," + parseInt(b.toString(10) * 255) + "," + parseInt(a.toString(10) * 255) + ")";
+            return textColor;
         };
 
         /*** SCREENSAVER CONTROLS ***/
@@ -173,6 +203,15 @@ wayfinderApp.controller('WayfinderCtrl', [
             return wayfinder.translator.get(key, params);
         };
 
+        $scope.setActiveTab = function(tab) {
+            console.debug("WFC.setActvieTab:", tab);
+            wayfinderService.setActiveTab(tab);
+        };
+
+        $scope.getActiveTab = function() {
+            return wayfinderService.getActiveTab();
+        };
+
         /*** EVENT WATCHERS ***/
 
         /*** ROOTSCOPE WATCHERS ***/
@@ -228,6 +267,7 @@ wayfinderApp.controller('WayfinderCtrl', [
                     1000;
                 wayfinder.setKiosk("394");
             };
+            console.log("tabs:", wayfinderService.getTabs());
         });
 }]);
 

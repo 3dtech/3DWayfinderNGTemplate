@@ -2,27 +2,25 @@
 <div class="tab-content">
     <div class="search">
         <div class="search-wrapper">
-            <input id="search-bar" ng-model="searchText" placeholder="{{getGUITranslation('search-bar-placeholder')}}">
-            <div id="search-btn" class="icon-search"></div>
+            <input id="search-bar" ng-model="textToSearch" ng-value="textToSearch" placeholder="{{getGUITranslation('search-bar-placeholder')}}">
+            <div id="search-btn" class="fa fa-search"></div>
         </div>
-        <div class="result-container">
-            <div class="list dragscroll" ng-class="{'active':getActiveLetter(atoz).name}" id="style-7">
-                <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:criteriaMatch(getActiveLetter(atoz).name)">
+        <div class="result-container" id="style-7">
+            <div class="list dragscroll" id="style-7">
+                <div class="poi" ng-repeat="poi in filteredPois = (poiObjects | orderBy:'names.translations.'+getLanguage() | filter:searchPOIsNames)">
+                    <span id="icon" class="icon-info" ng-click="showInfo(poi)"></span>
                     <span id="icon" class="icon-goto" ng-click="showPath(poi)"></span>
-                    <a id="icon" class="icon-info" href="/info&{{poi.id}}"></a>
-                    <a class="name" href="/info&{{poi.id}}" ng-bind-html="poi.getName(getLanguage())"></a>
-                    <div class="poi-groups" style="display:inline-block;">
-                        <a class="group" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" href="/topics&{{group.id}}"></a>
-                    </div>
+                    <span class="name" ng-click="showInfo(poi)" ng-bind-html="poi.getName(getLanguage())"></span>
+                    <span class="group" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)"></span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- SEARCH KEYBOARD -->
-<div class="keyboard-container">
-    <div class="keyboard-backdrop" ng-controller="KeyboardController as KBC">
-        <div class="search-keyboard keyboard">
-        </div>
+<div class="keyboard-container" ng-controller="KeyboardController as KBC" ng-show="showKeyboard">
+    <div class="keyboard-backdrop">
+        <div class="close-keyboard btn-circle fa fa-times" ng-click="showKeyboard = false"></div>
+        <div class="search-keyboard keyboard"></div>
     </div>
 </div>

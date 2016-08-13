@@ -33,13 +33,29 @@ wayfinderApp.controller('TopicsController', [
             //console.log("collapsedGroup:", oldVal, "->", newVal);
         });
 
+        $scope.$on("wf.data.loaded", function() {
+            $timeout(function() {
+                $scope.groups = wayfinderService.getGroups();
+                if ($routeParams) {
+                    for (var key in $scope.groups) {
+                        if ($scope.groups[key].id == $routeParams.id)
+                            $scope.groups[key].active = true;
+                        else
+                            $scope.groups[key].active = false;
+                    }
+                }
+                console.log("TopicsController-wf.data.loaded");
+                $scope.apply();
+            }, 20);
+        });
+
         $timeout(function() {
             $scope.groups = wayfinderService.getGroups();
             if ($routeParams) {
                 for (var key in $scope.groups) {
                     if ($scope.groups[key].id == $routeParams.id)
                         $scope.groups[key].active = true;
-                    else 
+                    else
                         $scope.groups[key].active = false;
                 }
             }
