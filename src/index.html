@@ -6,15 +6,14 @@
     <meta charset="utf-8">
     <meta name="description" content="3DWayfinder WebGL">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet'
-        type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/styles.css">
     <base href="/" />
 </head>
 
-<body ng-controller="WayfinderCtrl">
+<body ng-controller="WayfinderCtrl as WFC">
     <div class="container row" ng-click="trigger()">
         <div class="logo"></div>
         <!-- HEADER -->
@@ -36,8 +35,8 @@
         <div id="nav-menu">
             <div class="tabs-container">
                 <div class="tab-heads button-group expanded">
-                    <div class="tab-head button" ng-repeat="tab in tabs" ng-click="go(tab.link)">
-                        <a class="icon" ng-class="tab.icon"></a>
+                    <div class="tab-head button" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}" ng-click="go(tab.link); setActiveTab(tab);">
+                        <div class="icon {{tab.icon}}"></div>
                     </div>
                     <!--
                     <a class="icon-atoz" href="#/atoz"></a>
@@ -124,6 +123,7 @@
             });
         }
     }
+    var wayfinder = angular.element(document.body).scope();
     </script>
 </body>
 

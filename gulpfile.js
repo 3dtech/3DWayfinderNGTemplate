@@ -125,7 +125,7 @@ gulp.task('img', function() {
 gulp.task('css', function() {
     return gulp.src([
             './bower_components/foundation-sites/dist/*.css',
-            './bower_components/font-awesome/css/*'
+            './bower_components/font-awesome/css/*',
         ])
         .pipe(gulp.dest(distFolder + 'css/'))
         .pipe(browserSync.reload({

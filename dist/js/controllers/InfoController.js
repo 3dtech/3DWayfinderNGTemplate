@@ -9,10 +9,7 @@ wayfinderApp.controller('InfoController', [
     'wayfinderService',
     'wfangular3d',
     function($rootScope, $scope, $timeout, $routeParams, wayfinderService, wayfinder) {
-        for (var i in wayfinderService.getPOIs()) {
-            if (wayfinderService.getPOIs()[i].id == $routeParams.id)
-                $scope.poi = wayfinderService.getPOIs()[i];
-        };
+        $scope.poi = null;
         console.log("wayfinderService.getPOIs():", wayfinderService.getPOIs());
         console.log("InfoController.poi", $scope.poi, $routeParams.id);
 
@@ -29,5 +26,22 @@ wayfinderApp.controller('InfoController', [
             return poi.getDescription(wayfinder.getLanguage()) ? 1 :
                 0;
         };
+
+        $scope.getBackgroundImage = function(poi) {
+            if (poi == null) return;
+            console.debug("info.getBackgroundImage:", poi.backgroundImage);
+            return 'url(' + poi.backgroundImage + ')';
+        };
+
+        $timeout(function() {
+            if (!$routeParams) return;
+            console.debug("info.$routeParams:", $routeParams);
+            var pois = wayfinderService.getPOIs();
+            for (var i in pois) {
+                console.debug("poi.id", pois[i].id, "==", $routeParams.id, "?", pois[i].id == $routeParams.id);
+                if (pois[i].id == $routeParams.id)
+                    $scope.poi = pois[i];
+            };
+        }, 10);
     }
 ]);

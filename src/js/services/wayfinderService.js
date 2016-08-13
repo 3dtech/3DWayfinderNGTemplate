@@ -5,27 +5,29 @@ wayfinderApp.factory('wayfinderService', ['$rootScope', function($scope) {
     $scope.atozLetters = null;
 
     $scope.tabs = [{
-        name: 'search',
-        icon: 'icon-search',
-        link: '/search',
-        active: false
-    }, {
-        name: 'topics',
-        icon: 'icon-topics',
-        link: '/topics',
-        active: false
-    }, {
-        name: 'atoz',
-        icon: 'icon-atoz',
-        link: '/atoz',
-        active: false
-    }, {
-        name: 'floors',
-        //icon: 'icon-floors',
-        icon: 'fa fa-list-ol',
-        link: '/floors',
-        active: false
-    }];
+            name: 'search',
+            icon: 'icon-search',
+            link: '/search',
+            active: false
+        }, {
+            name: 'topics',
+            icon: 'icon-topics',
+            link: '/topics',
+            active: true
+        }, {
+            name: 'atoz',
+            icon: 'icon-atoz',
+            link: '/atoz',
+            active: false
+        }
+        /*, {
+                name: 'floors',
+                //icon: 'icon-floors',
+                icon: 'fa fa-list-ol',
+                link: '/floors',
+                active: false
+            }*/
+    ];
 
     $scope.$watch('atozLetters', function(newVal, oldVal) {
         console.log("watching atozLetters:", oldVal, '->',
@@ -37,7 +39,7 @@ wayfinderApp.factory('wayfinderService', ['$rootScope', function($scope) {
         for (var key in groups) {
             // add hasOwnPropertyCheck if needed
             var group = groups[key];
-            if (group.showInMenu) {
+            if (group.showInMenu == "1") {
                 //$scope.collapsedGroup.push(false);
                 group.image = getGroupImage(group);
                 group.colorHEX = getGroupColorHEX(group);
@@ -54,7 +56,8 @@ wayfinderApp.factory('wayfinderService', ['$rootScope', function($scope) {
         var arr = [];
         for (var i = pois.length - 1; i >= 0; i--) {
             var poi = pois[i];
-            if (poi.showInMenu) {
+            if (poi.showInMenu == "1") {
+                poi.backgroundImage = window.location.protocol + WayfinderAPI.getURL("images", "get", poi.background_id);
                 arr.push(poi);
             }
         };
@@ -68,7 +71,8 @@ wayfinderApp.factory('wayfinderService', ['$rootScope', function($scope) {
             //$scope.collapsedFloor.push(false);
             arr[floors[i].index] = [];
             for (var j in floors[i].pois) {
-                arr[floors[i].index].push(floors[i].pois[j]);
+                if (floors[i].pois[j].showInMenu == "1")
+                    arr[floors[i].index].push(floors[i].pois[j]);
             }
         }
         return arr;
@@ -126,6 +130,25 @@ wayfinderApp.factory('wayfinderService', ['$rootScope', function($scope) {
             return WayfinderAPI.getURL("images", "get", [group.imageID]);
     };
 
+    function getActiveTab() {
+        for (var tab in $scope.tabs) {
+            if ($scope.tabs[tab].active) {
+                return $scope.tabs[tab];
+            }
+        }
+        return false;
+    };
+
+    function setActiveTab(tab) {
+        for (var key in $scope.tabs) {
+            if ($scope.tabs[key].name == tab.name) {
+                $scope.tabs[key].active = true;
+            } else {
+                $scope.tabs[key].active = false;
+            }
+        }
+    };
+
     return {
         getTabs: function() {
             return $scope.tabs;
@@ -157,6 +180,13 @@ wayfinderApp.factory('wayfinderService', ['$rootScope', function($scope) {
         setAtozLetters: function(pois, language) {
             console.log("wayfinderService.setAtozLetters");
             $scope.atozLetters = getAtoZLetters(pois, language);
+        },
+        getActiveTab: function() {
+            return getActiveTab();
+        },
+        setActiveTab: function(tab) {
+            console.log("wayfinderService.setActiveTab", tab);
+            setActiveTab(tab);
         }
     };
 }]);
