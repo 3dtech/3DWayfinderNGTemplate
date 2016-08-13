@@ -17,11 +17,12 @@ var wayfinderApp = angular.module('app', [
 wayfinderApp.run(['wfangular3d', '$rootScope', '$http', '$route', function(wayfinder,
     $rootScope, $http, $route) {
     $route.reload();
-    WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
-    wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
-    wayfinder.options.assetsLocation =
-        '//static.3dwayfinder.com/shared/';
+    //WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
+    //wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
+    //wayfinder.options.assetsLocation =
+    //    '//static.3dwayfinder.com/shared/';
     wayfinder.open(); //tasku
+    wayfinder.open("94d921a4e23e79634cd110483e6796a7"); //0.25
 }]);
 
 // ------------------------------------------
