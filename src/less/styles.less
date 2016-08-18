@@ -168,6 +168,10 @@ input::-ms-clear {
     box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.30);
     z-index: 1;
     display: inline-block;
+    > div {
+        height: 100%;
+        display: inline-block;
+    }
     .icon {
         float: right;
         width: @header-height;
@@ -198,13 +202,6 @@ input::-ms-clear {
 }
 
 .logo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: @logo-height;
-    width: @logo-width;
-    z-index: 9000;
     margin: 0 auto;
     background-image: url("../img/logo.png");
     background-repeat: no-repeat;
@@ -215,12 +212,6 @@ input::-ms-clear {
 
 .lang-menu {
     text-transform: uppercase;
-    position: absolute;
-    float: left;
-    top: 0.7em;
-    left: 0.7em;
-    width: 50px;
-    line-height: 2em;
     z-index: 13;
     .language-button {
         display: block;
@@ -278,43 +269,38 @@ input::-ms-clear {
         display: inline-block;
         height: @poi-line-height;
         line-height: @poi-line-height;
-        font-size: @poi-line-height*0.7;
-        .name {
-            color: @color-text-dark;
+        font-size: @poi-line-height*0.5;
+        .texts {
+            .name {
+                position: relative;
+                color: @color-text-dark;
+                height: @poi-line-height*0.75;
+                line-height: @poi-line-height*0.75;
+                display: inline-block;
+            }
+            .group {
+                position: relative;
+                display: inline-block;
+                vertical-align: middle;
+                text-transform: uppercase;
+            }
         }
-        .group {
-            position: relative;
-            margin-right: .5em;
-            display: inline-block;
-            vertical-align: middle;
-            text-transform: uppercase;
-            font-size: @poi-line-height*0.5;
+        .icons {
+            #icon {
+                background: none;
+                color: @color-button-light;
+                border-radius: 5rem;
+                border: 1px solid @color-button-light;
+                box-sizing: content-box;
+                text-align: center;
+            }
         }
-        .icon-goto {
-            position: relative;
-            float: right;
-            right: .5em;
-            margin-right: .5em;
-            display: inline-block;
-        }
-        .icon-info {
-            position: relative;
-            float: right;
-            right: .5em;
-            display: inline-block;
-        }
-    }
-    #icon {
-        background: none;
-        color: @color-button-light;
-        border-radius: 5rem;
-        border: 1px solid @color-button-light;
     }
 }
 
 #nav-menu {
     position: absolute;
-    top: 55%;
+    top: 100%;
     bottom: 0;
     right: 0;
     width: 100%;
@@ -335,7 +321,7 @@ input::-ms-clear {
             margin: 0;
             position: relative;
             .tab-head {
-                position:relative;
+                position: relative;
                 color: @color-text-dark;
                 text-align: center;
                 vertical-align: middle;
@@ -352,7 +338,6 @@ input::-ms-clear {
                     position: absolute;
                     width: 2rem;
                     height: 2rem;
-                    font-size: 2rem;
                     margin: auto;
                     top: 0;
                     bottom: 0;
@@ -366,7 +351,8 @@ input::-ms-clear {
                     font-variant: normal;
                     text-transform: none;
                 }
-                [class^="icon-"]:before, [class*=" icon-"]:before {
+                [class^="icon-"]:before,
+                [class*=" icon-"]:before {
                     margin: 0;
                     width: auto;
                     height: auto;
@@ -589,16 +575,13 @@ hr {
 .keyboard-container {
     z-index: 26;
     @media all and (orientation: portrait) {
-        position: absolute;
         width: 100%;
         height: auto;
-        top: -35%;
         right: 0;
     }
     @media all and (orientation: landscape) {
         width: 100%;
         height: auto;
-        top: 0;
         right: 0;
     }
 }
@@ -870,7 +853,7 @@ hr {
         height: 5rem;
         line-height: 5rem;
         box-sizing: content-box;
-        text-align:center;
+        text-align: center;
         margin-right: 2rem;
         display: block;
     }
@@ -931,5 +914,158 @@ hr {
     #bottom-banner {
         height: 100%;
         width: 100%;
+    }
+}
+
+.nav-menu-btn {
+    font-size: 3rem;
+}
+
+@media screen and (min-width: 360px) {
+    .header {
+        height: 10%;
+        .nav-menu-btn {
+            height: @poi-line-height;
+            line-height: @poi-line-height*1.2;
+            font-size: 2rem;
+            color: @color-button-light;
+            text-align: center;
+            padding-right: .5rem;
+        }
+    }
+    #nav-menu {
+        height: 90%;
+    }
+    .tab-head .icon {
+        font-size: 1rem;
+    }
+    .list {
+        font-size: 1rem;
+        margin-left: 1rem;
+        position: relative;
+        .poi {
+            display: block;
+            .texts {
+                display: inline-block;
+                .name {
+                    display: block;
+                    font-size: @poi-line-height*0.5;
+                    line-height: @poi-line-height*0.75;
+                }
+                .group {
+                    display: block;
+                    font-size: @poi-line-height*0.25;
+                    line-height: @poi-line-height*0.25;
+                }
+            }
+            .icons {
+                display: inline-block;
+                vertical-align: middle;
+                height: 100%;
+                #icon {
+                    position: relative;
+                    display: inline-block;
+                    font-size: 1.5rem;
+                    width: 2.2rem;
+                    height: 2.2rem;
+                    line-height: 2.2rem;
+                    margin: 0 .25rem 0 0;
+                    :before {
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: 0;
+                        bottom: 0;
+                        margin: auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 720px) {
+    .header {
+        height: 10%;
+        .nav-menu-btn {
+            height: @poi-line-height;
+            font-size: @poi-line-height;
+            line-height: @poi-line-height*1.4;
+        }
+    }
+    .tab-head .icon {
+        font-size: 1.25rem;
+    }
+    .list {
+        font-size: 1.25rem;
+        margin-left: 1rem;
+        position: relative;
+        .poi {
+            display: block;
+            .texts {
+                display: inline-block;
+                .name {
+                    display: block;
+                    font-size: @poi-line-height*0.6;
+                    line-height: @poi-line-height*0.6;
+                }
+                .group {
+                    display: block;
+                    font-size: @poi-line-height*0.4;
+                    line-height: @poi-line-height*0.4;
+                }
+            }
+            .icons {
+                display: inline-block;
+                vertical-align: middle;
+                height: 100%;
+                #icon {
+                    position: relative;
+                    display: inline-block;
+                    font-size: 1.5rem;
+                    width: 2.2rem;
+                    height: 2.2rem;
+                    line-height: 2.2rem;
+                    margin: 0 .25rem 0 0;
+                    :before {
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: 0;
+                        bottom: 0;
+                        margin: auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .header {
+        height: 5%;
+        .nav-menu-btn {
+            height: 100%;
+            font-size: @poi-line-height*1.5;
+            line-height: @poi-line-height*1.75;
+        }
+    }
+    .tab-head .icon {
+        font-size: 1.75rem;
+    }
+    .list {
+        font-size: 1.75rem;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .header {
+        height: 5%;
+    }
+    .tab-head .icon {
+        font-size: 2rem;
+    }
+    .list {
+        font-size: 2rem;
     }
 }

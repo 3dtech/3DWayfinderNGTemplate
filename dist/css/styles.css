@@ -6882,6 +6882,10 @@ input::-ms-clear {
   z-index: 1;
   display: inline-block;
 }
+.header > div {
+  height: 100%;
+  display: inline-block;
+}
 .header .icon {
   float: right;
   width: 5%;
@@ -6910,13 +6914,6 @@ input::-ms-clear {
   color: #C9238C;
 }
 .logo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 10%;
-  width: 200px;
-  z-index: 9000;
   margin: 0 auto;
   background-image: url("../img/logo.png");
   background-repeat: no-repeat;
@@ -6926,12 +6923,6 @@ input::-ms-clear {
 }
 .lang-menu {
   text-transform: uppercase;
-  position: absolute;
-  float: left;
-  top: 0.7em;
-  left: 0.7em;
-  width: 50px;
-  line-height: 2em;
   z-index: 13;
 }
 .lang-menu .language-button {
@@ -6983,43 +6974,34 @@ input::-ms-clear {
   margin-bottom: .5em;
   vertical-align: middle;
   display: inline-block;
-  height: 45px;
-  line-height: 45px;
-  font-size: 31.5px;
+  height: 3rem;
+  line-height: 3rem;
+  font-size: 1.5rem;
 }
-.list .poi .name {
-  color: #444;
-}
-.list .poi .group {
+.list .poi .texts .name {
   position: relative;
-  margin-right: .5em;
+  color: #444;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  display: inline-block;
+}
+.list .poi .texts .group {
+  position: relative;
   display: inline-block;
   vertical-align: middle;
   text-transform: uppercase;
-  font-size: 22.5px;
 }
-.list .poi .icon-goto {
-  position: relative;
-  float: right;
-  right: .5em;
-  margin-right: .5em;
-  display: inline-block;
-}
-.list .poi .icon-info {
-  position: relative;
-  float: right;
-  right: .5em;
-  display: inline-block;
-}
-.list #icon {
+.list .poi .icons #icon {
   background: none;
   color: #aaa;
   border-radius: 5rem;
   border: 1px solid #aaa;
+  box-sizing: content-box;
+  text-align: center;
 }
 #nav-menu {
   position: absolute;
-  top: 55%;
+  top: 100%;
   bottom: 0;
   right: 0;
   width: 100%;
@@ -7060,7 +7042,6 @@ input::-ms-clear {
   position: absolute;
   width: 2rem;
   height: 2rem;
-  font-size: 2rem;
   margin: auto;
   top: 0;
   bottom: 0;
@@ -7288,10 +7269,8 @@ hr {
 }
 @media all and (orientation: portrait) {
   .keyboard-container {
-    position: absolute;
     width: 100%;
     height: auto;
-    top: -35%;
     right: 0;
   }
 }
@@ -7299,7 +7278,6 @@ hr {
   .keyboard-container {
     width: 100%;
     height: auto;
-    top: 0;
     right: 0;
   }
 }
@@ -7606,4 +7584,152 @@ hr {
 #adverts #bottom-banner {
   height: 100%;
   width: 100%;
+}
+.nav-menu-btn {
+  font-size: 3rem;
+}
+@media screen and (min-width: 360px) {
+  .header {
+    height: 10%;
+  }
+  .header .nav-menu-btn {
+    height: 3rem;
+    line-height: 3.6rem;
+    font-size: 2rem;
+    color: #aaa;
+    text-align: center;
+    padding-right: .5rem;
+  }
+  #nav-menu {
+    height: 90%;
+  }
+  .tab-head .icon {
+    font-size: 1rem;
+  }
+  .list {
+    font-size: 1rem;
+    margin-left: 1rem;
+    position: relative;
+  }
+  .list .poi {
+    display: block;
+  }
+  .list .poi .texts {
+    display: inline-block;
+  }
+  .list .poi .texts .name {
+    display: block;
+    font-size: 1.5rem;
+    line-height: 2.25rem;
+  }
+  .list .poi .texts .group {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+  }
+  .list .poi .icons {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+  .list .poi .icons #icon {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    margin: 0 .25rem 0 0;
+  }
+  .list .poi .icons #icon :before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+}
+@media screen and (min-width: 720px) {
+  .header {
+    height: 10%;
+  }
+  .header .nav-menu-btn {
+    height: 3rem;
+    font-size: 3rem;
+    line-height: 4.2rem;
+  }
+  .tab-head .icon {
+    font-size: 1.25rem;
+  }
+  .list {
+    font-size: 1.25rem;
+    margin-left: 1rem;
+    position: relative;
+  }
+  .list .poi {
+    display: block;
+  }
+  .list .poi .texts {
+    display: inline-block;
+  }
+  .list .poi .texts .name {
+    display: block;
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+  }
+  .list .poi .texts .group {
+    display: block;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+  .list .poi .icons {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+  .list .poi .icons #icon {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    margin: 0 .25rem 0 0;
+  }
+  .list .poi .icons #icon :before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+}
+@media screen and (min-width: 1080px) {
+  .header {
+    height: 5%;
+  }
+  .header .nav-menu-btn {
+    height: 100%;
+    font-size: 4.5rem;
+    line-height: 5.25rem;
+  }
+  .tab-head .icon {
+    font-size: 1.75rem;
+  }
+  .list {
+    font-size: 1.75rem;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .header {
+    height: 5%;
+  }
+  .tab-head .icon {
+    font-size: 2rem;
+  }
+  .list {
+    font-size: 2rem;
+  }
 }

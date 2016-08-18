@@ -2,12 +2,18 @@
 <div class="tab-content">
     <div class="atoz" id="style-7">
         <div class="list dragscroll" id="style-7">
-            <div class="poi" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage()">
-                <span class="name" ng-click="showInfo(poi)" ng-bind-html="poi.getName(getLanguage())"></span>
-                <span id="icon" class="icon-info" ng-click="showInfo(poi)"></span>
-                <span id="icon" class="icon-goto" ng-click="showPath(poi)"></span>
-                <span class="group" ng-bind-html="group.getName(getLanguage())" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)">
-                </span>
+            <div class="poi row" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage()">
+                <div class="texts columns small-8 medium-10 left">
+                    <div class="name columns small-12 medium-6" ng-click="showInfo(poi)" ng-bind-html="poi.getName(getLanguage())"></div>
+                    <div class="group columns small-12 medium-6" ng-bind-html="group.getName(getLanguage())"
+                        ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};"
+                        ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)">
+                    </div>
+                </div>
+                <div class="icons columns small-4 medium-2 right">
+                    <div id="icon" class="icon-goto" ng-click="showPath(poi)"></div>
+                    <div id="icon" class="icon-info" ng-click="showInfo(poi)"></div>
+                </div>
             </div>
         </div>
     </div>

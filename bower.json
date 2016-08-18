@@ -41,7 +41,7 @@
     "grunt-cli": "~0.1.13",
     "angular-bootstrap": "~0.14.3",
     "angular-ui": "~0.4.0",
-    "jquery": "^2.2.0",
+    "jquery": "2.1.0",
     "angular-sanitize": "^1.4.9",
     "jquery-ui": "^1.11.4",
     "watch.js": "watch#*"

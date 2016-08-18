@@ -45,7 +45,7 @@ wayfinderApp.controller('TopicsController', [
                     }
                 }
                 console.log("TopicsController-wf.data.loaded");
-                $scope.apply();
+                $scope.$apply();
             }, 20);
         });
 
