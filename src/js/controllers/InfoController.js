@@ -6,11 +6,11 @@ wayfinderApp.controller('InfoController', [
     '$scope',
     '$timeout',
     '$routeParams',
-    'wayfinderService',
+    'wfService',
     'wfangular3d',
-    function($rootScope, $scope, $timeout, $routeParams, wayfinderService, wayfinder) {
+    function($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder) {
         $scope.poi = null;
-        console.log("wayfinderService.getPOIs():", wayfinderService.getPOIs());
+        console.log("wfService.getPOIs():", wfService.getPOIs());
         console.log("InfoController.poi", $scope.poi, $routeParams.id);
 
         $scope.showPath = function(poi) {
@@ -36,7 +36,7 @@ wayfinderApp.controller('InfoController', [
         $timeout(function() {
             if (!$routeParams) return;
             console.debug("info.$routeParams:", $routeParams);
-            var pois = wayfinderService.getPOIs();
+            var pois = wfService.getPOIs();
             for (var i in pois) {
                 console.debug("poi.id", pois[i].id, "==", $routeParams.id, "?", pois[i].id == $routeParams.id);
                 if (pois[i].id == $routeParams.id)

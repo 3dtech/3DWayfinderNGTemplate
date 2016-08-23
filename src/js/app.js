@@ -34,19 +34,19 @@ wayfinderApp.config(['$routeProvider', '$locationProvider', '$httpProvider', fun
     $route
         .when('/', {
             templateUrl: "views/default.html",
-            controller: 'MainController as MC'
+            controller: 'MainController'
         })
         .when('/info&:id', {
             templateUrl: "views/info.html",
-            controller: 'InfoController as IC'
+            controller: 'InfoController'
         })
         .when('/search', {
             templateUrl: "views/search.html",
-            controller: 'SearchController as SC'
+            controller: 'SearchController'
         })
         .when('/atoz', {
             templateUrl: "views/atoz.html",
-            controller: 'AtozController as AZC'
+            controller: 'AtozController'
         })
         /*
                .when('/floors', {
@@ -55,11 +55,11 @@ wayfinderApp.config(['$routeProvider', '$locationProvider', '$httpProvider', fun
                }) */
         .when('/topics', {
             templateUrl: 'views/topics.html',
-            controller: 'TopicsController as TC'
+            controller: 'TopicsController'
         })
         .when('/topics&:id?', {
             templateUrl: 'views/topics.html',
-            controller: 'TopicsController as TC'
+            controller: 'TopicsController'
         })
         .otherwise({
             redirectTo: '/'

@@ -5,9 +5,9 @@ wayfinderApp.controller('AtozController', [
     '$rootScope',
     '$scope',
     '$timeout',
-    'wayfinderService',
+    'wfService',
     'wfangular3d',
-    function($rootScope, $scope, $timeout, wayfinderService, wayfinder) {
+    function($rootScope, $scope, $timeout, wfService, wayfinder) {
         $scope.atoz = [];
 
         $scope.poiObjects = [];
@@ -69,9 +69,18 @@ wayfinderApp.controller('AtozController', [
             });
 
         $timeout(function() {
-            $scope.poiObjects = wayfinderService.getPOIs();
-            $scope.atoz = wayfinderService.getAtozLetters();
+            $scope.poiObjects = wfService.getPOIs();
+            $scope.atoz = wfService.getAtozLetters();
             console.log("AtozController.data.loaded");
         }, 20);
+
+        $scope.$emit("atoz.init");
+
+        $rootScope.$on('wf.service.pois', function(e, data) {
+            console.debug("atoz received wf.service.pois", e, data);
+            $scope.atoz = data.letters;
+            $scope.poiObjects = data.pois;
+            console.debug("atoz:", $scope.atoz, "pois:", $scope.poiObjects);
+        });
     }
 ]);

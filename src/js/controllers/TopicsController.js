@@ -6,9 +6,9 @@ wayfinderApp.controller('TopicsController', [
     '$scope',
     '$timeout',
     '$routeParams',
-    'wayfinderService',
+    'wfService',
     'wfangular3d',
-    function($rootScope, $scope, $timeout, $routeParams, wayfinderService, wayfinder) {
+    function($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder) {
         $scope.groups = [];
         $scope.activeGroup = "";
 
@@ -33,7 +33,7 @@ wayfinderApp.controller('TopicsController', [
             //console.log("collapsedGroup:", oldVal, "->", newVal);
         });
 
-        $scope.$on("wf.data.loaded", function() {
+        /*$scope.$on("wf.data.loaded", function() {
             $timeout(function() {
                 $scope.groups = wayfinderService.getGroups();
                 if ($routeParams) {
@@ -47,19 +47,20 @@ wayfinderApp.controller('TopicsController', [
                 console.log("TopicsController-wf.data.loaded");
                 $scope.$apply();
             }, 20);
+        });*/
+
+        $rootScope.$emit("topics.init", $scope);
+
+        $scope.$on('wfService.groups.loading', function(event) {
+            console.debug("groups still loading, resend")
+            $timeout(function() {
+                $rootScope.$emit("topics.init", $scope);
+            },100);
         });
 
-        $timeout(function() {
-            $scope.groups = wayfinderService.getGroups();
-            if ($routeParams) {
-                for (var key in $scope.groups) {
-                    if ($scope.groups[key].id == $routeParams.id)
-                        $scope.groups[key].active = true;
-                    else
-                        $scope.groups[key].active = false;
-                }
-            }
-            console.log("TopicsController-wf.data.loaded");
-        }, 20);
+        $scope.$on('wfService.groups.loaded', function(event) {
+            console.debug("TOPICS: wfService.groups received!");
+            $scope.apply();
+        });
     }
 ]);

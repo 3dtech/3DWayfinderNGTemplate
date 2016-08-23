@@ -9,11 +9,12 @@ wayfinderApp.controller('MainController', [
   '$timeout',
   '$rootScope',
   '$location',
-  'wayfinderService',
+  'wfService',
   'keyboardService',
   'wfangular3d',
-  function($scope, $timeout, $rootScope, $location, wayfinderService, keyboardService,
+  function($scope, $timeout, $rootScope, $location, wfService, keyboardService,
         wayfinder) {
+        $scope.wayfinder = wayfinder;
         $scope.animationsEnabled = true;
         $scope.bold = ['\<b\>', '\<\/b\>'];
 
@@ -30,9 +31,9 @@ wayfinderApp.controller('MainController', [
 
         $scope.showTopic = function(group) {
             var path = '/topics&'+group.id;
-            for (var k in wayfinderService.getTabs()) {
-                if (wayfinderService.getTabs()[k].name == "topics") {
-                    wayfinderService.setActiveTab(wayfinderService.getTabs()[k]);
+            for (var k in wfService.getTabs()) {
+                if (wfService.getTabs()[k].name == "topics") {
+                    wfService.setActiveTab(wfService.getTabs()[k]);
                     break;
                 }
             }
@@ -130,14 +131,16 @@ wayfinderApp.controller('MainController', [
 
         $scope.setActiveTab = function(tab) {
             console.debug("WFC.setActvieTab:", tab);
-            wayfinderService.setActiveTab(tab);
+            wfService.setActiveTab(tab);
         };
 
         $scope.getActiveTab = function() {
-            return wayfinderService.getActiveTab();
+            return wfService.getActiveTab();
         };
 
         /*** EVENT WATCHERS ***/
 
         /*** ROOTSCOPE WATCHERS ***/
+
+        $scope.$on();
 }]);

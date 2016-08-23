@@ -4,10 +4,10 @@ wayfinderApp.controller('SearchController', [
     '$rootScope',
     '$scope',
     '$timeout',
-    'wayfinderService',
+    'wfService',
     'keyboardService',
     'wfangular3d',
-    function($rootScope, $scope, $timeout, wayfinderService, keyboardService, wayfinder) {
+    function($rootScope, $scope, $timeout, wfService, keyboardService, wayfinder) {
         var kbLayouts = [];
         var searchKeyboard = {};
         searchKeyboard.handle = '.search-keyboard';
@@ -132,7 +132,7 @@ wayfinderApp.controller('SearchController', [
             searchKeyboard.keyboard = createKeyboard(
                 searchKeyboard,
                 kbLayouts);
-            $scope.poiObjects = wayfinderService.getPOIs();
+            $scope.poiObjects = wfService.getPOIs();
             console.log("SearchController.data.loaded");
         }, 20);
 
