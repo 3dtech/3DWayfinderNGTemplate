@@ -4,7 +4,7 @@
 // --------------- Controllers ---------------
 // -------------------------------------------
 
-wayfinderApp.controller('MainController', [
+wfApp.controller('MainController', [
   '$scope',
   '$timeout',
   '$rootScope',
@@ -22,10 +22,15 @@ wayfinderApp.controller('MainController', [
 
         var lastTouch = -1;
         lastTouch = (new Date()).getTime();
-        var maxInactivityTime = 3000;
+        var maxInactivityTime = wfService.getSessionTimeout();
+
+        $scope.loadDefaultView = function() {
+            $location.path('/topics.html');
+            $scope.setActiveTab('topics');
+        };
 
         $scope.go = function(path) {
-            console.debug("path:", path);
+            //  console.debug("path:", path);
             $location.path(path);
         };
 
@@ -76,8 +81,8 @@ wayfinderApp.controller('MainController', [
         /*** ACTIVITY CHECKER ***/
 
         function checker() {
-            console.log("Checker! time since lastTouch", (((new Date())
-                .getTime() - lastTouch) / 1000), "sec");
+            //console.log("Checker! time since lastTouch", (((new Date())
+            //    .getTime() - lastTouch) / 1000), "sec");
             var time = (new Date()).getTime();
             if (time - lastTouch > maxInactivityTime) {
                 if (lastTouch > -1) {
@@ -91,17 +96,17 @@ wayfinderApp.controller('MainController', [
         };
 
         function onTimeout() {
-            console.log("onTimeout");
+            //console.log("onTimeout");
             lastTouch = -1; //Disables timeouting until somebody has touched
             wayfinder.statistics.onSessionEnd();
-            wayfinder.restoreDefaultState();
+            //wayfinder.restoreDefaultState();
             showScreensaver(); //näitame seda modalit
-            console.log(lastTouch);
+            //console.log(lastTouch);
         };
 
         $scope.trigger = function() {
-            console.log("Trigger! time since lastTouch", (((new Date())
-                .getTime() - lastTouch) / 1000), "sec");
+            //console.log("Trigger! time since lastTouch", (((new Date())
+              //  .getTime() - lastTouch) / 1000), "sec");
             //reset
             if (lastTouch == -1) {
                 //first click in a while
@@ -130,13 +135,15 @@ wayfinderApp.controller('MainController', [
         };
 
         $scope.setActiveTab = function(tab) {
-            console.debug("WFC.setActvieTab:", tab);
+            //console.debug("MC: setActvieTab:", tab);
             wfService.setActiveTab(tab);
         };
 
         $scope.getActiveTab = function() {
             return wfService.getActiveTab();
         };
+
+        $scope.tabs = wfService.getTabs();  
 
         /*** EVENT WATCHERS ***/
 

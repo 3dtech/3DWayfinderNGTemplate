@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="wfApp">
 
 <head>
     <title>3D Wayfinder</title>
@@ -15,15 +15,15 @@
     <base href="/" />
 </head>
 
-<body ng-controller="MainController as MC">
+<body ng-controller="MainController">
     <div class="container row" ng-click="trigger()">
         <!-- HEADER -->
         <div class="header row columns small-12 expanded">
             <div class="lang-menu columns small-2 medium-1"></div>
             <div class="logo columns small-2"></div>
             <div class="title columns show-for-medium medium-4" ng-bind-html="getGUITranslation(title)"></div>
-            <div class="nav-menu-btn small-2 small-offset-6 medium-1 medium-offset-4" onclick="toggleNavMenu()" ng-click="setActiveTab('topics')">
-                <div class="fa fa-bars"></div>
+            <div class="nav-menu-btn small-2 small-offset-6 medium-1 medium-offset-4" onclick="toggleNavMenu()" ng-click="loadDefaultView()">
+                <div class="fa fa-search"></div>
             </div>
         </div>
         <!-- CONTENT CONTAINER -->
@@ -50,7 +50,7 @@
                     <a class="icon-topics" href="#/topics"></a>
                     -->
                 </div>
-                <div class="tab-contents row"></div>
+                <div class="tab-contents row" ng-view></div>
             </div>
         </div>
     </div>

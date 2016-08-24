@@ -1,4 +1,4 @@
-wayfinderApp.factory('keyboardService', ['$rootScope', function($scope) {
+wfApp.factory('keyboardService', ['$rootScope', function($scope) {
     var kbLayoutEt = {
       "name": "Estonian",
       "local_name": "Eesti",

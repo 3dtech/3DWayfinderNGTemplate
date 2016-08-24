@@ -1,4 +1,4 @@
-wayfinderApp.directive('floorButton', function() {
+wfApp.directive('floorButton', function() {
 	return {
 		restrict: 'E',
 		scope: {

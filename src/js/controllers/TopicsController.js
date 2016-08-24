@@ -1,37 +1,41 @@
 //var groupsModule = angular.module('wf.groups', ['wfangular']);
 
 //groupsModule.controller('GroupsCtrl', [
-wayfinderApp.controller('TopicsController', [
+wfApp.controller( 'TopicsController', [
     '$rootScope',
     '$scope',
     '$timeout',
     '$routeParams',
     'wfService',
     'wfangular3d',
-    function($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder) {
+    function ( $rootScope, $scope, $timeout, $routeParams, wfService,
+        wayfinder ) {
+        console.debug( "TC.loaded" );
+        var topics = $scope;
         $scope.groups = [];
         $scope.activeGroup = "";
+        var wfTopicsDataLoaded = false;
 
         $scope.collapsedGroup = [];
         $scope.collapsedFloor = [];
         $scope.activeLetter = "";
 
-        $scope.toggleGroupActive = function(group) {
+        $scope.toggleGroupActive = function ( group ) {
             group.active != group.active;
             return;
         };
 
-        $scope.getLanguage = function() {
+        $scope.getLanguage = function () {
             return wayfinder.getLanguage();
         };
 
-        $scope.expand = function(group) {
+        $scope.expand = function ( group ) {
             group.show = !group.show;
         };
 
-        $scope.$watch("collapsedGroup", function(newVal, oldVal) {
+        $scope.$watch( "collapsedGroup", function ( newVal, oldVal ) {
             //console.log("collapsedGroup:", oldVal, "->", newVal);
-        });
+        } );
 
         /*$scope.$on("wf.data.loaded", function() {
             $timeout(function() {
@@ -49,18 +53,25 @@ wayfinderApp.controller('TopicsController', [
             }, 20);
         });*/
 
-        $rootScope.$emit("topics.init", $scope);
+        $rootScope.$emit( "topics.init", topics );
 
-        $scope.$on('wfService.groups.loading', function(event) {
-            console.debug("groups still loading, resend")
-            $timeout(function() {
-                $rootScope.$emit("topics.init", $scope);
-            },100);
-        });
+        /*topics.$on( 'wfService.groups.loading', function ( event ) {
+            console.debug( "TOPICS: wfService.loading " );
+            $timeout( function () {
+                $rootScope.$emit( "topics.init", topics );
+            }, 100 );
+        } );
 
-        $scope.$on('wfService.groups.loaded', function(event) {
-            console.debug("TOPICS: wfService.groups received!");
-            $scope.apply();
-        });
+        topics.$on( 'wfService.groups.loaded', function ( event,
+            data ) {
+            if ( !wfTopicsDataLoaded ) {
+                $scope.$apply( function () {
+                    wfTopicsDataLoaded = true;
+                    console.debug(
+                        "TOPICS: wfService.loaded" );
+                    //topics.groups = wfService.getGroups();
+                } );
+            }
+        } );*/
     }
-]);
+] );

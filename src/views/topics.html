@@ -2,22 +2,24 @@
 <div class="tab-content">
     <div class="topics dragscroll" id="style-7">
         <div ng-repeat="group in groups" class="topic">
-            <div class="topic-head" ng-click="group.active = !group.active">
-                <span class="topic-toggle btn-circle fa" ng-class="group.active ? 'fa-angle-up':'fa-angle-down'"></span>
-                <span class="topic-name" ng-bind-html="group.getNames() | wfCurrentLanguage" style="color: {{getColorRGBA(group)}}">
-                  </span>
+            <div class="topic-head columns small-12" ng-click="group.active = !group.active">
+                <div class="topic-name left columns small-9 medium-10 large-11" ng-bind-html="group.getNames() | wfCurrentLanguage" style="color: {{getColorRGBA(group)}}">
+                  </div>
+                <div class="topic-toggle right columns small-3 medium-2 large-1 button-group">
+                    <div class="btn-circle fa button" ng-class="group.active ? 'fa-angle-up':'fa-angle-down'"></div>
+                </div>
             </div>
             <div class="list topic-list" ng-class="group.active ? 'active':''">
                 <div class="poi row" ng-repeat="poi in group.pois | orderBy:'names.translations.'+getLanguage()">
                     <div class="texts columns small-8 medium-10 left">
-                        <div class="name columns small-12" ng-click="showInfo(poi)" ng-bind-html="poi.getName(getLanguage())"></div>
+                        <div class="name columns small-12" ng-click="showInfo(poi)" ng-bind-html="poi.getNames() | wfCurrentLanguage"></div>
                     </div>
-                    <div class="icons columns small-4 medium-2 right">
-                        <div id="icon" class="icon-info" ng-click="showInfo(poi)"></div>
-                        <div id="icon" class="icon-goto" ng-click="showPath(poi)"></div>
+                    <div class="icons columns small-4 medium-2 right button-group">
+                        <div id="icon" class="icon-info button" ng-click="showInfo(poi)"></div>
+                        <div id="icon" class="icon-goto button" ng-click="showPath(poi)"></div>
                     </div>
-                    <!-- <span class="group" ng-bind-html="group.getName(getLanguage())" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)"> -->
-                    </span>
+                    <!-- <span class="group" ng-bind-html="group.getName(getLanguage())" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)"> 
+                    </span>-->
                 </div>
             </div>
         </div>

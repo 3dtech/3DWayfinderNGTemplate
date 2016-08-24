@@ -1,6 +1,6 @@
 //var keyboardModule = angular.module('wf.keyboard', ['wfangular', 'wf.languages']);
 
-wayfinderApp.controller('KeyboardController', [
+wfApp.controller('KeyboardController', [
   '$scope',
   '$rootScope',
   '$http',
@@ -17,7 +17,7 @@ wayfinderApp.controller('KeyboardController', [
   }
 ]);
 
-wayfinderApp.directive('myText', ['$rootScope', '$document', function($rootScope, $document) {
+wfApp.directive('myText', ['$rootScope', '$document', function($rootScope, $document) {
   return {
     link: function(scope, element, attrs) {
       $rootScope.$on('keyPressed', function(e, val, action) {
@@ -83,7 +83,7 @@ wayfinderApp.directive('myText', ['$rootScope', '$document', function($rootScope
   }
 }]);
 
-wayfinderApp.directive('myEnter', function() {
+wfApp.directive('myEnter', function() {
   return function(scope, element, attrs) {
     element.bind("keydown keypress", function(event) {
       if (event.which === 13) {

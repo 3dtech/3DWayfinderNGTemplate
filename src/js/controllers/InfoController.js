@@ -1,7 +1,7 @@
 //var groupsModule = angular.module('wf.groups', ['wfangular']);
 
 //groupsModule.controller('GroupsCtrl', [
-wayfinderApp.controller('InfoController', [
+wfApp.controller('InfoController', [
     '$rootScope',
     '$scope',
     '$timeout',

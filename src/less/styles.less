@@ -281,7 +281,14 @@ input::-ms-clear {
             }
         }
         .icons {
+            height: 100%;
+            position: relative;
             #icon {
+                position: relative;
+                top: 0;
+                bottom: 0;
+                margin-top: auto;
+                margin-bottom: auto;
                 background: none;
                 color: @color-button-light;
                 border-radius: 5rem;
@@ -312,7 +319,7 @@ input::-ms-clear {
         margin: 0;
         .tab-heads {
             width: 100%;
-            height: @tab-heads-height-md;
+            height: @tab-heads-height-m;
             margin: 0;
             position: relative;
             .tab-head {
@@ -400,30 +407,51 @@ input::-ms-clear {
     position: relative;
     height: 100%;
     width: 100%;
-    overflow: auto;
-    .topic-name {
-        margin-left: 1em;
-        color: @color-text-dark;
+    overflow-x: hidden;
+    .topic-head {
+        position: relative;
+        height: 100%;
+        .topic-toggle {
+            position: relative;
+            vertical-align: middle;
+            height: 100%;
+            margin: 0;
+            display: inline-block;
+            .btn-circle {
+                display: inline-block;
+            }
+        }
+        .topic-name {
+            color: @color-text-dark;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        > div {
+            display: inline-block;
+        }
     }
     .btn-circle {
-        height: 2.2rem;
-        width: 2.2rem;
-        line-height: 2.2rem;
+        position: relative;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
         text-align: center;
         border-radius: 3rem;
-        font-size: 1rem;
         border: thin solid @color-button-light;
         padding: 0px;
         color: @color-button-light;
+        background-color: transparent;
         display: inline-block;
     }
     .topic {
         position: relative;
-        margin: 10px;
+        margin: 10px 0;
         /*height: @group-height;*/
         vertical-align: middle;
         font-size: 2rem;
-        padding: 10px;
         transition: all .5s ease-in-out;
         line-height: @group-height;
         .topic-list {
@@ -431,7 +459,15 @@ input::-ms-clear {
             height: 0;
             overflow: hidden;
             transition: all .5s ease-in-out;
-            padding-left: 2.75em;
+            .texts {
+                height: 100%;
+                .name {
+                    height: 100%;
+                    vertical-align: middle;
+                    line-height: 2;
+                    padding: 0;
+                }
+            }
         }
         .active {
             height: auto;
@@ -822,10 +858,6 @@ hr {
     user-select: none;
 }
 
-.dragscroll {
-    overflow: auto;
-}
-
 #info {
     position: absolute;
     width: 100%;
@@ -912,7 +944,7 @@ hr {
     font-size: 3rem;
 }
 
-@media screen and (min-width: 360px) {
+@media screen and (min-width: 320px) {
     .header {
         height: @header-height-s;
         .icon {
@@ -942,10 +974,17 @@ hr {
         font-size: 1.5rem;
     }
     .topics {
-        font-size: 1rem;
+        font-size: @font-size-s ;
+        .btn-circle {
+            height: @list-icon-size-s;
+            width: @list-icon-size-s;
+            line-height: @list-icon-size-s;
+            font-size: @list-icon-size-s*0.75;
+        }
     }
     .topic-name {
-        font-size: 1.5rem;
+        vertical-align: middle;
+        font-size: @font-size-s;
     }
     .tab-contents {
         padding: 1rem;
@@ -959,6 +998,7 @@ hr {
         margin-left: 1rem;
         position: relative;
         .poi {
+            position: relative;
             display: block;
             .texts {
                 display: inline-block;
@@ -980,17 +1020,24 @@ hr {
                 }
             }
             .icons {
+                position: absolute;
                 display: inline-block;
                 vertical-align: middle;
+                margin: 0;
                 height: 100%;
                 #icon {
+                    top: 0;
+                    bottom: 0;
+                    padding: 0;
                     position: relative;
                     display: inline-block;
-                    font-size: 1.5rem;
-                    width: 2.2rem;
-                    height: 2.2rem;
-                    line-height: 2.2rem;
-                    margin: 0 .25rem 0 0;
+                    font-size: @list-icon-size-s*0.65;
+                    width: @list-icon-size-s;
+                    height: @list-icon-size-s;
+                    line-height: @list-icon-size-s;
+                    margin-right: .25rem;
+                    margin-top: auto;
+                    margin-bottom: auto;
                     :before {
                         position: absolute;
                         left: 0;
@@ -1055,7 +1102,7 @@ hr {
                     width: 2.2rem;
                     height: 2.2rem;
                     line-height: 2.2rem;
-                    margin: 0 .25rem 0 0;
+                    margin-right: .25rem;
                     :before {
                         position: absolute;
                         left: 0;

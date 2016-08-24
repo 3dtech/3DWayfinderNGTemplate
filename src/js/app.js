@@ -1,5 +1,5 @@
 // Declare app level module which depends on filters, and services
-var wayfinderApp = angular.module('app', [
+var wfApp = angular.module('wfApp', [
     'ngSanitize',
     /*'ngAnimate',*/
     'ngRoute',
@@ -14,7 +14,7 @@ var wayfinderApp = angular.module('app', [
     'wf.zoom' */ // all modules go here, and into separate files and into the folder modules/<modulename>
 ]);
 
-wayfinderApp.run(['wfangular3d', '$rootScope', '$http', '$route', function(wayfinder,
+wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', function(wayfinder,
     $rootScope, $http, $route) {
     $route.reload();
     //WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
@@ -30,7 +30,7 @@ wayfinderApp.run(['wfangular3d', '$rootScope', '$http', '$route', function(wayfi
 // ----------------- config -----------------
 // ------------------------------------------
 
-wayfinderApp.config(['$routeProvider', '$locationProvider', '$httpProvider', function($route, $locationProvider, $httpProvider) {
+wfApp.config(['$routeProvider', '$locationProvider', '$httpProvider', function($route, $locationProvider, $httpProvider) {
     $route
         .when('/', {
             templateUrl: "views/default.html",
@@ -62,7 +62,7 @@ wayfinderApp.config(['$routeProvider', '$locationProvider', '$httpProvider', fun
             controller: 'TopicsController'
         })
         .otherwise({
-            redirectTo: '/'
+            redirectTo: '/topics'
         });
 
     $locationProvider.html5Mode({
@@ -74,7 +74,7 @@ wayfinderApp.config(['$routeProvider', '$locationProvider', '$httpProvider', fun
     $httpProvider.useApplyAsync(true);
 }]);
 
-wayfinderApp.directive('resize', function($window) {
+wfApp.directive('resize', function($window) {
     return {
         restrict: 'AEC',
         scope: {

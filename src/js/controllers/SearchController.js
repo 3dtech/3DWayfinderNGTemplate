@@ -1,13 +1,14 @@
 //var groupsModule = angular.module('wf.groups', ['wfangular']);
 
-wayfinderApp.controller('SearchController', [
+wfApp.controller( 'SearchController', [
     '$rootScope',
     '$scope',
     '$timeout',
     'wfService',
     'keyboardService',
     'wfangular3d',
-    function($rootScope, $scope, $timeout, wfService, keyboardService, wayfinder) {
+    function ( $rootScope, $scope, $timeout, wfService, keyboardService,
+        wayfinder ) {
         var kbLayouts = [];
         var searchKeyboard = {};
         searchKeyboard.handle = '.search-keyboard';
@@ -15,59 +16,59 @@ wayfinderApp.controller('SearchController', [
         $scope.textToSearch = "";
         $scope.showKeyboard = true;
 
-        $scope.showPath = function(poi) {
-            wayfinder.showPath(poi.getNode(), poi);
+        $scope.poiObjects = [];
+
+        $scope.showPath = function ( poi ) {
+            wayfinder.showPath( poi.getNode(), poi );
         };
 
-        $scope.getLanguage = function() {
+        $scope.getLanguage = function () {
             return wayfinder.getLanguage();
         };
 
-        $scope.searchPOIsNames = function(poi) {
-            if (!poi) return;
-            if (poi
-                .names.translations[$scope.getLanguage()]
+        $scope.searchPOIsNames = function ( poi ) {
+            if ( !poi ) return;
+            if ( poi
+                .names.translations[ $scope.getLanguage() ]
                 .toLowerCase()
-                .match($scope.textToSearch.toLowerCase()))
+                .match( $scope.textToSearch.toLowerCase() ) )
                 return true;
             return false;
         };
 
-        $scope.searchText = "";
-
-        $scope.poiObjects = [];
+/*        $scope.searchText = "";
 
         $scope.filterText = {};
         $scope.filterText.names = {};
         $scope.filterText.names.translations = {};
-        $scope.filterText.names.translations[$scope.getLanguage()] =
+        $scope.filterText.names.translations[ $scope.getLanguage() ] =
             "";
 
         // Instantiate these variables outside the watch
         var tempFilterText = '',
             filterTextTimeout;
+*/
+        function createKeyboard( keyboard, layouts ) {
+            var newKeyboard = new Keyboard( $( keyboard.handle ),
+                $scope.getLanguage() );
+            console.debug( "createKeyboard.newKeyboard:", newKeyboard );
 
-        function createKeyboard(keyboard, layouts) {
-            var newKeyboard = new Keyboard($(keyboard.handle),
-                $scope.getLanguage());
-            console.debug("createKeyboard.newKeyboard:", newKeyboard);
+            for ( var i in layouts )
+                newKeyboard.addLayout( layouts[ i ].lang, layouts[ i ] );
 
-            for (var i in layouts)
-                newKeyboard.addLayout(layouts[i].lang, layouts[i]);
+            newKeyboard.setOutput( $( keyboard.target ) );
 
-            newKeyboard.setOutput($(keyboard.target));
-
-            newKeyboard.cbOnChange = function(val) {
-                console.log("me:", val);
-                $(keyboard.handle).trigger("keypressed");
-                $rootScope.$broadcast("wf.keyboard.change", val);
+            newKeyboard.cbOnChange = function ( val ) {
+                console.log( "me:", val );
+                $( keyboard.handle ).trigger( "keypressed" );
+                $rootScope.$broadcast( "wf.keyboard.change", val );
             };
 
             newKeyboard.construct();
             newKeyboard.show();
             return newKeyboard;
         }
-
+        
         /*$scope.getColorRGBA = function(group) {
             //Function to convert hex format to a rgb textColor
             if (!group) return;
@@ -80,32 +81,35 @@ wayfinderApp.controller('SearchController', [
             return textColor;
         };*/
 
-        $scope.$watch('textToSearch', function(data) {
-            if (!data) return;
-            console.debug("filtered poiObjects:", data);
-            $timeout(function() {
-                console.debug("filtered:", $scope.filteredPois.length);
-                if ($scope.filteredPois.length != 0)
-                    wayfinder.statistics.onSearch(data, "successful");
-                else 
-                    wayfinder.statistics.onSearch(data, "unsuccessful");
-            }, 20);
-        });
+        $scope.$watch( 'textToSearch', function ( data ) {
+            if ( !data ) return;
+            console.debug( "filtered poiObjects:", data );
+            $timeout( function () {
+                console.debug( "filtered:", $scope.filtered
+                    .length );
+                if ( $scope.filtered.length != 0 )
+                    wayfinder.statistics.onSearch( data,
+                        "successful" );
+                else
+                    wayfinder.statistics.onSearch( data,
+                        "unsuccessful" );
+            }, 20 );
+        } );
 
-        $scope.$watch('searchText', function(val) {
-            if (tempFilterText == val) return;
-            console.log("SearchController.searchText.changed:",
-                val);
-            if (filterTextTimeout) $timeout.cancel(
-                filterTextTimeout);
+        /*$scope.$watch( 'searchText', function ( val ) {
+            if ( tempFilterText == val ) return;
+            console.log( "SearchController.searchText.changed:",
+                val );
+            if ( filterTextTimeout ) $timeout.cancel(
+                filterTextTimeout );
 
             tempFilterText = val;
-            filterTextTimeout = $timeout(function() {
+            filterTextTimeout = $timeout( function () {
                 $scope.filterText.names.translations[
-                        $scope.getLanguage()] =
+                        $scope.getLanguage() ] =
                     tempFilterText;
-            }, 10); // delay 250 ms
-        });
+            }, 10 ); // delay 250 ms
+        } ); */
         /*
         $rootScope.$on("wf.search-text.change", function(event, val) {
             console.log("search-event:", val);
@@ -121,20 +125,23 @@ wayfinderApp.controller('SearchController', [
             }, 10); // delay 250 ms
         });
 */
-        $rootScope.$on("wf.language.change", function(event, language) {
-            console.log("searchKeyboard:", searchKeyboard);
-            if (searchKeyboard.keyboard)
-                searchKeyboard.keyboard.changeLayout(language);
-        });
+        $rootScope.$on( "wf.language.change", function ( event,
+            language ) {
+            console.log( "searchKeyboard:", searchKeyboard );
+            if ( searchKeyboard.keyboard )
+                searchKeyboard.keyboard.changeLayout( language );
+        } );
 
-        $timeout(function() {
+        $timeout( function () {
             kbLayouts = keyboardService.getLayouts();
             searchKeyboard.keyboard = createKeyboard(
                 searchKeyboard,
-                kbLayouts);
+                kbLayouts );
             $scope.poiObjects = wfService.getPOIs();
-            console.log("SearchController.data.loaded");
-        }, 20);
+            console.log( "SearchController.data.loaded" );
+        }, 20 );
+
+        $rootScope.$emit( "search.init", $scope );
 
     }
-]);
+] );
