@@ -1,7 +1,7 @@
 <!-- TOPICS -->
 <div class="tab-content">
-    <div class="topics dragscroll" id="style-7">
-        <div ng-repeat="group in groups" class="topic">
+    <div class="topics" class="dragscroll" id="style-7">
+        <div class="topic" ng-repeat="group in groups">
             <div class="topic-head columns small-12" ng-click="group.active = !group.active">
                 <div class="topic-name left columns small-9 medium-10 large-11" ng-bind-html="group.getNames() | wfCurrentLanguage" style="color: {{getColorRGBA(group)}}">
                   </div>
@@ -18,7 +18,7 @@
                         <div id="icon" class="icon-info button" ng-click="showInfo(poi)"></div>
                         <div id="icon" class="icon-goto button" ng-click="showPath(poi)"></div>
                     </div>
-                    <!-- <span class="group" ng-bind-html="group.getName(getLanguage())" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)"> 
+                    <!-- <span class="group" ng-bind-html="group.getName(getLanguage())" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)">
                     </span>-->
                 </div>
             </div>

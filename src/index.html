@@ -7,8 +7,7 @@
     <meta name="layout" content="wfAngular">
     <meta name="description" content="3DWayfinder WebGL">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet'
-        type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -21,8 +20,13 @@
         <div class="header row columns small-12 expanded">
             <div class="lang-menu columns small-2 medium-1"></div>
             <div class="logo columns small-2"></div>
-            <div class="title columns show-for-medium medium-4" ng-bind-html="getGUITranslation(title)"></div>
-            <div class="nav-menu-btn small-2 small-offset-6 medium-1 medium-offset-4" onclick="toggleNavMenu()" ng-click="loadDefaultView()">
+            <!-- <div class="title columns small-6 medium-4" ng-bind-html="getGUITranslation(title)"> -->
+            <div class="title columns small-6 medium-4">
+                <span id="width"></span>
+                <br/>
+                <span id="height"></span>
+            </div>
+            <div class="nav-menu-btn small-2  medium-1 medium-offset-4" onclick="toggleNavMenu()" ng-click="loadDefaultView()">
                 <div class="fa fa-search"></div>
             </div>
         </div>
@@ -41,8 +45,7 @@
         <div id="nav-menu" class="row">
             <div class="tabs-container">
                 <div class="tab-heads button-group row expanded">
-                    <div class="tab-head button" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}"
-                        ng-click="go(tab.link); setActiveTab(tab);">
+                    <div class="tab-head button" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}" ng-click="go(tab.link); setActiveTab(tab);">
                         <div class="icon {{tab.icon}}"></div>
                     </div>
                     <!--
@@ -85,54 +88,64 @@
     <script type="text/javascript" src="js/services/keyboardService.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script type="text/javascript">
-    var clicked = false,
-        clickY;
-    $(document).on({
-        'mousemove': function(e) {
-            clicked && updateScrollPos(e);
-        },
-        'mousedown': function(e) {
-            clicked = true;
-            clickY = e.pageY;
-        },
-        'mouseup': function() {
-            clicked = false;
-            $('html').css('cursor', 'auto');
+        var clicked = false,
+            clickY;
+        $(document).on({
+            'mousemove': function(e) {
+                clicked && updateScrollPos(e);
+            },
+            'mousedown': function(e) {
+                clicked = true;
+                clickY = e.pageY;
+            },
+            'mouseup': function() {
+                clicked = false;
+                $('html').css('cursor', 'auto');
+            }
+        });
+        $(window).resize(function() {
+            $('#width').text("width: " + $(document).innerWidth() + "px");
+            $('#height').text("height: " + $(document).innerHeight() + "px");
+        }).resize();
+        $(document).ready(function() {
+            $(document).foundation();
+        });
+
+        var updateScrollPos = function(e) {
+            $('html').css('cursor', 'row-resize');
+            $(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
         }
-    });
 
-    $(document).ready(function() {
-        $(document).foundation();
-    });
-
-    var updateScrollPos = function(e) {
-        $('html').css('cursor', 'row-resize');
-        $(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
-    }
-
-    var toggleNavMenu = function() {
-        console.log("top:", parseInt($('#nav-menu').css('top')));
-
-        if (parseInt($('#nav-menu').css('top'))/parseInt(window.innerHeight) == 1) {
-            $('#nav-menu').animate({
-                top: 10 + '%',
-            }, 500, function() {
-                $(this).css({
-                    'display': "block"
-                });
-            });
-        } else {
-            $('#nav-menu').animate({
+        var hideNavMenu = function() {
+            $("#nav-menu").animate({
                 top: 100 + '%',
             }, 500, function() {
+                $(".header").find(".nav-menu-btn").find(".fa-times").removeClass(".fa-times").addClass(".fa-search");
             });
-        }
-    }
-    var wayfinder;
-    setTimeout(function() {
-        wayfinder = angular.element(document.body).scope().wayfinder;
-    }, 1000)
+        };
 
+        var toggleNavMenu = function() {
+            console.log("top:", parseInt($('#nav-menu').css('top')));
+
+            if (parseInt($('#nav-menu').css('top')) / parseInt(window.innerHeight) == 1) {
+                $('#nav-menu').animate({
+                    top: 10 + '%',
+                }, 500, function() {
+                    $(".nav-menu-btn .fa.fa-search").removeClass("fa-search").addClass("fa-times");
+                });
+            }
+            else {
+                $('#nav-menu').animate({
+                    top: 100 + '%',
+                }, 500, function() {
+                    $(".nav-menu-btn .fa.fa-times").removeClass("fa-times").addClass("fa-search");
+                });
+            }
+        }
+        var wayfinder;
+        setTimeout(function() {
+            wayfinder = angular.element(document.body).scope().wayfinder;
+        }, 1000)
     </script>
 </body>
 
