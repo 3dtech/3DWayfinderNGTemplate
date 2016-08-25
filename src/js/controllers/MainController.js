@@ -42,6 +42,7 @@ wfApp.controller('MainController', [
                     break;
                 }
             }
+            $scope.$broadcast("wf.topic.selected", group);
             $location.path(path);
         };
 
@@ -143,7 +144,7 @@ wfApp.controller('MainController', [
             return wfService.getActiveTab();
         };
 
-        $scope.tabs = wfService.getTabs();  
+        $scope.tabs = wfService.getTabs();
 
         /*** EVENT WATCHERS ***/
 

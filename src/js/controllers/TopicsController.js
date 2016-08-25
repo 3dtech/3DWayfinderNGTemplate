@@ -1,16 +1,16 @@
 //var groupsModule = angular.module('wf.groups', ['wfangular']);
 
 //groupsModule.controller('GroupsCtrl', [
-wfApp.controller( 'TopicsController', [
+wfApp.controller('TopicsController', [
     '$rootScope',
     '$scope',
     '$timeout',
     '$routeParams',
     'wfService',
     'wfangular3d',
-    function ( $rootScope, $scope, $timeout, $routeParams, wfService,
-        wayfinder ) {
-        console.debug( "TC.loaded" );
+    function($rootScope, $scope, $timeout, $routeParams, wfService,
+        wayfinder) {
+        console.debug("TC.loaded");
         var topics = $scope;
         $scope.groups = [];
         $scope.activeGroup = "";
@@ -20,22 +20,22 @@ wfApp.controller( 'TopicsController', [
         $scope.collapsedFloor = [];
         $scope.activeLetter = "";
 
-        $scope.toggleGroupActive = function ( group ) {
+        $scope.toggleGroupActive = function(group) {
             group.active != group.active;
             return;
         };
 
-        $scope.getLanguage = function () {
+        $scope.getLanguage = function() {
             return wayfinder.getLanguage();
         };
 
-        $scope.expand = function ( group ) {
+        $scope.expand = function(group) {
             group.show = !group.show;
         };
 
-        $scope.$watch( "collapsedGroup", function ( newVal, oldVal ) {
+        $scope.$watch("collapsedGroup", function(newVal, oldVal) {
             //console.log("collapsedGroup:", oldVal, "->", newVal);
-        } );
+        });
 
         /*$scope.$on("wf.data.loaded", function() {
             $timeout(function() {
@@ -53,7 +53,19 @@ wfApp.controller( 'TopicsController', [
             }, 20);
         });*/
 
-        $rootScope.$emit( "topics.init", topics );
+        $rootScope.$emit("topics.init", topics);
+
+        $scope.$on('wf.topic.selected', function(event, group) {
+
+            if ($routeParams) {
+                for (var key in $scope.groups) {
+                    if ($scope.groups[key].id == $routeParams.id)
+                        $scope.groups[key].active = true;
+                    else
+                        $scope.groups[key].active = false;
+                }
+            }
+        });
 
         /*topics.$on( 'wfService.groups.loading', function ( event ) {
             console.debug( "TOPICS: wfService.loading " );
@@ -74,4 +86,4 @@ wfApp.controller( 'TopicsController', [
             }
         } );*/
     }
-] );
+]);
