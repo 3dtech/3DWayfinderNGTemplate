@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var plumber = require('gulp-plumber');
 var watch = require('gulp-watch');
 var concat = require('gulp-concat');
 var debug = require('gulp-debug');
@@ -46,10 +47,13 @@ gulp.task('browserSync', ['default'], function() {
         port: 8080,
         server: {
             baseDir: baseDir,
-            files: baseDir+"/*"
+            files: baseDir + "/*"
                 /*routes: {
                   "bower_components": "bower_components"
                 }*/
+        },
+        ui: {
+            port: 8081
         },
         logLevel: "info",
         /* https: true */
@@ -57,7 +61,9 @@ gulp.task('browserSync', ['default'], function() {
 });
 
 gulp.task('clean', function() {
-    return del([distFolder + '**', '!' + distFolder], { force: true });
+    return del([distFolder + '**', '!' + distFolder], {
+        force: true
+    });
 });
 
 gulp.task('html', function() {
@@ -136,6 +142,7 @@ gulp.task('css', function() {
 
 gulp.task('less', function() {
     return gulp.src('./src/less/styles.less')
+        .pipe(plumber())
         .pipe(less({
             paths: [path.join(__dirname, 'less')]
         }))
