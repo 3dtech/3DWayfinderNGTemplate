@@ -3,9 +3,9 @@
     <div class="topics" class="dragscroll" id="style-7">
         <div class="topic" ng-repeat="group in groups">
             <div class="topic-head columns small-12" ng-click="group.active = !group.active">
-                <div class="topic-name left columns small-9 medium-10 large-11" ng-bind-html="group.getNames() | wfCurrentLanguage" style="color: {{getColorRGBA(group)}}">
+                <div class="topic-name left columns small-10 medium-11" ng-bind-html="group.getNames() | wfCurrentLanguage" style="color: {{getColorRGBA(group)}}">
                   </div>
-                <div class="topic-toggle right columns small-3 medium-2 large-1 button-group">
+                <div class="topic-toggle right columns small-2 medium-1 button-group">
                     <div class="btn-circle fa button" ng-class="group.active ? 'fa-angle-up':'fa-angle-down'"></div>
                 </div>
             </div>

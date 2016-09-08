@@ -3,6 +3,9 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
     var poiGroups = null;
     var poiObjects = null;
     var floorPOIs = null;
+    var floors = null;
+    var activeFloor = null;
+    var shortcuts = null;
     var atozLetters = null;
     var atozLettersLoaded = null;
     var poiObjectsLoaded = null;
@@ -49,7 +52,28 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
             default:
                 return Boolean( string );
         }
-    }
+    };
+
+    function extractFloors( wfFloors ) {
+        console.debug("extractFloors:", wfFloors);
+        var arr = [];
+        for ( var floor in wfFloors ) {
+            wfFloors[ floor ].active = false;
+            arr.push( wfFloors[ floor ] );
+        }
+        console.debug("extractFloors:", arr);
+        
+        return arr;
+    };
+
+    function extractShortcuts( wfShortcuts ) {
+        var arr = [];
+        for ( var shortcut in wfShortcuts ) {
+            if ( stringToBoolean( wfShortcuts[ shortcut ].showInTopMenu ) )
+                arr.push( wfShortcuts[ shortcut ] );
+        };
+        return arr;
+    };
 
     function extractGroups( groups ) {
         var arr = [];
@@ -208,6 +232,16 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
     /**** TESTING on demand loading ****/
 
     /*** SCOPE WATCHERS ***/
+    $rootScope.$on( 'wf.floor.change', function ( event, floor ) {
+        console.debug( "floor.change:", floor, floors );
+        activeFloor = floor;
+        angular.forEach( floors, function ( value, key ) {
+            if ( value.index == floor.index )
+                value.active = true;
+            else
+                value.active = false;
+        } );
+    } );
     $rootScope.$on( 'wf.language.change', function ( key ) {} );
 
     $rootScope.$on( 'app.screensaving', function ( event,
@@ -236,6 +270,13 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
             wfDataLoaded = true;
             $rootScope.$apply(
                 function () {
+                    if ( floors == null )
+                        floors = extractFloors(
+                            wayfinder.building.getFloors()
+                        );
+                    if ( shortcuts == null )
+                        shortcuts = extractShortcuts(
+                            wayfinder.getPOIGroups() );
                     if ( poiGroups == null )
                         poiGroups = extractGroups(
                             wayfinder.getPOIGroups() );
@@ -280,6 +321,12 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
             console.log( "wfService.setPOIs" );
             poiObjects = extractPOIs( pois );
         },*/
+        getFloors: function () {
+            return floors;
+        },
+        getShortcuts: function () {
+            return shortcuts;
+        },
         getFloorsPOIs: function () {
             return floorPOIs;
         },
@@ -304,6 +351,9 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
         },
         getSessionTimeout: function () {
             return maxInactivityTime;
+        },
+        getActiveFloor: function () {
+            return activeFloor;
         }
     };
 } ] );
