@@ -18,22 +18,22 @@
     <body ng-controller="MainController">
         <div class="container row" ng-click="trigger()">
             <!-- HEADER -->
-            <div class="header row columns small-12 expanded">
-                <div class="lang-menu columns small-2 medium-1"></div>
+            <div id="header" class="row expanded">
+                <div class="lang-menu columns small-2"></div>
                 <div class="logo columns small-2"></div>
                 <!-- <div class="title columns small-6 medium-4" ng-bind-html="getGUITranslation(title)"> -->
-                <div class="title columns small-6 medium-4">
+                <div class="title columns small-6">
                     <span id="width"></span>
                     <br/>
                     <span id="height"></span>
                 </div>
-                <div class="nav-menu-btn small-2  medium-1 medium-offset-4" onclick="toggleNavMenu()"
+                <div id="nav-menu-btn" class="columns small-2" onclick="toggleNavMenu()"
                     ng-click="loadDefaultView()">
-                    <div class="fa fa-search"></div>
+                    <div class="icon fa fa-search"></div>
                 </div>
             </div>
             <!-- CONTENT CONTAINER -->
-            <div class="content-container">
+            <div id="content-container" class="row expanded">
                 <!-- MAP CONTAINER -->
                 <div class="map-container" id="map-tab" resize cb-resize="cbResizeCtrl()">
                     <canvas class="map" id="map" ng-style="style()"></canvas>

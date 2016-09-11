@@ -136,7 +136,7 @@ wfApp.directive( 'shortcutButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="shortcut-button" class="button" ng-repeat="shortcut in shortcuts" ng-bind-html="shortcut.getNames() | wfCurrentLanguage"></div>'
+        template: '<div id="shortcut-button" class="button" ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts" style="background-image: url({{shortcut.backgroundImage}})"></div>'
     }
 } );
 
@@ -144,7 +144,7 @@ wfApp.directive( 'floorsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="floors-menu" class="button-group"><floor-button></floor-button></div>'
+        template: '<div id="floors-menu" class="button-group expanded"><floor-button></floor-button></div>'
     }
 } );
 
@@ -152,7 +152,7 @@ wfApp.directive( 'shortcutsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="shortcuts-menu" class="button-group vertical"><shortcut-button></shortcut-button></div>'
+        template: '<div id="shortcuts-menu" class="button-group expanded"><shortcut-button></shortcut-button></div>'
     }
 } );
 

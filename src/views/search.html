@@ -16,19 +16,19 @@
         <div class="result-container" id="style-7">
             <div class="list dragscroll" id="style-7">
                 <div class="poi row" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:searchPOIsNames as filtered">
-                    <div class="texts columns small-8 medium-10 left">
+                    <div class="texts columns small-8 medium-9 left">
                         <div class="name columns small-12 medium-6" ng-click="showInfo(poi)" ng-bind-html="poi.getName(getLanguage())"></div>
                         <div class="group columns small-12 medium-6" ng-bind-html="group.getName(getLanguage())"
                             ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};"
                             ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)">
                         </div>
                     </div>
-                    <div class="icons columns small-4 medium-2 right button-group">
-                        <div id="icon" class="icon-goto button" ng-click="showPath(poi)"></div>
+                    <div class="icons columns small-4 medium-3 right button-group">
+                        <div id="icon" class="icon-goto button" onclick="toggleNavMenu()" ng-click="showPath(poi)"></div>
                         <div id="icon" class="icon-info button" ng-click="showInfo(poi)"></div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>

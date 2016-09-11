@@ -62,15 +62,19 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
             arr.push( wfFloors[ floor ] );
         }
         console.debug("extractFloors:", arr);
-        
+
         return arr;
     };
 
     function extractShortcuts( wfShortcuts ) {
         var arr = [];
         for ( var shortcut in wfShortcuts ) {
-            if ( stringToBoolean( wfShortcuts[ shortcut ].showInTopMenu ) )
+            if ( stringToBoolean( wfShortcuts[ shortcut ].showInTopMenu ) ) {
+                wfShortcuts[ shortcut ].backgroundImage = window.location.protocol +
+                    WayfinderAPI.getURL("images", "get", wfShortcuts[ shortcut ].imageID);
+                wfShortcuts[ shortcut ].capital = wfShortcuts[ shortcut ].names.translations[wayfinder.getLanguage()].charAt(0);
                 arr.push( wfShortcuts[ shortcut ] );
+            }
         };
         return arr;
     };

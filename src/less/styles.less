@@ -145,8 +145,9 @@ input::-ms-clear {
     margin: 0;
 }
 
-.content-container {
-    padding: 0px;
+#content-container {
+    padding: 0;
+    margin: 0;
     position: absolute;
     left: 0;
     right: 0;
@@ -155,28 +156,16 @@ input::-ms-clear {
 
 /*** TOP MENUBAR ***/
 
-.header {
-    position: absolute;
+#header {
     width: 100%;
-    top: 0;
-    padding: 0 15px;
+    margin: 0;
     box-sizing: border-box;
     background-color: #fff;
     box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.30);
     z-index: 1;
-    display: inline-block;
-    > div {
+    >div {
         height: 100%;
         display: inline-block;
-    }
-    .icon {
-        float: right;
-        padding: 11px;
-        box-sizing: border-box;
-        font-size: 50px;
-        color: @color-secondary;
-        text-align: center;
-        text-decoration: none;
     }
     .title {
         font-size: 1rem;
@@ -184,15 +173,24 @@ input::-ms-clear {
         text-transform: uppercase;
         color: @color-primary;
     }
-    .toggle-nav-menu {
-        position: absolute;
-        right: 5px;
-        top: 5px;
-        font-size: 4em;
-        width: 90px;
-        height: 90px;
-        border-radius: 45px;
-        color: @color-primary;
+    #nav-menu-btn {
+        position: relative;
+        height: 100%;
+        color: @color-text-dark;
+        .icon {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            float: right;
+            &:before {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+        }
     }
 }
 
@@ -379,24 +377,89 @@ input::-ms-clear {
             .active {
                 background-color: @color-tabs-active;
             }
-            :hover {
+             :hover {
                 background-color: @color-tabs-hover;
             }
         }
         .tab-contents {
             width: 100%;
-            padding: .25rem;
+            height: 100%;
             margin: 0;
             .tab-content {
                 position: relative;
                 width: 100%;
                 height: 100%;
+                padding: 0;
+                margin: 0;
                 left: 0;
                 .atoz {
                     position: relative;
                     width: 100%;
                     height: 100%;
                     overflow-y: scroll;
+                }
+                #info {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    font-size: 5em;
+                    color: @color-text-dark;
+                    line-height: 1;
+                    margin: 0 !important;
+                    #info-head {
+                        margin-bottom: .5rem;
+                        #name {
+                            font-size: @font-size-s*1.5;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            height: 100%;
+                        }
+                        #icon {
+                            position: relative;
+                            display: block;
+                            float: right;
+                            height: 100%;
+                            >div {
+                                position: relative;
+                                float: right;
+                                line-height: 1;
+                                font-size: @list-icon-size-s*0.75;
+                                width: @list-icon-size-s;
+                                height: @list-icon-size-s;
+                                color: @color-button-light;
+                                border: thin solid @color-button-light;
+                                border-radius: 5rem;
+                                text-align: center;
+                                &:before {
+                                    position: absolute;
+                                    top: 0;
+                                    bottom: 0;
+                                    right: 0;
+                                    left: 0;
+                                    margin: auto;
+                                    line-height: 1;
+                                    width: @list-icon-size-s*0.75;
+                                    height: @list-icon-size-s*0.75;
+                                }
+                            }
+                        }
+                    }
+                    .description {
+                        position: relative;
+                        width: 100%;
+                        font-size: @font-size-s;
+                        text-align: justify;
+                    }
+                    .image {
+                        position: relative;
+                        top: 3.5em;
+                        bottom: .5em;
+                        left: 0%;
+                        width: 7em;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
                 }
             }
             .active {
@@ -445,7 +508,7 @@ input::-ms-clear {
         text-overflow: ellipsis;
         overflow: hidden;
     }
-    > div {
+    >div {
         display: inline-block;
     }
     .btn-circle {
@@ -718,20 +781,28 @@ hr {
     }
 }
 
+.horizontal {
+    display: inline-block;
+}
+
+.vertical {
+    display: block;
+}
+
 #map-controls {
     #shortcuts-menu {
-        color: white;
         position: absolute;
         bottom: 10px;
         width: 80%;
         left: 0;
         right: 0;
-        font-size: 20px;
         margin: auto;
         #shortcut-button {
-            margin: 10px;
+            color: transparent;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-color: transparent;
             .icon {
-                font-family: font;
                 background: #00a1b6;
                 font-size: 1.3em;
                 width: 2em;
@@ -748,7 +819,7 @@ hr {
                 height: 100%;
                 background: @color-secondary;
             }
-            .active {
+            &.active {
                 background: @color-secondary;
             }
         }
@@ -761,7 +832,7 @@ hr {
         border-radius: 5px;
         display: block;
         #floor-button {
-            vertical-align: top;
+            /*vertical-align: top;
             display: block;
             width: @button-dimension;
             height: @button-dimension;
@@ -772,11 +843,15 @@ hr {
             font-size: 24px;
             line-height: @button-dimension;
             text-decoration: none;
-            text-align: center;
+            text-align: center;*/
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+            //border: thin solid rgba(0,0,0,0.3);
             color: @color-text-dark;
             background-color: @color-text-light;
-            &:hover {
+            &:hover,
+            &.active:hover {
                 background-color: @color-primary;
+                color: @color-text-light;
             }
             &.active {
                 color: @color-text-light;
@@ -787,7 +862,6 @@ hr {
                 border-top-left-radius: 5px;
             }
             &:last-child {
-                border: none;
                 border-bottom-right-radius: 5px;
                 border-bottom-left-radius: 5px;
             }
@@ -878,52 +952,6 @@ hr {
     user-select: none;
 }
 
-#info {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    font-size: 5em;
-    color: @color-text-dark;
-    line-height: 1;
-    margin: 0 !important;
-    #icon {
-        float: right;
-        color: @color-button-light;
-        border: thin solid @color-button-light;
-        border-radius: 5rem;
-        font-size: 3rem;
-        width: 5rem;
-        height: 5rem;
-        line-height: 5rem;
-        box-sizing: content-box;
-        text-align: center;
-        margin-right: 2rem;
-        display: block;
-    }
-    :before {
-        margin: 0 !important;
-    }
-    .description {
-        position: absolute;
-        top: 10rem;
-        bottom: 0;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        font-size: 3rem;
-    }
-}
-
-#info .image {
-    position: absolute;
-    top: 3.5em;
-    bottom: .5em;
-    left: 0%;
-    width: 7em;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
 #style-7::-webkit-scrollbar {
     width: 10px;
     background-color: #F5F5F5;
@@ -960,75 +988,138 @@ hr {
     }
 }
 
-.nav-menu-btn {
-    font-size: 3rem;
-}
-
-@media screen and (max-width: @screen-xs) {
-    .list {
-        .poi {
-            .texts {
-                .name {
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                }
-            }
-            .icons {
-                #icon {
-                    float: right;
-                    padding: 0;
-                    margin-right: .25rem;
-                    margin-bottom: .25rem;
-                    width: @list-icon-size-s*0.75;
-                    height: @list-icon-size-s*0.75;
-                    line-height: @list-icon-size-s*0.75;
-                }
-            }
-        }
-    }
-    .topics {
-        font-size: @font-size-s ;
-        .topic {
-            .topic-name {
-                vertical-align: middle;
-                font-size: inherit;
-            }
-        }
-        .btn-circle {
-            height: @list-icon-size-s;
-            width: @list-icon-size-s;
-            line-height: @list-icon-size-s;
-            font-size: @list-icon-size-s*0.75;
-        }
-    }
-    #nav-menu {
-        height: 100%-@header-height-s;
-    }
-    #nav-menu.active {
-        top: @header-height-s;
-    }
-}
-
-@media screen and (min-width: @screen-xs) and (max-width: @screen-s) {
-    .header {
-        height: @header-height-s;
+//@media screen and (min-width: 320px) {
+#header {
+    height: @header-height-s;
+    #nav-menu-btn {
         .icon {
-            height: @header-height-s;
-            width: @header-height-s;
-        }
-        .nav-menu-btn {
-            height: @poi-line-height;
-            line-height: @poi-line-height*1.2;
-            font-size: 2rem;
-            color: @color-button-light;
-            text-align: center;
-            padding-right: .5rem;
+            &:before {
+                height: @nav-menu-btn-xs;
+                width: @nav-menu-btn-xs;
+                font-size: @nav-menu-btn-xs;
+            }
         }
     }
-    .content-container {
+}
+
+#content-container {
+    height: 100% - @header-height-s;
+}
+
+.list {
+    .poi {
+        .texts {
+            .name {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            .group {
+                font-size: @font-size-s*0.5;
+                line-height: 1;
+            }
+        }
+        .icons {
+            #icon {
+                float: right;
+                padding: 0;
+                margin-right: .25rem;
+                margin-bottom: .25rem;
+                width: @list-icon-size-s*0.75;
+                height: @list-icon-size-s*0.75;
+                line-height: @list-icon-size-s*0.75;
+            }
+        }
+    }
+}
+
+.topics {
+    font-size: @font-size-s ;
+    .topic {
+        .topic-name {
+            vertical-align: middle;
+            font-size: inherit;
+        }
+    }
+    .btn-circle {
+        height: @list-icon-size-s;
+        width: @list-icon-size-s;
+        line-height: @list-icon-size-s;
+        font-size: @list-icon-size-s*0.75;
+    }
+}
+
+#nav-menu {
+    height: 100%-@header-height-s;
+}
+
+#nav-menu.active {
+    top: @header-height-s;
+}
+
+#map-controls {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    #floors-menu {
+        top: 1rem;
+        width: 80%;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: rgba(255, 255, 255, 0);
+        #floor-button {
+            display: inline-block;
+        }
+        #floor-button:first-child {
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+        }
+        #floor-button:last-child {
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
+    }
+    #shortcuts-menu {
+        bottom: 1rem;
+        width: 80%;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        #shortcut-button {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+}
+
+//}
+@media screen and (min-width: 640px) {
+    #header {
+        height: @header-height-s;
+        #nav-menu-btn {
+            text-align: center;
+            .icon {
+                &:before {
+                    height: @nav-menu-btn-s;
+                    width: @nav-menu-btn-s;
+                    font-size: @nav-menu-btn-s;
+                }
+            }
+        }
+    }
+    #content-container {
         top: @header-height-s;
         bottom: @content-container-bottom;
+        height: 100% - @header-height-s;
     }
     .keyboard {
         height: @header-height-s;
@@ -1109,7 +1200,7 @@ hr {
                     margin-right: .25rem;
                     margin-top: auto;
                     margin-bottom: auto;
-                    :before {
+                     :before {
                         position: absolute;
                         left: 0;
                         right: 0;
@@ -1122,32 +1213,84 @@ hr {
         }
     }
     #nav-menu {
-        height: 100%-@header-height-s;
+        height: 100% - @header-height-s;
     }
     #nav-menu.active {
         top: @header-height-s;
     }
-}
-
-@media screen and (min-width: @screen-s) and (max-width: @screen-m) {
-    .header {
-        height: 10%;
-        .nav-menu-btn {
-            height: @poi-line-height;
-            font-size: @poi-line-height;
-            line-height: @poi-line-height*1.4;
+    #map-controls {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        #floors-menu {
+            top: 1rem;
+            width: 80%;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: rgba(255, 255, 255, 0);
+            #floor-button {
+                display: inline-block;
+            }
+            #floor-button:first-child {
+                border-bottom-left-radius: 5px;
+                border-top-left-radius: 5px;
+                border-bottom-right-radius: 0;
+                border-top-right-radius: 0;
+            }
+            #floor-button:last-child {
+                border-bottom-right-radius: 5px;
+                border-top-right-radius: 5px;
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 0;
+            }
+        }
+        #shortcuts-menu {
+            bottom: 1rem;
+            width: 80%;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            #shortcut-button {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
         }
     }
-    .content-container {
-        top: @header-height-m;
+}
+
+@media screen and (min-width: 1024px) {
+    #header {
+        height: @header-height-s;
+        #nav-menu-btn {
+            .icon {
+                &:before {
+                    height: 2.5rem;
+                    width: 2.5rem;
+                    font-size: 2.5rem;
+                }
+            }
+        }
+    }
+    #content-container {
+        top: @header-height-s;
         bottom: @content-container-bottom;
+        .map-container {
+            .map {
+                top: @header-height-s;
+            }
+        }
     }
     .tab-head .icon {
         font-size: 1.25rem;
     }
     .tab-contents {
         padding: 1rem;
-        height: (100%-@header-height-m);
+        height: (100% - @header-height-m);
     }
     .topics {
         font-size: @font-size-m;
@@ -1197,7 +1340,7 @@ hr {
                     height: 2.2rem;
                     line-height: 2.2rem;
                     margin-right: .25rem;
-                    :before {
+                     :before {
                         position: absolute;
                         left: 0;
                         right: 0;
@@ -1210,23 +1353,72 @@ hr {
         }
     }
     #nav-menu {
-        height: 100%-@header-height-m;
+        height: 100% - @header-height-m;
+        width: 40em;
+        top: @header-height-m;
+        right: -40em;
+        transition: all 1s ease-in-out;
+        &.active {
+            right: 0;
+        }
     }
     #nav-menu.active {
         top: @header-height-m;
     }
-}
-
-@media screen and (max-width: @screen-l) {
-    .header {
-        height: 5%;
-        .nav-menu-btn {
-            height: 100%;
-            font-size: @poi-line-height*1.5;
-            line-height: @poi-line-height*1.75;
+    #map-controls {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        #floors-menu {
+            top: 1rem;
+            height: 80%;
+            width: 3rem;
+            margin: auto 0;
+            left: 1rem;
+            background-color: rgba(255, 255, 255, 0);
+            #floor-button {
+                display: block;
+                width: 100%;
+            }
+            #floor-button:first-child {
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 5px;
+                border-bottom-right-radius: 0;
+                border-top-right-radius: 5px;
+            }
+            #floor-button:last-child {
+                border-bottom-right-radius: 5px;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 5px;
+                border-top-left-radius: 0;
+            }
+        }
+        #shortcuts-menu {
+            bottom: 1rem;
+            width: 80%;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            #shortcut-button {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
         }
     }
-    .content-container {
+}
+
+@media screen and (min-width: 1440px) {
+    #header {
+        height: @header-height-m;
+        #nav-menu-btn {
+            height: 100%;
+        }
+    }
+    #content-container {
+        height: 100% - @header-height-m;
         top: @header-height-m;
         bottom: @content-container-bottom;
     }
@@ -1242,11 +1434,11 @@ hr {
     }
 }
 
-@media screen and (max-width: @screen-xl) {
-    .header {
+@media screen and (min-width: 1920px) {
+    #header {
         height: 10%;
     }
-    .content-container {
+    #content-container {
         top: @header-height-l;
         bottom: @content-container-bottom;
     }
