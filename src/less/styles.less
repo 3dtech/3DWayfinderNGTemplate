@@ -273,12 +273,17 @@ input::-ms-clear {
                 height: @poi-line-height*0.75;
                 line-height: @poi-line-height*0.75;
                 display: inline-block;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
             }
             .group {
                 position: relative;
                 display: inline-block;
                 vertical-align: middle;
                 text-transform: uppercase;
+                font-size: @font-size-s*0.5;
+                line-height: 1;
             }
         }
         .icons {
@@ -286,17 +291,35 @@ input::-ms-clear {
             position: relative;
             #icon {
                 position: relative;
-                top: 0;
-                bottom: 0;
-                margin-top: auto;
-                margin-bottom: auto;
-                background: none;
-                color: @color-button-light;
-                border-radius: 5rem;
-                border: 1px solid @color-button-light;
-                box-sizing: content-box;
-                text-align: center;
+                height: 100%;
+                background-color: transparent;
+                margin-right: .25rem;
                 float: right;
+                >div {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    height: @list-icon-size-s;
+                    width: @list-icon-size-s;
+                    border-radius: 10rem;
+                    border: thin solid @color-button-light;
+                    color: @color-button-light;
+                    background-color: transparent;
+                    margin: auto;
+                    &:before {
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        margin: auto;
+                        width: @list-icon-size-s*0.75;
+                        height: @list-icon-size-s*0.75;
+                        font-size: @list-icon-size-s*0.75;
+                    }
+                }
             }
         }
     }
@@ -407,7 +430,7 @@ input::-ms-clear {
                     line-height: 1;
                     margin: 0 !important;
                     #info-head {
-                        margin-bottom: .5rem;
+                        margin: .5rem 0;
                         #name {
                             font-size: @font-size-s*1.5;
                             white-space: nowrap;
@@ -447,16 +470,21 @@ input::-ms-clear {
                     }
                     .description {
                         position: relative;
+                        display: -webkit-box;
+                        margin: 0 auto;
                         width: 100%;
+                        line-height: 1.5;
+                        height: @font-size-s*1.5*6;
+                        -webkit-line-clamp: 6;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                         font-size: @font-size-s;
-                        text-align: justify;
                     }
                     .image {
                         position: relative;
-                        top: 3.5em;
-                        bottom: .5em;
-                        left: 0%;
-                        width: 7em;
+                        width: 100%;
+                        height: bottom: .5em;
                         background-size: contain;
                         background-repeat: no-repeat;
                     }
@@ -554,6 +582,7 @@ input::-ms-clear {
         }
         .active {
             height: auto;
+            transition: all .5s ease-in-out;
         }
     }
     >:nth-child(odd).group {
@@ -1004,33 +1033,6 @@ hr {
 
 #content-container {
     height: 100% - @header-height-s;
-}
-
-.list {
-    .poi {
-        .texts {
-            .name {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-            }
-            .group {
-                font-size: @font-size-s*0.5;
-                line-height: 1;
-            }
-        }
-        .icons {
-            #icon {
-                float: right;
-                padding: 0;
-                margin-right: .25rem;
-                margin-bottom: .25rem;
-                width: @list-icon-size-s*0.75;
-                height: @list-icon-size-s*0.75;
-                line-height: @list-icon-size-s*0.75;
-            }
-        }
-    }
 }
 
 .topics {

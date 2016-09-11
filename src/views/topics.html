@@ -15,8 +15,12 @@
                         <div class="name columns small-12" ng-click="showInfo(poi)" ng-bind-html="poi.getNames() | wfCurrentLanguage"></div>
                     </div>
                     <div class="icons columns small-4 medium-3 right button-group">
-                        <div id="icon" class="icon-goto button" ng-click="showPath(poi)" onclick="toggleNavMenu()"></div>
-                        <div id="icon" class="icon-info button" ng-click="showInfo(poi)"></div>
+                        <div id="icon" class="button" ng-click="showPath(poi)" onclick="toggleNavMenu()">
+                            <div class="icon-goto"></div>
+                        </div>
+                        <div id="icon" class="button" ng-click="showInfo(poi)">
+                            <div class="icon-info"></div>
+                        </div>
                     </div>
                     <!-- <span class="group" ng-bind-html="group.getName(getLanguage())" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)">
                     </span>-->
