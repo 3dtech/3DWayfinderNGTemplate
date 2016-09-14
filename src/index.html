@@ -91,6 +91,8 @@
         <script type="text/javascript">
             var clicked = false,
                 clickY;
+            var navMenu = $('#nav-menu');
+
             $(document).on({
                 'mousemove': function(e) {
                     clicked && updateScrollPos(e);
@@ -117,18 +119,18 @@
             var updateScrollPos = function(e) {
                 $('html').css('cursor', 'row-resize');
                 $(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
-            }
+            };
 
             var hideNavMenu = function() {
-                $('#nav-menu').removeClass('active');
+                navMenu.removeClass('active');
             };
 
             var toggleNavMenu = function() {
-                if ($('#nav-menu').hasClass('active'))
-                    $('#nav-menu').removeClass('active');
+                if (navMenu.hasClass('active'))
+                    navMenu.removeClass('active');
                 else
-                    $('#nav-menu').addClass('active');
-            }
+                    navMenu.addClass('active');
+            };
             var wayfinder;
             setTimeout(function() {
                 wayfinder = angular.element(document.body).scope().wayfinder;

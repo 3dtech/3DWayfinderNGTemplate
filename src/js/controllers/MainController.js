@@ -18,8 +18,6 @@ wfApp.controller('MainController', [
         $scope.animationsEnabled = true;
         $scope.bold = ['\<b\>', '\<\/b\>'];
 
-        var modalInstance;
-
         var lastTouch = -1;
         lastTouch = (new Date()).getTime();
         var maxInactivityTime = wfService.getSessionTimeout();
@@ -36,9 +34,10 @@ wfApp.controller('MainController', [
 
         $scope.showTopic = function(group) {
             var path = '/topics&'+group.id;
-            for (var k in wfService.getTabs()) {
-                if (wfService.getTabs()[k].name == "topics") {
-                    wfService.setActiveTab(wfService.getTabs()[k]);
+            var tabs = Object.keys(wfService.getTabs());
+            for (var k in tabs) {
+                if (tabs[k].name == "topics") {
+                    wfService.setActiveTab(tabs[k]);
                     break;
                 }
             }
@@ -63,8 +62,7 @@ wfApp.controller('MainController', [
             var g = rgb["g"];
             var b = rgb["b"];
             var a = rgb["a"];
-            var textColor = "rgba(" + parseInt(r.toString(10) * 255) + "," + parseInt(g.toString(10) * 255) + "," + parseInt(b.toString(10) * 255) + "," + parseInt(a.toString(10) * 255) + ")";
-            return textColor;
+            return "rgba(" + parseInt(r.toString(10) * 255) + "," + parseInt(g.toString(10) * 255) + "," + parseInt(b.toString(10) * 255) + "," + parseInt(a.toString(10) * 255) + ")";
         };
 
         /*** SCREENSAVER CONTROLS ***/
@@ -72,12 +70,12 @@ wfApp.controller('MainController', [
         function hideScreensaver() {
             $rootScope.$broadcast("app.screensaving", false);
             // here reset all the local variables, like menu items and stuff?jah
-        };
+        }
 
         function showScreensaver() {
             $rootScope.$broadcast("app.screensaving", true);
             // show modal, mõttekam oleks vist mitte modal'it kasutada, sest sisu on pidevalt sama
-        };
+        }
 
         /*** ACTIVITY CHECKER ***/
 
@@ -90,11 +88,11 @@ wfApp.controller('MainController', [
                     onTimeout();
                 } else {
                     $timeout(checker, maxInactivityTime);
-                };
+                }
             } else {
                 $timeout(checker, maxInactivityTime - (time - lastTouch));
-            };
-        };
+            }
+        }
 
         function onTimeout() {
             //console.log("onTimeout");
@@ -103,7 +101,7 @@ wfApp.controller('MainController', [
             //wayfinder.restoreDefaultState();
             showScreensaver(); //näitame seda modalit
             //console.log(lastTouch);
-        };
+        }
 
         $scope.trigger = function() {
             //console.log("Trigger! time since lastTouch", (((new Date())
@@ -114,7 +112,7 @@ wfApp.controller('MainController', [
                 hideScreensaver();
                 wayfinder.statistics.onSessionStart();
                 $timeout(checker, maxInactivityTime);
-            };
+            }
             lastTouch = (new Date()).getTime();
         };
 

@@ -83,9 +83,9 @@ wfApp.directive( 'resize', function ( $window ) {
         scope: {
             cbResize: '&cbResize'
         },
-        link: function ( scope, element, attrs ) {
+        link: function ( scope, element ) {
 
-            var w = element[ 0 ]
+            var w = element[ 0 ];
             scope.getWindowDimensions = function () {
                 return {
                     'h': w.clientHeight,
@@ -94,7 +94,7 @@ wfApp.directive( 'resize', function ( $window ) {
             };
 
             scope.$watch( scope.getWindowDimensions, function (
-                newValue, oldValue ) {
+                newValue ) {
                 scope.windowHeight = newValue.h;
                 scope.windowWidth = newValue.w;
 
