@@ -124,7 +124,8 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
         var arr = [];
         angular.forEach( data, function (element) {
             arr[ element.index ] = [];
-            angular.forEach( element, function (item) {
+            var pois = element.pois;
+            angular.forEach( pois, function (item) {
                 if ( stringToBoolean(item.showInMenu) )
                     arr[ element.index ].push( item );
             })
@@ -197,13 +198,9 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
     }
 
     function setActiveTab( tab ) {
-        for ( var key in tabs ) {
-            if ( tabs[ key ].name == ( tab.name || tab ) ) {
-                tabs[ key ].active = true;
-            } else {
-                tabs[ key ].active = false;
-            }
-        }
+        angular.forEach( tabs, function(element) {
+            element.active = element.name == ( tab.name || tab );
+        })
     }
 
     /**** TESTING on demand loading ****/
@@ -239,11 +236,8 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
     $rootScope.$on( 'wf.floor.change', function ( event, floor ) {
         console.debug( "floor.change:", floor, floors );
         activeFloor = floor;
-        angular.forEach( floors, function ( value, key ) {
-            if ( value.index == floor.index )
-                value.active = true;
-            else
-                value.active = false;
+        angular.forEach( floors, function ( value ) {
+            value.active = value.index == floor.index;
         } );
     } );
     $rootScope.$on( 'wf.language.change', function ( key ) {} );
@@ -251,13 +245,13 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
     $rootScope.$on( 'app.screensaving', function ( event,
         screensaving ) {
         $rootScope.screensaving = screensaving;
-    } )
+    } );
 
-    $rootScope.$on( 'wf.zoom.change', function ( event, zoom ) {
+    $rootScope.$on( 'wf.zoom.change', function () {
         $rootScope.trigger();
     } );
 
-    $rootScope.$on( 'wf.toggle-nav-menu', function ( event ) {
+    $rootScope.$on( 'wf.toggle-nav-menu', function (  ) {
         $rootScope.toggleNavMenu();
     } );
 
@@ -268,8 +262,7 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
         if ( screensaving ) {}
     } );
 
-    $rootScope.$on( 'wf.data.loaded', function ( event, asi ) {
-        //console.log( "WayfinderCtrl-wf.data.loaded" );
+    $rootScope.$on( 'wf.data.loaded', function (  ) {
         if ( !wfDataLoaded ) {
             wfDataLoaded = true;
             $rootScope.$apply(
@@ -302,9 +295,8 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
                         .data[ "kiosk.max-inactivity" ], 10
                     ) *
                     1000;
-            };
-        };
-        //console.log( "tabs:", tabs );
+            }
+        }
     } );
 
     return {

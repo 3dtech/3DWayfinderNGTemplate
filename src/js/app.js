@@ -18,12 +18,12 @@ wfApp.run( [ 'wfangular3d', '$rootScope', '$http', '$route', function (
     wayfinder,
     $rootScope, $http, $route ) {
     $route.reload();
-    //WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
+    WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
     //wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
-    //wayfinder.options.assetsLocation =
-    //  '//static.3dwayfinder.com/shared/';
-    //wayfinder.open("e547ad92ddc8774307993faff5ad79d0"); //tasku
-    wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
+    wayfinder.options.assetsLocation =
+      '//static.3dwayfinder.com/shared/';
+    wayfinder.open("e547ad92ddc8774307993faff5ad79d0"); //tasku
+    //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
     wayfinder.statistics.start();
 } ] );
 
@@ -128,7 +128,11 @@ wfApp.directive( 'floorButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="floor-button" class="button" ng-class="{\'active\':floor.active}" ng-click="changeFloor(floor)" ng-repeat="floor in floors | orderBy: \'index\' | reverse" ng-bind-html="floor.getNames() | wfCurrentLanguage"></div>'
+        template: '<div id="floor-button" class="button"' +
+        ' ng-class="{\'active\':floor.active}"' +
+        ' ng-click="changeFloor(floor)"' +
+        ' ng-repeat="floor in floors | orderBy: \'index\' | reverse"' +
+        ' ng-bind-html="floor.getNames() | wfCurrentLanguage"></div>'
     }
 } );
 
@@ -136,7 +140,10 @@ wfApp.directive( 'shortcutButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="shortcut-button" class="button" ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts" style="background-image: url({{shortcut.backgroundImage}})"></div>'
+        template: '<div id="shortcut-button" class="button"' +
+        ' ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts"' +
+        ' ng-click="showGroupNearest(shortcut)" style="background-image:' +
+        ' url({{shortcut.backgroundImage}})"></div>'
     }
 } );
 
@@ -144,7 +151,10 @@ wfApp.directive( 'floorsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="floors-menu" class="button-group expanded"><floor-button></floor-button></div>'
+        template: '<div id="floors-menu" ' +
+        'class="button-group expanded">' +
+        '<floor-button></floor-button>' +
+        '</div>'
     }
 } );
 
@@ -152,7 +162,10 @@ wfApp.directive( 'shortcutsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="shortcuts-menu" class="button-group expanded"><shortcut-button></shortcut-button></div>'
+        template: '<div id="shortcuts-menu"' +
+        ' class="button-group expanded">' +
+        '<shortcut-button></shortcut-button>' +
+        '</div>'
     }
 } );
 
@@ -160,6 +173,10 @@ wfApp.directive( 'mapControls', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="map-controls" ng-controller="MapControlsController"><shortcuts-menu></shortcuts-menu><floors-menu></floors-menu></div>'
+        template: '<div id="map-controls"' +
+        ' ng-controller="MapControlsController">' +
+        '<shortcuts-menu></shortcuts-menu>' +
+        '<floors-menu></floors-menu>' +
+        '</div>'
     }
 } );

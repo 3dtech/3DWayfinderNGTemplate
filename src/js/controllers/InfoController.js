@@ -36,12 +36,10 @@ wfApp.controller('InfoController', [
         $timeout(function() {
             if (!$routeParams) return;
             console.debug("info.$routeParams:", $routeParams);
-            var pois = wfService.getPOIs();
-            for (var i in pois) {
-                console.debug("poi.id", pois[i].id, "==", $routeParams.id, "?", pois[i].id == $routeParams.id);
-                if (pois[i].id == $routeParams.id)
-                    $scope.poi = pois[i];
-            };
+            angular.forEach(wfService.getPOIs(), function (element) {
+                if (element.id == $routeParams.id)
+                    $scope.poi = element;
+            });
         }, 10);
     }
 ]);

@@ -1,19 +1,18 @@
-
-
 // -------------------------------------------
 // --------------- Controllers ---------------
 // -------------------------------------------
 
 wfApp.controller('MainController', [
-  '$scope',
-  '$timeout',
-  '$rootScope',
-  '$location',
-  'wfService',
-  'keyboardService',
-  'wfangular3d',
-  function($scope, $timeout, $rootScope, $location, wfService, keyboardService,
-        wayfinder) {
+    '$scope',
+    '$timeout',
+    '$rootScope',
+    '$location',
+    'wfService',
+    'keyboardService',
+    'wfangular3d',
+    function ($scope, $timeout, $rootScope, $location, wfService, keyboardService,
+              wayfinder) {
+        $scope = $rootScope;
         $scope.wayfinder = wayfinder;
         $scope.animationsEnabled = true;
         $scope.bold = ['\<b\>', '\<\/b\>'];
@@ -22,18 +21,18 @@ wfApp.controller('MainController', [
         lastTouch = (new Date()).getTime();
         var maxInactivityTime = wfService.getSessionTimeout();
 
-        $scope.loadDefaultView = function() {
+        $scope.loadDefaultView = function () {
             $location.path('/topics.html');
             $scope.setActiveTab('topics');
         };
 
-        $scope.go = function(path) {
+        $scope.go = function (path) {
             //  console.debug("path:", path);
             $location.path(path);
         };
 
-        $scope.showTopic = function(group) {
-            var path = '/topics&'+group.id;
+        $scope.showTopic = function (group) {
+            var path = '/topics&' + group.id;
             var tabs = Object.keys(wfService.getTabs());
             for (var k in tabs) {
                 if (tabs[k].name == "topics") {
@@ -45,16 +44,16 @@ wfApp.controller('MainController', [
             $location.path(path);
         };
 
-        $scope.showInfo = function(poi) {
-            var path = '/info&'+poi.id;
+        $scope.showInfo = function (poi) {
+            var path = '/info&' + poi.id;
             $location.path(path);
         };
 
-        $scope.showPath = function(poi) {
+        $scope.showPath = function (poi) {
             wayfinder.showPath(poi.getNode(), poi);
         };
 
-        $scope.getColorRGBA = function(group) {
+        $scope.getColorRGBA = function (group) {
             //Function to convert hex format to a rgb textColor
             if (!group) return;
             var rgb = group.getColor();
@@ -103,9 +102,9 @@ wfApp.controller('MainController', [
             //console.log(lastTouch);
         }
 
-        $scope.trigger = function() {
+        $scope.trigger = function () {
             //console.log("Trigger! time since lastTouch", (((new Date())
-              //  .getTime() - lastTouch) / 1000), "sec");
+            //  .getTime() - lastTouch) / 1000), "sec");
             //reset
             if (lastTouch == -1) {
                 //first click in a while
@@ -120,33 +119,64 @@ wfApp.controller('MainController', [
 
         /*** SCOPE FUNCTIONS ***/
 
-        $scope.showYAH = function() {
+        $scope.showYAH = function () {
             wayfinder.showKiosk();
         };
 
-        $scope.cbResizeCtrl = function() {
+        $scope.cbResizeCtrl = function () {
             wayfinder.resize();
         };
 
-        $scope.getGUITranslation = function(key, params) {
+        $scope.getGUITranslation = function (key, params) {
             if (params) return wayfinder.translator.get(key);
             return wayfinder.translator.get(key, params);
         };
 
-        $scope.setActiveTab = function(tab) {
+        $scope.setActiveTab = function (tab) {
             //console.debug("MC: setActvieTab:", tab);
             wfService.setActiveTab(tab);
         };
 
-        $scope.getActiveTab = function() {
+        $scope.getActiveTab = function () {
             return wfService.getActiveTab();
         };
 
         $scope.tabs = wfService.getTabs();
+
+
+        $scope.showGroupNearest = function (group) {
+            var pois = [];
+            var poiHasGroup = 0;
+            angular.forEach(wayfinder.getKioskNode().floor.getPOIs(),
+                function (element) {
+                    angular.forEach(element.getGroups(), function (item) {
+                        if (item.getName(wayfinder.getLanguage()) ===
+                            group.getName(wayfinder.getLanguage()))
+                            poiHasGroup = 1;
+                    });
+                    if (poiHasGroup) {
+                        pois.push(element);
+                        poiHasGroup = 0;
+                    }
+                });
+            if (pois.length == 0) {
+                console.log("no pois on kiosk floor");
+                console.log("showing way to nearest in whole building");
+                pois = group.getPOIs();
+            }
+            if (pois == []) {
+                console.log("nearest not found");
+                return;
+            }
+            var nearest = wayfinder.getNearestPOI(wayfinder.getKiosk(),
+                pois);
+            wayfinder.showPath(nearest.getNode());
+            wayfinder.statistics.onClick(nearest.id, "route");
+        };
 
         /*** EVENT WATCHERS ***/
 
         /*** ROOTSCOPE WATCHERS ***/
 
         $scope.$on();
-}]);
+    }]);
