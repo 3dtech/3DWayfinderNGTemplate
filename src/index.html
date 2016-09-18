@@ -93,6 +93,7 @@
             var clicked = false,
                 clickY;
             var navMenu = $('#nav-menu');
+            var navMenuButton = $('#nav-menu-btn .icon');
 
             $(document).on({
                 'mousemove': function(e) {
@@ -127,10 +128,15 @@
             };
 
             var toggleNavMenu = function() {
-                if (navMenu.hasClass('active'))
+                if (navMenu.hasClass('active')) {
+                    navMenuButton.removeClass("fa-times");
+                    navMenuButton.addClass("fa-search");
                     navMenu.removeClass('active');
-                else
+                }
+                else {
+                    navMenuButton.removeClass("fa-search").addClass("fa-times");
                     navMenu.addClass('active');
+                }
             };
             var wayfinder;
             setTimeout(function() {

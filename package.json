@@ -6,7 +6,8 @@
   "dependencies": {
     "bower": "^1.6.5",
     "gulp": "^3.9.0",
-    "gulp-watch": "^4.3.5"
+    "gulp-watch": "^4.3.5",
+    "browser-sync": "~2.16.0"
   },
   "devDependencies": {
     "brace-expansion": "^1.1.2",
