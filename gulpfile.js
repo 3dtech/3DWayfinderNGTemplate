@@ -92,7 +92,7 @@ gulp.task('vendor', function() {
 });
 
 gulp.task('font', function() {
-    return gulp.src(['./src/fonts/*', './bower_components/font-awesome/fonts/*'])
+    return gulp.src(['./src/fonts/**/*.*', './bower_components/font-awesome/fonts/*'])
         .pipe(gulp.dest(distFolder + 'fonts/'))
         .pipe(browserSync.reload({
             stream: true

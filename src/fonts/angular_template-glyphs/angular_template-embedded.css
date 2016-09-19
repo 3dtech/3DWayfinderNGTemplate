@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'angular_template';
-  src: url('../font/angular_template.eot?75681307');
-  src: url('../font/angular_template.eot?75681307#iefix') format('embedded-opentype'),
-       url('../font/angular_template.svg?75681307#angular_template') format('svg');
+  src: url('angular_template.eot?75681307');
+  src: url('angular_template.eot?75681307#iefix') format('embedded-opentype'),
+       url('angular_template.svg?75681307#angular_template') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -17,7 +17,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'angular_template';
-    src: url('../font/angular_template.svg?75681307#angular_template') format('svg');
+    src: url('angular_template.svg?75681307#angular_template') format('svg');
   }
 }
 */

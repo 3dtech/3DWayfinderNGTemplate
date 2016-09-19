@@ -7,7 +7,7 @@
                     <div class="topic-name left columns small-10 medium-11" ng-bind-html="group.getNames() | wfCurrentLanguage" style="color: {{group.colorRGBA}}">
                       </div>
                     <div class="topic-toggle right columns small-2 medium-1 button-group">
-                        <div class="btn-circle fa button" ng-class="group.active ? 'fa-angle-up':'fa-angle-down'"></div>
+                        <div class="btn-circle fa button" ng-class="group.active ? 'icon-iglu-minus-1':'icon-iglu-plus-1'"></div>
                     </div>
                 </div>
                 <div class="list topic-list"
@@ -18,10 +18,10 @@
                         </div>
                         <div class="icons columns small-4 medium-3 right button-group">
                             <div class="icon button" ng-click="showPath(poi)" onclick="toggleNavMenu()">
-                                <div class="icon-goto"></div>
+                                <div class="icon-iglu-goto"></div>
                             </div>
                             <div class="icon button" ng-click="showInfo(poi)">
-                                <div class="icon-info"></div>
+                                <div class="icon-iglu-info"></div>
                             </div>
                         </div>
                         <!-- <span class="group" ng-bind-html="group.getName(getLanguage())" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)">

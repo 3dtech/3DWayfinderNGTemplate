@@ -13,17 +13,17 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
 
     var tabs = [ {
             name: 'search',
-            icon: 'icon-search',
+            icon: 'icon-iglu-search',
             link: '/search',
             active: false
         }, {
             name: 'topics',
-            icon: 'icon-topics',
+            icon: 'icon-iglu-list-nested    ',
             link: '/topics',
             active: false
         }, {
             name: 'atoz',
-            icon: 'icon-atoz',
+            icon: 'icon-iglu-atoz',
             link: '/atoz',
             active: false
         }
@@ -293,8 +293,7 @@ wfApp.factory( 'wfService', [ '$rootScope', '$timeout', 'wfangular3d', function 
                     "kiosk.max-inactivity" ] ) {
                 maxInactivityTime = parseInt( wayfinder.settings
                         .data[ "kiosk.max-inactivity" ], 10
-                    ) *
-                    1000;
+                    ) * 1000;
             }
         }
     } );

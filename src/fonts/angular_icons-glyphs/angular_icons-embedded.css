@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'angular_icons';
-  src: url('../font/angular_icons.eot?494474');
-  src: url('../font/angular_icons.eot?494474#iefix') format('embedded-opentype'),
-       url('../font/angular_icons.svg?494474#angular_icons') format('svg');
+  src: url('angular_icons.eot?494474');
+  src: url('angular_icons.eot?494474#iefix') format('embedded-opentype'),
+       url('angular_icons.svg?494474#angular_icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -17,7 +17,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'angular_icons';
-    src: url('../font/angular_icons.svg?494474#angular_icons') format('svg');
+    src: url('angular_icons.svg?494474#angular_icons') format('svg');
   }
 }
 */

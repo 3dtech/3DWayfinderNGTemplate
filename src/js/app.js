@@ -22,7 +22,7 @@ wfApp.run( [ 'wfangular3d', '$rootScope', '$http', '$route', function (
     //wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
     wayfinder.options.assetsLocation =
       '//static.3dwayfinder.com/shared/';
-    wayfinder.open("e547ad92ddc8774307993faff5ad79d0"); //tasku
+    wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
     //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
     wayfinder.statistics.start();
 } ] );
@@ -142,8 +142,8 @@ wfApp.directive( 'shortcutButton', function () {
         replace: 'true',
         template: '<div id="shortcut-button" class="button"' +
         ' ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts"' +
-        ' ng-click="showGroupNearest(shortcut)" style="background-image:' +
-        ' url({{shortcut.backgroundImage}})"></div>'
+        ' ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\':' +
+        ' \'url({{shortcut.backgroundImage}})\'}"></div>'
     }
 } );
 

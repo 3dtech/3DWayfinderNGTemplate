@@ -1,148 +1,156 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="wfApp">
 
-    <head>
-        <title>3D Wayfinder</title>
-        <meta charset="utf-8">
-        <meta name="layout" content="wfAngular">
-        <meta name="description" content="3DWayfinder WebGL">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
-        <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet'
-            type='text/css'>
-        <link rel="stylesheet" href="css/foundation.css">
-        <link rel="stylesheet" href="css/font-awesome.css">
-        <link rel="stylesheet" href="css/styles.css">
-        <base href="/" />
-    </head>
+<head>
+    <title>3D Wayfinder</title>
+    <meta charset="utf-8">
+    <meta name="layout" content="wfAngular">
+    <meta name="description" content="3DWayfinder WebGL">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <base href="/"/>
+</head>
 
-    <body ng-controller="MainController">
-        <div class="container row" ng-click="trigger()">
-            <!-- HEADER -->
-            <div id="header" class="row expanded">
-                <div class="lang-menu columns small-2"></div>
-                <div class="logo columns small-2"></div>
-                <!-- <div class="title columns small-6 medium-4" ng-bind-html="getGUITranslation(title)"> -->
-                <div class="title columns small-6">
-                    <span id="width"></span>
-                    <br/>
-                    <span id="height"></span>
-                </div>
-                <div id="nav-menu-btn" class="columns small-2" onclick="toggleNavMenu()"
-                    ng-click="loadDefaultView()">
-                    <div class="icon fa fa-search"></div>
-                </div>
+<body ng-controller="MainController">
+<div class="container row" ng-click="trigger()">
+    <!-- HEADER -->
+    <div id="header" class="row expanded">
+        <div class="lang-menu columns small-2"></div>
+        <div class="logo columns small-2"></div>
+        <!-- <div class="title columns small-6 medium-4" ng-bind-html="getGUITranslation(title)"> -->
+        <div class="title columns small-6">
+            <span id="width"></span>
+            <br/>
+            <span id="height"></span>
+        </div>
+        <div id="menu" class="columns small-2">
+            <div id="yah-btn" class="columns small-6" ng-click="showYAH()">
+                <div class="icon icon-iglu-location"></div>
             </div>
-            <!-- CONTENT CONTAINER -->
-            <div id="content-container" class="row expanded">
-                <!-- MAP CONTAINER -->
-                <div class="map-container" id="map-tab"> <!--resize cb-resize="cbResizeCtrl()"-->
-                    <canvas class="map" id="map" ng-style="style()"></canvas>
-                </div>
-                <map-controls></map-controls>
-            </div>
-            <!-- NAV MENU -->
-            <div id="nav-menu" class="row">
-                <div class="tabs-container">
-                    <div class="tab-heads button-group row expanded">
-                        <div class="tab-head button" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}"
-                            ng-click="go(tab.link); setActiveTab(tab);">
-                            <div class="icon {{tab.icon}}"></div>
-                        </div>
-                        <!--
-                    <a class="icon-atoz" href="#/atoz"></a>
-                    <a class="icon-topics" href="#/topics"></a>
-                    -->
-                    </div>
-                    <div class="tab-contents row" ng-view></div>
-                </div>
+            <div id="nav-menu-btn" class="columns small-6" onclick="toggleNavMenu()"
+                 ng-click="loadDefaultView()">
+                <div class="icon icon-iglu-search"></div>
             </div>
         </div>
-        <script type="text/javascript" src="js/vendor.js"></script>
-        <!-- EXTERNAL LIBRARIES -->
-        <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
-        <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
-        <!--script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder2D.min.js"></script-->
-        <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
-        <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
-        <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
-        <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
-        <!--
-    <script type="text/javascript" src="js/external/frak-stable.min.js"></script>
-    <script type="text/javascript" src="js/external/BasicUI.min.js"></script>
-    <script type="text/javascript" src="js/external/Wayfinder3D.min.js"></script>
-    <script type="text/javascript" src="js/external/Keyboard.js"></script>
-    <script type="text/javascript" src="js/external/KeyboardActions.js"></script>
-    <script type="text/javascript" src="js/external/KeyboardLayouts.
-    js"></script>
-    -->
-        <!-- ANGULAR APP -->
-        <script type="text/javascript" src="js/app.js"></script>
-        <!-- CONTROLLERS -->
-        <script type="text/javascript" src="js/controllers/MainController.js"></script>
-        <script type="text/javascript" src="js/controllers/MapControlsController.js"></script>
-        <script type="text/javascript" src="js/controllers/AtozController.js"></script>
-        <script type="text/javascript" src="js/controllers/TopicsController.js"></script>
-        <script type="text/javascript" src="js/controllers/InfoController.js"></script>
-        <script type="text/javascript" src="js/controllers/SearchController.js"></script>
-        <script type="text/javascript" src="js/controllers/KeyboardController.js"></script>
-        <!-- SERVICES -->
-        <script type="text/javascript" src="js/services/wayfinderService.js"></script>
-        <script type="text/javascript" src="js/services/keyboardService.js"></script>
-        <!-- Latest compiled and minified JavaScript -->
-        <script type="text/javascript">
-            var clicked = false,
-                clickY;
-            var navMenu = $('#nav-menu');
-            var navMenuButton = $('#nav-menu-btn .icon');
+    </div>
+    <!-- CONTENT CONTAINER -->
+    <div id="content-container" class="row expanded">
+        <!-- MAP CONTAINER -->
+        <div class="map-container" id="map-tab"> <!--resize cb-resize="cbResizeCtrl()"-->
+            <canvas class="map" id="map" ng-style="style()"></canvas>
+        </div>
+        <map-controls></map-controls>
+    </div>
+    <!-- NAV MENU -->
+    <div id="nav-menu" class="row">
+        <div class="tabs-container">
+            <div class="tab-heads button-group row expanded">
+                <div class="tab-head button" ng-repeat="tab in tabs"
+                     ng-class="{'active':getActiveTab().name == tab.name}"
+                     ng-click="go(tab.link); setActiveTab(tab);">
+                    <div class="icon {{tab.icon}}"></div>
+                </div>
+                <!--
+            <a class="icon-atoz" href="#/atoz"></a>
+            <a class="icon-topics" href="#/topics"></a>
+            -->
+            </div>
+            <div class="tab-contents row" ng-view></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/vendor.js"></script>
+<!-- EXTERNAL LIBRARIES -->
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
+<!--script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder2D.min.js"></script-->
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
+<script type="text/javascript"
+        src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
+<script type="text/javascript"
+        src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
+<!--
+<script type="text/javascript" src="js/external/frak-stable.min.js"></script>
+<script type="text/javascript" src="js/external/BasicUI.min.js"></script>
+<script type="text/javascript" src="js/external/Wayfinder3D.min.js"></script>
+<script type="text/javascript" src="js/external/Keyboard.js"></script>
+<script type="text/javascript" src="js/external/KeyboardActions.js"></script>
+<script type="text/javascript" src="js/external/KeyboardLayouts.
+js"></script>
+-->
+<!-- ANGULAR APP -->
+<script type="text/javascript" src="js/app.js"></script>
+<!-- CONTROLLERS -->
+<script type="text/javascript" src="js/controllers/MainController.js"></script>
+<script type="text/javascript" src="js/controllers/MapControlsController.js"></script>
+<script type="text/javascript" src="js/controllers/AtozController.js"></script>
+<script type="text/javascript" src="js/controllers/TopicsController.js"></script>
+<script type="text/javascript" src="js/controllers/InfoController.js"></script>
+<script type="text/javascript" src="js/controllers/SearchController.js"></script>
+<script type="text/javascript" src="js/controllers/KeyboardController.js"></script>
+<!-- SERVICES -->
+<script type="text/javascript" src="js/services/wayfinderService.js"></script>
+<script type="text/javascript" src="js/services/keyboardService.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script type="text/javascript">
+    var clicked = false,
+            clickY;
+    var navMenu = $('#nav-menu');
+    var navMenuButton = $('#nav-menu-btn .icon');
 
-            $(document).on({
-                'mousemove': function(e) {
-                    clicked && updateScrollPos(e);
-                },
-                'mousedown': function(e) {
-                    clicked = true;
-                    clickY = e.pageY;
-                },
-                'mouseup': function() {
-                    clicked = false;
-                    $('html').css('cursor', 'auto');
-                }
-            });
-            $(window).resize(function() {
-                $('#width').text("width: " + $(document).innerWidth() +
-                    "px");
-                $('#height').text("height: " + $(document).innerHeight() +
-                    "px");
-            }).resize();
-            $(document).ready(function() {
-                $(document).foundation();
-            });
+    $(document).on({
+        'mousemove': function (e) {
+            clicked && updateScrollPos(e);
+        },
+        'mousedown': function (e) {
+            clicked = true;
+            clickY = e.pageY;
+        },
+        'mouseup': function () {
+            clicked = false;
+            $('html').css('cursor', 'auto');
+        }
+    });
+    $(window).resize(function () {
+        $('#width').text("width: " + $(document).innerWidth() +
+                "px");
+        $('#height').text("height: " + $(document).innerHeight() +
+                "px");
+    }).resize();
+    $(document).ready(function () {
+        $(document).foundation();
+    });
 
-            var updateScrollPos = function(e) {
-                $('html').css('cursor', 'row-resize');
-                $(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
-            };
+    var updateScrollPos = function (e) {
+        $('html').css('cursor', 'row-resize');
+        $(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
+    };
 
-            var hideNavMenu = function() {
-                navMenu.removeClass('active');
-            };
+    var hideNavMenu = function () {
+        navMenu.removeClass('active');
+    };
 
-            var toggleNavMenu = function() {
-                if (navMenu.hasClass('active')) {
-                    navMenuButton.removeClass("fa-times");
-                    navMenuButton.addClass("fa-search");
-                    navMenu.removeClass('active');
-                }
-                else {
-                    navMenuButton.removeClass("fa-search").addClass("fa-times");
-                    navMenu.addClass('active');
-                }
-            };
-            var wayfinder;
-            setTimeout(function() {
-                wayfinder = angular.element(document.body).scope().wayfinder;
-            }, 1000)
-        </script>
-    </body>
+    var toggleNavMenu = function () {
+        if (navMenu.hasClass('active')) {
+            navMenuButton.removeClass("icon-iglu-cancel");
+            navMenuButton.addClass("icon-iglu-search");
+            navMenu.removeClass('active');
+        }
+        else {
+            navMenuButton.removeClass("icon-iglu-search").addClass("icon-iglu-cancel");
+            navMenu.addClass('active');
+        }
+    };
+    var wayfinder;
+    setTimeout(function () {
+        wayfinder = angular.element(document.body).scope().wayfinder;
+    }, 1000)
+</script>
+</body>
 
 </html>

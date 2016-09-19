@@ -1,8 +1,11 @@
 // out: styles.css, compress: true
-@import "../fonts/angular_icons.css";
+@import "../fonts/angular_icons-glyphs/angular_icons.css";
+@import "../fonts/angular_template-glyphs/angular_template.css";
+@import "../fonts/iglu-glyphs/iglu.css";
 //@import "../../bower_components/font-awesome/less/font-awesome.less";
 @import "../../bower_components/bootstrap/less/bootstrap.less";
 @import "variables.less";
+
 .close-modal {
     position: absolute;
     font-size: 30px;
@@ -151,7 +154,6 @@ input::-ms-clear {
     right: 0;
 }
 
-
 /*** TOP MENUBAR ***/
 
 #header {
@@ -161,7 +163,7 @@ input::-ms-clear {
     background-color: #fff;
     box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.30);
     z-index: 1;
-    >div {
+    > div {
         height: 100%;
         display: inline-block;
     }
@@ -171,22 +173,43 @@ input::-ms-clear {
         text-transform: uppercase;
         color: @color-primary;
     }
-    #nav-menu-btn {
-        position: relative;
-        height: 100%;
-        color: @color-text-dark;
-        .icon {
+    #menu {
+        #nav-menu-btn {
             position: relative;
             height: 100%;
-            width: 100%;
-            float: right;
-            &:before {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                right: 0;
-                margin-top: auto;
-                margin-bottom: auto;
+            color: @color-text-dark;
+            .icon {
+                position: relative;
+                height: 100%;
+                width: 100%;
+                float: right;
+                &:before {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+            }
+        }
+        #yah-btn {
+            position: relative;
+            height: 100%;
+            color: @color-text-dark;
+            .icon {
+                position: relative;
+                height: 100%;
+                width: 100%;
+                float: right;
+                &:before {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
             }
         }
     }
@@ -243,7 +266,6 @@ input::-ms-clear {
     }
 }
 
-
 /*** DROPDOWN MENU ***/
 
 .list {
@@ -294,7 +316,7 @@ input::-ms-clear {
                 background-color: transparent;
                 margin-right: .25rem;
                 float: right;
-                >div {
+                > div {
                     position: absolute;
                     top: 0;
                     bottom: 0;
@@ -388,7 +410,8 @@ input::-ms-clear {
             .tab-head.active {
                 background-color: @color-tabs-active;
             }
-            .btn-circle {}
+            .btn-circle {
+            }
             .left {
                 float: left;
             }
@@ -398,7 +421,7 @@ input::-ms-clear {
             .active {
                 background-color: @color-tabs-active;
             }
-             :hover {
+            :hover {
                 background-color: @color-tabs-hover;
             }
         }
@@ -441,7 +464,7 @@ input::-ms-clear {
                             display: block;
                             float: right;
                             height: 100%;
-                            >div {
+                            > div {
                                 position: relative;
                                 float: right;
                                 line-height: 1;
@@ -529,7 +552,7 @@ input::-ms-clear {
         }
     }
     .topics-list {
-        height:auto;
+        height: auto;
         width: 100%;
     }
     .topic-name {
@@ -538,7 +561,7 @@ input::-ms-clear {
         text-overflow: ellipsis;
         overflow: hidden;
     }
-    >div {
+    > div {
         display: inline-block;
     }
     .btn-circle {
@@ -587,10 +610,10 @@ input::-ms-clear {
             transition: all .5s ease-in-out;
         }
     }
-    >:nth-child(odd).group {
+    > :nth-child(odd).group {
         background-color: @color-topic-odd;
     }
-    >:nth-child(even).group {
+    > :nth-child(even).group {
         background-color: @color-topic-even;
     }
 }
@@ -720,7 +743,6 @@ hr {
     content: '\e804' !important;
 }
 
-
 /*** KEYBOARD ***/
 
 .keyboard-container {
@@ -798,7 +820,8 @@ hr {
     &.key_spacebar {
         width: 12em;
     }
-    &:hover {}
+    &:hover {
+    }
     &:active {
         background: #fafafa;
     }
@@ -808,7 +831,6 @@ hr {
     margin: auto;
     clear: both;
 }
-
 
 /*** MAP ***/
 
@@ -981,7 +1003,6 @@ hr {
     }
 }
 
-
 /*** RESPONSIVE ***/
 
 * {
@@ -1041,6 +1062,15 @@ hr {
             }
         }
     }
+    #yah-btn {
+        .icon {
+            &:before {
+                height: @nav-menu-btn-xs;
+                width: @nav-menu-btn-xs;
+                font-size: @nav-menu-btn-xs;
+            }
+        }
+    }
 }
 
 #content-container {
@@ -1048,7 +1078,7 @@ hr {
 }
 
 .topics {
-    font-size: @font-size-s ;
+    font-size: @font-size-s;
     .topic {
         .topic-name {
             vertical-align: middle;
@@ -1123,15 +1153,28 @@ hr {
                 }
             }
         }
+        #yah-btn {
+            text-align: center;
+            .icon {
+                &:before {
+                    height: @nav-menu-btn-s;
+                    width: @nav-menu-btn-s;
+                    font-size: @nav-menu-btn-s;
+                }
+            }
+        }
     }
+
     #content-container {
         top: @header-height-s;
         bottom: @content-container-bottom;
         height: 100% - @header-height-s;
     }
+
     .keyboard {
         height: @header-height-s;
     }
+
     #nav-menu {
         height: 100% - @header-height-s;
         .tab-head {
@@ -1145,8 +1188,9 @@ hr {
             height: 100% - (@header-height-s);
         }
     }
+
     .topics {
-        font-size: @font-size-s ;
+        font-size: @font-size-s;
         .topic {
             .topic-name {
                 vertical-align: middle;
@@ -1160,9 +1204,11 @@ hr {
             font-size: @list-icon-size-s*0.75;
         }
     }
+
     .atoz {
         overflow-x: hidden;
     }
+
     .list {
         font-size: 1rem;
         margin-left: 1rem;
@@ -1208,7 +1254,7 @@ hr {
                     margin-right: .25rem;
                     margin-top: auto;
                     margin-bottom: auto;
-                     :before {
+                    :before {
                         position: absolute;
                         left: 0;
                         right: 0;
@@ -1220,12 +1266,15 @@ hr {
             }
         }
     }
+
     #nav-menu {
         height: 100% - @header-height-s;
     }
+
     #nav-menu.active {
         top: @header-height-s;
     }
+
     #map-controls {
         position: absolute;
         height: 100%;
@@ -1277,7 +1326,17 @@ hr {
                 }
             }
         }
+        #yah-btn {
+            .icon {
+                &:before {
+                    height: 2.5rem;
+                    width: 2.5rem;
+                    font-size: 2.5rem;
+                }
+            }
+        }
     }
+
     #content-container {
         top: @header-height-s;
         bottom: @content-container-bottom;
@@ -1287,13 +1346,16 @@ hr {
             }
         }
     }
+
     .tab-head .icon {
         font-size: 1.25rem;
     }
+
     .tab-contents {
         padding: 1rem;
         height: (100% - @header-height-m);
     }
+
     .topics {
         font-size: @font-size-m;
         .topic {
@@ -1310,6 +1372,7 @@ hr {
             }
         }
     }
+
     .list {
         font-size: @font-size-m;
         margin-left: 1rem;
@@ -1342,7 +1405,7 @@ hr {
                     height: 2.2rem;
                     line-height: 2.2rem;
                     margin-right: .25rem;
-                     :before {
+                    :before {
                         position: absolute;
                         left: 0;
                         right: 0;
@@ -1354,6 +1417,7 @@ hr {
             }
         }
     }
+
     #nav-menu {
         height: 100% - @header-height-m;
         width: 40em;
@@ -1364,9 +1428,11 @@ hr {
             right: 0;
         }
     }
+
     #nav-menu.active {
         top: @header-height-m;
     }
+
     #map-controls {
         position: absolute;
         height: 100%;
@@ -1413,18 +1479,22 @@ hr {
             height: 100%;
         }
     }
+
     #content-container {
         height: 100% - @header-height-m;
         top: @header-height-m;
         bottom: @content-container-bottom;
     }
+
     .tab-head .icon {
         font-size: 1.75rem;
     }
+
     .tab-contents {
         padding: 1rem;
         height: 100% - (@header-height-m);
     }
+
     .list {
         font-size: 1.75rem;
     }
@@ -1434,17 +1504,21 @@ hr {
     #header {
         height: 10%;
     }
+
     #content-container {
         top: @header-height-l;
         bottom: @content-container-bottom;
     }
+
     .tab-head .icon {
         font-size: 2rem;
     }
+
     .tab-contents {
         padding: 1rem;
         height: 100% - (@header-height-l);
     }
+
     .list {
         font-size: 2rem;
     }
