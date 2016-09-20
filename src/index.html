@@ -16,7 +16,7 @@
 </head>
 
 <body ng-controller="MainController">
-<div class="container row" ng-click="trigger()">
+<div class="container row" ng-click="trigger()" ng-keypress="trigger()">
     <!-- HEADER -->
     <div id="header" class="row expanded">
         <div class="lang-menu columns small-2"></div>
@@ -40,10 +40,12 @@
     <!-- CONTENT CONTAINER -->
     <div id="content-container" class="row expanded">
         <!-- MAP CONTAINER -->
+        <!-- map-controls></map-controls -->
         <div class="map-container" id="map-tab"> <!--resize cb-resize="cbResizeCtrl()"-->
-            <canvas class="map" id="map" ng-style="style()"></canvas>
+            <canvas class="map" id="map"></canvas>
         </div>
-        <map-controls></map-controls>
+        <floors-menu></floors-menu>
+        <shortcuts-menu></shortcuts-menu>
     </div>
     <!-- NAV MENU -->
     <div id="nav-menu" class="row">

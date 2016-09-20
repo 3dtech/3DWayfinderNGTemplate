@@ -26,7 +26,6 @@ wfApp.controller( 'MapControlsController', [
             $timeout(function() {
                 $scope.floors = wfService.getFloors();
                 $scope.shortcuts = wfService.getShortcuts();
-                console.debug("MapControlsController:", $scope.floors, $scope.shortcuts);
             }, 100);
         });
     }

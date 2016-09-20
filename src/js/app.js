@@ -19,7 +19,7 @@ wfApp.run( [ 'wfangular3d', '$rootScope', '$http', '$route', function (
     $rootScope, $http, $route ) {
     $route.reload();
     WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
-    //wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
+    wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
     wayfinder.options.assetsLocation =
       '//static.3dwayfinder.com/shared/';
     wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
@@ -38,15 +38,15 @@ wfApp.config( [ '$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: "views/default.html",
                 controller: 'MainController'
             } )
-            .when( '/info&:id', {
+            .when('/info&:id/', {
                 templateUrl: "views/info.html",
                 controller: 'InfoController'
             } )
-            .when( '/search', {
+            .when('/search/', {
                 templateUrl: "views/search.html",
                 controller: 'SearchController'
             } )
-            .when( '/atoz', {
+            .when('/atoz/', {
                 templateUrl: "views/atoz.html",
                 controller: 'AtozController'
             } )
@@ -55,16 +55,16 @@ wfApp.config( [ '$routeProvider', '$locationProvider', '$httpProvider',
                        templateUrl: "views/floors.html",
                        controller: 'GroupsCtrl'
                    }) */
-            .when( '/topics', {
+            .when('/topics/', {
                 templateUrl: 'views/topics.html',
                 controller: 'TopicsController'
             } )
-            .when( '/topics&:id?', {
+            .when('/topics&:id?/', {
                 templateUrl: 'views/topics.html',
                 controller: 'TopicsController'
             } )
             .otherwise( {
-                redirectTo: '/topics'
+                redirectTo: '/'
             } );
 
         $locationProvider.html5Mode( {
@@ -152,7 +152,8 @@ wfApp.directive( 'floorsMenu', function () {
         restrict: 'AE',
         replace: 'true',
         template: '<div id="floors-menu" ' +
-        'class="button-group expanded">' +
+        'class="button-group expanded"' +
+        ' ng-controller="MapControlsController">' +
         '<floor-button></floor-button>' +
         '</div>'
     }
@@ -163,7 +164,8 @@ wfApp.directive( 'shortcutsMenu', function () {
         restrict: 'AE',
         replace: 'true',
         template: '<div id="shortcuts-menu"' +
-        ' class="button-group expanded">' +
+        ' class="button-group"' +
+        ' ng-controller="MapControlsController">' +
         '<shortcut-button></shortcut-button>' +
         '</div>'
     }

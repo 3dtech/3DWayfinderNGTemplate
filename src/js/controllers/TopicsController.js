@@ -21,8 +21,8 @@ wfApp.controller('TopicsController', [
         $scope.activeLetter = "";
 
         $scope.toggleGroupActive = function(group) {
-            group.active != group.active;
-            return;
+            group.active = !group.active;
+            return 0;
         };
 
         $scope.getLanguage = function() {
@@ -59,10 +59,7 @@ wfApp.controller('TopicsController', [
 
             if ($routeParams) {
                 for (var key in $scope.groups) {
-                    if ($scope.groups[key].id == $routeParams.id)
-                        $scope.groups[key].active = true;
-                    else
-                        $scope.groups[key].active = false;
+                    $scope.groups[key].active = $scope.groups[key].id == $routeParams.id;
                 }
             }
         });

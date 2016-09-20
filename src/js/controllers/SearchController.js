@@ -28,12 +28,11 @@ wfApp.controller( 'SearchController', [
 
         $scope.searchPOIsNames = function ( poi ) {
             if ( !poi ) return;
-            if ( poi
-                .names.translations[ $scope.getLanguage() ]
+            return !!poi
+                .names.translations[$scope.getLanguage()]
                 .toLowerCase()
-                .match( $scope.textToSearch.toLowerCase() ) )
-                return true;
-            return false;
+                .match($scope.textToSearch.toLowerCase());
+
         };
 
 /*        $scope.searchText = "";
@@ -83,16 +82,19 @@ wfApp.controller( 'SearchController', [
 
         $scope.$watch( 'textToSearch', function ( data ) {
             if ( !data ) return;
-            console.debug( "filtered poiObjects:", data );
+            //console.debug( "filtered poiObjects:", data );
             $timeout( function () {
-                console.debug( "filtered:", $scope.filtered
-                    .length );
-                if ( $scope.filtered.length != 0 )
-                    wayfinder.statistics.onSearch( data,
-                        "successful" );
-                else
+                //console.debug( "filtered:", $scope.filtered.length );
+                if ($scope.filtered.length != 0 && data.length > 1) {
+                    wayfinder.statistics.onSearch(data,
+                        "successful");
+                    console.debug("search.successful")
+                }
+                else if (data.length > 1) {
                     wayfinder.statistics.onSearch( data,
                         "unsuccessful" );
+                    console.debug("search.unsuccessful");
+                }
             }, 20 );
         } );
 

@@ -106,7 +106,7 @@ wfApp.controller('MainController', [
             //console.log("Trigger! time since lastTouch", (((new Date())
             //  .getTime() - lastTouch) / 1000), "sec");
             //reset
-            console.debug("maxInactivityTimeout:", maxInactivityTime);
+            console.debug("triggered!");
             if (lastTouch == -1) {
                 //first click in a while
                 hideScreensaver();
