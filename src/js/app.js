@@ -18,12 +18,13 @@ wfApp.run( [ 'wfangular3d', '$rootScope', '$http', '$route', function (
     wayfinder,
     $rootScope, $http, $route ) {
     $route.reload();
-    WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
-    wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
-    wayfinder.options.assetsLocation =
-      '//static.3dwayfinder.com/shared/';
-    wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
+    //WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
+    //wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
+    //wayfinder.options.assetsLocation =
+    //  '//static.3dwayfinder.com/shared/';
+    //wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
     //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
+    wayfinder.open();
     wayfinder.statistics.start();
 } ] );
 
@@ -64,7 +65,7 @@ wfApp.config( [ '$routeProvider', '$locationProvider', '$httpProvider',
                 controller: 'TopicsController'
             } )
             .otherwise( {
-                redirectTo: '/'
+                redirectTo: '/topics/'
             } );
 
         $locationProvider.html5Mode( {
