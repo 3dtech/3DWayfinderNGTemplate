@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="./lib/css/foundation.css">
     <link rel="stylesheet" href="./lib/css/font-awesome.css">
     <link rel="stylesheet" href="./lib/css/styles.css">
-    <base href="/"/>
+    <script type="text/javascript">
+        console.log("base:", document.location);
+        document.write("<base href='" + document.location.href + "' />");
+    </script>
 </head>
 
 <body ng-controller="MainController">

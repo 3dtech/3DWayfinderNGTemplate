@@ -152,16 +152,12 @@ gulp.task('minifyJS', function () {
             ]),
             concat('main.js'),
             uglify(),
-            gulp.dest(distFolder + '/lib/js')
-        ],
-        function(err) {
-            console.log("pump finished", err)
-        }
+            gulp.dest(distFolder + '/lib/js'),
+            browserSync.reload({
+                stream: true
+            })
+        ]
     );
-
-    browserSync.reload({
-        stream: true
-    })
 });
 
 gulp.task('json', function() {

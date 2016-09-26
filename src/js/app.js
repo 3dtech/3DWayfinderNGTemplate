@@ -1,31 +1,31 @@
 // Declare app level module which depends on filters, and services
-var wfApp = angular.module( 'wfApp', [
+var wfApp = angular.module('wfApp', [
     'ngSanitize',
     /*'ngAnimate',*/
     'ngRoute',
     'wfangular'
     /*,
-    'wf.languages',
-    'wf.floors',
-    'wf.groups'*/
+     'wf.languages',
+     'wf.floors',
+     'wf.groups'*/
     /*,
-    'wf.keyboard',
-    'wf.tabs',
-    'wf.zoom' */ // all modules go here, and into separate files and into the folder modules/<modulename>
-] );
+     'wf.keyboard',
+     'wf.tabs',
+     'wf.zoom' */ // all modules go here, and into separate files and into the folder modules/<modulename>
+]);
 
-wfApp.run( [ 'wfangular3d', '$rootScope', '$http', '$route', '$location', function (
-    wayfinder, $rootScope, $http, $route, $location ) {
+wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', '$location', function (wayfinder, $rootScope, $http, $route, $location) {
     $route.reload();
     /*
-        THIS IF STATEMENT IS HERE ONLY FOR DEBUG PURPOSES
+     THIS IF STATEMENT IS HERE ONLY FOR DEBUG PURPOSES
      */
-    if ($location.host().match("localhost")) {
+    console.log("location", $location);
+    if ($location.host().match("localhost") && $location.port() == 8080) {
         console.debug("app.location:", $location.host());
         WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
         wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
         wayfinder.options.assetsLocation =
-          '//static.3dwayfinder.com/shared/';
+            '//static.3dwayfinder.com/shared/';
         wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
         //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
     }
@@ -33,67 +33,67 @@ wfApp.run( [ 'wfangular3d', '$rootScope', '$http', '$route', '$location', functi
         wayfinder.open();
     }
     wayfinder.statistics.start();
-} ] );
+}]);
 
 // ------------------------------------------
 // ----------------- config -----------------
 // ------------------------------------------
 
-wfApp.config( [ '$routeProvider', '$locationProvider', '$httpProvider',
-    function ( $route, $locationProvider, $httpProvider ) {
+wfApp.config(['$routeProvider', '$locationProvider', '$httpProvider',
+    function ($route, $locationProvider, $httpProvider) {
         $route
-            .when( '/', {
+            .when('/', {
                 templateUrl: "views/default.html",
                 controller: 'MainController'
-            } )
+            })
             .when('/info&:id/', {
                 templateUrl: "views/info.html",
                 controller: 'InfoController'
-            } )
+            })
             .when('/search/', {
                 templateUrl: "views/search.html",
                 controller: 'SearchController'
-            } )
+            })
             .when('/atoz/', {
                 templateUrl: "views/atoz.html",
                 controller: 'AtozController'
-            } )
+            })
             /*
-                   .when('/floors', {
-                       templateUrl: "views/floors.html",
-                       controller: 'GroupsCtrl'
-                   }) */
+             .when('/floors', {
+             templateUrl: "views/floors.html",
+             controller: 'GroupsCtrl'
+             }) */
             .when('/topics/', {
                 templateUrl: 'views/topics.html',
                 controller: 'TopicsController'
-            } )
+            })
             .when('/topics&:id?/', {
                 templateUrl: 'views/topics.html',
                 controller: 'TopicsController'
-            } )
-            .otherwise( {
+            })
+            .otherwise({
                 redirectTo: '/topics/'
-            } );
+            });
 
-        $locationProvider.html5Mode( {
+        $locationProvider.html5Mode({
             enabled: true,
             requireBase: true
-        } );
-        $locationProvider.hashPrefix( '!' );
+        });
+        $locationProvider.hashPrefix('/');
 
-        $httpProvider.useApplyAsync( true );
+        $httpProvider.useApplyAsync(true);
     }
-] );
+]);
 
-wfApp.directive( 'resize', function ( $window ) {
+wfApp.directive('resize', function ($window) {
     return {
         restrict: 'AEC',
         scope: {
             cbResize: '&cbResize'
         },
-        link: function ( scope, element ) {
+        link: function (scope, element) {
 
-            var w = element[ 0 ];
+            var w = element[0];
             scope.getWindowDimensions = function () {
                 return {
                     'h': w.clientHeight,
@@ -101,38 +101,37 @@ wfApp.directive( 'resize', function ( $window ) {
                 };
             };
 
-            scope.$watch( scope.getWindowDimensions, function (
-                newValue ) {
+            scope.$watch(scope.getWindowDimensions, function (newValue) {
                 scope.windowHeight = newValue.h;
                 scope.windowWidth = newValue.w;
 
                 scope.style = function () {
                     return {
                         'height': ( newValue.h - 10 ) +
-                            'px',
+                        'px',
                         'width': ( newValue.w - 10 ) +
-                            'px'
+                        'px'
                     };
                 };
 
-            }, true );
+            }, true);
 
-            angular.element( $window ).bind( 'resize', function () {
-                scope.$apply( function () {
+            angular.element($window).bind('resize', function () {
+                scope.$apply(function () {
                     scope.cbResize();
-                } );
-            } );
+                });
+            });
         }
     }
-} );
-
-wfApp.filter('reverse', function() {
-  return function(items) {
-    return items.slice().reverse();
-  };
 });
 
-wfApp.directive( 'floorButton', function () {
+wfApp.filter('reverse', function () {
+    return function (items) {
+        return items.slice().reverse();
+    };
+});
+
+wfApp.directive('floorButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
@@ -142,9 +141,9 @@ wfApp.directive( 'floorButton', function () {
         ' ng-repeat="floor in floors | orderBy: \'index\' | reverse"' +
         ' ng-bind-html="floor.getNames() | wfCurrentLanguage"></div>'
     }
-} );
+});
 
-wfApp.directive( 'shortcutButton', function () {
+wfApp.directive('shortcutButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
@@ -153,9 +152,9 @@ wfApp.directive( 'shortcutButton', function () {
         ' ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\':' +
         ' \'url({{shortcut.backgroundImage}})\'}"></div>'
     }
-} );
+});
 
-wfApp.directive( 'floorsMenu', function () {
+wfApp.directive('floorsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
@@ -165,9 +164,9 @@ wfApp.directive( 'floorsMenu', function () {
         '<floor-button></floor-button>' +
         '</div>'
     }
-} );
+});
 
-wfApp.directive( 'shortcutsMenu', function () {
+wfApp.directive('shortcutsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
@@ -177,9 +176,9 @@ wfApp.directive( 'shortcutsMenu', function () {
         '<shortcut-button></shortcut-button>' +
         '</div>'
     }
-} );
+});
 
-wfApp.directive( 'mapControls', function () {
+wfApp.directive('mapControls', function () {
     return {
         restrict: 'AE',
         replace: 'true',
@@ -189,4 +188,4 @@ wfApp.directive( 'mapControls', function () {
         '<floors-menu></floors-menu>' +
         '</div>'
     }
-} );
+});
