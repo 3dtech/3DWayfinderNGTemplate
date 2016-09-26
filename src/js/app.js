@@ -30,6 +30,9 @@ wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', '$location', function
         //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
     }
     else {
+        WayfinderAPI.LOCATION = "../../../api/";
+        wayfinder.options.assetsLocation =
+            '../../../shared/';
         wayfinder.open();
     }
     wayfinder.statistics.start();
