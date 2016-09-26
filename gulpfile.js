@@ -1,4 +1,6 @@
 var gulp = require('gulp');
+var uglify = require('gulp-uglify');
+var minify = require('gulp-minify');
 var plumber = require('gulp-plumber');
 var watch = require('gulp-watch');
 var concat = require('gulp-concat');
@@ -24,7 +26,13 @@ var vendor = [
     "bower_components/angular-foundation/mm-foundation-tpls.js",
     "bower_components/foundation-sites/dist/foundation.js",
     "bower_components/dragscroll/dragscroll.js",
-    "bower_components/3dwayfinder-angular/index.js"
+    "bower_components/3dwayfinder-angular/index.js",
+    "../wayfinder/public/shared/js/minified/frak-stable.min.js",
+    "../wayfinder/public/shared/js/minified/BasicUI.min.js",
+    "../wayfinder/public/shared/js/minified/Wayfinder3D.min.js",
+    "../wayfinder/public/shared/js/ui/keyboard/Keyboard.js",
+    "../wayfinder/public/shared/js/ui/keyboard/KeyboardActions.js",
+    "../wayfinder/public/shared/js/ui/keyboard/KeyboardLayouts.js"
 ];
 
 var distFolder = "dist/";
@@ -85,6 +93,8 @@ gulp.task('views', function() {
 gulp.task('vendor', function() {
     return gulp.src(vendor)
         .pipe(concat('vendor.js'))
+        .pipe(uglify())
+        .pipe(minify())
         .pipe(gulp.dest(distFolder + 'js/'))
         .pipe(browserSync.reload({
             stream: true

@@ -14,17 +14,24 @@ var wfApp = angular.module( 'wfApp', [
     'wf.zoom' */ // all modules go here, and into separate files and into the folder modules/<modulename>
 ] );
 
-wfApp.run( [ 'wfangular3d', '$rootScope', '$http', '$route', function (
-    wayfinder,
-    $rootScope, $http, $route ) {
+wfApp.run( [ 'wfangular3d', '$rootScope', '$http', '$route', '$location', function (
+    wayfinder, $rootScope, $http, $route, $location ) {
     $route.reload();
-    //WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
-    //wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
-    //wayfinder.options.assetsLocation =
-    //  '//static.3dwayfinder.com/shared/';
-    //wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
-    //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
-    wayfinder.open();
+    /*
+        THIS IF STATEMENT IS HERE ONLY FOR DEBUG PURPOSES
+     */
+    if ($location.host().match("localhost")) {
+        console.debug("app.location:", $location.host());
+        WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
+        wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
+        wayfinder.options.assetsLocation =
+          '//static.3dwayfinder.com/shared/';
+        wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
+        //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
+    }
+    else {
+        wayfinder.open();
+    }
     wayfinder.statistics.start();
 } ] );
 
