@@ -96,7 +96,7 @@ gulp.task('vendor', function() {
         .pipe(uglify({mangle: true}))
         .pipe(concat('vendor.js'))
         //.pipe(minify())
-        .pipe(gulp.dest(distFolder + 'js/'))
+        .pipe(gulp.dest(distFolder + 'lib/js'))
         .pipe(browserSync.reload({
             stream: true
         }));
@@ -104,7 +104,7 @@ gulp.task('vendor', function() {
 
 gulp.task('font', function() {
     return gulp.src(['./src/fonts/**/*.*', './bower_components/font-awesome/fonts/*'])
-        .pipe(gulp.dest(distFolder + 'fonts/'))
+        .pipe(gulp.dest(distFolder + 'lib/fonts'))
         .pipe(browserSync.reload({
             stream: true
         }));
@@ -112,13 +112,13 @@ gulp.task('font', function() {
 
 gulp.task('controllers', [''], function() {
     return gulp.src(['./src/index.js', './src/js/controllers/**/*.js'])
-        .pipe(gulp.dest(distFolder + 'js/'))
+        .pipe(gulp.dest(distFolder + 'lib/js/'))
         .pipe(browserSync.reload());
 });
 
 gulp.task('js', function() {
     return gulp.src('./src/js/**/')
-        .pipe(gulp.dest(distFolder + 'js/'))
+        .pipe(gulp.dest(distFolder + 'lib/js/'))
         .pipe(browserSync.reload({
             stream: true
         }));
@@ -152,7 +152,7 @@ gulp.task('minifyJS', function () {
             ]),
             concat('main.js'),
             uglify(),
-            gulp.dest(distFolder + 'js/')
+            gulp.dest(distFolder + '/lib/js')
         ],
         function(err) {
             console.log("pump finished", err)
@@ -174,7 +174,7 @@ gulp.task('json', function() {
 
 gulp.task('img', function() {
     return gulp.src('./src/img/*')
-        .pipe(gulp.dest(distFolder + 'img/'))
+        .pipe(gulp.dest(distFolder + 'lib/img'))
         .pipe(browserSync.reload({
             stream: true
         }));
@@ -185,7 +185,7 @@ gulp.task('css', function() {
             './bower_components/foundation-sites/dist/foundation.css',
             './bower_components/font-awesome/css/*'
         ])
-        .pipe(gulp.dest(distFolder + 'css/'))
+        .pipe(gulp.dest(distFolder + 'lib/css'))
         .pipe(browserSync.reload({
             stream: true
         }));
@@ -197,7 +197,7 @@ gulp.task('less', function() {
         .pipe(less({
             paths: [path.join(__dirname, 'less')]
         }))
-        .pipe(gulp.dest(distFolder + 'css'))
+        .pipe(gulp.dest(distFolder + 'lib/css'))
         .pipe(browserSync.reload({
             stream: true
         }));
@@ -207,7 +207,7 @@ gulp.task('sass', [''], function() {
     return gulp.src(
             './bower_components/foundation-sites/scss/**/*.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest(distFolder + 'css'));
+        .pipe(gulp.dest(distFolder + 'lib/css'));
 });
 
 gulp.task('layout', function() {
