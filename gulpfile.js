@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var pump = require('pump');
 var uglify = require('gulp-uglify');
 var minify = require('gulp-minify');
 var plumber = require('gulp-plumber');
@@ -39,7 +40,7 @@ var distFolder = "dist/";
 
 gulp.task('default', ['clean'], function() {
     gulp.start('html', /*'controllers',*/ 'views', 'vendor',
-        'font', 'js',
+        'font', /*'js'*/'minifyJS',
         'json', 'img', 'css', 'less', /*'sass',*/
         'layout');
 });
@@ -92,9 +93,9 @@ gulp.task('views', function() {
 
 gulp.task('vendor', function() {
     return gulp.src(vendor)
+        .pipe(uglify({mangle: true}))
         .pipe(concat('vendor.js'))
-        .pipe(uglify())
-        .pipe(minify())
+        //.pipe(minify())
         .pipe(gulp.dest(distFolder + 'js/'))
         .pipe(browserSync.reload({
             stream: true
@@ -121,6 +122,46 @@ gulp.task('js', function() {
         .pipe(browserSync.reload({
             stream: true
         }));
+});
+
+gulp.task('minifyJS', function () {
+    /*pump([
+            gulp.src('./src/js/app.js'),
+            uglify(),
+            gulp.dest(distFolder + 'js/'),
+            gulp.src('./src/js/controllers/*Controller.js'),
+            uglify(),
+            gulp.dest(distFolder + 'js/controllers/'),
+            gulp.src('./src/js/services/*Service.js'),
+            uglify(),
+            gulp.dest(distFolder + 'js/services/'),
+            gulp.src('./src/js/directives/*.js'),
+            uglify(),
+            gulp.dest(distFolder + 'js/directives/')
+        ],
+        function(err) {
+            console.log("pump finished", err)
+        }
+    );*/
+    pump([
+            gulp.src([
+                './src/js/app.js',
+                './src/js/controllers/*Controller.js',
+                './src/js/services/*Service.js',
+                './src/js/directives/*.js'
+            ]),
+            concat('main.js'),
+            uglify(),
+            gulp.dest(distFolder + 'js/')
+        ],
+        function(err) {
+            console.log("pump finished", err)
+        }
+    );
+
+    browserSync.reload({
+        stream: true
+    })
 });
 
 gulp.task('json', function() {
@@ -184,7 +225,8 @@ gulp.task('watch-bs', ['default', 'browserSync'], function() {
     gulp.watch('./src/font/*', ['font']);
     gulp.watch(vendor, ['vendor']);
     gulp.watch('src/images/png/*', ['img']);
-    gulp.watch('src/js/**/*.js', ['js']);
+    gulp.watch('src/js/**/*.js', ['minifyJS']);
+    //gulp.watch('src/js/**/*.js', ['js']);
     gulp.watch('./bower_components/foundation-sites/scss/**/*.scss', [
         'sass'
     ]);
