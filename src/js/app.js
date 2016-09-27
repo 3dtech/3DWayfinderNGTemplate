@@ -16,23 +16,20 @@ var wfApp = angular.module('wfApp', [
 
 wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', '$location', function (wayfinder, $rootScope, $http, $route, $location) {
     $route.reload();
-    /*
-     THIS IF STATEMENT IS HERE ONLY FOR DEBUG PURPOSES
-     */
-    console.log("location", $location);
     if ($location.host().match("localhost") && $location.port() == 8080) {
-        console.debug("app.location:", $location.host());
         WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
         wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
         wayfinder.options.assetsLocation =
             '//static.3dwayfinder.com/shared/';
         wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
         //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
+
     }
     else {
-        WayfinderAPI.LOCATION = "../../../api/";
+        WayfinderAPI.LOCATION = "../../../../api";
+        //wayfinder.options.assetsLocation = "http://localhost";
         wayfinder.options.assetsLocation =
-            '../../../shared/';
+            '../../../../shared';
         wayfinder.open();
     }
     wayfinder.statistics.start();
