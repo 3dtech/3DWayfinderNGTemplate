@@ -26,9 +26,11 @@
         <div class="logo columns small-2"></div>
         <!-- <div class="title columns small-6 medium-4" ng-bind-html="getGUITranslation(title)"> -->
         <div class="title columns small-6">
+            <!-- @if DEBUG -->
             <span id="width"></span>
             <br/>
             <span id="height"></span>
+            <!-- @endif -->
         </div>
         <div id="menu" class="columns small-2">
             <div id="yah-btn" class="columns small-6" ng-click="showYAH()">
@@ -43,8 +45,7 @@
     <!-- CONTENT CONTAINER -->
     <div id="content-container" class="row expanded">
         <!-- MAP CONTAINER -->
-        <!-- map-controls></map-controls -->
-        <div class="map-container" id="map-tab"> <!--resize cb-resize="cbResizeCtrl()"-->
+        <div class="map-container" id="map-tab">
             <canvas class="map" id="map"></canvas>
         </div>
         <floors-menu></floors-menu>
@@ -89,12 +90,14 @@
             $('html').css('cursor', 'auto');
         }
     });
-    /*$(window).resize(function () {
+    <!-- @if DEBUG -->
+    $(window).resize(function () {
      $('#width').text("width: " + $(document).innerWidth() +
      "px");
      $('#height').text("height: " + $(document).innerHeight() +
      "px");
-     }).resize();*/
+     }).resize();
+    <!-- @endif -->
 
     $(document).ready(function () {
         $(document).foundation();
