@@ -30,12 +30,12 @@ var vendor = [
     "bower_components/foundation-sites/dist/foundation.js",
     "bower_components/dragscroll/dragscroll.js",
     "bower_components/3dwayfinder-angular/index.js",
-    "../wayfinder/public/shared/js/minified/frak-stable.min.js",
-    "../wayfinder/public/shared/js/minified/BasicUI.min.js",
-    "../wayfinder/public/shared/js/minified/Wayfinder3D.min.js",
-    "../wayfinder/public/shared/js/ui/keyboard/Keyboard.js",
-    "../wayfinder/public/shared/js/ui/keyboard/KeyboardActions.js",
-    "../wayfinder/public/shared/js/ui/keyboard/KeyboardLayouts.js"
+    "./src/js/wayfinder/frak-stable.min.js",
+    "./src/js/wayfinder/BasicUI.min.js",
+    "./src/js/wayfinder/Wayfinder3D.min.js",
+    "./src/js/wayfinder/Keyboard.js",
+    "./src/js/wayfinder/KeyboardActions.js",
+    "./src/js/wayfinder/KeyboardLayouts.js"
 ];
 
 var distFolder = "dist/";
