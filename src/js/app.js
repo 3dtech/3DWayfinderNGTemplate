@@ -18,7 +18,6 @@ wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', '$location', function
     $route.reload();
     if ($location.host().match("localhost") && $location.port() == 8080) {
         WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
-        wayfinder.options.apiLocation = "//api.3dwayfinder.com/";
         wayfinder.options.assetsLocation =
             '//static.3dwayfinder.com/shared/';
         wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
@@ -27,7 +26,6 @@ wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', '$location', function
     }
     else {
         WayfinderAPI.LOCATION = "../../../../api";
-        //wayfinder.options.assetsLocation = "http://localhost";
         wayfinder.options.assetsLocation =
             '../../../../shared';
         wayfinder.open();

@@ -349,6 +349,7 @@ input::-ms-clear {
 #nav-menu {
     position: absolute;
     top: 100%;
+    bottom: @content-container-bottom;
     right: 0;
     width: 100%;
     margin: 0;
@@ -1000,7 +1001,8 @@ hr {
 }
 
 #content-container {
-    height: 100% - @header-height-s;
+    top: @header-height-s;
+    bottom: @content-container-bottom;
 }
 
 .topics {
@@ -1105,7 +1107,6 @@ hr {
     }
 }
 
-
 //}
 @media screen and (min-width: 640px) {
     #header {
@@ -1135,7 +1136,6 @@ hr {
     #content-container {
         top: @header-height-s;
         bottom: @content-container-bottom;
-        height: 100% - @header-height-s;
     }
 
     .keyboard {
@@ -1178,7 +1178,6 @@ hr {
 
     .list {
         font-size: 1rem;
-        margin-left: 1rem;
         position: relative;
         .poi {
             position: relative;
@@ -1252,12 +1251,12 @@ hr {
         background-color: rgba(255, 255, 255, 0);
         #floor-button {
             display: inline-block;
-            float: left;
-        }
-        #floor-button:first-child {
-            border-radius: 5px 0 0 5px;
+            float: right;
         }
         #floor-button:last-child {
+            border-radius: 5px 0 0 5px;
+        }
+        #floor-button:first-child {
             border-radius: 0 5px 5px 0;
         }
     }
@@ -1310,7 +1309,7 @@ hr {
         bottom: @content-container-bottom;
         .map-container {
             .map {
-                top: @header-height-s;
+                //top: @header-height-s;
             }
         }
     }
@@ -1343,7 +1342,6 @@ hr {
 
     .list {
         font-size: @font-size-m;
-        margin-left: 1rem;
         position: relative;
         .poi {
             display: block;
@@ -1387,18 +1385,14 @@ hr {
     }
 
     #nav-menu {
-        height: 100% - @header-height-m;
+        top: @header-height-s;
         width: 40em;
-        top: @header-height-m;
         right: -40em;
         transition: all 1s ease-in-out;
         &.active {
+            top: @header-height-s;
             right: 0;
         }
-    }
-
-    #nav-menu.active {
-        top: @header-height-m;
     }
 
     #floors-menu {
@@ -1449,9 +1443,17 @@ hr {
     }
 
     #content-container {
-        height: 100% - @header-height-m;
         top: @header-height-m;
         bottom: @content-container-bottom;
+    }
+
+    #nav-menu {
+        top: @header-height-m;
+        height: 100% - @header-height-m;
+        &.active {
+            top: @header-height-m;
+            right: 0;
+        }
     }
 
     .tab-head .icon {
@@ -1470,7 +1472,7 @@ hr {
 
 @media screen and (min-width: 1920px) {
     #header {
-        height: 10%;
+        height: @header-height-l;
     }
 
     #content-container {
@@ -1489,6 +1491,24 @@ hr {
 
     .list {
         font-size: 2rem;
+    }
+
+    #nav-menu {
+        top: @header-height-l;
+        height: 100% - @header-height-l;
+        &.active {
+            top: @header-height-l;
+        }
+    }
+
+    .search .search-wrapper #search-bar {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    .search .search-wrapper #search-btn {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 }
 
