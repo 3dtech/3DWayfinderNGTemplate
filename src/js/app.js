@@ -56,11 +56,6 @@ wfApp.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: "views/atoz.html",
                 controller: 'AtozController'
             })
-            /*
-             .when('/floors', {
-             templateUrl: "views/floors.html",
-             controller: 'GroupsCtrl'
-             }) */
             .when('/topics/', {
                 templateUrl: 'views/topics.html',
                 controller: 'TopicsController'
@@ -138,6 +133,14 @@ wfApp.directive('floorButton', function () {
         ' ng-click="changeFloor(floor)"' +
         ' ng-repeat="floor in floors | orderBy: \'index\' | reverse"' +
         ' ng-bind-html="floor.getNames() | wfCurrentLanguage"></div>'
+    }
+});
+
+wfApp.directive('languageButton', function () {
+    return {
+        restrict: 'AE',
+        replace: 'true',
+        template: '<div></div>'
     }
 });
 

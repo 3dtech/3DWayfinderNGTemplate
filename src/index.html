@@ -22,7 +22,11 @@
 <div class="container row" ng-click="trigger()" ng-keypress="trigger()">
     <!-- HEADER -->
     <div id="header" class="row expanded">
-        <div class="lang-menu columns small-2"></div>
+        <div class="lang-menu columns small-2" ng-controller="LanguageController">
+            <div class="button-group">
+                <div id="language-button" class="button" ng-repeat="language in languages" ng-class="{'active': language.active}" ng-click="setLanguage()"></div>
+            </div>
+        </div>
         <div class="logo columns small-2"></div>
         <!-- <div class="title columns small-6 medium-4" ng-bind-html="getGUITranslation(title)"> -->
         <div class="title columns small-6">
