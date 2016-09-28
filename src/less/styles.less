@@ -227,14 +227,12 @@ input::-ms-clear {
 .lang-menu {
     text-transform: uppercase;
     z-index: 13;
-    .language-button {
-        display: block;
-        z-index: 15;
-        color: @color-inactive;
-        font-size: 1.4em;
-    }
     .active {
         color: @color-primary;
+    }
+    >.dropdown.menu {
+        height:100%;
+        width:100%;
     }
 }
 

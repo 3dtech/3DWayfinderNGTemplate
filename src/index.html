@@ -6,8 +6,10 @@
     <meta charset="utf-8">
     <meta name="layout" content="wfAngular">
     <meta name="description" content="3DWayfinder WebGL">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet'
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'
+          rel='stylesheet'
           type='text/css'>
     <link rel="stylesheet" href="./lib/css/foundation.css">
     <link rel="stylesheet" href="./lib/css/font-awesome.css">
@@ -22,10 +24,18 @@
 <div class="container row" ng-click="trigger()" ng-keypress="trigger()">
     <!-- HEADER -->
     <div id="header" class="row expanded">
-        <div class="lang-menu columns small-2" ng-controller="LanguageController">
-            <div class="button-group">
-                <div id="language-button" class="button" ng-repeat="language in languages" ng-class="{'active': language.active}" ng-click="setLanguage()"></div>
-            </div>
+        <div class="lang-menu columns small-2"
+             ng-controller="LanguageController">
+            <ul class="dropdown menu" data-dropdown-menu>
+                <li> <a href="#">{{activeLanguage.nativeName}}</a>
+                    <ul class="menu">
+                        <li ng-repeat="language in languages"
+                            ng-class="{'active': language.active}"
+                            ng-click="setLanguage(language)"
+                            ng-bind-html="language.nativeName"></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
         <div class="logo columns small-2"></div>
         <!-- <div class="title columns small-6 medium-4" ng-bind-html="getGUITranslation(title)"> -->
@@ -40,7 +50,8 @@
             <div id="yah-btn" class="columns small-6" ng-click="showYAH()">
                 <div class="icon icon-iglu-location"></div>
             </div>
-            <div id="nav-menu-btn" class="columns small-6" onclick="toggleNavMenu()"
+            <div id="nav-menu-btn" class="columns small-6"
+                 onclick="toggleNavMenu()"
                  ng-click="loadDefaultView()">
                 <div class="icon icon-iglu-search"></div>
             </div>
@@ -96,11 +107,11 @@
     });
     <!-- @if DEBUG -->
     $(window).resize(function () {
-     $('#width').text("width: " + $(document).innerWidth() +
-     "px");
-     $('#height').text("height: " + $(document).innerHeight() +
-     "px");
-     }).resize();
+        $('#width').text("width: " + $(document).innerWidth() +
+                "px");
+        $('#height').text("height: " + $(document).innerHeight() +
+                "px");
+    }).resize();
     <!-- @endif -->
 
     $(document).ready(function () {

@@ -67,7 +67,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
         angular.forEach(data, function (element) {
             arr.push(element);
         });
-        //console.debug("extractFloors:", arr);
+        console.debug("extractFloors:", arr);
         return arr;
     }
 
@@ -81,6 +81,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                 arr.push(element);
             }
         });
+        console.debug("extractShrotcuts:", arr);
         return arr;
     }
 
@@ -88,7 +89,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
         var arr = [];
         angular.forEach(data, function (element) {
             // add hasOwnPropertyCheck if needed
-            if (stringToBoolean(element.showInMenu)) {
+            if (stringToBoolean(element.showInMenu) && Object.keys(element.pois).length) {
                 element.image = getGroupImage(element);
                 element.colorHEX = getGroupColorHEX(element);
                 element.colorRGBA = getGroupColorRGBA(element);
@@ -96,7 +97,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                 arr.push(element);
             }
         });
-        //console.debug( "WF-SERVICE: extractGroups.arr:", arr, poiGroups );
+        console.debug( "extractGroups:", arr );
         return arr;
     }
 
@@ -113,7 +114,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
             //console.debug("WF-SERVICE: no pois found to be displayed" );
             return [];
         }
-        //console.debug("wfService.extractPOIs:", pois, "->", arr);
+        console.debug("extractPOIs:", arr);
         return arr;
     }
 
@@ -127,6 +128,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                     arr[element.index].push(item);
             })
         });
+        console.debug("extractPOIsByFloor:", arr);
         return arr;
     }
 
@@ -134,7 +136,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
         var arr = [];
         var arr1 = [];
         angular.forEach(pois, function (element) {
-            if (element.showInMenu) {
+            if (element.showInMenu && element.getNames(language).length) {
                 if (arr.indexOf(element.getName(language)
                         .toLowerCase().charAt(0)) == -1) {
                     arr.push(element.getName(language)
@@ -150,6 +152,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                 }
             );
         });
+        console.debug("extractAtoZLetters:", arr);
         return arr1;
     }
 

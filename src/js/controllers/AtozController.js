@@ -25,7 +25,7 @@ wfApp.controller( 'AtozController', [
                 return 0;
             //console.log("criteriaMatch.criteria:", criteria, typeof criteria);
             return function ( item ) {
-                var name = item.names.translations[ wayfinder.getLanguage() ]
+                var name = item.getName(wayfinder.getLanguage())
                     .toLowerCase().charAt( 0 );
                 return name === criteria;
             }

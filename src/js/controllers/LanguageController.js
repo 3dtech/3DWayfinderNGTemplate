@@ -12,23 +12,26 @@ wfApp.controller('LanguageController', [
     'wfangular3d',
     function($rootScope, $scope, $timeout, wfService, wayfinder) {
         $scope.languages = [];
+        $scope.activeLanguage = null;
 
         $scope.getLanguage = function() {
             return wayfinder.getLanguage();
         };
 
         $scope.$on("wf.language.change", function (event, language) {
-            console.debug("langCtrl.lang.change:", language, $scope.languages);
             if ($scope.languages.length) {
                 angular.forEach($scope.languages, function (lang) {
-                    console.debug("langCtrl.lang.change.lang:", lang);
-                    lang.active = lang.name == language.name;
+                    lang.active = lang.name == language;
+                    if (lang.active) {
+                        $scope.activeLanguage = lang;
+                    }
                 })
             }
         });
 
         $scope.setLanguage = function (language) {
-            wayfinder.setLanguage(language);
+            console.debug("setLanguage:", language);
+            wayfinder.setLanguage(language.name);
         };
 
         $scope.$on("wf.data.loaded", function () {
@@ -36,10 +39,15 @@ wfApp.controller('LanguageController', [
             if (!$scope.languages.length) {
                 var langs = wayfinder.getLanguages();
                 angular.forEach(langs, function (lang) {
-                    console.debug("langCtrl.data.loaded.lang:", lang);
                     lang.active = lang.name == wayfinder.getLanguage();
                     $scope.languages.push(lang);
                 })
+            }
+            if (!$scope.activeLanguage) {
+                angular.forEach($scope.languages, function (lang) {
+                    if (lang.name == wayfinder.getLanguage())
+                        $scope.activeLanguage = lang;
+                });
             }
             console.debug($scope.languages);
         })
