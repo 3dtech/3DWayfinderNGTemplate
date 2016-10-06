@@ -12,7 +12,7 @@ wfApp.controller('TopicsController', [
         wayfinder) {
         console.debug("TC.loaded");
         var topics = $scope;
-        $scope.groups = [];
+        $scope.groups = wfService.data.groups;
         $scope.activeGroup = "";
         var wfTopicsDataLoaded = false;
 

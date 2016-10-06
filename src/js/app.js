@@ -120,7 +120,12 @@ wfApp.directive('resize', function ($window) {
 
 wfApp.filter('reverse', function () {
     return function (items) {
-        return items.slice().reverse();
+        console.debug("reverse:", !!items);
+        if (!!items) {
+            console.debug("reverse:", items);
+            return items.slice().reverse();
+        }
+        return false;
     };
 });
 

@@ -16,7 +16,7 @@ wfApp.controller('SearchController', [
         $scope.textToSearch = "";
         $scope.showKeyboard = true;
 
-        $scope.poiObjects = [];
+        $scope.poiObjects = wfService.data.pois;
 
         $scope.showPath = function (poi) {
             wayfinder.showPath(poi.getNode(), poi);
@@ -27,10 +27,10 @@ wfApp.controller('SearchController', [
         };
 
         $scope.searchPOIsNames = function (poi) {
-            if (!poi) return;
-            return !!poi.getName($scope.getLanguage())
-                .toLowerCase().match($scope.textToSearch.toLowerCase());
-
+            if (!!poi && !!poi.getName(wayfinder.getLanguage())) {
+                return poi.getName($scope.getLanguage())
+                    .toLowerCase().match($scope.textToSearch.toLowerCase());
+            }
         };
 
         /*        $scope.searchText = "";
@@ -137,11 +137,11 @@ wfApp.controller('SearchController', [
             searchKeyboard.keyboard = createKeyboard(
                 searchKeyboard,
                 kbLayouts);
-            $scope.poiObjects = wfService.getPOIs();
+            $scope.poiObjects = wfService.data.pois;
             console.log("SearchController.data.loaded");
         }, 20);
 
-        $rootScope.$emit("search.init", $scope);
+        //$rootScope.$emit("search.init", $scope);
 
     }
 ]);
