@@ -124,7 +124,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                     arr.push(element);
                 }
             });
-            console.debug("extractFloors:", arr);
+            // console.debug("extractFloors:", arr);
             return arr;
         }
 
@@ -138,7 +138,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                     arr.push(element);
                 }
             });
-            console.debug("extractShrotcuts:", arr);
+            // console.debug("extractShrotcuts:", arr);
             return arr;
         }
 
@@ -154,7 +154,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                     arr.push(element);
                 }
             });
-            console.debug("extractGroups:", arr);
+            // console.debug("extractGroups:", arr);
             return arr;
         }
 
@@ -168,10 +168,10 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                 }
             });
             if (arr.length == 0) {
-                //console.debug("WF-SERVICE: no pois found to be displayed" );
+                // console.debug("WF-SERVICE: no pois found to be displayed" );
                 return [];
             }
-            console.debug("extractPOIs:", arr);
+            // console.debug("extractPOIs:", arr);
             return arr;
         }
 
@@ -186,7 +186,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                     }
                 })
             });
-            console.debug("extractPOIsByFloor:", arr);
+            // console.debug("extractPOIsByFloor:", arr);
             return arr;
         }
 
@@ -196,9 +196,9 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
             angular.forEach(pois, function (element) {
                 if (element.showInMenu && element.getNames(language).length) {
                     if (arr.indexOf(element.getName(language)
-                                        .toLowerCase().charAt(0)) == -1) {
+                            .toLowerCase().charAt(0)) == -1) {
                         arr.push(element.getName(language)
-                                     .toLowerCase().charAt(0));
+                            .toLowerCase().charAt(0));
                     }
                 }
             });
@@ -210,7 +210,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                     }
                 );
             });
-            console.debug("extractAtoZLetters:", arr);
+            // console.debug("extractAtoZLetters:", arr);
             return arr1;
         }
 
@@ -237,7 +237,7 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
             return "rgba(" + parseInt(r.toString(10) * 255) +
                 "," + parseInt(g.toString(10) * 255) + "," +
                 parseInt(b.toString(10) * 255) + "," + parseInt(a.toString(
-                                                                    10) * 255) + ")";
+                        10) * 255) + ")";
         }
 
         function getGroupImage(group) {
@@ -394,22 +394,37 @@ wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($
                     self.data.floorPOIs = extractPOIsByFloor(
                         wayfinder.building.floors);
                 }
-                if (!(!!self.data.atozLetters)) {
-                    self.data.atozLetters =
+                if (!(!!self.data.atoz)) {
+                    self.data.atoz =
                         extractAtoZLetters(
                             wayfinder.getPOIs(),
                             wayfinder.getLanguage());
+                    angular.forEach( wayfinder.getLanguages(), function (language) {
+                        console.debug("wayfinderLanguages:", language);
+
+                    })
                 }
                 if (wayfinder.settings.data[
                         "kiosk.max-inactivity"]) {
                     self.data.timeout = parseInt(wayfinder.settings
-                                                     .data["kiosk.max-inactivity"], 10
+                            .data["kiosk.max-inactivity"], 10
                         ) * 1000;
                 }
-                console.debug("wfservice, is all data loaded?", !!self.data.atoz && !!self.data.floorPOIs && !!self.data.floors && !!self.data.groups && !!self.data.pois && !!self.data.shortcuts && !!self.data.tabs && !!self.data.timeout);
+                // console.debug(
+                //     "wfservice, is all data loaded?",
+                //     !!self.data.atoz,
+                //     !!self.data.floorPOIs,
+                //     !!self.data.floors,
+                //     !!self.data.groups,
+                //     !!self.data.pois,
+                //     !!self.data.shortcuts,
+                //     !!self.data.tabs,
+                //     !!self.data.timeout
+                // );
+
                 if (!!self.data.atoz && !!self.data.floorPOIs && !!self.data.floors && !!self.data.groups && !!self.data.pois && !!self.data.shortcuts && !!self.data.tabs && !!self.data.timeout) {
-                    $rootScope.$emit("wfService.data.loaded");
-                    console.debug("wfService.data.loaded sent");
+                    $rootScope.$broadcast("wfService.data.loaded");
+                    //console.debug("wfService.data.loaded sent", self.data);
                 }
             }
         });

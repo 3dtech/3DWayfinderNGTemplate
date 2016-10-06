@@ -1,7 +1,7 @@
 //var groupsModule = angular.module('wf.groups', ['wfangular']);
 
 //groupsModule.controller('GroupsCtrl', [
-wfApp.controller('MapControlsController', [
+wfApp.controller('ControlsController', [
     '$rootScope',
     '$scope',
     '$timeout',
@@ -11,7 +11,7 @@ wfApp.controller('MapControlsController', [
         $scope.floors = wfService.data.floors;
         $scope.shortcuts = wfService.data.shortcuts;
         $scope.activeFloor = wfService.data.activeFloor;
-        console.debug("wfService.data:", wfService.data);
+        //console.debug("wfService.data:", wfService.data);
 
         $scope.changeFloor = function (floor) {
             wayfinder.showFloor(floor);
@@ -23,28 +23,21 @@ wfApp.controller('MapControlsController', [
             }, 10);
         });
 
-        $scope.$watch("floors", function (oldVal, newVal) {
-            console.debug("floors:", oldVal, "->", newVal);
-            if (!!newVal)
-                $scope.$apply();
-        });
-
-        $scope.$watch("shortcuts", function (oldVal, newVal) {
-            console.debug("shortcuts:", oldVal, "->", newVal);
-            if (!!newVal)
-                $scope.$apply();
-        });
-
         $timeout(function () {
-            if (!!$scope.floors && !!$scope.shortcuts) {
-                console.debug("checking for floors and shortcuts:", $scope.floors, $scope.shortcuts);
+            if (!(!!$scope.floors) && !(!!$scope.shortcuts)) {
+                console.debug(
+                    "checking for floors and shortcuts:",
+                    $scope.floors,
+                    $scope.shortcuts,
+                    wfService.data
+                );
                 $scope.$apply();
             }
         }, 1000);
 
 
         $scope.$on("wfService.data.loaded", function () {
-            console.debug("wfService.data.loaded");
+            console.debug("wfService.data.loaded caught:");
             $scope.$apply(function () {
                 if (!(!!$scope.floors))
                     $scope.floors = wfService.data.floors;

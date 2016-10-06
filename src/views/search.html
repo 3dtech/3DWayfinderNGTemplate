@@ -15,12 +15,12 @@
         <div class="result-container" id="style-7">
             <div class="list dragscroll">
                 <div class="poi row" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:searchPOIsNames as filtered">
-                    <div class="texts columns small-8 medium-9 left">
+                    <div class="texts columns small-8 medium-10 large-9 left">
                         <div class="name columns small-12 medium-6" ng-click="showInfo(poi)" ng-bind-html="poi.getName(getLanguage())"></div>
                         <div class="group columns small-12 medium-6" ng-repeat="group in poi.getGroups()" style="color: {{group.colorRGBA}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)">
                         </div>
                     </div>
-                    <div class="icons columns small-4 medium-3 right button-group">
+                    <div class="icons columns small-4 medium-2 large-3 right button-group">
                         <div class="icon button" ng-click="showPath(poi)" onclick="toggleNavMenu()">
                             <div class="icon-iglu-goto"></div>
                         </div>

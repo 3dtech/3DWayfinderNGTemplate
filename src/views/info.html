@@ -7,7 +7,7 @@
                 <div class="icon-iglu-goto"></div>
             </div>
         </div>
-        <div class="description columns small-12" ng-show="hasDescription(poi)" ng-bind-html="poi.descriptions | wfCurrentLanguage"></div>
+        <div class="description columns small-12" ng-show="poi.hasDescription" ng-bind-html="poi.descriptions | wfCurrentLanguage"></div>
         <div class="image columns small-12" style="background-image:{{poi.backgroundImage}}"></div>
     </div>
 </div>

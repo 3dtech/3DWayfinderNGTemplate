@@ -286,6 +286,7 @@ input::-ms-clear {
         line-height: @poi-line-height;
         font-size: @poi-line-height*0.5;
         .texts {
+            height:100%;
             .name {
                 position: relative;
                 color: @color-text-dark;
@@ -941,12 +942,13 @@ hr {
 
 #style-7::-webkit-scrollbar {
     width: 10px;
-    background-color: #F5F5F5;
+    background-color: #ddd;
 }
 
 #style-7::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.75, @color-topic-even), color-stop(0.25, @color-topic-odd));
+    background-color: @color-primary;
+    //background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.9, @color-secondary), color-stop(0.4, @color-primary), color-stop(0.6, @color-primary), color-stop(0.1, @color-secondary));
 }
 
 .animate-hide {
