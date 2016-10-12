@@ -11,7 +11,7 @@ wfApp.controller('TopicsController', [
     function ($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder) {
         console.debug("TC.loaded");
         var topics = $scope;
-        $scope.groups = [];
+        $scope.groups = wfService.data.groups;
         $scope.activeGroup = "";
         var wfTopicsDataLoaded = false;
         $scope.collapsedGroup = [];

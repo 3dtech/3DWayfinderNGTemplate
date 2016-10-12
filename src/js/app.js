@@ -120,7 +120,10 @@ wfApp.directive('resize', function ($window) {
 
 wfApp.filter('reverse', function () {
     return function (items) {
-        return items.slice().reverse();
+        if (!!items) {
+            return items.slice().reverse();
+        }
+        return !!items;
     };
 });
 
@@ -161,7 +164,7 @@ wfApp.directive('floorsMenu', function () {
         replace: 'true',
         template: '<div id="floors-menu" ' +
         'class="button-group expanded"' +
-        ' ng-controller="MapControlsController">' +
+        ' ng-controller="ControlsController">' +
         '<floor-button></floor-button>' +
         '</div>'
     }
@@ -173,7 +176,7 @@ wfApp.directive('shortcutsMenu', function () {
         replace: 'true',
         template: '<div id="shortcuts-menu"' +
         ' class="button-group"' +
-        ' ng-controller="MapControlsController">' +
+        ' ng-controller="ControlsController">' +
         '<shortcut-button></shortcut-button>' +
         '</div>'
     }
@@ -184,7 +187,7 @@ wfApp.directive('mapControls', function () {
         restrict: 'AE',
         replace: 'true',
         template: '<div id="map-controls"' +
-        ' ng-controller="MapControlsController">' +
+        ' ng-controller="ControlsController">' +
         '<shortcuts-menu></shortcuts-menu>' +
         '<floors-menu></floors-menu>' +
         '</div>'

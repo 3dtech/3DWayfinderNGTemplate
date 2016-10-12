@@ -35,7 +35,6 @@ wfApp.controller('LanguageController', [
         };
 
         $scope.$on("wf.data.loaded", function () {
-            console.debug("languageController.data.loaded");
             if (!$scope.languages.length) {
                 var langs = wayfinder.getLanguages();
                 angular.forEach(langs, function (lang) {
@@ -49,7 +48,6 @@ wfApp.controller('LanguageController', [
                         $scope.activeLanguage = lang;
                 });
             }
-            console.debug($scope.languages);
         })
     }
 ]);

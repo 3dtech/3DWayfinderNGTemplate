@@ -8,8 +8,8 @@ wfApp.controller( 'AtozController', [
     'wfService',
     'wfangular3d',
     function ( $rootScope, $scope, $timeout, wfService, wayfinder ) {
-        $scope.atoz = null;
-        $scope.poiObjects = null;
+        $scope.atoz = wfService.data.atoz;
+        $scope.poiObjects = wfService.data.pois;
         $scope.activeLetter = "";
         var wfAtozDataLoaded = false;
 
@@ -33,25 +33,20 @@ wfApp.controller( 'AtozController', [
 
         $scope.setLetterActive = function ( letter, letters ) {
             if ( letter.active ) return 0;
-            for ( var i in letters ) {
-                if ( letters[ i ].name == letter.name )
-                    continue;
-                else
-                    letters[ i ].active = false;
-            }
-            letter.active = true;
+            angular.forEach( letters, function (item) {
+                item.active = item.name == letter.name;
+            });
             return 1;
         };
 
         $scope.getActiveLetter = function ( letters ) {
-            var letter;
-            for ( var i in letters ) {
-                if ( letters[ i ].active ) {
-                    letter = letters[ i ];
-                    break;
+            var letter = null;
+            angular.forEach( letters, function (item) {
+                if (item.active) {
+                    letter = item;
                 }
-            }
-            if ( typeof letter == "undefined" ) return 0;
+            });
+            if ( typeof letter == null ) return 0;
             //console.log("getActiveLetter.letter:", letter)
             return letter;
         };
@@ -74,7 +69,7 @@ wfApp.controller( 'AtozController', [
             console.log( "AtozController.data.loaded" );
         }, 20 ); */
 
-        $rootScope.$emit( "atoz.init" , $scope );
+        //$rootScope.$emit( "atoz.init" , $scope );
 
         /*$rootScope.$on( 'wfService.atoz.loading', function ( event ) {
             console.debug("ATOZ: wfService.loading");
