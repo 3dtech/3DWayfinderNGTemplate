@@ -10,33 +10,12 @@ gulp.prep = require('gulp-preprocess');
 gulp.sass = require('gulp-sass');
 gulp.uglify = require('gulp-uglify');
 //ggulp.watch = require('gulp-watch');
+var fs = require('fs');
 var del = require('del');
 var path = require('path');
 var pump = require('pump');
 
 var baseDir = __dirname + '/dist';
-var vendor = [
-    "bower_components/jquery/dist/jquery.min.js",
-    "bower_components/jquery-ui/jquery-ui.min.js",
-    "bower_components/bootstrap/dist/js/bootstrap.min.js",
-    "bower_components/angular/angular.min.js",
-    "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
-    "bower_components/angular-animate/angular-animate.min.js",
-    "bower_components/angular-sanitize/angular-sanitize.min.js",
-    "bower_components/angular-route/angular-route.min.js",
-    "bower_components/angular-panhandler/lib/angular-panhandler.js",
-    "bower_components/angular-toArrayFilter/toArrayFilter.js",
-    "bower_components/angular-foundation/mm-foundation-tpls.js",
-    "bower_components/foundation-sites/dist/foundation.js",
-    "bower_components/dragscroll/dragscroll.js",
-    "bower_components/3dwayfinder-angular/index.js",
-    "./src/js/wayfinder/frak-stable.min.js",
-    "./src/js/wayfinder/BasicUI.min.js",
-    "./src/js/wayfinder/Wayfinder3D.min.js",
-    "./src/js/wayfinder/Keyboard.js",
-    "./src/js/wayfinder/KeyboardActions.js",
-    "./src/js/wayfinder/KeyboardLayouts.js"
-];
 
 var distFolder = "dist/";
 
@@ -138,17 +117,31 @@ gulp.task('views', function () {
 });
 
 gulp.task('vendor', function () {
-    return gulp.src(vendor)
-        .pipe(gulp.prep())
-        .pipe(gulp.uglify({
-                mangle: true
-            })
-        )
-        .pipe(gulp.concat('vendor.js'))
-        .pipe(gulp.dest(distFolder + 'lib/js'))
-        .pipe(browserSync.reload({
+    pump([
+        gulp.src(JSON.parse(fs.readFileSync('vendor.json'))),
+        gulp.prep(),
+        gulp.uglify({
+            mangle: true
+        }),
+        gulp.concat('vendor.js'),
+        gulp.dest(distFolder + 'lib/js'),
+        browserSync.reload({
             stream: true
-        }));
+        })
+    ], function (err) {
+        if (!!err) console.log("VENDOR::err:", err);
+    });
+    // return gulp.src(vendor)
+    //     .pipe(gulp.prep())
+    //     .pipe(gulp.uglify({
+    //             mangle: true
+    //         })
+    //     )
+    //     .pipe(gulp.concat('vendor.js'))
+    //     .pipe(gulp.dest(distFolder + 'lib/js'))
+    //     .pipe(browserSync.reload({
+    //         stream: true
+    //     }));
 });
 
 gulp.task('font', function () {
@@ -255,7 +248,7 @@ gulp.task('watch-bs', ['default', 'browserSync'], function () {
     gulp.watch('src/views/*.html', ['views']);
     gulp.watch('src/less/*.less', ['less']);
     gulp.watch('./src/font/*', ['font']);
-    gulp.watch(vendor, ['vendor']);
+    gulp.watch('vendor.json', ['vendor']);
     gulp.watch('src/images/png/*', ['img']);
     gulp.watch('src/js/**/*.js', ['minifyJS']);
     //gulp.watch('src/js/**/*.js', ['js']);
@@ -269,7 +262,7 @@ gulp.task('watch-hs', ['default'], function () {
     gulp.watch('src/views/*.html', ['views']);
     gulp.watch('src/less/*.less', ['less']);
     gulp.watch('./src/font/*', ['font']);
-    gulp.watch(vendor, ['vendor']);
+    gulp.watch('vendor.json', ['vendor']);
     gulp.watch('src/images/png/*', ['img']);
     gulp.watch('src/js/**/*.js', ['js']);
     gulp.watch('./bower_components/foundation-sites/scss/**/*.scss', [

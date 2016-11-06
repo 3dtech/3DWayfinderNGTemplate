@@ -1,0 +1,22 @@
+[
+    "bower_components/jquery/dist/jquery.min.js",
+    "bower_components/jquery-ui/jquery-ui.min.js",
+    "bower_components/bootstrap/dist/js/bootstrap.min.js",
+    "bower_components/angular/angular.min.js",
+    "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
+    "bower_components/angular-animate/angular-animate.min.js",
+    "bower_components/angular-sanitize/angular-sanitize.min.js",
+    "bower_components/angular-route/angular-route.min.js",
+    "bower_components/angular-panhandler/lib/angular-panhandler.js",
+    "bower_components/angular-toArrayFilter/toArrayFilter.js",
+    "bower_components/angular-foundation/mm-foundation-tpls.js",
+    "bower_components/foundation-sites/dist/foundation.min.js",
+    "bower_components/dragscroll/dragscroll.js",
+    "bower_components/3dwayfinder-angular/index.js",
+    "./src/js/wayfinder/frak-stable.min.js",
+    "./src/js/wayfinder/BasicUI.min.js",
+    "./src/js/wayfinder/Wayfinder3D.min.js",
+    "./src/js/wayfinder/Keyboard.js",
+    "./src/js/wayfinder/KeyboardActions.js",
+    "./src/js/wayfinder/KeyboardLayouts.js"
+]

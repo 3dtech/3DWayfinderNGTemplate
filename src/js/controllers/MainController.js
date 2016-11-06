@@ -179,6 +179,14 @@ wfApp.controller('MainController', [
 
         /*** ROOTSCOPE WATCHERS ***/
 
+        $scope.$on('wf.path.finished', function (event, path) {
+            angular.forEach(wayfinder.getPOIsArray(), function (item) {
+                if ( item.node_id == parseInt(path[path.length-1]) ) {
+                    wayfinder.setHighlights([item]);
+                }
+            });
+        });
+
         $scope.$on('wf.data.loaded', function () {
             maxInactivityTime = wfService.getSessionTimeout();
         });

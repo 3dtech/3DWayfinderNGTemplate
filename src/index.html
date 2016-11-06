@@ -27,7 +27,8 @@
         <div class="lang-menu columns small-2"
              ng-controller="LanguageController">
             <ul class="dropdown menu" data-dropdown-menu>
-                <li> <a href="#">{{activeLanguage.nativeName}}</a>
+                <li>
+                    <a href="#">{{activeLanguage.nativeName}}</a>
                     <ul class="menu">
                         <li ng-repeat="language in languages"
                             ng-class="{'active': language.active}"
