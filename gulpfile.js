@@ -10,6 +10,7 @@ gulp.prep = require('gulp-preprocess');
 gulp.sass = require('gulp-sass');
 gulp.uglify = require('gulp-uglify');
 //ggulp.watch = require('gulp-watch');
+var fs = require('fs');
 var del = require('del');
 var path = require('path');
 var pump = require('pump');
@@ -116,11 +117,6 @@ gulp.task('html', function () {
             stream: true
         })
     ]);
-    /*return gulp.src('./src/*.html')
-     .pipe(gulp.dest(distFolder + ''))
-     .pipe(browserSync.reload({
-     stream: true
-     }));*/
 });
 
 gulp.task('views', function () {
@@ -132,17 +128,20 @@ gulp.task('views', function () {
 });
 
 gulp.task('vendor', function () {
-    return gulp.src(vendor)
-        .pipe(gulp.prep())
-        .pipe(gulp.uglify({
-                mangle: true
-            })
-        )
-        .pipe(gulp.concat('vendor.js'))
-        .pipe(gulp.dest(distFolder + 'lib/js'))
-        .pipe(browserSync.reload({
+    pump([
+        gulp.src(JSON.parse(fs.readFileSync('vendor.json'))),
+        gulp.prep(),
+        gulp.uglify({
+            mangle: true
+        }),
+        gulp.concat('vendor.js'),
+        gulp.dest(distFolder + 'lib/js'),
+        browserSync.reload({
             stream: true
-        }));
+        })
+    ], function (err) {
+        if (!!err) console.log("VENDOR::err:", err);
+    });
 });
 
 gulp.task('font', function () {
@@ -256,7 +255,7 @@ gulp.task('watch-bs', ['default', 'browserSync'], function () {
     gulp.watch('src/views/*.html', ['views']);
     gulp.watch('src/less/*.less', ['less']);
     gulp.watch('./src/font/*', ['font']);
-    gulp.watch(vendor, ['vendor']);
+    gulp.watch('vendor.json', ['vendor']);
     gulp.watch('src/images/png/*', ['img']);
     gulp.watch('src/js/**/*.js', ['minifyJS']);
     //gulp.watch('src/js/**/*.js', ['js']);
@@ -270,7 +269,7 @@ gulp.task('watch-hs', ['default'], function () {
     gulp.watch('src/views/*.html', ['views']);
     gulp.watch('src/less/*.less', ['less']);
     gulp.watch('./src/font/*', ['font']);
-    gulp.watch(vendor, ['vendor']);
+    gulp.watch('vendor.json', ['vendor']);
     gulp.watch('src/images/png/*', ['img']);
     gulp.watch('src/js/**/*.js', ['js']);
     gulp.watch('./bower_components/foundation-sites/scss/**/*.scss', [

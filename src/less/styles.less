@@ -844,14 +844,6 @@ hr {
     }
 }
 
-.horizontal {
-    display: inline-block;
-}
-
-.vertical {
-    display: block;
-}
-
 #map-controls {
     width: 100%;
     height: 100%;
@@ -1107,7 +1099,47 @@ hr {
     }
 }
 
-//}
+@media screen and (min-width: 320px) {
+    .is-dropdown-menu {
+        min-width: 0;
+    }
+    #header {
+        height: 10%;
+        .logo {
+            display: none;
+        }
+        .lang-menu {
+            width: 25%;
+            a {
+                padding: 1rem 0;
+                padding-right: 1rem;
+            }
+            .menu .submenu {
+                background: none;
+                border: none;
+                li {
+                    padding: .5rem;
+                    border: thin solid gray;
+                    border-radius: 5px;
+                    margin: .25rem;
+                    background-color: white;
+                    color: @color-button-dark;
+                    &.active {
+                        color: @color-text-light;
+                        background-color: @color-primary;
+                    }
+                }
+            }
+        }
+    }
+    #menu {
+        width: 25%;
+        >div {
+            display: block;
+        }
+    }
+}
+
 @media screen and (min-width: 640px) {
     #header {
         height: @header-height-s;
