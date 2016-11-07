@@ -29,13 +29,7 @@ var vendor = [
     "bower_components/angular-foundation/mm-foundation-tpls.js",
     "bower_components/foundation-sites/dist/foundation.js",
     "bower_components/dragscroll/dragscroll.js",
-    "bower_components/3dwayfinder-angular/index.js",
-    "./src/js/wayfinder/frak-stable.min.js",
-    "./src/js/wayfinder/BasicUI.min.js",
-    "./src/js/wayfinder/Wayfinder3D.min.js",
-    "./src/js/wayfinder/Keyboard.js",
-    "./src/js/wayfinder/KeyboardActions.js",
-    "./src/js/wayfinder/KeyboardLayouts.js"
+    "bower_components/3dwayfinder-angular/index.js"
 ];
 
 var distFolder = "dist/";
@@ -160,9 +154,16 @@ gulp.task('font', function () {
 });
 
 gulp.task('controllers', [''], function () {
-    return gulp.src(['./src/index.js', './src/js/controllers/**/*.js'])
-        .pipe(gulp.dest(distFolder + 'lib/js/'))
-        .pipe(browserSync.reload());
+    pump([
+      gulp.src(['./src/index.js', './src/js/controllers/**/*.js']),
+      gulp.prep(prepOpts),
+      gulp.dest(distFolder + 'lib/js/'),
+      browserSync.reload({
+          stream: true
+      })
+    ], function (err) {
+        if (!!err) console.log("CONTROLLERS::err:", err);
+    })
 });
 
 gulp.task('js', function () {
