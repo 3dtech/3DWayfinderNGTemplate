@@ -1,17 +1,8 @@
 // Declare app level module which depends on filters, and services
 var wfApp = angular.module('wfApp', [
     'ngSanitize',
-    /*'ngAnimate',*/
     'ngRoute',
     'wfangular'
-    /*,
-     'wf.languages',
-     'wf.floors',
-     'wf.groups'*/
-    /*,
-     'wf.keyboard',
-     'wf.tabs',
-     'wf.zoom' */ // all modules go here, and into separate files and into the folder modules/<modulename>
 ]);
 
 wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', '$location', function (wayfinder, $rootScope, $http, $route, $location) {
