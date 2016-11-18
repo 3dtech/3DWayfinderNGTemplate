@@ -145,7 +145,11 @@ gulp.task('vendor', function () {
 });
 
 gulp.task('font', function () {
-    return gulp.src(['./src/fonts/**/*.*', './bower_components/font-awesome/fonts/*'])
+    return gulp.src([
+        './src/fonts/**/*.*',
+        './bower_components/font-awesome/fonts/*',
+        './bower_components/ubuntu-fontface/fonts/**/*.*'
+    ])
         .pipe(gulp.dest(distFolder + 'lib/fonts'))
         .pipe(browserSync.reload({
             stream: true
@@ -208,7 +212,8 @@ gulp.task('img', function () {
 gulp.task('css', function () {
     return gulp.src([
         './bower_components/foundation-sites/dist/foundation.css',
-        './bower_components/font-awesome/css/*'
+        './bower_components/font-awesome/css/*',
+        './bower_components/ubuntu-fontface/ubuntu.css'
     ])
         .pipe(gulp.dest(distFolder + 'lib/css'))
         .pipe(browserSync.reload({

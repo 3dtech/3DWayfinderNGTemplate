@@ -121,7 +121,7 @@ body {
 body {
     margin: 0;
     color: @color-secondary;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Ubuntu Mono', sans-serif;
 }
 
 ul {
@@ -1029,7 +1029,7 @@ hr {
     right: 0;
     margin: auto;
     font-family: "Courier New", Courier, monospace;
-    #shortcut-button {
+   .shortcut-button {
         display: inline-block;
         color: transparent;
         background-size: contain;
@@ -1068,15 +1068,15 @@ hr {
     background-color: rgba(255, 255, 255, 0);
     border-radius: 5px;
     display: block;
-    #floor-button {
+    .floor-button {
         display: inline-block;
-        float: right;
+        float: left;
     }
-    #floor-button:first-child {
+    .floor-button:first-child {
     }
-    #floor-button:last-child {
+    .floor-button:last-child {
     }
-    #floor-button {
+    .floor-button {
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
         color: @color-text-dark;
         background-color: @color-text-light;
@@ -1099,7 +1099,7 @@ hr {
     }
 }
 
-@media screen and (min-width: 320px) {
+@media screen and (max-width: 320px) {
     .is-dropdown-menu {
         min-width: 0;
     }
@@ -1281,14 +1281,14 @@ hr {
         margin-left: auto;
         margin-right: auto;
         background-color: rgba(255, 255, 255, 0);
-        #floor-button {
+        .floor-button {
             display: inline-block;
             float: right;
         }
-        #floor-button:last-child {
+        .floor-button:last-child {
             border-radius: 5px 0 0 5px;
         }
-        #floor-button:first-child {
+        .floor-button:first-child {
             border-radius: 0 5px 5px 0;
         }
     }
@@ -1300,7 +1300,7 @@ hr {
         right: 0;
         margin-left: auto;
         margin-right: auto;
-        #shortcut-button {
+       .shortcut-button {
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -1430,18 +1430,22 @@ hr {
     #floors-menu {
         top: 1rem;
         height: 80%;
-        width: 3rem;
+        width: 0;
         margin: auto 0;
         left: 1rem;
+        right: auto;
         background-color: rgba(255, 255, 255, 0);
-        #floor-button {
+        .floor-button {
             display: block;
-            width: 100%;
+            width: auto;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
-        #floor-button:first-child {
+        .floor-button:first-child {
             border-radius: 5px 5px 0 0;
         }
-        #floor-button:last-child {
+        .floor-button:last-child {
             border-radius: 0 0 5px 5px;
         }
     }
@@ -1453,7 +1457,7 @@ hr {
         right: 0;
         margin-left: auto;
         margin-right: auto;
-        #shortcut-button {
+       .shortcut-button {
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;

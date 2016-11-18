@@ -21,7 +21,8 @@ wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', '$location', function
         wayfinder.options.assetsLocation =
             '//static.3dwayfinder.com/shared/';
         //wayfinder.open("bb877c84a837d88988d0f2669a26ab2b"); //Jekta
-        wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
+        // wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
+        wayfinder.open("f307e6ebcfe256e004ea491ce2fd7432"); //nym
         //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
     }
     else {
@@ -131,7 +132,7 @@ wfApp.directive('floorButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="floor-button" class="button"' +
+        template: '<div class="floor-button button"' +
         ' ng-class="{\'active\':floor.active}"' +
         ' ng-click="changeFloor(floor)"' +
         ' ng-repeat="floor in floors | orderBy: \'index\' | reverse"' +
@@ -151,7 +152,7 @@ wfApp.directive('shortcutButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="shortcut-button" class="button"' +
+        template: '<div class="shortcut-button button"' +
         ' ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts"' +
         ' ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\':' +
         ' \'url({{shortcut.backgroundImage}})\'}"></div>'
@@ -163,7 +164,7 @@ wfApp.directive('floorsMenu', function () {
         restrict: 'AE',
         replace: 'true',
         template: '<div id="floors-menu" ' +
-        'class="button-group expanded"' +
+        'class="button-group expanded stack"' +
         ' ng-controller="ControlsController">' +
         '<floor-button></floor-button>' +
         '</div>'
