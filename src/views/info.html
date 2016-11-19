@@ -2,12 +2,12 @@
 <div class="tab-content columns small-12">
     <div id="info" class="poi">
         <div id="info-head" class="row columns small-12 expanded">
-            <div id="name" class="columns small-10" ng-bind-html="poi.names | wfCurrentLanguage"></div>
-            <div id="icon" class="columns small-2" ng-show="poi.getNode()" ng-click="showPath(poi)">
+            <div class="name columns small-10" ng-bind-html="poi.names | wfCurrentLanguage"></div>
+            <div class="icon columns small-2" ng-show="poi.getNode()" ng-click="showPath(poi)" onclick="toggleNavMenu()">
                 <div class="icon-iglu-goto"></div>
             </div>
         </div>
-        <div class="description columns small-12" ng-show="poi.hasDescription" ng-bind-html="poi.descriptions | wfCurrentLanguage"></div>
+        <div class="description columns small-12" ng-show="hasDescription" ng-bind-html="poi.descriptions | wfCurrentLanguage"></div>
         <div class="image columns small-12" style="background-image:{{poi.backgroundImage}}"></div>
     </div>
 </div>

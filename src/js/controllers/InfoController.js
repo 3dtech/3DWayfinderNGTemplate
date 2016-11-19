@@ -22,6 +22,7 @@ wfApp.controller('InfoController', [
         };
 
         $scope.hasDescription = function(poi) {
+            console.debug("hasDescription",poi);
             if (!poi) return 0;
             return poi.getDescription(wayfinder.getLanguage()) ? 1 :
                 0;
