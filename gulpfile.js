@@ -271,7 +271,7 @@ gulp.task('watch-hs', ['default'], function () {
     gulp.watch('./src/font/*', ['font']);
     gulp.watch('vendor.json', ['vendor']);
     gulp.watch('src/images/png/*', ['img']);
-    gulp.watch('src/js/**/*.js', ['js']);
+    gulp.watch('src/js/**/*.js', ['minifyJS']);
     gulp.watch('./bower_components/foundation-sites/scss/**/*.scss', [
         'sass'
     ]);

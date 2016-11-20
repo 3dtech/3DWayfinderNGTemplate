@@ -25,7 +25,7 @@
     <!-- HEADER -->
     <div id="header" class="row expanded">
         <div class="lang-menu columns small-2"
-             ng-controller="LanguageController">
+             ng-controller="LanguageController" ng-show="showLanguageMenu">
             <ul class="dropdown menu" data-dropdown-menu>
                 <li>
                     <a href="#">{{activeLanguage.nativeName}}</a>
@@ -66,6 +66,10 @@
         </div>
         <floors-menu></floors-menu>
         <shortcuts-menu></shortcuts-menu>
+        <div id="zoom-menu" class="vertical button-group" ng-controller="ControlsController">
+            <div id="zoom-in" class="zoom button fa fa-search-plus" ng-click="zoomIn()"></div>
+            <div id="zoom-out " class="zoom button fa fa-search-minus" ng-click="zoomOut()"></div>
+        </div>
     </div>
     <!-- NAV MENU -->
     <div id="nav-menu" class="row">

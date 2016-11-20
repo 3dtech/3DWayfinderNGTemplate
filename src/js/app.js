@@ -20,8 +20,9 @@ wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', '$location', function
         WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
         wayfinder.options.assetsLocation =
             '//static.3dwayfinder.com/shared/';
+        wayfinder.open();
         //wayfinder.open("bb877c84a837d88988d0f2669a26ab2b"); //Jekta
-        wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
+        //wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
         //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
     }
     else {
@@ -164,6 +165,7 @@ wfApp.directive('floorsMenu', function () {
         replace: 'true',
         template: '<div id="floors-menu" ' +
         'class="button-group expanded"' +
+        ' ng-show="showFloorsMenu"' +
         ' ng-controller="ControlsController">' +
         '<floor-button></floor-button>' +
         '</div>'
@@ -176,6 +178,7 @@ wfApp.directive('shortcutsMenu', function () {
         replace: 'true',
         template: '<div id="shortcuts-menu"' +
         ' class="button-group"' +
+        ' ng-show="showShortcutsMenu"' +
         ' ng-controller="ControlsController">' +
         '<shortcut-button></shortcut-button>' +
         '</div>'
