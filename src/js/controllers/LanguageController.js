@@ -9,7 +9,7 @@ wfApp.controller('LanguageController', [
   '$scope',
   '$timeout',
   'wfService',
-  'wfangular3d',
+  'wfangular',
   function($rootScope, $scope, $timeout, wfService, wayfinder) {
     $scope.languages = [];
     $scope.activeLanguage = null;
@@ -31,7 +31,7 @@ wfApp.controller('LanguageController', [
     });
 
     $scope.setLanguage = function(language) {
-      console.debug("setLanguage:", language);
+      // console.debug("setLanguage:", language);
       wayfinder.setLanguage(language.name);
     };
 
@@ -45,7 +45,7 @@ wfApp.controller('LanguageController', [
         })
       }
       $scope.showLanguageMenu = $scope.languages.length >= 2;
-      console.debug("showLanguageMenu:", $scope.showLanguageMenu);
+      // console.debug("showLanguageMenu:", $scope.showLanguageMenu);
       if (!$scope.activeLanguage) {
         angular.forEach($scope.languages, function(lang) {
           if (lang.name == wayfinder.getLanguage())

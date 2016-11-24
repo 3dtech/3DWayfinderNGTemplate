@@ -6,11 +6,10 @@
     <meta charset="utf-8">
     <meta name="layout" content="wfAngular">
     <meta name="description" content="3DWayfinder WebGL">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'
-          rel='stylesheet'
-          type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+    <!-- link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' / -->
+    <link rel="stylesheet" href="/lib/css/loading-bar.css">
     <link rel="stylesheet" href="/lib/css/foundation.css">
     <link rel="stylesheet" href="/lib/css/font-awesome.css">
     <link rel="stylesheet" href="/lib/css/styles.css">
@@ -22,140 +21,119 @@
 </head>
 
 <body ng-controller="MainController">
-<div class="container row" ng-click="trigger()" ng-keypress="trigger()">
-    <!-- HEADER -->
-    <div id="header" class="row expanded">
-        <div class="lang-menu columns small-2"
-             ng-controller="LanguageController" ng-show="showLanguageMenu">
-            <ul class="dropdown menu" data-dropdown-menu>
+    <div id="loading-bar-container"></div>
+    <div class="container row" ng-click="trigger()" ng-keypress="trigger()">
+        <!-- HEADER -->
+        <div id="header" class="row expanded">
+            <!-- div class="lang-menu columns small-2" ng-controller="LanguageController" ng-show="showLanguageMenu" -->
+            <ul class="columns small-3 dropdown menu columns small-3 lang-menu" ng-controller="LanguageController" ng-show="showLanguageMenu" data-dropdown-menu>
                 <li>
                     <a href="#">{{activeLanguage.nativeName}}</a>
-                    <ul class="menu">
-                        <li ng-repeat="language in languages"
-                            ng-class="{'active': language.active}"
-                            ng-click="setLanguage(language)"
-                            ng-bind-html="language.nativeName"></li>
+                    <ul class="menu vertical button-group">
+                        <li class="button" ng-repeat="language in languages" ng-class="{'active': language.active}" ng-click="setLanguage(language)" ng-bind-html="language.nativeName"></li>
                     </ul>
                 </li>
             </ul>
-        </div>
-        <div class="logo columns small-2"></div>
-        <!-- <div class="title columns small-6 medium-4" ng-bind-html="getGUITranslation(title)"> -->
-        <div class="title columns small-6">
-            <!-- @if DEBUG -->
-            <span id="width"></span>
-            <br/>
-            <span id="height"></span>
-            <!-- @endif -->
-        </div>
-        <div id="menu" class="columns small-2">
-            <div id="yah-btn" class="columns small-6" ng-click="showYAH()">
-                <div class="icon icon-iglu-location"></div>
-            </div>
-            <div id="nav-menu-btn" class="columns small-6"
-                 onclick="toggleNavMenu()"
-                 ng-click="loadDefaultView()">
-                <div class="icon icon-iglu-search"></div>
-            </div>
-        </div>
-    </div>
-    <!-- CONTENT CONTAINER -->
-    <div id="content-container" class="row expanded">
-        <!-- MAP CONTAINER -->
-        <div class="map-container" id="map-tab">
-            <canvas class="map" id="map"></canvas>
-        </div>
-        <floors-menu></floors-menu>
-        <shortcuts-menu></shortcuts-menu>
-        <div id="zoom-menu" class="vertical button-group" ng-controller="ControlsController">
-            <div id="zoom-in" class="zoom button fa fa-search-plus" ng-click="zoomIn()"></div>
-            <div id="zoom-out " class="zoom button fa fa-search-minus" ng-click="zoomOut()"></div>
-        </div>
-    </div>
-    <!-- NAV MENU -->
-    <div id="nav-menu" class="row">
-        <div class="tabs-container">
-            <div class="tab-heads button-group row expanded">
-                <div class="tab-head button" ng-repeat="tab in tabs"
-                     ng-class="{'active':getActiveTab().name == tab.name}"
-                     ng-click="go(tab.link); setActiveTab(tab);">
-                    <div class="icon {{tab.icon}}"></div>
+            <!--/div-->
+            <div class="logo columns small-6"></div>
+            <!-- <div class="title columns small-6 medium-4" ng-bind-html="getGUITranslation(title)"> -->
+            <div class="columns small-6">
+                <div class="title">
+                    <!-- @if DEBUG -->
+                    <span id="width"></span>
+                    <br/>
+                    <span id="height"></span>
+                    <!-- @endif -->
                 </div>
-                <!--
+            </div>
+            <div id="menu" class="columns small-3">
+                <div id="yah-btn" class="icon icon-iglu-location button" ng-click="showYAH()">
+                    <div class=""></div>
+                </div>
+                <div id="nav-menu-btn" class="icon icon-iglu-search button" onclick="toggleNavMenu()" ng-click="loadDefaultView()">
+                    <div class=""></div>
+                </div>
+            </div>
+        </div>
+        <!-- CONTENT CONTAINER -->
+        <div id="content-container" class="row expanded">
+            <!-- MAP CONTAINER -->
+            <div class="map-container" id="map-tab">
+                <canvas class="map" id="map"></canvas>
+            </div>
+            <floors-menu></floors-menu>
+            <shortcuts-menu></shortcuts-menu>
+            <div id="zoom-menu" class="vertical button-group" ng-controller="ControlsController">
+                <div id="zoom-in" class="zoom button fa fa-search-plus" ng-click="zoomIn()"></div>
+                <div id="zoom-out " class="zoom button fa fa-search-minus" ng-click="zoomOut()"></div>
+            </div>
+        </div>
+        <!-- NAV MENU -->
+        <div id="nav-menu" class="row">
+            <div class="tabs-container">
+                <div class="tab-heads button-group row expanded">
+                    <div class="tab-head button" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}" ng-click="go(tab.link); setActiveTab(tab);">
+                        <div class="icon {{tab.icon}}"></div>
+                    </div>
+                    <!--
             <a class="icon-atoz" href="#/atoz"></a>
             <a class="icon-topics" href="#/topics"></a>
             -->
+                </div>
+                <div class="tab-contents row" ng-view></div>
             </div>
-            <div class="tab-contents row" ng-view></div>
         </div>
     </div>
-</div>
-<script type="text/javascript" src="./lib/js/vendor.js"></script>
-
-<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
-<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
-<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
-<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
-<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
-<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
-<script type="text/javascript" src="./lib/js/main.js"></script>
-<script type="text/javascript">
-    var clicked = false,
+    <script type="text/javascript" src="/lib/js/vendor.js"></script>
+    <!-- script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script -->
+    <!--script type='text/javascript' src='/lib/js/loading-bar.js'></script -->
+    <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
+    <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
+    <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
+    <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
+    <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
+    <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
+    <script type="text/javascript" src="/lib/js/main.js"></script>
+    <script type="text/javascript">
+        var clicked = false,
             clickY;
-    var navMenu = $('#nav-menu');
-    var navMenuButton = $('#nav-menu-btn').find('.icon');
+        WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
 
-    $(document).on({
-        'mousemove': function (e) {
-            clicked && updateScrollPos(e);
-        },
-        'mousedown': function (e) {
-            clicked = true;
-            clickY = e.pageY;
-        },
-        'mouseup': function () {
-            clicked = false;
-            $('html').css('cursor', 'auto');
-        }
-    });
-    <!-- @if DEBUG -->
-    $(window).resize(function () {
-        $('#width').text("width: " + $(document).innerWidth() +
+        $(document).on({
+            'mousemove': function(e) {
+                clicked && updateScrollPos(e);
+            },
+            'mousedown': function(e) {
+                clicked = true;
+                clickY = e.pageY;
+            },
+            'mouseup': function() {
+                clicked = false;
+                $('html').css('cursor', 'auto');
+            }
+        });
+        <!-- @if DEBUG -->
+        $(window).resize(function() {
+            $('#width').text("width: " + $(document).innerWidth() +
                 "px");
-        $('#height').text("height: " + $(document).innerHeight() +
+            $('#height').text("height: " + $(document).innerHeight() +
                 "px");
-    }).resize();
-    <!-- @endif -->
+        }).resize();
+        <!-- @endif -->
 
-    $(document).ready(function () {
-        $(document).foundation();
-    });
+        $(document).ready(function() {
+            $(document).foundation();
+        });
 
-    var updateScrollPos = function (e) {
-        $('html').css('cursor', 'row-resize');
-        $(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
-    };
-
-    var hideNavMenu = function () {
-        navMenu.removeClass('active');
-    };
-
-    var toggleNavMenu = function () {
-        if (navMenu.hasClass('active')) {
-            navMenuButton.removeClass("icon-iglu-cancel");
-            navMenuButton.addClass("icon-iglu-search");
-            navMenu.removeClass('active');
-        }
-        else {
-            navMenuButton.removeClass("icon-iglu-search").addClass("icon-iglu-cancel");
-            navMenu.addClass('active');
-        }
-    };
-    var wayfinder;
-    setTimeout(function () {
-        wayfinder = angular.element(document.body).scope().wayfinder;
-    }, 1000)
-</script>
+        var updateScrollPos = function(e) {
+            $('html').css('cursor', 'row-resize');
+            $(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
+        };
+        var wayfinder;
+        setTimeout(function() {
+            wayfinder = angular.element(document.body).scope().wayfinder;
+        }, 1000)
+    </script>
 </body>
 
 </html>

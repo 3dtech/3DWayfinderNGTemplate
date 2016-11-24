@@ -6,7 +6,7 @@ wfApp.controller('ControlsController', [
 	'$scope',
 	'$timeout',
 	'wfService',
-	'wfangular3d',
+	'wfangular',
 	function($rootScope, $scope, $timeout, wfService, wayfinder) {
 		$scope.floors = wfService.data.floors;
 		$scope.shortcuts = wfService.data.shortcuts;
@@ -28,38 +28,38 @@ wfApp.controller('ControlsController', [
 
 		$timeout(function() {
 			if (!(!!$scope.floors) && !(!!$scope.shortcuts)) {
-				console.debug(
-					"checking for floors and shortcuts:",
-					$scope.floors,
-					$scope.shortcuts,
-					wfService.data
-				);
+				// console.debug(
+				// 	"checking for floors and shortcuts:",
+				// 	$scope.floors,
+				// 	$scope.shortcuts,
+				// 	wfService.data
+				// );
 				$scope.$apply();
 			}
 		}, 1000);
 
 		$scope.zoomIn = function() {
-			console.debug("map zoom in");
+			// console.debug("map zoom in");
 			wayfinder.zoomIn();
 		};
 
 		$scope.zoomOut = function() {
-			console.debug("map zoom out");
+			// console.debug("map zoom out");
 			wayfinder.zoomOut();
 		};
 
 		$scope.$on("wfService.data.loaded", function() {
-			console.debug("wfService.data.loaded caught:");
+			// console.debug("wfService.data.loaded caught:");
 			$scope.$apply(function() {
 				if (!(!!$scope.floors)) {
 					$scope.floors = wfService.data.floors;
 					$scope.showFloorsMenu = $scope.floors.length >= 2;
-					console.debug("showFloorsMenu:", $scope.showFloorsMenu);
+					// console.debug("showFloorsMenu:", $scope.showFloorsMenu);
 				}
 				if (!(!!$scope.shortcuts)) {
 					$scope.shortcuts = wfService.data.floors;
 					$scope.showShortcutsMenu = $scope.shortcuts.length >= 1;
-					console.debug("showShortcutsMenu:", $scope.showShortcutsMenu);
+					// console.debug("showShortcutsMenu:", $scope.showShortcutsMenu);
 				}
 			});
 		});

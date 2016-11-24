@@ -1,7 +1,39 @@
+/* global $ */
+var navMenu = $('#nav-menu');
+var navMenuButton = $('#nav-menu-btn');
+var hideNavMenu = function() {
+    if (navMenu.hasClass('active')) {
+        navMenuButton.removeClass("icon-iglu-cancel");
+        navMenuButton.addClass("icon-iglu-search");
+        navMenu.removeClass('active');
+    }
+};
+var showNavMenu = function() {
+    if (!navMenu.hasClass('active')) {
+        navMenuButton.removeClass('icon-iglu-search');
+        navMenuButton.addClass('icon-iglu-cancel');
+        navMenu.addClass('active');
+    }
+};
+
+var toggleNavMenu = function() {
+    if (navMenu.hasClass('active')) {
+        navMenuButton.removeClass("icon-iglu-cancel");
+        navMenuButton.addClass("icon-iglu-search");
+        navMenu.removeClass('active');
+    }
+    else {
+        navMenuButton.removeClass("icon-iglu-search").addClass("icon-iglu-cancel");
+        navMenu.addClass('active');
+    }
+};
+
 // Declare app level module which depends on filters, and services
 var wfApp = angular.module('wfApp', [
     'ngSanitize',
-    /*'ngAnimate',*/
+    // 'angular-loading-bar',
+    'ngAnimate',
+    'cfp.loadingBar',
     'ngRoute',
     'wfangular'
     /*,
@@ -14,32 +46,36 @@ var wfApp = angular.module('wfApp', [
      'wf.zoom' */ // all modules go here, and into separate files and into the folder modules/<modulename>
 ]);
 
-wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', '$location', function(wayfinder, $rootScope, $http, $route, $location) {
-    $route.reload();
-    if ($location.port() != 80) {
-        WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
-        wayfinder.options.assetsLocation =
-            '//static.3dwayfinder.com/shared/';
-        wayfinder.open();
-        //wayfinder.open("bb877c84a837d88988d0f2669a26ab2b"); //Jekta
-        //wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
-        //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
+wfApp.value('toggleNavMenu', toggleNavMenu);
+wfApp.value('hideNavMenu', hideNavMenu);
+wfApp.value('showNavMenu', showNavMenu);
+
+wfApp.run(['wfangular', '$rootScope', '$http', '$route', '$location',
+    function(wayfinder, $rootScope, $http, $route, $location) {
+        $route.reload();
+        if ($location.port() != 80) {
+            wayfinder.options.assetsLocation =
+                '//static.3dwayfinder.com/shared/';
+            //wayfinder.open();
+            //wayfinder.open("bb877c84a837d88988d0f2669a26ab2b"); //Jekta
+            wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
+            //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
+        }
+        else {
+            wayfinder.options.assetsLocation =
+                '../../../../shared';
+            wayfinder.open();
+        }
+        wayfinder.statistics.start();
     }
-    else {
-        WayfinderAPI.LOCATION = "../../../../api";
-        wayfinder.options.assetsLocation =
-            '../../../../shared';
-        wayfinder.open();
-    }
-    wayfinder.statistics.start();
-}]);
+]);
 
 // ------------------------------------------
 // ----------------- config -----------------
 // ------------------------------------------
 
-wfApp.config(['$routeProvider', '$locationProvider', '$httpProvider',
-    function($route, $locationProvider, $httpProvider) {
+wfApp.config(['$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadingBarProvider',
+    function($route, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
         $route
             .when('/', {
                 templateUrl: "views/default.html",
@@ -77,6 +113,10 @@ wfApp.config(['$routeProvider', '$locationProvider', '$httpProvider',
         //$locationProvider.hashPrefix('/');
 
         $httpProvider.useApplyAsync(true);
+
+        cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+        cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
+        cfpLoadingBarProvider.latencyThreshold = 500;
     }
 ]);
 

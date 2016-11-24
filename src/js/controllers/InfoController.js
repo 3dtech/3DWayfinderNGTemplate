@@ -7,7 +7,7 @@ wfApp.controller('InfoController', [
     '$timeout',
     '$routeParams',
     'wfService',
-    'wfangular3d',
+    'wfangular',
     function($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder) {
         $scope.poi = null;
         // console.log("wfService.getPOIs():", wfService.getPOIs());
@@ -22,7 +22,7 @@ wfApp.controller('InfoController', [
         };
 
         $scope.hasDescription = function(poi) {
-            console.debug("hasDescription",poi);
+            // console.debug("hasDescription",poi);
             if (!poi) return 0;
             return poi.getDescription(wayfinder.getLanguage()) ? 1 :
                 0;

@@ -163,54 +163,48 @@ input::-ms-clear {
 	background-color: #fff;
 	box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.30);
 	z-index: 1;
+	position: relative;
 	>div {
 		height: 100%;
-		display: inline-block;
-	}
-	.title {
-		font-size: 1rem;
-		line-height: 1.7;
-		text-transform: uppercase;
-		color: @color-primary;
-	}
-	#menu {
-		#nav-menu-btn {
-			position: relative;
-			height: 100%;
-			color: @color-text-dark;
-			.icon {
-				position: relative;
-				height: 100%;
-				width: 100%;
-				float: right;
-				&:before {
-					position: absolute;
-					top: 0;
-					bottom: 0;
-					right: 0;
-					margin-top: auto;
-					margin-bottom: auto;
-				}
-			}
+		display: inline-flex;
+		position: relative;
+		>div {
+			display: inline-flex;
+			/* establish flex container */
+			flex-direction: column;
+			/* stack flex items vertically */
+			justify-content: center;
+			/* center items vertically, in this case */
+			align-items: center;
+			/* center items horizontally, in this case */
 		}
-		#yah-btn {
-			position: relative;
-			height: 100%;
-			color: @color-text-dark;
-			.icon {
-				position: relative;
-				height: 100%;
-				width: 100%;
-				float: right;
-				&:before {
-					position: absolute;
-					top: 0;
-					bottom: 0;
-					right: 0;
-					margin-top: auto;
-					margin-bottom: auto;
-				}
-			}
+	}
+}
+
+.title {
+	position: relative;
+	height: auto;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	font-size: 1rem;
+	line-height: 1;
+	text-transform: uppercase;
+	color: @color-primary;
+}
+
+#menu {
+	.button {
+		position: relative;
+		height: auto;
+		color: @color-text-dark;
+		background-color: rgba(0, 0, 0, 0);
+		margin: auto;
+		font-size: 1.5rem;
+		padding: 0;
+		&:before {
+			margin: 0 !important;
+			padding: 0 !important;
 		}
 	}
 }
@@ -236,17 +230,23 @@ a {
 #zoom-menu {
 	position: absolute;
 	bottom: 1rem;
-	left: 1rem;
+	left: 10%;
 	width: auto;
 	.zoom.button {
 		position: relative;
-		width: 2rem;
-		height: 2rem;
+		width: 3rem;
+		height: 3rem;
 		display: block;
-		color: @color-text-light;
-		background-color: @color-primary;
+		color: @color-text-dark;
+		background-color: #fff;
 		vertical-align: middle;
 		text-align: center;
+		&:first-child {
+			border-radius: 3px 3px 0 0;
+		}
+		&:last-child {
+			border-radius: 0 0 3px 3px;
+		}
 		&:before {
 			position: absolute;
 			top: 0;
@@ -272,15 +272,53 @@ a {
 }
 
 .lang-menu {
+	height: 100%;
+	display: inline-flex;
+	position: relative;
 	text-transform: uppercase;
 	z-index: 13;
 	.active {
 		color: @color-primary;
 	}
-	>.dropdown.menu {
-		z-index: 14;
-		height: 100%;
+	>.is-dropdown-submenu-parent {
+		display: flex;
+		/* establish flex container */
+		flex-direction: column;
+		/* stack flex items vertically */
+		justify-content: center;
+		/* center items vertically, in this case */
+		align-items: center;
+		/* center items horizontally, in this case */
+	}
+	.button-group {
+		.button {
+			&:first-child {
+				border-radius: 3px 3px 0 0;
+			}
+			&:last-child {
+				border-radius: 0 0 3px 3px;
+			}
+		}
+	}
+	a {
+	}
+	.submenu {
 		width: 100%;
+		background-color: #fff;
+		border: none;
+		padding: .5rem;
+		border: thin solid gray;
+		border-radius: 5px;
+		li {
+			padding: .5rem;
+			// margin: .25rem;
+			background-color: white;
+			color: @color-button-dark;
+			&.active {
+				color: @color-text-light;
+				background-color: @color-primary;
+			}
+		}
 	}
 }
 
@@ -433,8 +471,16 @@ a {
 				font-size: 2.5rem;
 				margin: auto;
 				padding: 0;
-				display: inline-block;
+				display: inline-flex;
 				.icon {
+					display: flex;
+					/* establish flex container */
+					flex-direction: column;
+					/* stack flex items vertically */
+					justify-content: center;
+					/* center items vertically, in this case */
+					align-items: center;
+					/* center items horizontally, in this case */
 					position: absolute;
 					width: 2rem;
 					height: 2rem;
@@ -459,7 +505,7 @@ a {
 				}
 			}
 			.tab-head:hover {
-				background-color: @color-tabs-hover;
+				background-color: @transparent;
 			}
 			.tab-head.active {
 				background-color: @color-tabs-active;
@@ -475,7 +521,7 @@ a {
 				background-color: @color-tabs-active;
 			}
 			:hover {
-				background-color: @color-tabs-hover;
+				background-color: @transparent;
 			}
 		}
 		.tab-contents {
@@ -904,59 +950,58 @@ hr {
 	z-index: 1;
 }
 
-.zoom {
-	display: block;
-	position: absolute;
-	bottom: 30px;
-	left: 30px;
-	width: 50px;
-	margin: 0;
-	background-color: #fff;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-	border-radius: 3px;
-	overflow: hidden;
-	button {
-		position: relative;
-		width: 50px;
-		height: 50px;
-		background: #fff;
-		outline: none;
-		border: none;
-		margin-top: 0;
-		cursor: pointer;
-		&:before {
-			content: "";
-			position: absolute;
-			top: 25px;
-			left: 17px;
-			height: 2px;
-			width: 16px;
-			background: @color-secondary;
-		}
-		&.zoom-in {
-			margin-top: 3px;
-			margin-bottom: 9px;
-			border-bottom: 1px #eee;
-			&:after {
-				content: "";
-				position: absolute;
-				top: 18px;
-				left: 24px;
-				height: 16px;
-				width: 2px;
-				background: @color-secondary;
-			}
-		}
-		&:hover {
-			background: @color-primary;
-			&:after,
-			&:before {
-				background-color: #fff;
-			}
-		}
-	}
-}
-
+// .zoom {
+// 	display: block;
+// 	position: absolute;
+// 	bottom: 30px;
+// 	left: 30px;
+// 	width: 50px;
+// 	margin: 0;
+// 	background-color: #fff;
+// 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+// 	border-radius: 3px;
+// 	overflow: hidden;
+// 	button {
+// 		position: relative;
+// 		width: 50px;
+// 		height: 50px;
+// 		background: #fff;
+// 		outline: none;
+// 		border: none;
+// 		margin-top: 0;
+// 		cursor: pointer;
+// 		&:before {
+// 			content: "";
+// 			position: absolute;
+// 			top: 25px;
+// 			left: 17px;
+// 			height: 2px;
+// 			width: 16px;
+// 			background: @color-secondary;
+// 		}
+// 		&.zoom-in {
+// 			margin-top: 3px;
+// 			margin-bottom: 9px;
+// 			border-bottom: 1px #eee;
+// 			&:after {
+// 				content: "";
+// 				position: absolute;
+// 				top: 18px;
+// 				left: 24px;
+// 				height: 16px;
+// 				width: 2px;
+// 				background: @color-secondary;
+// 			}
+// 		}
+// 		&:hover {
+// 			background: @color-primary;
+// 			&:after,
+// 			&:before {
+// 				background-color: #fff;
+// 			}
+// 		}
+// 	}
+// }
 .slider {
 	display: block;
 	position: relative;
@@ -1152,6 +1197,37 @@ hr {
 	}
 }
 
+#loading-bar-container {
+	#loading-bar {
+		z-index: 999;
+		background-color: #fefefe;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		/* establish flex container */
+		flex-direction: column;
+		/* stack flex items vertically */
+		justify-content: center;
+		/* center items vertically, in this case */
+		align-items: center;
+		/* center items horizontally, in this case */
+		.bar {
+			display: flex;
+			/* establish flex container */
+			flex-direction: column;
+			/* stack flex items vertically */
+			justify-content: center;
+			/* center items vertically, in this case */
+			align-items: center;
+			/* center items horizontally, in this case */
+			position: relative;
+		}
+	}
+}
+
 @media screen and (min-width: 320px) {
 	.is-dropdown-menu {
 		min-width: 0;
@@ -1161,32 +1237,9 @@ hr {
 		.logo {
 			display: none;
 		}
-		.lang-menu {
-			width: 25%;
-			a {
-				padding: 1rem 0;
-				padding-right: 1rem;
-			}
-			.menu .submenu {
-				background: none;
-				border: none;
-				li {
-					padding: .5rem;
-					border: thin solid gray;
-					border-radius: 5px;
-					margin: .25rem;
-					background-color: white;
-					color: @color-button-dark;
-					&.active {
-						color: @color-text-light;
-						background-color: @color-primary;
-					}
-				}
-			}
-		}
+		.lang-menu {}
 	}
 	#menu {
-		width: 25%;
 		>div {
 			display: block;
 		}
@@ -1461,6 +1514,12 @@ hr {
 			top: @header-height-s;
 			right: 0;
 		}
+	}
+	#zoom-menu {
+		bottom: 1rem;
+		left: 1rem;
+		width: auto;
+		margin-bottom: 0;
 	}
 	#floors-menu {
 		top: 1rem;

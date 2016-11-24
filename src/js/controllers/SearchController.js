@@ -6,7 +6,7 @@ wfApp.controller('SearchController', [
     '$timeout',
     'wfService',
     'keyboardService',
-    'wfangular3d',
+    'wfangular',
     function ($rootScope, $scope, $timeout, wfService, keyboardService,
               wayfinder) {
         var kbLayouts = [];
@@ -48,7 +48,7 @@ wfApp.controller('SearchController', [
         function createKeyboard(keyboard, layouts) {
             var newKeyboard = new Keyboard($(keyboard.handle),
                 $scope.getLanguage());
-            console.debug("createKeyboard.newKeyboard:", newKeyboard);
+            // console.debug("createKeyboard.newKeyboard:", newKeyboard);
 
             for (var i in layouts)
                 newKeyboard.addLayout(layouts[i].lang, layouts[i]);
@@ -86,12 +86,12 @@ wfApp.controller('SearchController', [
                 if ($scope.filtered.length != 0 && data.length > 1) {
                     wayfinder.statistics.onSearch(data,
                         "successful");
-                    console.debug("search.successful")
+                    // console.debug("search.successful")
                 }
                 else if (data.length > 1) {
                     wayfinder.statistics.onSearch(data,
                         "unsuccessful");
-                    console.debug("search.unsuccessful");
+                    // console.debug("search.unsuccessful");
                 }
             }, 20);
         });
@@ -127,7 +127,7 @@ wfApp.controller('SearchController', [
          */
         $rootScope.$on("wf.language.change", function (event,
                                                        language) {
-            console.log("searchKeyboard:", searchKeyboard);
+            // console.log("searchKeyboard:", searchKeyboard);
             if (searchKeyboard.keyboard)
                 searchKeyboard.keyboard.changeLayout(language);
         });
@@ -138,7 +138,7 @@ wfApp.controller('SearchController', [
                 searchKeyboard,
                 kbLayouts);
             $scope.poiObjects = wfService.data.pois;
-            console.log("SearchController.data.loaded");
+            // console.log("SearchController.data.loaded");
         }, 20);
 
         //$rootScope.$emit("search.init", $scope);
