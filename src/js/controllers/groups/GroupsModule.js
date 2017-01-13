@@ -6,7 +6,7 @@ wfApp.controller('GroupsCtrl', [
     '$scope',
     '$timeout',
     'groups',
-    'wfangular3d',
+    'wfangular',
     function($rootScope, $scope, $timeout, groups, wayfinder) {
         $scope.atoz = [];
 

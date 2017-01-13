@@ -6,7 +6,7 @@ wfApp.controller( 'AtozController', [
     '$scope',
     '$timeout',
     'wfService',
-    'wfangular3d',
+    'wfangular',
     function ( $rootScope, $scope, $timeout, wfService, wayfinder ) {
         $scope.atoz = null;
         $scope.poiObjects = null;

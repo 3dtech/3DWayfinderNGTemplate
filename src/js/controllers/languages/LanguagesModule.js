@@ -3,7 +3,7 @@ var languagesModule = angular.module('wf.languages', ['wfangular']);
 languagesModule.controller('LanguagesCtrl', [
   '$scope',
   '$timeout',
-  'wfangular3d',
+  'wfangular',
   function($scope, $timeout, wayfinder) {
     $scope.languages = {};
     $scope.activeLanguage = {};

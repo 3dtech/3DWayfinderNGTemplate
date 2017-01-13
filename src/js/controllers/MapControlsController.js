@@ -6,7 +6,7 @@ wfApp.controller( 'MapControlsController', [
     '$scope',
     '$timeout',
     'wfService',
-    'wfangular3d',
+    'wfangular',
     function ( $rootScope, $scope, $timeout, wfService, wayfinder ) {
         $scope.floors = [];
         $scope.shoprtcuts = [];

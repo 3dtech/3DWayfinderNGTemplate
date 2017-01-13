@@ -4,7 +4,7 @@ keyboardModule.controller('keyboardCtrl', [
   '$scope',
   '$rootScope',
   '$http',
-  'wfangular3d',
+  'wfangular',
   function($scope, $rootScope, $http, wayfinder) {
     $http.get('layout.json').success(function(data) {
       $scope.layout = data;

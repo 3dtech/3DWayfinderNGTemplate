@@ -5,7 +5,7 @@ var wfApp = angular.module('wfApp', [
     'wfangular'
 ]);
 
-wfApp.run(['wfangular3d', '$rootScope', '$http', '$route', '$location', function (wayfinder, $rootScope, $http, $route, $location) {
+wfApp.run(['wfangular', '$rootScope', '$http', '$route', '$location', function (wayfinder, $rootScope, $http, $route, $location) {
     $route.reload();
     if ($location.host().match("localhost") && $location.port() == 8080) {
         WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";

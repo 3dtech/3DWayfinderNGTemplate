@@ -2,7 +2,7 @@ var zoomModule = angular.module('wf.zoom', ['wfangular']);
 
 zoomModule.controller('ZoomCtrl', [
     '$scope',
-    'wfangular3d',
+    'wfangular',
     function($scope, wayfinder) {
         $scope.zoomIn = function() {
             wayfinder.zoomIn();

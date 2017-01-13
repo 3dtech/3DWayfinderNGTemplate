@@ -6,7 +6,7 @@ wfApp.controller('SearchController', [
     '$timeout',
     'wfService',
     'keyboardService',
-    'wfangular3d',
+    'wfangular',
     function ($rootScope, $scope, $timeout, wfService, keyboardService,
               wayfinder) {
         var kbLayouts = [];

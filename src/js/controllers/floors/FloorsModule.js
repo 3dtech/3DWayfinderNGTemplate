@@ -2,7 +2,7 @@ var floorsModule = angular.module('wf.floors', ['wfangular', 'wf.languages']);
 
 floorsModule.controller('FloorsCtrl', [
   '$scope',
-  'wfangular3d',
+  'wfangular',
   function($scope, wayfinder) {
     $scope.buildingFloors = {};
     $scope.orderedFloors = [];

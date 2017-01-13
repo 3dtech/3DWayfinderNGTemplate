@@ -9,7 +9,7 @@ wfApp.controller('LanguageController', [
     '$scope',
     '$timeout',
     'wfService',
-    'wfangular3d',
+    'wfangular',
     function($rootScope, $scope, $timeout, wfService, wayfinder) {
         $scope.languages = [];
         $scope.activeLanguage = null;

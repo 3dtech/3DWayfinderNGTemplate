@@ -1,4 +1,4 @@
-wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular3d', function ($rootScope, $timeout, wayfinder) {
+wfApp.factory('wfService', ['$rootScope', '$timeout', 'wfangular', function ($rootScope, $timeout, wayfinder) {
     var poiGroups = null;
     var poiObjects = null;
     var floorPOIs = null;

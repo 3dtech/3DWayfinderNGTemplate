@@ -7,7 +7,7 @@ wfApp.controller('InfoController', [
     '$timeout',
     '$routeParams',
     'wfService',
-    'wfangular3d',
+    'wfangular',
     function($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder) {
         $scope.poi = null;
         console.log("wfService.getPOIs():", wfService.getPOIs());

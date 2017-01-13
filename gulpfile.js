@@ -12,6 +12,9 @@ gulp.sass = require('gulp-sass');
 gulp.uglify = require('gulp-uglify');
 //ggulp.watch = require('gulp-watch');
 var del = require('del');
+var express = require('express');
+var fs = require('fs');
+var https = require('https');
 var path = require('path');
 var pump = require('pump');
 
@@ -48,6 +51,13 @@ var prepOpts = {
     }
 };
 
+var httpsOptions = {
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.crt'),
+    requestCert: false,
+    rejectUnauthorized: false
+};
+
 var uglifyOpts = {};
 
 gulp.task('default', ['clean'], function() {
@@ -82,6 +92,14 @@ gulp.task('production', ['clean'], function() {
         'font', /*'js'*/ 'minifyJS',
         'json', 'img', 'css', 'less', /*'sass',*/
         'layout');
+});
+
+gulp.task('https-server', function () {
+
+    return https.createServer(httpsOptions, express()).listen(8080, function(){
+        console.log("server started at port 8080");
+    });
+
 });
 
 gulp.task('browserSync', function() {

@@ -7,7 +7,7 @@ wfApp.controller('TopicsController', [
     '$timeout',
     '$routeParams',
     'wfService',
-    'wfangular3d',
+    'wfangular',
     function($rootScope, $scope, $timeout, $routeParams, wfService,
         wayfinder) {
         console.debug("TC.loaded");

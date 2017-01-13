@@ -9,7 +9,7 @@ wfApp.controller('MainController', [
     '$location',
     'wfService',
     'keyboardService',
-    'wfangular3d',
+    'wfangular',
     function ($scope, $timeout, $rootScope, $location, wfService, keyboardService,
               wayfinder) {
         $scope = $rootScope;
