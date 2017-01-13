@@ -13,11 +13,6 @@
     <link rel="stylesheet" href="lib/css/foundation.min.css">
     <link rel="stylesheet" href="lib/css/font-awesome.min.css">
     <link rel="stylesheet" href="lib/css/styles.css">
-    <base href="/" />
-    <script type="text/javascript">
-        //console.log("base:", document.location);
-        //document.write("<base href='" + document.location.href + "' />");
-    </script>
 </head>
 
 <body ng-controller="MainController">
@@ -39,11 +34,6 @@
             <!-- <div class="title columns small-6 medium-4" ng-bind-html="getGUITranslation(title)"> -->
             <div class="columns small-6">
                 <div class="title">
-                    <!-- @if DEBUG -->
-                    <span id="width"></span>
-                    <br/>
-                    <span id="height"></span>
-                    <!-- @endif -->
                 </div>
             </div>
             <div id="menu" class="columns small-3">
@@ -84,7 +74,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="/lib/js/vendor.js"></script>
+    <script type="text/javascript" src="lib/js/vendor.js"></script>
     <!-- script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script -->
     <!--script type='text/javascript' src='/lib/js/loading-bar.js'></script -->
     <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
@@ -94,8 +84,7 @@
     <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
     <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
     <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
-    <script type="text/javascript" src="/lib/js/main.js"></script>
-    <script type="text/javascript" src="/lib/js/foundation.min.js">
+    <script type="text/javascript" src="lib/js/main.js"></script>
         var clicked = false,
             clickY;
         WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";

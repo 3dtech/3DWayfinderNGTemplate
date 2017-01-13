@@ -1,14 +1,14 @@
 /* global $ */
 var navMenu = $('#nav-menu');
 var navMenuButton = $('#nav-menu-btn');
-var hideNavMenu = function() {
+var hideNavMenu = function () {
     if (navMenu.hasClass('active')) {
         navMenuButton.removeClass("icon-iglu-cancel");
         navMenuButton.addClass("icon-iglu-search");
         navMenu.removeClass('active');
     }
 };
-var showNavMenu = function() {
+var showNavMenu = function () {
     if (!navMenu.hasClass('active')) {
         navMenuButton.removeClass('icon-iglu-search');
         navMenuButton.addClass('icon-iglu-cancel');
@@ -16,7 +16,7 @@ var showNavMenu = function() {
     }
 };
 
-var toggleNavMenu = function() {
+var toggleNavMenu = function () {
     if (navMenu.hasClass('active')) {
         navMenuButton.removeClass("icon-iglu-cancel");
         navMenuButton.addClass("icon-iglu-search");
@@ -31,27 +31,22 @@ var toggleNavMenu = function() {
 // Declare app level module which depends on filters, and services
 var wfApp = angular.module('wfApp', [
     'ngSanitize',
-    // 'angular-loading-bar',
     'ngAnimate',
     'cfp.loadingBar',
     'ngRoute',
     'wfangular'
-    /*,
-     'wf.languages',
-     'wf.floors',
-     'wf.groups'*/
-    /*,
-     'wf.keyboard',
-     'wf.tabs',
-     'wf.zoom' */ // all modules go here, and into separate files and into the folder modules/<modulename>
 ]);
 
 wfApp.value('toggleNavMenu', toggleNavMenu);
 wfApp.value('hideNavMenu', hideNavMenu);
 wfApp.value('showNavMenu', showNavMenu);
 
+wfApp.config(['wfangularConfig', function(wfconfig) {
+    wfconfig.mapType = '3d';
+}]);
+
 wfApp.run(['wfangular', '$rootScope', '$http', '$route', '$location',
-    function(wayfinder, $rootScope, $http, $route, $location) {
+    function (wayfinder, $rootScope, $http, $route, $location) {
         $route.reload();
         if ($location.port() != 80) {
             wayfinder.options.assetsLocation =
@@ -72,7 +67,7 @@ wfApp.run(['wfangular', '$rootScope', '$http', '$route', '$location',
 // ------------------------------------------
 
 wfApp.config(['$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadingBarProvider',
-    function($route, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
+    function ($route, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
         $route
             .when('/', {
                 templateUrl: "views/default.html",
@@ -102,54 +97,45 @@ wfApp.config(['$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadin
                 redirectTo: '/topics/'
             });
 
-        // $locationProvider.html5Mode({
-        //     enabled: true,
-        //     requireBase: true
-        // })
-        $locationProvider.html5Mode(true);
-        //$locationProvider.hashPrefix('/');
-
-        $httpProvider.useApplyAsync(true);
-
         cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-        cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
+        cfpLoadingBarProvider.spinnerTemplate = '<div class="spinner-template"><span class="fa fa-spinner">3DWayfinder is loading...</span></div>';
         cfpLoadingBarProvider.latencyThreshold = 500;
     }
 ]);
 
-wfApp.directive('resize', function($window) {
+wfApp.directive('resize', function ($window) {
     return {
         restrict: 'AEC',
         scope: {
             cbResize: '&cbResize'
         },
-        link: function(scope, element) {
+        link: function (scope, element) {
 
             var w = element[0];
-            scope.getWindowDimensions = function() {
+            scope.getWindowDimensions = function () {
                 return {
                     'h': w.clientHeight,
                     'w': w.clientWidth
                 };
             };
 
-            scope.$watch(scope.getWindowDimensions, function(newValue) {
+            scope.$watch(scope.getWindowDimensions, function (newValue) {
                 scope.windowHeight = newValue.h;
                 scope.windowWidth = newValue.w;
 
-                scope.style = function() {
+                scope.style = function () {
                     return {
                         'height': (newValue.h - 10) +
-                            'px',
+                        'px',
                         'width': (newValue.w - 10) +
-                            'px'
+                        'px'
                     };
                 };
 
             }, true);
 
-            angular.element($window).bind('resize', function() {
-                scope.$apply(function() {
+            angular.element($window).bind('resize', function () {
+                scope.$apply(function () {
                     scope.cbResize();
                 });
             });
@@ -157,8 +143,8 @@ wfApp.directive('resize', function($window) {
     }
 });
 
-wfApp.filter('reverse', function() {
-    return function(items) {
+wfApp.filter('reverse', function () {
+    return function (items) {
         if (!!items) {
             return items.slice().reverse();
         }
@@ -166,19 +152,19 @@ wfApp.filter('reverse', function() {
     };
 });
 
-wfApp.directive('floorButton', function() {
+wfApp.directive('floorButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
         template: '<div id="floor-button" class="button"' +
-            ' ng-class="{\'active\':floor.active}"' +
-            ' ng-click="changeFloor(floor)"' +
-            ' ng-repeat="floor in floors | orderBy: \'index\' | reverse"' +
-            ' ng-bind-html="floor.getNames() | wfCurrentLanguage"></div>'
+        ' ng-class="{\'active\':floor.active}"' +
+        ' ng-click="changeFloor(floor)"' +
+        ' ng-repeat="floor in floors | orderBy: \'index\' | reverse"' +
+        ' ng-bind-html="floor.getNames() | wfCurrentLanguage"></div>'
     }
 });
 
-wfApp.directive('languageButton', function() {
+wfApp.directive('languageButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
@@ -186,51 +172,51 @@ wfApp.directive('languageButton', function() {
     }
 });
 
-wfApp.directive('shortcutButton', function() {
+wfApp.directive('shortcutButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
         template: '<div id="shortcut-button" class="button"' +
-            ' ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts"' +
-            ' ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\':' +
-            ' \'url({{shortcut.backgroundImage}})\'}"></div>'
+        ' ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts"' +
+        ' ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\':' +
+        ' \'url({{shortcut.backgroundImage}})\'}"></div>'
     }
 });
 
-wfApp.directive('floorsMenu', function() {
+wfApp.directive('floorsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
         template: '<div id="floors-menu" ' +
-            'class="button-group expanded"' +
-            ' ng-show="showFloorsMenu"' +
-            ' ng-controller="ControlsController">' +
-            '<floor-button></floor-button>' +
-            '</div>'
+        'class="button-group expanded"' +
+        ' ng-show="showFloorsMenu"' +
+        ' ng-controller="ControlsController">' +
+        '<floor-button></floor-button>' +
+        '</div>'
     }
 });
 
-wfApp.directive('shortcutsMenu', function() {
+wfApp.directive('shortcutsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
         template: '<div id="shortcuts-menu"' +
-            ' class="button-group"' +
-            ' ng-show="showShortcutsMenu"' +
-            ' ng-controller="ControlsController">' +
-            '<shortcut-button></shortcut-button>' +
-            '</div>'
+        ' class="button-group"' +
+        ' ng-show="showShortcutsMenu"' +
+        ' ng-controller="ControlsController">' +
+        '<shortcut-button></shortcut-button>' +
+        '</div>'
     }
 });
 
-wfApp.directive('mapControls', function() {
+wfApp.directive('mapControls', function () {
     return {
         restrict: 'AE',
         replace: 'true',
         template: '<div id="map-controls"' +
-            ' ng-controller="ControlsController">' +
-            '<shortcuts-menu></shortcuts-menu>' +
-            '<floors-menu></floors-menu>' +
-            '</div>'
+        ' ng-controller="ControlsController">' +
+        '<shortcuts-menu></shortcuts-menu>' +
+        '<floors-menu></floors-menu>' +
+        '</div>'
     }
 });

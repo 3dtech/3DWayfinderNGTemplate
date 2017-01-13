@@ -5,9 +5,11 @@
   "main": "index.js",
   "dependencies": {
     "bower": "^1.6.5",
+    "del": "^2.0.2",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-debug": "^2.1.0",
+    "gulp-expect-file": "0.0.7",
     "gulp-less": "^3.0.3",
     "gulp-minify": "0.0.14",
     "gulp-plumber": "^1.1.0",
@@ -16,7 +18,6 @@
     "gulp-uglify": "^2.0.0",
     "gulp-watch": "^4.3.5",
     "jsdoc": "^3.4.2",
-    "del": "^2.0.2",
     "pump": "^1.0.1"
   },
   "devDependencies": {
