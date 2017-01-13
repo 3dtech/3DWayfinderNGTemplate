@@ -150,7 +150,7 @@ gulp.task('controllers', [''], function() {
 });
 
 gulp.task('js', function() {
-    return gulp.src('bower_components/angular-loading-bar/build/loading-bar.js')
+    return gulp.src(['bower_components/angular-loading-bar/build/loading-bar.js','bower_components/foundation-sites/dist/js/foundation.min.js'])
         .pipe(gulp.dest(distFolder + 'lib/js/'))
         .pipe(browserSync.reload({
             stream: true
@@ -198,8 +198,8 @@ gulp.task('img', function() {
 
 gulp.task('css', function() {
     return gulp.src([
-            './bower_components/foundation-sites/dist/foundation.css',
-            './bower_components/font-awesome/css/*',
+            './bower_components/foundation-sites/dist/css/foundation.min.css',
+            './bower_components/font-awesome/css/font-awesome.min.css',
             './bower_components/angular-loading-bar/build/loading-bar.css'
         ])
         .pipe(gulp.dest(distFolder + 'lib/css'))
