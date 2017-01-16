@@ -266,6 +266,7 @@ gulp.task('watch-bs', ['default', 'browserSync'], function() {
     gulp.watch('vendor.json', ['vendor']);
     gulp.watch('src/images/png/*', ['img']);
     gulp.watch('src/js/**/*.js', ['minifyJS']);
+    gulp.watch('src/.htaccess', ['rewrite']);
     gulp.watch('./bower_components/foundation-sites/scss/**/*.scss', [
         'sass'
     ]);

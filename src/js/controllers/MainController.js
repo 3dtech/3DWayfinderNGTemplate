@@ -208,6 +208,7 @@ wfApp.controller('MainController', [
   });
 
   $scope.$on('wf.map.ready', function(event) {
+    // console.log("map ready!");
     cfpLoadingBar.complete();
   });
 }]);

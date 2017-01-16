@@ -53,17 +53,17 @@ wfApp.value('showNavMenu', showNavMenu);
 wfApp.run(['wfangular', '$rootScope', '$http', '$route', '$location',
     function(wayfinder, $rootScope, $http, $route, $location) {
         $route.reload();
-        if ($location.port() != 80) {
+        if ($location.port() != 80 || $location.port() != 443) {
             wayfinder.options.assetsLocation =
                 '//static.3dwayfinder.com/shared/';
-            //wayfinder.open();
-            //wayfinder.open("bb877c84a837d88988d0f2669a26ab2b"); //Jekta
-            wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
-            //wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
+            wayfinder.open();
+            // wayfinder.open("bb877c84a837d88988d0f2669a26ab2b"); //Jekta
+            // wayfinder.open("36e53da86b67f005d9479a139aeee60c"); //demo_tasku
+            // wayfinder.open( "94d921a4e23e79634cd110483e6796a7" ); //kvartal
         }
         else {
             wayfinder.options.assetsLocation =
-                '../../../../shared';
+                '../../../shared';
             wayfinder.open();
         }
         wayfinder.statistics.start();
