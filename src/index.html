@@ -28,7 +28,7 @@
             <!-- div class="lang-menu columns small-2" ng-controller="LanguageController" ng-show="showLanguageMenu" -->
             <ul class="columns small-3 dropdown menu columns small-3 lang-menu" ng-controller="LanguageController" ng-show="showLanguageMenu" data-dropdown-menu>
                 <li>
-                    <a href="#">{{activeLanguage.nativeName}}</a>
+                    <a>{{activeLanguage.nativeName}}</a>
                     <ul class="menu vertical button-group">
                         <li class="button" ng-repeat="language in languages" ng-class="{'active': language.active}" ng-click="setLanguage(language)" ng-bind-html="language.nativeName"></li>
                     </ul>
@@ -88,8 +88,8 @@
     <!-- script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script -->
     <!--script type='text/javascript' src='/lib/js/loading-bar.js'></script -->
     <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
-    <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
-
+    <script type="text/javascript" src="//static.3dwayfinder.com/js/dist/3d/latest/Wayfinder3D.min.js"></script>
+    <script src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder2D.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
     <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
     <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>

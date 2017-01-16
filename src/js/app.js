@@ -56,12 +56,12 @@ wfApp.run(['wfangular', '$rootScope', '$http', '$route', '$location',
         if ($location.port() != 80) {
             wayfinder.options.assetsLocation =
                 '//static.3dwayfinder.com/shared/';
-            wayfinder.open();
+            wayfinder.open('22dd339b33a53528883d2b2955b23ea9');
         }
         else {
             wayfinder.options.assetsLocation =
                 '../../../../shared';
-            wayfinder.open();
+            wayfinder.open('22dd339b33a53528883d2b2955b23ea9');
         }
         wayfinder.statistics.start();
     }
@@ -106,7 +106,7 @@ wfApp.config(['$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadin
         //     enabled: true,
         //     requireBase: true
         // })
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
         //$locationProvider.hashPrefix('/');
 
         $httpProvider.useApplyAsync(true);
