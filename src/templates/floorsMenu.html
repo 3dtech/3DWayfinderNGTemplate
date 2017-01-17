@@ -1,3 +1,8 @@
 <div id="floors-menu" class="btn-group" ng-show="showFloorsMenu" ng-controller="ControlsController">
-    <floor-button></floor-button>
+	<div class="floor-button btn" 
+	ng-class="{'active':floor.active}" 
+	ng-click="changeFloor(floor)" 
+	ng-repeat="floor in floors | orderBy: 'index' | reverse" 
+	ng-bind-html="floor.getNames() | wfCurrentLanguage">
+	</div>
 </div>
