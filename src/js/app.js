@@ -156,11 +156,7 @@ wfApp.directive('floorButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="floor-button" class="button"' +
-        ' ng-class="{\'active\':floor.active}"' +
-        ' ng-click="changeFloor(floor)"' +
-        ' ng-repeat="floor in floors | orderBy: \'index\' | reverse"' +
-        ' ng-bind-html="floor.getNames() | wfCurrentLanguage"></div>'
+        templateUrl:"/templates/floorButton.html"
     }
 });
 
@@ -176,10 +172,7 @@ wfApp.directive('shortcutButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="shortcut-button" class="button"' +
-        ' ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts"' +
-        ' ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\':' +
-        ' \'url({{shortcut.backgroundImage}})\'}"></div>'
+        templateUrl:'/templates/shortcutButton.html'
     }
 });
 
@@ -187,12 +180,7 @@ wfApp.directive('floorsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="floors-menu" ' +
-        'class="button-group expanded"' +
-        ' ng-show="showFloorsMenu"' +
-        ' ng-controller="ControlsController">' +
-        '<floor-button></floor-button>' +
-        '</div>'
+        templateUrl: '/templates/floorsMenu.html'
     }
 });
 
@@ -200,12 +188,7 @@ wfApp.directive('shortcutsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="shortcuts-menu"' +
-        ' class="button-group"' +
-        ' ng-show="showShortcutsMenu"' +
-        ' ng-controller="ControlsController">' +
-        '<shortcut-button></shortcut-button>' +
-        '</div>'
+        templateUrl:'/templates/shortcutsMenu.html'
     }
 });
 
@@ -213,10 +196,6 @@ wfApp.directive('mapControls', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="map-controls"' +
-        ' ng-controller="ControlsController">' +
-        '<shortcuts-menu></shortcuts-menu>' +
-        '<floors-menu></floors-menu>' +
-        '</div>'
+        templateUrl:'/templates/mapControls.html'
     }
 });

@@ -30,7 +30,7 @@ var prepOpts = {
 var uglifyOpts = {};
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('html', /*'controllers',*/ 'views', 'vendor',
+    gulp.start('html', /*'controllers',*/ 'views','templates', 'vendor',
         'font', 'js', 'minifyJS',
         'json', 'img', 'css', 'less', /*'sass',*/
         'layout', 'rewrite');
@@ -112,6 +112,14 @@ gulp.task('views', function() {
         }));
 });
 
+gulp.task('templates', function() {
+    return gulp.src(['./src/templates/*.html'])
+        .pipe(gulp.dest(distFolder + 'templates/'))
+        .pipe(browserSync.reload({
+            stream: true
+        }));
+});
+
 gulp.task('vendor', function() {
     var files = JSON.parse(fs.readFileSync('vendor.json'));
     pump([
@@ -154,8 +162,7 @@ gulp.task('controllers', [''], function() {
 
 gulp.task('js', function() {
     return gulp.src([
-        'bower_components/angular-loading-bar/build/loading-bar.js',
-        'bower_components/foundation-sites/dist/foundation.min.js'])
+        'bower_components/angular-loading-bar/build/loading-bar.js'])
         .pipe(gulp.dest(distFolder + 'lib/js/'))
         .pipe(browserSync.reload({
             stream: true
@@ -203,7 +210,6 @@ gulp.task('img', function() {
 
 gulp.task('css', function() {
     return gulp.src([
-            './bower_components/foundation-sites/dist/foundation.min.css',
             './bower_components/font-awesome/css/font-awesome.min.css',
             './bower_components/angular-loading-bar/build/loading-bar.css'
         ])
@@ -266,6 +272,7 @@ gulp.task('rewrite', function() {
 gulp.task('watch-bs', ['default', 'browserSync'], function() {
     gulp.watch('src/*.html', ['html']);
     gulp.watch('src/views/*.html', ['views']);
+    gulp.watch('src/templates/*.html',['templates']);
     gulp.watch('src/less/*.less', ['less']);
     gulp.watch('./src/font/*', ['font']);
     gulp.watch('vendor.json', ['vendor']);
@@ -280,6 +287,7 @@ gulp.task('watch-bs', ['default', 'browserSync'], function() {
 gulp.task('watch-hs', ['default'], function() {
     gulp.watch('src/*.html', ['html']);
     gulp.watch('src/views/*.html', ['views']);
+    gulp.watch('src/templates/*.html',['templates']);
     gulp.watch('src/less/*.less', ['less']);
     gulp.watch('./src/font/*', ['font']);
     gulp.watch('vendor.json', ['vendor']);
