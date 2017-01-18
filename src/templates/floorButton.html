@@ -1,0 +1,6 @@
+<div class="floor-button"
+	ng-class="{'active':floor.active}"
+	ng-click="changeFloor(floor)"
+	ng-repeat="floor in floors | orderBy: 'index' | reverse"
+	ng-bind-html="floor.getNames() | wfCurrentLanguage">
+</div>
