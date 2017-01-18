@@ -1,14 +1,14 @@
 /* global $ */
 var navMenu = $('#nav-menu');
 var navMenuButton = $('#nav-menu-btn');
-var hideNavMenu = function() {
+var hideNavMenu = function () {
     if (navMenu.hasClass('active')) {
         navMenuButton.removeClass("icon-iglu-cancel");
         navMenuButton.addClass("icon-iglu-search");
         navMenu.removeClass('active');
     }
 };
-var showNavMenu = function() {
+var showNavMenu = function () {
     if (!navMenu.hasClass('active')) {
         navMenuButton.removeClass('icon-iglu-search');
         navMenuButton.addClass('icon-iglu-cancel');
@@ -16,7 +16,7 @@ var showNavMenu = function() {
     }
 };
 
-var toggleNavMenu = function() {
+var toggleNavMenu = function () {
     if (navMenu.hasClass('active')) {
         navMenuButton.removeClass("icon-iglu-cancel");
         navMenuButton.addClass("icon-iglu-search");
@@ -31,125 +31,117 @@ var toggleNavMenu = function() {
 // Declare app level module which depends on filters, and services
 var wfApp = angular.module('wfApp', [
     'ngSanitize',
-    // 'angular-loading-bar',
     'ngAnimate',
     'cfp.loadingBar',
     'ngRoute',
     'wfangular'
-    /*,
-     'wf.languages',
-     'wf.floors',
-     'wf.groups'*/
-    /*,
-     'wf.keyboard',
-     'wf.tabs',
-     'wf.zoom' */ // all modules go here, and into separate files and into the folder modules/<modulename>
 ]);
 
 wfApp.value('toggleNavMenu', toggleNavMenu);
 wfApp.value('hideNavMenu', hideNavMenu);
 wfApp.value('showNavMenu', showNavMenu);
 
-wfApp.run(['wfangular', '$rootScope', '$http', '$route', '$location',
-    function(wayfinder, $rootScope, $http, $route, $location) {
-        $route.reload();
-        if ($location.port() != 80) {
-            wayfinder.options.assetsLocation =
-                '//static.3dwayfinder.com/shared/';
-            wayfinder.open('22dd339b33a53528883d2b2955b23ea9');
-        }
-        else {
-            wayfinder.options.assetsLocation =
-                '../../../../shared';
-            wayfinder.open('22dd339b33a53528883d2b2955b23ea9');
-        }
-        wayfinder.statistics.start();
-    }
-]);
-
 // ------------------------------------------
 // ----------------- config -----------------
 // ------------------------------------------
 
-wfApp.config(['$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadingBarProvider',
-    function($route, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
-        $route
-            .when('/', {
-                templateUrl: "views/default.html",
-                controller: 'MainController'
-            })
-            .when('/info&:id?/', {
-                templateUrl: "views/info.html",
-                controller: 'InfoController'
-            })
-            .when('/search/', {
-                templateUrl: "views/search.html",
-                controller: 'SearchController'
-            })
-            .when('/atoz/', {
-                templateUrl: "views/atoz.html",
-                controller: 'AtozController'
-            })
-            .when('/topics/', {
-                templateUrl: 'views/topics.html',
-                controller: 'TopicsController'
-            })
-            .when('/topics&:id?/', {
-                templateUrl: 'views/topics.html',
-                controller: 'TopicsController'
-            })
-            .otherwise({
-                redirectTo: '/topics/'
-            });
+wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadingBarProvider',
+	function(wfConfig, $route, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
+		$route
+			.when('/', {
+				templateUrl: "views/default.html",
+				controller: 'MainController'
+			})
+			.when('/info&:id?/', {
+				templateUrl: "views/info.html",
+				controller: 'InfoController'
+			})
+			.when('/search/', {
+				templateUrl: "views/search.html",
+				controller: 'SearchController'
+			})
+			.when('/atoz/', {
+				templateUrl: "views/atoz.html",
+				controller: 'AtozController'
+			})
+			.when('/topics/', {
+				templateUrl: 'views/topics.html',
+				controller: 'TopicsController'
+			})
+			.when('/topics&:id?/', {
+				templateUrl: 'views/topics.html',
+				controller: 'TopicsController'
+			})
+			.otherwise({
+				redirectTo: '/topics/'
+			});
 
-        // $locationProvider.html5Mode({
-        //     enabled: true,
-        //     requireBase: true
-        // })
-        $locationProvider.html5Mode(false);
-        //$locationProvider.hashPrefix('/');
+		wfConfig.mapType = "3d";
 
-        $httpProvider.useApplyAsync(true);
+		cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+		cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
+		cfpLoadingBarProvider.latencyThreshold = 500;
+	}
+]);
 
-        cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-        cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
-        cfpLoadingBarProvider.latencyThreshold = 500;
+wfApp.run([
+	'wfangular',
+	'wfangularConfig',
+	'$rootScope',
+	'$http',
+	'$route',
+	'$location',
+    function (wayfinder,wfConfig, $rootScope, $http, $route, $location) {
+        $route.reload();
+        console.log("wfApp.wfConfig:",wfConfig);
+        if ($location.port() != 80 || $location.port() != 443) {
+			if (wfConfig.mapType == "3d")
+				wayfinder.options.assetsLocation = '//static.3dwayfinder.com/shared/';
+        }
+        else {
+			if (wfConfig.mapType == "3d")
+            	wayfinder.options.assetsLocation = '../../../../shared';
+        }
+
+		console.log("wayfinder:",wayfinder);
+		wayfinder.open();
+        wayfinder.statistics.start();
     }
 ]);
 
-wfApp.directive('resize', function($window) {
+wfApp.directive('resize', function ($window) {
     return {
         restrict: 'AEC',
         scope: {
             cbResize: '&cbResize'
         },
-        link: function(scope, element) {
+        link: function (scope, element) {
 
             var w = element[0];
-            scope.getWindowDimensions = function() {
+            scope.getWindowDimensions = function () {
                 return {
                     'h': w.clientHeight,
                     'w': w.clientWidth
                 };
             };
 
-            scope.$watch(scope.getWindowDimensions, function(newValue) {
+            scope.$watch(scope.getWindowDimensions, function (newValue) {
                 scope.windowHeight = newValue.h;
                 scope.windowWidth = newValue.w;
 
-                scope.style = function() {
+                scope.style = function () {
                     return {
                         'height': (newValue.h - 10) +
-                            'px',
+                        'px',
                         'width': (newValue.w - 10) +
-                            'px'
+                        'px'
                     };
                 };
 
             }, true);
 
-            angular.element($window).bind('resize', function() {
-                scope.$apply(function() {
+            angular.element($window).bind('resize', function () {
+                scope.$apply(function () {
                     scope.cbResize();
                 });
             });
@@ -157,8 +149,8 @@ wfApp.directive('resize', function($window) {
     }
 });
 
-wfApp.filter('reverse', function() {
-    return function(items) {
+wfApp.filter('reverse', function () {
+    return function (items) {
         if (!!items) {
             return items.slice().reverse();
         }
@@ -166,19 +158,15 @@ wfApp.filter('reverse', function() {
     };
 });
 
-wfApp.directive('floorButton', function() {
+wfApp.directive('floorButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="floor-button" class="button"' +
-            ' ng-class="{\'active\':floor.active}"' +
-            ' ng-click="changeFloor(floor)"' +
-            ' ng-repeat="floor in floors | orderBy: \'index\' | reverse"' +
-            ' ng-bind-html="floor.getNames() | wfCurrentLanguage"></div>'
+        templateUrl:"/templates/floorButton.html"
     }
 });
 
-wfApp.directive('languageButton', function() {
+wfApp.directive('languageButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
@@ -186,51 +174,91 @@ wfApp.directive('languageButton', function() {
     }
 });
 
-wfApp.directive('shortcutButton', function() {
+wfApp.directive('shortcutButton', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="shortcut-button" class="button"' +
-            ' ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts"' +
-            ' ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\':' +
-            ' \'url({{shortcut.backgroundImage}})\'}"></div>'
+        templateUrl:'/templates/shortcutButton.html'
     }
 });
 
-wfApp.directive('floorsMenu', function() {
+wfApp.directive('floorsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="floors-menu" ' +
-            'class="button-group expanded"' +
-            ' ng-show="showFloorsMenu"' +
-            ' ng-controller="ControlsController">' +
-            '<floor-button></floor-button>' +
-            '</div>'
+        templateUrl: '/templates/floorsMenu.html'
     }
 });
 
-wfApp.directive('shortcutsMenu', function() {
+wfApp.directive('shortcutsMenu', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="shortcuts-menu"' +
-            ' class="button-group"' +
-            ' ng-show="showShortcutsMenu"' +
-            ' ng-controller="ControlsController">' +
-            '<shortcut-button></shortcut-button>' +
-            '</div>'
+        templateUrl:'/templates/shortcutsMenu.html'
     }
 });
 
-wfApp.directive('mapControls', function() {
+wfApp.directive('mapControls', function () {
     return {
         restrict: 'AE',
         replace: 'true',
-        template: '<div id="map-controls"' +
-            ' ng-controller="ControlsController">' +
-            '<shortcuts-menu></shortcuts-menu>' +
-            '<floors-menu></floors-menu>' +
-            '</div>'
+        templateUrl:'/templates/mapControls.html'
     }
 });
+
+wfApp.directive('ngHold', [function () {
+	return {
+		restrict: "A",
+		link: function (scope, elm, attrs) {
+
+		},
+		controller: ["$scope", "$element", "$attrs", "$transclude", "$timeout", function ($scope, $element, $attrs, $transclude, $timeout) {
+			var onHold = function () {
+				return $scope.$eval($attrs.ngHold);
+			};
+			var onDone = function () {
+				return $scope.$eval($attrs.ngHoldDone);
+			};
+
+			var intervals = [];
+			($attrs.ngHoldInterval || "500").split(",").forEach(function (interval) {
+				intervals.push(interval.split(";"));
+			});
+			var timeout=null;
+			var intervalIdx;
+			var intervalCount;
+
+			function timeoutFoo() {
+				intervalCount++;
+				var max = intervals[intervalIdx].length == 1 ? 1 : intervals[intervalIdx][1];
+				if (intervalCount > max) {
+					intervalIdx = Math.min(intervalIdx + 1, intervals.length - 1);
+					intervalCount = 1;
+				}
+				timeout = $timeout(timeoutFoo, intervals[intervalIdx][0]);
+				onHold();
+			}
+
+			$element.on("mousedown", function (e) {
+				intervalIdx = 0;
+				intervalCount = 1;
+				timeout = $timeout(timeoutFoo, intervals[intervalIdx][0]);
+				$scope.$apply(onHold);
+			});
+			$element.on("mouseup", function (e) {
+				if (!!timeout) {
+					$timeout.cancel(timeout);
+					$scope.$apply(onDone);
+					timeout=null;
+				}
+			});
+			$element.on("mouseleave", function (e) {
+				if (!!timeout) {
+					$timeout.cancel(timeout);
+					$scope.$apply(onDone);
+					timeout=null;
+				}
+			});
+		}]
+	};
+}]);
