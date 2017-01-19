@@ -76,7 +76,13 @@ wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpPr
 				redirectTo: '/topics/'
 			});
 
-		wfConfig.mapType = "3d";
+		// @ifdef type3D
+			wfConfig.mapType = "3d";
+		// @endif
+
+		// @ifdef type2D
+		wfConfig.mapType = "2d";
+		// @endif
 
 		cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
 		cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
@@ -93,7 +99,6 @@ wfApp.run([
 	'$location',
     function (wayfinder,wfConfig, $rootScope, $http, $route, $location) {
         $route.reload();
-        console.log("wfApp.wfConfig:",wfConfig);
         if ($location.port() != 80 || $location.port() != 443) {
 			if (wfConfig.mapType == "3d")
 				wayfinder.options.assetsLocation = '//static.3dwayfinder.com/shared/';
@@ -103,7 +108,6 @@ wfApp.run([
             	wayfinder.options.assetsLocation = '../../../../shared';
         }
 
-		console.log("wayfinder:",wayfinder);
 		wayfinder.open();
         wayfinder.statistics.start();
     }

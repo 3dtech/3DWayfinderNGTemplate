@@ -93,11 +93,13 @@
 <!-- script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script -->
 <!--script type='text/javascript' src='/lib/js/loading-bar.js'></script -->
 <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
+<!-- @ifdef  type3D -->
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
+<!-- @endif -->
 
-<script type="text/javascript" src="//localhost:8090/shared/js/minified/Wayfinder3D.min.js"></script>
-<script type="text/javascript" src="//localhost:8090/shared/js/minified/Wayfinder2D.min.js"></script>
-
-
+<!-- @ifdef  type2D -->
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder2D.min.js"></script>
+<!-- @endif -->
 <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
 <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
 <script type="text/javascript"
