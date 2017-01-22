@@ -1,5 +1,5 @@
 <div id="floors-menu" class="btn-group" ng-show="showFloorsMenu" ng-controller="ControlsController">
-	<div class="floor-button btn" 
+	<div class="floor-button"
 	ng-class="{'active':floor.active}" 
 	ng-click="changeFloor(floor)" 
 	ng-repeat="floor in floors | orderBy: 'index' | reverse" 

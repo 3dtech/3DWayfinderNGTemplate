@@ -40,6 +40,7 @@ wfApp.value('toggleNavMenu', toggleNavMenu);
 wfApp.value('hideNavMenu', hideNavMenu);
 wfApp.value('showNavMenu', showNavMenu);
 
+<<<<<<< HEAD
 wfApp.config(['wfangularConfig', function(wfconfig) {}]);
 
 // ------------------------------------------
@@ -100,6 +101,78 @@ wfApp.config([
 				redirectTo: '/topics/'
 			});
 	}
+=======
+// ------------------------------------------
+// ----------------- config -----------------
+// ------------------------------------------
+
+wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadingBarProvider',
+	function(wfConfig, $route, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
+		$route
+			.when('/', {
+				templateUrl: "views/default.html",
+				controller: 'MainController'
+			})
+			.when('/info&:id?/', {
+				templateUrl: "views/info.html",
+				controller: 'InfoController'
+			})
+			.when('/search/', {
+				templateUrl: "views/search.html",
+				controller: 'SearchController'
+			})
+			.when('/atoz/', {
+				templateUrl: "views/atoz.html",
+				controller: 'AtozController'
+			})
+			.when('/topics/', {
+				templateUrl: 'views/topics.html',
+				controller: 'TopicsController'
+			})
+			.when('/topics&:id?/', {
+				templateUrl: 'views/topics.html',
+				controller: 'TopicsController'
+			})
+			.otherwise({
+				redirectTo: '/topics/'
+			});
+
+		// @ifdef type3D
+			wfConfig.mapType = "3d";
+		// @endif
+
+		// @ifdef type2D
+		wfConfig.mapType = "2d";
+		// @endif
+
+		cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+		cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
+		cfpLoadingBarProvider.latencyThreshold = 500;
+	}
+]);
+
+wfApp.run([
+	'wfangular',
+	'wfangularConfig',
+	'$rootScope',
+	'$http',
+	'$route',
+	'$location',
+    function (wayfinder,wfConfig, $rootScope, $http, $route, $location) {
+        $route.reload();
+        if ($location.port() != 80 || $location.port() != 443) {
+			if (wfConfig.mapType == "3d")
+				wayfinder.options.assetsLocation = '//static.3dwayfinder.com/shared/';
+        }
+        else {
+			if (wfConfig.mapType == "3d")
+            	wayfinder.options.assetsLocation = '../../../../shared';
+        }
+
+		wayfinder.open();
+        wayfinder.statistics.start();
+    }
+>>>>>>> 3490d16fb4c756087f60df5c44a45880f05852f3
 ]);
 
 wfApp.run([
@@ -206,3 +279,60 @@ wfApp.directive('mapControls', function() {
 		templateUrl: '/templates/mapControls.html'
 	}
 });
+
+wfApp.directive('ngHold', [function () {
+	return {
+		restrict: "A",
+		link: function (scope, elm, attrs) {
+
+		},
+		controller: ["$scope", "$element", "$attrs", "$transclude", "$timeout", function ($scope, $element, $attrs, $transclude, $timeout) {
+			var onHold = function () {
+				return $scope.$eval($attrs.ngHold);
+			};
+			var onDone = function () {
+				return $scope.$eval($attrs.ngHoldDone);
+			};
+
+			var intervals = [];
+			($attrs.ngHoldInterval || "500").split(",").forEach(function (interval) {
+				intervals.push(interval.split(";"));
+			});
+			var timeout=null;
+			var intervalIdx;
+			var intervalCount;
+
+			function timeoutFoo() {
+				intervalCount++;
+				var max = intervals[intervalIdx].length == 1 ? 1 : intervals[intervalIdx][1];
+				if (intervalCount > max) {
+					intervalIdx = Math.min(intervalIdx + 1, intervals.length - 1);
+					intervalCount = 1;
+				}
+				timeout = $timeout(timeoutFoo, intervals[intervalIdx][0]);
+				onHold();
+			}
+
+			$element.on("mousedown", function (e) {
+				intervalIdx = 0;
+				intervalCount = 1;
+				timeout = $timeout(timeoutFoo, intervals[intervalIdx][0]);
+				$scope.$apply(onHold);
+			});
+			$element.on("mouseup", function (e) {
+				if (!!timeout) {
+					$timeout.cancel(timeout);
+					$scope.$apply(onDone);
+					timeout=null;
+				}
+			});
+			$element.on("mouseleave", function (e) {
+				if (!!timeout) {
+					$timeout.cancel(timeout);
+					$scope.$apply(onDone);
+					timeout=null;
+				}
+			});
+		}]
+	};
+}]);

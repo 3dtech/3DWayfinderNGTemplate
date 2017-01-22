@@ -1,5 +1,5 @@
-<div id="floors" class="floor-buttons floors button-group vertical top" ng-controller="FloorsCtrl">
-    <div id="floor-button" class="floor button" ng-repeat="floor in orderedFloors | reverse"
+<div class="floor-buttons floors btn-group vertical top" ng-controller="FloorsCtrl">
+    <div class="floor btn" ng-repeat="floor in orderedFloors | reverse"
         ng-class="{ 'active': getActiveFloor() == floor }" ng-click="setFloor(floor)"
         ng-model="activeLanguage" button-width ng-bind-html="floor.getNames() | wfCurrentLanguage">
     </div>

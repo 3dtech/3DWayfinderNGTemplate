@@ -1,5 +1,47 @@
 <!-- TOPICS -->
 <div class="tab-content">
+	<div class="topics style-7">
+		<div class="list dragscroll style-7">
+			<div class="topic row" ng-repeat="group in groups">
+				<div class="topic-head col-sm-12" ng-click="group.active = !group.active">
+					<div class="topic-name left col-sm-10 col-md-11" ng-bind-html="group.getNames() | wfCurrentLanguage" style="color: {{group.colorRGBA}}">
+					</div>
+					<div class="topic-toggle right col-sm-2 col-md-1 btn-group">
+						<div class="btn-circle fa button" ng-class="group.active ? 'icon-iglu-minus-1':'icon-iglu-plus-1'"></div>
+					</div>
+				</div>
+				<div class="list topic-list"
+					 ng-class="group.active ? 'active':''">
+					<div class="poi row" ng-repeat="poi in group.pois | orderBy:'names.translations.'+getLanguage()">
+						<div class="texts columns small-8 medium-9 left">
+							<div class="name columns small-12" ng-click="showInfo(poi)" ng-bind-html="poi.getNames() | wfCurrentLanguage"></div>
+						</div>
+						<div class="icons columns small-4 medium-3 right button-group">
+							<div class="icon button" ng-click="showPath(poi)" onclick="toggleNavMenu()">
+								<div class="icon-iglu-goto"></div>
+							</div>
+							<div class="icon button" ng-click="showInfo(poi)">
+								<div class="icon-iglu-info"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="title-bar">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>Topics</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--<div class="tab-content">
     <div class="topics dragscroll" id="style-7">
         <div class="topics-list">
             <div class="topic" ng-repeat="group in groups">
@@ -24,11 +66,11 @@
                                 <div class="icon-iglu-info"></div>
                             </div>
                         </div>
-                        <!-- <span class="group" ng-bind-html="group.getName(getLanguage())" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)">
-                        </span>-->
+                        &lt;!&ndash; <span class="group" ng-bind-html="group.getName(getLanguage())" ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)">
+                        </span>&ndash;&gt;
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div>-->

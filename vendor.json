@@ -9,7 +9,6 @@
     "bower_components/angular-route/angular-route.min.js",
     "bower_components/angular-panhandler/lib/angular-panhandler.js",
     "bower_components/angular-toArrayFilter/toArrayFilter.js",
-    "bower_components/foundation-sites/dist/foundation.min.js",
     "bower_components/dragscroll/dragscroll.js",
     "bower_components/3dwayfinder-angular/index.js"
 ]
