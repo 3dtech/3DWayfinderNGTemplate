@@ -7,8 +7,8 @@ wfApp.controller('SearchController', [
     'wfService',
     'keyboardService',
     'wfangular',
-    function ($rootScope, $scope, $timeout, wfService, keyboardService,
-              wayfinder) {
+    function($rootScope, $scope, $timeout, wfService, keyboardService,
+        wayfinder) {
         var kbLayouts = [];
         var searchKeyboard = {};
         searchKeyboard.handle = '.search-keyboard';
@@ -18,15 +18,16 @@ wfApp.controller('SearchController', [
 
         $scope.poiObjects = wfService.data.pois;
 
-        $scope.showPath = function (poi) {
+        $scope.showPath = function(poi) {
             wayfinder.showPath(poi.getNode(), poi);
+            $rootScope.$broadcast("wf.nav-menu", "hide");
         };
 
-        $scope.getLanguage = function () {
+        $scope.getLanguage = function() {
             return wayfinder.getLanguage();
         };
 
-        $scope.searchPOIsNames = function (poi) {
+        $scope.searchPOIsNames = function(poi) {
             if (!!poi && !!poi.getName(wayfinder.getLanguage())) {
                 return poi.getName($scope.getLanguage())
                     .toLowerCase().match($scope.textToSearch.toLowerCase());
@@ -55,7 +56,7 @@ wfApp.controller('SearchController', [
 
             newKeyboard.setOutput($(keyboard.target));
 
-            newKeyboard.cbOnChange = function (val) {
+            newKeyboard.cbOnChange = function(val) {
                 console.log("me:", val);
                 $(keyboard.handle).trigger("keypressed");
                 $rootScope.$broadcast("wf.keyboard.change", val);
@@ -78,10 +79,10 @@ wfApp.controller('SearchController', [
          return textColor;
          };*/
 
-        $scope.$watch('textToSearch', function (data) {
+        $scope.$watch('textToSearch', function(data) {
             if (!data) return;
             //console.debug( "filtered poiObjects:", data );
-            $timeout(function () {
+            $timeout(function() {
                 //console.debug( "filtered:", $scope.filtered.length );
                 if ($scope.filtered.length != 0 && data.length > 1) {
                     wayfinder.statistics.onSearch(data,
@@ -125,14 +126,14 @@ wfApp.controller('SearchController', [
          }, 10); // delay 250 ms
          });
          */
-        $rootScope.$on("wf.language.change", function (event,
-                                                       language) {
+        $rootScope.$on("wf.language.change", function(event,
+            language) {
             // console.log("searchKeyboard:", searchKeyboard);
             if (searchKeyboard.keyboard)
                 searchKeyboard.keyboard.changeLayout(language);
         });
 
-        $timeout(function () {
+        $timeout(function() {
             kbLayouts = keyboardService.getLayouts();
             searchKeyboard.keyboard = createKeyboard(
                 searchKeyboard,

@@ -1,6 +1,9 @@
+/* global $, angular, wfApp, WayfinderAPI */
+
 /**
  * Controller to handle logic going on in topics view
  */
+
 wfApp.controller('TopicsController', [
 	'$rootScope',
 	'$scope',
@@ -17,6 +20,14 @@ wfApp.controller('TopicsController', [
 		$scope.collapsedGroup = [];
 		$scope.collapsedFloor = [];
 		$scope.activeLetter = "";
+
+		$scope.showPath = function(poi) {
+			console.log("showPath.poi:", poi, wayfinder.getKiosk(),
+				wayfinder.getKioskNode());
+			$rootScope.$broadcast("wf.nav-menu", "hide");
+			wayfinder.showKiosk();
+			wayfinder.showPath(poi.getNode(), poi);
+		};
 
 		/**
 		 * Function for expanding and collapsing a topic

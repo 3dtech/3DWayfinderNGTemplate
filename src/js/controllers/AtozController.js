@@ -1,67 +1,69 @@
+/* global $, angular, wfApp, WayfinderAPI */
 //var groupsModule = angular.module('wf.groups', ['wfangular']);
 
 //groupsModule.controller('GroupsCtrl', [
-wfApp.controller( 'AtozController', [
+wfApp.controller('AtozController', [
     '$rootScope',
     '$scope',
     '$timeout',
     'wfService',
     'wfangular',
-    function ( $rootScope, $scope, $timeout, wfService, wayfinder ) {
+    function($rootScope, $scope, $timeout, wfService, wayfinder) {
         $scope.atoz = wfService.data.atoz;
         $scope.poiObjects = wfService.data.pois;
         $scope.activeLetter = "";
         var wfAtozDataLoaded = false;
 
-        $scope.showPath = function ( poi ) {
-            console.log( "showPath.poi:", poi, wayfinder.getKiosk(),
-                wayfinder.getKioskNode() );
+        $scope.showPath = function(poi) {
+            console.log("showPath.poi:", poi, wayfinder.getKiosk(),
+                wayfinder.getKioskNode());
+            $rootScope.$broadcast("wf.nav-menu", "hide");
             wayfinder.showKiosk();
-            wayfinder.showPath( poi.getNode(), poi );
+            wayfinder.showPath(poi.getNode(), poi);
         };
 
-        $scope.criteriaMatch = function ( criteria ) {
-            if ( typeof criteria != "string" || criteria == "" )
+        $scope.criteriaMatch = function(criteria) {
+            if (typeof criteria != "string" || criteria == "")
                 return 0;
             //console.log("criteriaMatch.criteria:", criteria, typeof criteria);
-            return function ( item ) {
+            return function(item) {
                 var name = item.getName(wayfinder.getLanguage())
-                    .toLowerCase().charAt( 0 );
+                    .toLowerCase().charAt(0);
                 return name === criteria;
             }
         };
 
-        $scope.setLetterActive = function ( letter, letters ) {
-            if ( letter.active ) return 0;
-            angular.forEach( letters, function (item) {
+        $scope.setLetterActive = function(letter, letters) {
+            if (letter.active) return 0;
+            angular.forEach(letters, function(item) {
                 item.active = item.name == letter.name;
             });
             return 1;
         };
 
-        $scope.getActiveLetter = function ( letters ) {
+        $scope.getActiveLetter = function(letters) {
             var letter = null;
-            angular.forEach( letters, function (item) {
+            angular.forEach(letters, function(item) {
                 if (item.active) {
                     letter = item;
                 }
             });
-            if ( typeof letter == null ) return 0;
+            if (typeof letter == null) return 0;
             //console.log("getActiveLetter.letter:", letter)
             return letter;
         };
 
-        $scope.getLanguage = function () {
+        $scope.getLanguage = function() {
             return wayfinder.getLanguage();
         };
 
         $scope.$watch(
-            function () {
+            function() {
                 return wayfinder.getLanguage();
             },
-            function ( newValue, oldValue ) {
+            function(newValue, oldValue) {
                 $scope.activeLetter = "";
-            } );
+            });
 
         /*$timeout( function () {
             $scope.poiObjects = wfService.getPOIs();
@@ -92,4 +94,4 @@ wfApp.controller( 'AtozController', [
                 } );
         } );*/
     }
-] );
+]);

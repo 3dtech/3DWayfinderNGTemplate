@@ -10,14 +10,13 @@
 						<div class="btn-circle fa button" ng-class="group.active ? 'icon-iglu-minus-1':'icon-iglu-plus-1'"></div>
 					</div>
 				</div>
-				<div class="list topic-list"
-					 ng-class="group.active ? 'active':''">
+				<div class="list topic-list" ng-class="group.active ? 'active':''">
 					<div class="poi row" ng-repeat="poi in group.pois | orderBy:'names.translations.'+getLanguage()">
 						<div class="texts columns small-8 medium-9 left">
 							<div class="name columns small-12" ng-click="showInfo(poi)" ng-bind-html="poi.getNames() | wfCurrentLanguage"></div>
 						</div>
 						<div class="icons columns small-4 medium-3 right button-group">
-							<div class="icon button" ng-click="showPath(poi)" onclick="toggleNavMenu()">
+							<div class="icon button" ng-click="showPath(poi)">
 								<div class="icon-iglu-goto"></div>
 							</div>
 							<div class="icon button" ng-click="showInfo(poi)">

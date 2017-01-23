@@ -1,3 +1,5 @@
+/* global $, angular, wfApp, WayfinderAPI */
+
 // -------------------------------------------
 // --------------- Controllers ---------------
 // -------------------------------------------
@@ -6,9 +8,9 @@ wfApp.controller('MainController', [
 	'wfService',
 	'keyboardService',
 	'wfangular',
-	'toggleNavMenu',
-	'hideNavMenu',
-	'showNavMenu',
+	//	'toggleNavMenu',
+	//	'hideNavMenu',
+	//	'showNavMenu',
 	'$scope',
 	'$timeout',
 	'$rootScope',
@@ -18,7 +20,15 @@ wfApp.controller('MainController', [
 		wfService,
 		keyboardService,
 		wayfinder,
-		toggleNavMenu, hideNavMenu, showNavMenu, $scope, $timeout, $rootScope, $location, cfpLoadingBar) {
+		//		toggleNavMenu,
+		//		hideNavMenu,
+		//		showNavMenu,
+		$scope,
+		$timeout,
+		$rootScope,
+		$location,
+		cfpLoadingBar
+	) {
 		$scope = $rootScope;
 		$scope.wayfinder = wayfinder;
 		$scope.animationsEnabled = true;
@@ -30,17 +40,17 @@ wfApp.controller('MainController', [
 		lastTouch = (new Date()).getTime();
 		var maxInactivityTime = wfService.getSessionTimeout();
 
-		$scope.loadDefaultView = function () {
+		$scope.loadDefaultView = function() {
 			$location.path('/topics.html');
 			$scope.setActiveTab('topics');
 		};
 
-		$scope.go = function (path) {
+		$scope.go = function(path) {
 			//  console.debug("path:", path);
 			$location.path(path);
 		};
 
-		$scope.showTopic = function (group) {
+		$scope.showTopic = function(group) {
 			var path = '/topics&' + group.id;
 			var tabs = Object.keys(wfService.getTabs());
 			for (var k in tabs) {
@@ -50,28 +60,35 @@ wfApp.controller('MainController', [
 				}
 			}
 			$location.path(path);
-			$timeout(function () {
+			$timeout(function() {
 				$scope.$broadcast("wf.topic.selected", group);
 			}, 100);
 		};
 
-		$scope.showInfo = function (poi) {
+		$scope.showInfo = function(poi) {
 			var path = '/info&' + poi.id;
 			$location.path(path);
+			$scope.$broadcast("wf.nav-menu", "show");
 		};
 
-		$scope.$on('wf.poi.click', function (event, poi) {
-			// console.debug("maincontroller::poi.click:", poi);
-			var path = '/info&' + poi.id;
-			$location.path(path);
-			showNavMenu();
+		$scope.toggleNavMenu = function() {
+			$scope.$broadcast("wf.nav-menu", "toggle");
+		};
+
+		$scope.isNavMenuVisible = function() {
+			return wfService.isNavMenuVisible();
+		};
+
+		$scope.$on('wf.poi.click', function(event, poi) {
+			$scope.showInfo(poi);
 		});
 
-		$scope.showPath = function (poi) {
+		$scope.showPath = function(poi) {
 			wayfinder.showPath(poi.getNode(), poi);
+			$scope.$broadcast("wf.nav-menu", "hide");
 		};
 
-		$scope.getColorRGBA = function (group) {
+		$scope.getColorRGBA = function(group) {
 			//Function to convert hex format to a rgb textColor
 			if (!group) return;
 			var rgb = group.getColor();
@@ -122,7 +139,7 @@ wfApp.controller('MainController', [
 			//console.log(lastTouch);
 		}
 
-		$scope.trigger = function () {
+		$scope.trigger = function() {
 			//console.log("Trigger! time since lastTouch", (((new Date())
 			//  .getTime() - lastTouch) / 1000), "sec");
 			//reset
@@ -140,37 +157,38 @@ wfApp.controller('MainController', [
 
 		/*** SCOPE FUNCTIONS ***/
 
-		$scope.showYAH = function () {
+		$scope.showYAH = function() {
 			wayfinder.showKiosk();
+			$scope.$broadcast("wf.nav-menu", "hide");
 		};
 
-		$scope.cbResizeCtrl = function () {
+		$scope.cbResizeCtrl = function() {
 			wayfinder.resize();
 		};
 
-		$scope.getGUITranslation = function (key, params) {
+		$scope.getGUITranslation = function(key, params) {
 			if (params) return wayfinder.translator.get(key);
 			return wayfinder.translator.get(key, params);
 		};
 
-		$scope.setActiveTab = function (tab) {
+		$scope.setActiveTab = function(tab) {
 			//console.debug("MC: setActvieTab:", tab);
 			wfService.setActiveTab(tab);
 		};
 
-		$scope.getActiveTab = function () {
+		$scope.getActiveTab = function() {
 			return wfService.getActiveTab();
 		};
 
 		$scope.tabs = wfService.getTabs();
 
 
-		$scope.showGroupNearest = function (group) {
+		$scope.showGroupNearest = function(group) {
 			var pois = [];
 			var poiHasGroup = 0;
 			angular.forEach(wayfinder.getKioskNode().floor.getPOIs(),
-				function (element) {
-					angular.forEach(element.getGroups(), function (item) {
+				function(element) {
+					angular.forEach(element.getGroups(), function(item) {
 						if (item.getName(wayfinder.getLanguage()) ===
 							group.getName(wayfinder.getLanguage()))
 							poiHasGroup = 1;
@@ -199,20 +217,21 @@ wfApp.controller('MainController', [
 
 		/*** ROOTSCOPE WATCHERS ***/
 
-		$scope.$on('wf.path.finished', function (event, path) {
-			angular.forEach(wayfinder.getPOIsArray(), function (item) {
+		$scope.$on('wf.path.finished', function(event, path) {
+			angular.forEach(wayfinder.getPOIsArray(), function(item) {
 				if (item.node_id == parseInt(path[path.length - 1])) {
 					wayfinder.setHighlights([item]);
 				}
 			});
 		});
 
-		$scope.$on('wf.data.loaded', function () {
+		$scope.$on('wf.data.loaded', function() {
 			maxInactivityTime = wfService.getSessionTimeout();
 		});
 
-		$scope.$on('wf.map.ready', function (event) {
+		$scope.$on('wf.map.ready', function(event) {
 			// console.log("map ready!");
 			cfpLoadingBar.complete();
 		});
-	}]);
+	}
+]);
