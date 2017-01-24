@@ -15,17 +15,20 @@ wfApp.factory('wfService', [
 					name: 'search',
 					icon: 'icon-iglu-search',
 					link: '/search/',
-					active: false
+					active: false,
+					gui: 'search'
 				}, {
 					name: 'topics',
 					icon: 'icon-iglu-list-nested    ',
 					link: '/topics/',
-					active: false
+					active: false,
+					gui: 'topics'
 				}, {
 					name: 'atoz',
 					icon: 'icon-iglu-atoz',
 					link: '/atoz/',
-					active: false
+					active: false,
+					gui: 'az'
 				}
 				/*, {
 				 name: 'floors',

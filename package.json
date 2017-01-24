@@ -4,6 +4,7 @@
   "description": "Free to use Angular template for 3D Wayfinder",
   "main": "index.js",
   "dependencies": {
+    "angular-ui-router": "^0.4.2",
     "bower": "^1.6.5",
     "del": "^2.0.2",
     "gulp": "^3.9.0",

@@ -48,10 +48,7 @@ var wfApp = angular.module('wfApp', [
 wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadingBarProvider',
 	function(wfConfig, $route, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
 		$route
-			.when('/', {
-				templateUrl: "views/default.html",
-				controller: 'MainController'
-			})
+
 			.when('/info&:id?/', {
 				templateUrl: "views/info.html",
 				controller: 'InfoController'
@@ -73,7 +70,7 @@ wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpPr
 				controller: 'TopicsController'
 			})
 			.otherwise({
-				redirectTo: '/topics/'
+				redirectTo: '/'
 			});
 
 		// @ifdef type3D
@@ -108,40 +105,7 @@ wfApp.run([
 				wayfinder.options.assetsLocation = '../../../../shared';
 		}
 
-		wayfinder.open();
-		wayfinder.statistics.start();
-	}
-]);
-
-wfApp.run([
-	'wfangular',
-	'wfangularConfig',
-	'$rootScope',
-	'$http',
-	'$route',
-	'$location',
-	function(
-		wayfinder,
-		wfconfig,
-		$rootScope,
-		$http,
-		$route,
-		$location
-	) {
-		$route.reload();
-		if ($location.port() != 80 || $location.port() != 443) {
-			if (wfconfig.mapType == '3d') {
-				wayfinder.options.assetsLocation =
-					'//static.3dwayfinder.com/shared/';
-			};
-		}
-		else {
-			if (wfconfig.mapType == '3d') {
-				wayfinder.options.assetsLocation =
-					'../../../shared';
-			};
-		}
-		wayfinder.open();
+		wayfinder.open('599a8cbdf993e8f913641ea551908707');
 		wayfinder.statistics.start();
 	}
 ]);

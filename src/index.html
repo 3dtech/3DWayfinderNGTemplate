@@ -19,33 +19,31 @@
 
 	<div class="container" ng-click="trigger()" ng-keypress="trigger()">
 
-		<!-- ==================== HEADER ==================== -->
+		<!-- ==================== TOP MENU BAR ==================== -->
+
 		<div id="header" class="row">
-			<div class="col-sm-3">
+			<div class="col-xs-3">
 				<div class="dropdown lang-menu" ng-controller="LanguageController" ng-show="showLanguageMenu" data-dropdown-menu>
-					<button class="btn btn-default dropdown-toggle" type="button" id="languageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-					{{activeLanguage.nativeName}}
-					<span class="caret"></span>
-				</button>
+					<button class="btn dropdown-toggle" type="button" id="languageMenu"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						{{activeLanguage.nativeName}}
+						<span class="caret"></span>
+					</button>
 					<ul class="dropdown-menu" aria-labelledby="languageMenu">
 						<li class="button" ng-repeat="language in languages" ng-class="{'active': language.active}" ng-click="setLanguage(language)" ng-bind-html="language.nativeName"></li>
 					</ul>
 				</div>
 			</div>
-
-			<div class="logo col-sm-6"></div>
-
-			<div class="col-sm-6">
-				<div class="title"></div>
-			</div>
-
-			<div id="menu" class="col-sm-3 pull-right">
+			<div class="col-xs-3"><div class="logo"></div></div>
+			<div class="col-xs-3"><div class="title"></div></div>
+			<div class="col-xs-3" id="menu">
 				<div id="nav-menu-btn" class="icon button {{isNavMenuVisible()?'icon-iglu-cancel':'icon-iglu-search'}}" ng-click="toggleNavMenu(); loadDefaultView()">
 					<div class=""></div>
 				</div>
 			</div>
-
 		</div>
+
+
 		<!-- ==================== CONTENT CONTAINER ==================== -->
 		<div id="content-container" class="row">
 			<!-- MAP CONTAINER -->
@@ -54,6 +52,8 @@
 			</div>
 			<floors-menu></floors-menu>
 			<shortcuts-menu></shortcuts-menu>
+
+			<!-- ==================== ZOOM MENU ==================== -->
 			<div id="zoom-menu" class="btn-group-vertical" ng-controller="ControlsController">
 				<div id="yah-btn" class="fa fa-map-marker btn zoom" ng-click="showYAH()">
 					<div class=""></div>
@@ -61,16 +61,17 @@
 				<div id="zoom-in" class="zoom btn fa fa-search-plus" ng-hold="zoomIn()"></div>
 				<div id="zoom-out " class="zoom btn fa fa-search-minus" ng-hold="zoomOut()"></div>
 			</div>
+
 		</div>
 
 		<!-- ==================== NAV-MENU ==================== -->
 		<div id="nav-menu" class="row" ng-class="{'active':isNavMenuVisible()}">
 			<div class="tabs-container">
-				<ul class="nav nav-tabs" role="tablist">
-					<li class="tab-head btn" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}" ng-click="go(tab.link); setActiveTab(tab);" aria-controls="home" role="tab" data-toggle="tab">
-						<div class="icon {{tab.icon}}"></div>
-					</li>
-				</ul>
+				<div class="nav nav-tabs" role="tablist">
+					<div class="tab-head btn" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}" ng-click="go(tab.link); setActiveTab(tab);" aria-controls="home" role="tab" data-toggle="tab">
+						<div data-translation-element="{{tab.gui}}"></div>
+					</div>
+				</div>
 				<div class="tab-content row" ng-view></div>
 			</div>
 		</div>
@@ -97,26 +98,38 @@
 			clickY;
 		WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
 
-		$(document).on({
-			'mousemove': function(e) {
-				clicked && updateScrollPos(e);
-			},
-			'mousedown': function(e) {
-				clicked = true;
-				clickY = e.pageY;
-			},
-			'mouseup': function() {
-				clicked = false;
-				$('html').css('cursor', 'auto');
-			}
-		});
+	$(document).on({
+		'mousemove': function (e) {
+			clicked && updateScrollPos(e);
+		},
+		'mousedown': function (e) {
+			clicked = true;
+			clickY = e.pageY;
+		},
+		'mouseup': function () {
+			clicked = false;
+			$('html').css('cursor', 'auto');
+		}
+	});
+	<!-- @if DEBUG -->
+	$(window).resize(function () {
+		$('#width').text("width: " + $(document).innerWidth() +
+			"px");
+		$('#height').text("height: " + $(document).innerHeight() +
+			"px");
+	}).resize();
+	<!-- @endif -->
 
 
-		var updateScrollPos = function(e) {
-			$('html').css('cursor', 'row-resize');
-			$(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
-		};
-	</script>
+	var updateScrollPos = function (e) {
+		$('html').css('cursor', 'row-resize');
+		$(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
+	};
+	var wayfinder;
+	setTimeout(function () {
+		wayfinder = angular.element(document.body).scope().wayfinder;
+	}, 1000)
+</script>
 </body>
 
 </html>

@@ -40,9 +40,16 @@ wfApp.controller('MainController', [
 		lastTouch = (new Date()).getTime();
 		var maxInactivityTime = wfService.getSessionTimeout();
 
-		$scope.loadDefaultView = function() {
-			$location.path('/topics.html');
-			$scope.setActiveTab('topics');
+		$scope.loadDefaultView = function () {
+
+			if($location.path()=='/'){
+				console.log($location.path());
+				$location.path('/topics');
+				$scope.setActiveTab('topics');
+			} else {
+				$location.path('/');
+
+			}
 		};
 
 		$scope.go = function(path) {
@@ -139,7 +146,7 @@ wfApp.controller('MainController', [
 			//console.log(lastTouch);
 		}
 
-		$scope.trigger = function() {
+		$scope.trigger = function () {
 			//console.log("Trigger! time since lastTouch", (((new Date())
 			//  .getTime() - lastTouch) / 1000), "sec");
 			//reset
@@ -176,19 +183,19 @@ wfApp.controller('MainController', [
 			wfService.setActiveTab(tab);
 		};
 
-		$scope.getActiveTab = function() {
+		$scope.getActiveTab = function () {
 			return wfService.getActiveTab();
 		};
 
 		$scope.tabs = wfService.getTabs();
 
 
-		$scope.showGroupNearest = function(group) {
+		$scope.showGroupNearest = function (group) {
 			var pois = [];
 			var poiHasGroup = 0;
 			angular.forEach(wayfinder.getKioskNode().floor.getPOIs(),
-				function(element) {
-					angular.forEach(element.getGroups(), function(item) {
+				function (element) {
+					angular.forEach(element.getGroups(), function (item) {
 						if (item.getName(wayfinder.getLanguage()) ===
 							group.getName(wayfinder.getLanguage()))
 							poiHasGroup = 1;
