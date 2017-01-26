@@ -286,7 +286,7 @@ input::-ms-clear {
 			display: flex;
 			.tab-head.btn:active, .tab-head.btn.active {
 				box-shadow: none;
-				color:@color-primary;
+				color: @color-primary;
 			}
 			.tab-head {
 				position: relative;
@@ -302,7 +302,7 @@ input::-ms-clear {
 				.icon {
 					display: flex;
 					/* establish flex container */
-					flex-direction: column;
+
 					/* stack flex items vertically */
 					justify-content: center;
 					/* center items vertically, in this case */
@@ -366,14 +366,14 @@ input::-ms-clear {
 				.atoz {
 					position: relative;
 					width: 100%;
-					height: 85%;
+					height: 100%;
 					overflow-y: scroll;
 				}
 				#info {
 					position: absolute;
 					width: 100%;
 					height: 100%;
-					font-size: 5em;
+					font-size: 2em;
 					color: @color-text-dark;
 					line-height: 1;
 					margin: 0 !important;
@@ -457,6 +457,9 @@ input::-ms-clear {
 		.icon {
 			line-height: 4rem;
 			font-size: 2rem;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			box-shadow: 2px 2px 0 0 #ccc;
 		}
 
 		.name {
@@ -494,6 +497,23 @@ hr {
 	height: 100%;
 	width: 100%;
 	overflow-x: hidden;
+	.panel-group {
+		margin-bottom: 0;
+		.topic {
+			margin-top: 0;
+			border: none;
+			.topic-head {
+				background: none;
+				border: none;
+			}
+		}
+		.topic-list {
+			.list-group-item {
+				padding-left: 40px;
+			}
+		}
+	}
+	/*
 	.topic-head {
 		position: relative;
 		height: 100%;
@@ -502,7 +522,7 @@ hr {
 			vertical-align: middle;
 			height: 100%;
 			margin: 0;
-			display: inline-block;
+
 			.fa {
 				position: relative;
 				top: 0;
@@ -523,7 +543,7 @@ hr {
 		}
 	}
 	.topics-list {
-		height: auto;
+
 		width: 100%;
 	}
 	.topic-name {
@@ -532,32 +552,15 @@ hr {
 		text-overflow: ellipsis;
 		overflow: hidden;
 	}
-	> div {
-		display: inline-block;
-	}
-	.btn-circle {
-		float: right;
-		position: relative;
-		margin: auto;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		text-align: center;
-		border-radius: 3rem;
-		border: thin solid @color-button-light;
-		padding: 0;
-		color: @color-button-light;
-		background-color: transparent;
-		display: inline-block;
-	}
+
+
 	.topic {
 		position: relative;
 		margin: 10px 0;
-		/*height: @group-height;*/
+		!*height: @group-height;*!
 		width: 100%;
 		vertical-align: middle;
-		font-size: 2rem;
+		font-size: 1.5rem;
 		transition: all .5s ease-in-out;
 		line-height: @group-height;
 		.topic-list {
@@ -586,7 +589,7 @@ hr {
 	}
 	> :nth-child(even).group {
 		background-color: @color-topic-even;
-	}
+	}*/
 }
 
 /* ========== SEARCH TAB ==========*/
@@ -1024,11 +1027,11 @@ hr {
 			display: block;
 		}
 	}
+
 	#nav-menu {
-		.tabs-container
-		{
-			.nav-tabs{
-				.tab-head{
+		.tabs-container {
+			.nav-tabs {
+				.tab-head {
 
 					font-size: 0.75rem;
 				}
@@ -1195,9 +1198,16 @@ hr {
 
 	#nav-menu {
 		top: @header-height-s;
-		width: 40em;
+		width: 30em;
 		right: -40em;
 		transition: all 1s ease-in-out;
+		.tabs-container {
+			.nav-tabs {
+				.tab-head {
+					font-size: 1.5em;
+				}
+			}
+		}
 		&.active {
 			top: @header-height-s;
 			right: 0;
@@ -1205,14 +1215,14 @@ hr {
 	}
 
 	#zoom-menu {
-		bottom: 1rem;
-		left: 1rem;
+		bottom: 0.5rem;
+		left: 0.5rem;
 		width: auto;
 		margin-bottom: 0;
 	}
 
 	#shortcuts-menu {
-		bottom: 1rem;
+		bottom: 0.5rem;
 		width: 80%;
 		left: 0;
 		right: 0;
@@ -1233,9 +1243,10 @@ hr {
 
 @media screen and (min-width: 1440px) {
 	#header {
-		height: @header-height-m;
+		height: @header-height-l;
 		#nav-menu-btn {
 			height: 100%;
+
 		}
 	}
 
@@ -1265,12 +1276,16 @@ hr {
 }
 
 @media screen and (min-width: 1920px) {
+
 	#header {
-		height: @header-height-l;
+		height: @header-height-s;
+		#menu.button {
+			font-size: 2rem;
+		}
 	}
 
 	#content-container {
-		top: @header-height-l;
+		top: @header-height-s;
 		bottom: @content-container-bottom;
 	}
 
@@ -1280,14 +1295,23 @@ hr {
 
 	.tab-contents {
 		padding: 1rem;
-		height: 100% - (@header-height-l);
+		height: 100% - (@header-height-s);
 	}
 
 	#nav-menu {
-		top: @header-height-l;
-		height: 100% - @header-height-l;
+
+		top: @header-height-s;
+		height: 100% - @header-height-s;
+		width: 30%;
+		.tabs-container {
+			.nav-tabs {
+				.tab-head {
+					font-size: 2em;
+				}
+			}
+		}
 		&.active {
-			top: @header-height-l;
+			top: @header-height-s;
 		}
 	}
 

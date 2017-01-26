@@ -3,19 +3,20 @@
 	<div class="atoz style-7">
 		<div class="list dragscroll style-7">
 			<div class="poi row" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage()">
-				<div class="col-xs-3 col-sm-3">
-					<div class="" ng-click="showPath(poi)">
-						<div class="icon icon-iglu-goto"></div>
-					</div>
 
-				</div>
-				<div class="col-xs-6 col-sm-6 locations">
+				<div class="col-xs-8 col-sm-8 locations">
 					<div class="name" ng-click="showInfo(poi)" ng-bind-html="poi.getName(getLanguage())"></div>
-
+					<div class="group col-xs-12" ng-bind-html="group.getName(getLanguage())"
+						 ng-repeat="group in poi.getGroups()" style="color: {{getColorRGBA(group)}};"
+						 ng-bind-html="group.getNames() | wfCurrentLanguage" ng-click="showTopic(group)">
+					</div>
 				</div>
 				<div class="col-xs-3 col-sm-3">
-					<div class="icon icon-iglu-info"></div>
+					<div  ng-click="showPath(poi)"><i class="icon icon-iglu-goto"></i></div>
+
+					<div ng-click="showInfo(poi)"><i class="icon icon-iglu-info"></i></div>
 				</div>
+				<hr>
 			</div>
 
 			<!--&lt;!&ndash;<div class="poi row" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage()">-->
