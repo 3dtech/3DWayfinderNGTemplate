@@ -3,11 +3,12 @@
 wfApp.controller('SearchController', [
     '$rootScope',
     '$scope',
+	'$routeParams',
     '$timeout',
     'wfService',
     'keyboardService',
     'wfangular',
-    function($rootScope, $scope, $timeout, wfService, keyboardService,
+    function($rootScope, $scope, $routeParams, $timeout, wfService, keyboardService,
         wayfinder) {
         var kbLayouts = [];
         var searchKeyboard = {};
@@ -97,6 +98,12 @@ wfApp.controller('SearchController', [
             }, 20);
         });
 
+		function checkRouteParams() {
+			if (!$routeParams) return;
+
+			$rootScope.$broadcast("wf.nav-menu", "show");
+		}
+
         /*$scope.$watch( 'searchText', function ( val ) {
          if ( tempFilterText == val ) return;
          console.log( "SearchController.searchText.changed:",
@@ -126,12 +133,22 @@ wfApp.controller('SearchController', [
          }, 10); // delay 250 ms
          });
          */
+
         $rootScope.$on("wf.language.change", function(event,
             language) {
             // console.log("searchKeyboard:", searchKeyboard);
             if (searchKeyboard.keyboard)
                 searchKeyboard.keyboard.changeLayout(language);
         });
+
+		$scope.$on("wf.map.ready", function(event) {
+
+			checkRouteParams();
+		});
+
+		$timeout(function () {
+			checkRouteParams();
+		}, 10);
 
         $timeout(function() {
             kbLayouts = keyboardService.getLayouts();

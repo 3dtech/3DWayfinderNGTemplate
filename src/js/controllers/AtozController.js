@@ -5,10 +5,11 @@
 wfApp.controller('AtozController', [
     '$rootScope',
     '$scope',
+	'$routeParams',
     '$timeout',
     'wfService',
     'wfangular',
-    function($rootScope, $scope, $timeout, wfService, wayfinder) {
+    function($rootScope, $scope,$routeParams, $timeout, wfService, wayfinder) {
         $scope.atoz = wfService.data.atoz;
         $scope.poiObjects = wfService.data.pois;
         $scope.activeLetter = "";
@@ -21,6 +22,14 @@ wfApp.controller('AtozController', [
             wayfinder.showKiosk();
             wayfinder.showPath(poi.getNode(), poi);
         };
+
+		function checkRouteParams() {
+			if (!$routeParams) return;
+			$scope.$apply(function() {
+				$scope.poiObjects = wfService.data.pois;
+			});
+			$rootScope.$broadcast("wf.nav-menu", "show");
+		}
 
         $scope.criteriaMatch = function(criteria) {
             if (typeof criteria != "string" || criteria == "")
@@ -64,6 +73,15 @@ wfApp.controller('AtozController', [
             function(newValue, oldValue) {
                 $scope.activeLetter = "";
             });
+
+		$scope.$on("wf.map.ready", function(event) {
+
+			checkRouteParams();
+		});
+
+		$timeout(function () {
+			checkRouteParams();
+		}, 10);
 
         /*$timeout( function () {
             $scope.poiObjects = wfService.getPOIs();

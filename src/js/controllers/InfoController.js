@@ -18,7 +18,6 @@ wfApp.controller('InfoController', [
 		wfService,
 		wayfinder
 	) {
-		$scope.poi = null;
 		// console.log("wfService.getPOIs():", wfService.getPOIs());
 		// console.log("InfoController.poi", $scope.poi, $routeParams.id);
 
@@ -34,8 +33,7 @@ wfApp.controller('InfoController', [
 		$scope.hasDescription = function(poi) {
 			// console.debug("hasDescription",poi);
 			if (!poi) return 0;
-			return poi.getDescription(wayfinder.getLanguage()) ? 1 :
-				0;
+			return poi.getDescription(wayfinder.getLanguage()) ? 1 : 0;
 		};
 
 		$scope.getBackgroundImage = function(poi) {
@@ -70,5 +68,9 @@ wfApp.controller('InfoController', [
 			console.debug("INFO:map.ready");
 			checkRouteParams();
 		});
+
+		$timeout(function () {
+			checkRouteParams();
+		}, 10);
 	}
 ]);

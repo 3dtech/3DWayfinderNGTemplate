@@ -61,7 +61,13 @@ wfApp.controller('TopicsController', [
 			//console.log("collapsedGroup:", oldVal, "->", newVal);
 		});
 
-
+		function checkRouteParams() {
+			if (!$routeParams) return;
+			$scope.$apply(function() {
+				$scope.groups = wfService.data.groups;
+			});
+			$rootScope.$broadcast("wf.nav-menu", "show");
+		}
 		/**
 		 * This event is dispatched when the controller is initialized
 		 * @param topics is passed along with the event, which is captured by the service
@@ -81,6 +87,14 @@ wfApp.controller('TopicsController', [
 				}
 			}
 		});
+		$scope.$on("wf.map.ready", function(event) {
+
+			checkRouteParams();
+		});
+
+		$timeout(function () {
+			checkRouteParams();
+		}, 10);
 
 		/*$scope.$on("wf.data.loaded", function() {
 		 $timeout(function() {
