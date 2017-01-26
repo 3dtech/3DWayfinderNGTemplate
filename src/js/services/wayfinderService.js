@@ -124,16 +124,27 @@ wfApp.factory('wfService', [
 				var arr = [];
 				angular.forEach(data, function(element) {
 					if (!!element.showInMenu && !!element.getName(wayfinder.getLanguage())) {
-						element.backgroundImage = window.location.protocol +
-							WayfinderAPI.getURL("images", "get", element.background_id);
+						if (element.background_id != 0) {
+							element.backgroundImage = window.location.protocol +
+								WayfinderAPI.getURL("images", "get", element.background_id);
+						}
+						else {
+							element.backgroundImage = false;
+						}
+						if (element.image_id != 0) {
+							element.logoImage = window.location.protocol +
+								WayfinderAPI.getURL("images", "get", element.image_id);
+						}
+						else {
+							element.logoImage = false;
+						}
+
 						arr.push(element);
 					}
 				});
 				if (arr.length == 0) {
-					// console.debug("WF-SERVICE: no pois found to be displayed" );
 					return [];
 				}
-				// console.debug("extractPOIs:", arr);
 				return arr;
 			}
 
