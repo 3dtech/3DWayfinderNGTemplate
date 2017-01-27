@@ -287,6 +287,10 @@ input::-ms-clear {
 				display: inline-flex;
 				flex: 1;
 				justify-content: center;
+				&:active, &.active {
+					box-shadow: none;
+					color: @color-primary;
+				}
 				.icon {
 					display: flex;
 					/* establish flex container */
@@ -318,27 +322,26 @@ input::-ms-clear {
 					width: auto;
 					height: auto;
 				}
-				&:hover {
-					background-color: @transparent;
-				}
-				&.active {
-					background-color: @color-tabs-active;
-					color: @color-primary;
-				}
-				.btn-circle {
-				}
-				.left {
-					float: left;
-				}
-				.right {
-					float: right;
-				}
-				.active {
-					background-color: @color-tabs-active;
-				}
-				:hover {
-					background-color: @transparent;
-				}
+			}
+			.tab-head:hover {
+				background-color: @transparent;
+			}
+			.tab-head.active {
+				background-color: @color-tabs-active;
+			}
+			.btn-circle {
+			}
+			.left {
+				float: left;
+			}
+			.right {
+				float: right;
+			}
+			.active {
+				background-color: @color-tabs-active;
+			}
+			:hover {
+				background-color: @transparent;
 			}
 		}
 		.tab-content {
@@ -445,8 +448,9 @@ input::-ms-clear {
 
 		min-height: 4em;
 		.icon {
-			line-height: 4rem;
-			font-size: 2rem;
+			display: inline-flex;
+			line-height: 1;
+			font-size: @font-size-s*1.5;
 			border-radius: 5px;
 			border: 1px solid #ccc;
 			box-shadow: 2px 2px 0 0 #ccc;
@@ -500,6 +504,14 @@ hr {
 		.topic-list {
 			.list-group-item {
 				padding-left: 40px;
+				.icon.button {
+
+					i {
+						border-radius: 5px;
+						border: 1px solid #ccc;
+						box-shadow: 2px 2px 0 0 #ccc;
+					}
+				}
 			}
 		}
 	}

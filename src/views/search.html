@@ -1,36 +1,37 @@
 <!-- SEARCH -->
 <div class="tab-content">
-    <div class="search">
-        <div class="search-wrapper">
-            <input id="search-bar" ng-model="textToSearch" ng-value="textToSearch" placeholder="{{getGUITranslation('search-bar-placeholder')}}">
-            <div id="search-btn" class="fa fa-search"></div>
-        </div>
-        <!-- SEARCH KEYBOARD -->
-        <div class="keyboard-container show-for-medium" ng-controller="KeyboardController as KBC" ng-show="showKeyboard">
-            <!--div class="keyboard-backdrop"-->
-            <!--div class="close-keyboard btn-circle fa fa-times" ng-click="showKeyboard = false"></div-->
-            <div class="search-keyboard keyboard"></div>
-            <!--/div-->
-        </div>
-        <div class="result-container" id="style-7">
-            <div class="list dragscroll">
-                <div class="poi row" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:searchPOIsNames as filtered">
-                    <div class="texts columns small-8 medium-10 large-9 left">
-                        <div class="name columns small-12 medium-6" ng-click="showInfo(poi)" ng-bind-html="poi.getName(getLanguage())"></div>
-                        <div class="group columns small-12 medium-6" ng-repeat="group in poi.getGroups()" style="color: {{group.colorRGBA}};" ng-bind-html="group.getName(getLanguage())" ng-click="showTopic(group)">
-                        </div>
-                    </div>
-                    <div class="icons columns small-4 medium-2 large-3 right button-group">
-                        <div class="icon button" ng-click="showPath(poi)">
-                            <div class="icon-iglu-goto"></div>
-                        </div>
-                        <div class="icon button" ng-click="showInfo(poi)">
-                            <div class="icon-iglu-info"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+	<div class="search">
+		<div class="search-wrapper">
+			<input id="search-bar" ng-model="textToSearch" ng-value="textToSearch"
+			       placeholder="{{getGUITranslation('search-bar-placeholder')}}">
+			<i id="search-btn" class="fa fa-search"></i>
+		</div>
+		<!-- SEARCH KEYBOARD -->
+		<div class="keyboard-container show-for-col-md" ng-controller="KeyboardController as KBC" ng-show="showKeyboard">
+			<!--div class="keyboard-backdrop"-->
+			<!--div class="close-keyboard btn-circle fa fa-times" ng-click="showKeyboard = false"></div-->
+			<div class="search-keyboard keyboard"></div>
+			<!--/div-->
+		</div>
+		<div class="result-container" id="style-7">
+			<div class="list dragscroll">
+				<div class="poi row"
+				     ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:searchPOIsNames as filtered">
+					<div class="texts col-xs-8 col-md-10 col-lg-9 left">
+						<div class="name col-xs-12 col-md-6" ng-click="showInfo(poi)"
+						     ng-bind-html="poi.getName(getLanguage())"></div>
+						<div class="group col-xs-12 col-md-6" ng-repeat="group in poi.getGroups()"
+						     style="color: {{group.colorRGBA}};" ng-bind-html="group.getName(getLanguage())"
+						     ng-click="showTopic(group)">
+						</div>
+					</div>
+					<div class="icons col-xs-4 col-md-2 col-lg-3 right btn-group">
+						<i class="icon icon-iglu-goto btn" ng-click="showPath(poi)"></i>
+						<i class="icon icon-iglu-info btn" ng-click="showInfo(poi)"></i>
+					</div>
+				</div>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>

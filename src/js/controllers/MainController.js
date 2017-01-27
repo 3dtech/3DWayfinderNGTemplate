@@ -1,4 +1,4 @@
-/* global $, angular, wfApp, WayfinderAPI */
+	/* global $, angular, wfApp, WayfinderAPI */
 
 // -------------------------------------------
 // --------------- Controllers ---------------
@@ -60,12 +60,14 @@ wfApp.controller('MainController', [
 		$scope.showTopic = function(group) {
 			var path = '/topics&' + group.id;
 			var tabs = wfService.getTabs();
-			angular.forEach(tabs, function (tab) {
-				if (tab.name == "topics") {
-					wfService.setActiveTab(tabs);
-				}
-			});
+			for (var k in tabs) {
+				console.log(k);
+				if (k.name == "topics") {
 
+					wfService.setActiveTab(k.name);
+					break;
+				}
+			}
 			$location.path(path);
 			$timeout(function() {
 				$scope.$broadcast("wf.topic.selected", group);
@@ -92,6 +94,7 @@ wfApp.controller('MainController', [
 
 		$scope.showPath = function(poi) {
 			wayfinder.showPath(poi.getNode(), poi);
+			wfService.setAtiveTab('topics');
 			$scope.$broadcast("wf.nav-menu", "hide");
 		};
 
