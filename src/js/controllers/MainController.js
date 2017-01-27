@@ -59,13 +59,13 @@ wfApp.controller('MainController', [
 
 		$scope.showTopic = function(group) {
 			var path = '/topics&' + group.id;
-			var tabs = Object.keys(wfService.getTabs());
-			for (var k in tabs) {
-				if (tabs[k].name == "topics") {
-					wfService.setActiveTab(tabs[k]);
-					break;
+			var tabs = wfService.getTabs();
+			angular.forEach(tabs, function (tab) {
+				if (tab.name == "topics") {
+					wfService.setActiveTab(tabs);
 				}
-			}
+			});
+
 			$location.path(path);
 			$timeout(function() {
 				$scope.$broadcast("wf.topic.selected", group);
