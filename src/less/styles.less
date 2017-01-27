@@ -79,6 +79,7 @@ input::-ms-clear {
 	box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.30);
 	z-index: 1;
 	position: relative;
+	text-transform: uppercase;
 	> div {
 		height: 100%;
 		display: inline-flex;
@@ -113,99 +114,88 @@ input::-ms-clear {
 		background-size: contain;
 		text-indent: -2000px;
 	}
-	#menu {
-		.button {
-			position: relative;
-			height: auto;
-			color: @color-text-dark;
-			background-color: rgba(0, 0, 0, 0);
-			margin: auto;
-			font-size: 1.5rem;
-			padding: 0;
-			&:before {
-				margin: 0 !important;
-				padding: 0 !important;
-			}
+	.button {
+		position: relative;
+		height: auto;
+		color: @color-text-dark;
+		background-color: rgba(0, 0, 0, 0);
+		margin: auto;
+		font-size: @font-size-s;
+		padding: 0;
+		&:before {
+			margin: 0 !important;
+			padding: 0 !important;
 		}
-		.lang-menu {
-			height: 100%;
-			display: inline-flex;
-			position: relative;
+	}
+	.lang-menu {
+		height: 100%;
+		display: inline-flex;
+		position: relative;
+		text-transform: uppercase;
+		z-index: 999;
+		.btn {
 			text-transform: uppercase;
-			z-index: 999;
-			.active {
-				color: @color-primary;
-			}
-			> .is-dropdown-submenu-parent {
-				display: flex;
-				/* establish flex container */
-				flex-direction: column;
-				/* stack flex items vertically */
-				justify-content: center;
-				/* center items vertically, in this case */
-				align-items: center;
-				/* center items horizontally, in this case */
-			}
-			.button-group {
-				.button {
-					&:first-child {
-						border-radius: 3px 3px 0 0;
-					}
-					&:last-child {
-						border-radius: 0 0 3px 3px;
-					}
-				}
-			}
-			a {
-			}
-			.submenu {
-				width: 100%;
-				background-color: #fff;
-				border: none;
+		}
+		.active {
+			color: @color-primary;
+		}
+		> .is-dropdown-submenu-parent {
+			display: flex;
+			/* establish flex container */
+			flex-direction: column;
+			/* stack flex items vertically */
+			justify-content: center;
+			/* center items vertically, in this case */
+			align-items: center;
+			/* center items horizontally, in this case */
+		}
+		.submenu {
+			width: 100%;
+			background-color: #fff;
+			border: none;
+			padding: .5rem;
+			border-radius: 5px;
+			li {
 				padding: .5rem;
-				border-radius: 5px;
-				li {
-					padding: .5rem;
-					// margin: .25rem;
-					background-color: white;
-					color: @color-button-dark;
-					&.active {
-						color: @color-text-light;
-						background-color: @color-primary;
-					}
+				// margin: .25rem;
+				background-color: white;
+				color: @color-button-dark;
+				&.active {
+					color: @color-text-light;
+					background-color: @color-primary;
 				}
 			}
 		}
-		.is-dropdown-submenu {
-			min-width: 2rem;
-			max-width: 3rem;
-		}
+	}
+	.is-dropdown-submenu {
+		min-width: 2rem;
+		max-width: 3rem;
+	}
 
-		.lang-current {
-			text-transform: uppercase;
-			position: absolute;
-			float: left;
-			top: 0.7em;
-			left: 0.7em;
-			width: 50px;
-			line-height: 2em;
-			z-index: 13;
+	.lang-current {
+		text-transform: uppercase;
+		position: absolute;
+		float: left;
+		top: 0.7em;
+		left: 0.7em;
+		width: 50px;
+		line-height: 2em;
+		z-index: 13;
+	}
+	#menu-btn {
+		float: right;
+		margin: 0;
+		span {
+			display: block;
+			text-indent: -1000px;
+			overflow: hidden;
 		}
-		#menu-btn {
-			float: right;
-			margin: 0;
-			span {
-				display: block;
-				text-indent: -1000px;
-				overflow: hidden;
-			}
-			&:hover .icon,
-			&.on-touch .icon {
-				color: @color-primary;
-			}
-			a.active:before {
-				content: '\e804' !important;
-			}
+		&:hover .icon,
+		&.on-touch .icon {
+			color: @color-primary;
+		}
+		a.active:before {
+			content: '\e804' !important;
 		}
 	}
 
@@ -284,10 +274,6 @@ input::-ms-clear {
 			margin: 0;
 			position: relative;
 			display: flex;
-			.tab-head.btn:active, .tab-head.btn.active {
-				box-shadow: none;
-				color: @color-primary;
-			}
 			.tab-head {
 				position: relative;
 				color: @color-text-dark;
@@ -295,10 +281,12 @@ input::-ms-clear {
 				background: #fff;
 				text-transform: uppercase;
 				line-height: 100%;
-				font-size: 2.5rem;
+				font-size: @font-size-s;
 				margin: auto;
 				padding: 0;
 				display: inline-flex;
+				flex: 1;
+				justify-content: center;
 				.icon {
 					display: flex;
 					/* establish flex container */
@@ -330,26 +318,27 @@ input::-ms-clear {
 					width: auto;
 					height: auto;
 				}
-			}
-			.tab-head:hover {
-				background-color: @transparent;
-			}
-			.tab-head.active {
-				background-color: @color-tabs-active;
-			}
-			.btn-circle {
-			}
-			.left {
-				float: left;
-			}
-			.right {
-				float: right;
-			}
-			.active {
-				background-color: @color-tabs-active;
-			}
-			:hover {
-				background-color: @transparent;
+				&:hover {
+					background-color: @transparent;
+				}
+				&.active {
+					background-color: @color-tabs-active;
+					color: @color-primary;
+				}
+				.btn-circle {
+				}
+				.left {
+					float: left;
+				}
+				.right {
+					float: right;
+				}
+				.active {
+					background-color: @color-tabs-active;
+				}
+				:hover {
+					background-color: @transparent;
+				}
 			}
 		}
 		.tab-content {
@@ -369,79 +358,80 @@ input::-ms-clear {
 					height: 100%;
 					overflow-y: scroll;
 				}
-				#info {
-					position: absolute;
-					width: 100%;
-					height: 100%;
-					font-size: 2em;
-					color: @color-text-dark;
-					line-height: 1;
-					margin: 0 !important;
-					#info-head {
-						margin: .5rem 0;
-						#name {
-							font-size: @font-size-s*1.5;
-							white-space: nowrap;
-							text-overflow: ellipsis;
-							overflow: hidden;
-							height: 100%;
-						}
-						.icon {
-							position: relative;
-							display: block;
-							float: right;
-							height: 100%;
-							> div {
-								position: relative;
-								float: right;
-								line-height: 1;
-								font-size: @list-icon-size-s*0.75;
-								width: @list-icon-size-s;
-								height: @list-icon-size-s;
-								color: @color-button-light;
-								border: thin solid @color-button-light;
-								border-radius: 5rem;
-								text-align: center;
-								&:before {
-									position: absolute;
-									top: 0;
-									bottom: 0;
-									right: 0;
-									left: 0;
-									margin: auto;
-									line-height: 1;
-									width: @list-icon-size-s*0.75;
-									height: @list-icon-size-s*0.75;
-								}
-							}
-						}
-					}
-					.description {
-						position: relative;
-						display: -webkit-box;
-						margin: 0 auto;
-						width: 100%;
-						line-height: 1.5;
-						height: @font-size-s*1.5*6;
-						-webkit-line-clamp: 6;
-						-webkit-box-orient: vertical;
-						overflow: hidden;
-						text-overflow: ellipsis;
-						font-size: @font-size-s;
-					}
-					.image {
-						position: relative;
-						width: 100%;
-						bottom: .5em;
-						background-size: contain;
-						background-repeat: no-repeat;
-					}
-				}
 			}
 			.active {
 				display: block;
 			}
 		}
+	}
+}
+
+#info {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	font-size: 2em;
+	color: @color-text-dark;
+	line-height: 1;
+	margin: 0 !important;
+	#info-head {
+		padding: .5rem 0;
+		display: flex;
+		.name {
+			font-size: @font-size-s;
+			padding-left: .5em;
+			padding-right: 0;
+			height: 100%;
+		}
+		.icon {
+			position: relative;
+			display: block;
+			float: right;
+			height: 100%;
+			> div {
+				position: relative;
+				float: right;
+				line-height: 1;
+				font-size: @list-icon-size-s*0.75;
+				width: @list-icon-size-s;
+				height: @list-icon-size-s;
+				color: @color-button-light;
+				border: thin solid @color-button-light;
+				border-radius: 5rem;
+				text-align: center;
+				&:before {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					right: 0;
+					left: 0;
+					margin: auto;
+					line-height: 1;
+					width: @list-icon-size-s*0.75;
+					height: @list-icon-size-s*0.75;
+				}
+			}
+		}
+	}
+	.description {
+		position: relative;
+		display: -webkit-box;
+		margin: 0 auto;
+		width: 100%;
+		line-height: 1.5;
+		height: @font-size-s*1.5*6;
+		-webkit-line-clamp: 6;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		font-size: @font-size-s;
+	}
+	.image {
+		position: relative;
+		width: 100%;
+		bottom: .5em;
+		background-size: contain;
+		background-repeat: no-repeat;
 	}
 }
 
@@ -616,7 +606,7 @@ hr {
 			border-right: 0;
 			border-top-left-radius: 5px;
 			border-bottom-left-radius: 5px;
-			padding-left: 20px;
+			padding-left: 10px;
 			width: 90%;
 			float: left;
 		}
@@ -632,6 +622,7 @@ hr {
 			z-index: 2;
 			float: right;
 			text-align: center;
+			padding: 0 .25em;
 			&:before {
 				position: absolute;
 				top: 0;
@@ -639,7 +630,7 @@ hr {
 				left: 0;
 				right: 0;
 				margin: auto;
-				font-size: @font-size-s;
+				font-size: @font-size-s*0.75;
 				height: @font-size-s;
 				width: @font-size-s;
 			}
@@ -921,6 +912,7 @@ hr {
 
 .dropdown-menu {
 	padding: 5px 12px;
+	min-width: 1em;
 	li:hover {
 		cursor: pointer;
 		color: #659789;
