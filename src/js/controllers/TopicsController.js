@@ -66,6 +66,16 @@ wfApp.controller('TopicsController', [
 			$scope.$apply(function() {
 				$scope.groups = wfService.data.groups;
 			});
+			angular.forEach($scope.groups, function(element,key) {
+				if (element.id == $routeParams.id) {
+					$scope.$apply(function() {
+						$scope.groups[key].active = element.id == $routeParams.id;
+					});
+					$rootScope.$broadcast("wf.nav-menu", "show");
+
+				}
+			});
+
 			$rootScope.$broadcast("wf.nav-menu", "show");
 		}
 		/**
@@ -83,7 +93,9 @@ wfApp.controller('TopicsController', [
 			// console.debug("selected.topic:", group);
 			if ($routeParams) {
 				for (var key in $scope.groups) {
+
 					$scope.groups[key].active = $scope.groups[key].id == $routeParams.id;
+
 				}
 			}
 		});

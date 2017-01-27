@@ -1,13 +1,16 @@
 <!-- EXTRAINFO -->
 <div class="tab-content columns small-12">
     <div id="info" class="poi">
-        <div id="info-head" class="row columns small-12 expanded">
-            <div class="name columns small-10" ng-bind-html="poi.names | wfCurrentLanguage"></div>
-            <div class="icon columns small-2" ng-show="poi.getNode()" ng-click="showPath(poi)">
-                <div class="icon-iglu-goto"></div>
+        <div id="info-head" class="row">
+			<div class="col-xs-12 logo-image"><img src="{{poi.logoImage}}" alt="" ng-show="poi.logoImage"></div>
+            <div class="name col-xs-12" ng-bind-html="poi.names | wfCurrentLanguage"></div>
+            <div class="icon col-xs-12" ng-show="poi.getNode()" ng-click="showPath(poi)">
+                <i class="icon icon-iglu-goto"></i>
             </div>
+            <div class="description col-xs-12" ng-show="hasDescription" ng-bind-html="poi.descriptions | wfCurrentLanguage"></div>
         </div>
-        <div class="description columns small-12" ng-show="hasDescription" ng-bind-html="poi.descriptions | wfCurrentLanguage"></div>
+
         <div class="image columns small-12" style="background-image:{{poi.backgroundImage}}"></div>
+
     </div>
 </div>

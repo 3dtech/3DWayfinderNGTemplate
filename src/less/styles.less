@@ -379,40 +379,28 @@ input::-ms-clear {
 					margin: 0 !important;
 					#info-head {
 						margin: .5rem 0;
+					.logo-image{
+
+						img{
+							margin: 0 auto;
+							width: 100%;
+							display: block;
+
+						}
+					}
 						#name {
-							font-size: @font-size-s*1.5;
+							font-size: @font-size-s;
 							white-space: nowrap;
 							text-overflow: ellipsis;
 							overflow: hidden;
 							height: 100%;
 						}
 						.icon {
-							position: relative;
-							display: block;
-							float: right;
-							height: 100%;
-							> div {
-								position: relative;
-								float: right;
-								line-height: 1;
-								font-size: @list-icon-size-s*0.75;
-								width: @list-icon-size-s;
-								height: @list-icon-size-s;
-								color: @color-button-light;
-								border: thin solid @color-button-light;
-								border-radius: 5rem;
-								text-align: center;
-								&:before {
-									position: absolute;
-									top: 0;
-									bottom: 0;
-									right: 0;
-									left: 0;
-									margin: auto;
-									line-height: 1;
-									width: @list-icon-size-s*0.75;
-									height: @list-icon-size-s*0.75;
-								}
+							border: none;
+							i{
+								border-radius: 5px;
+								border: 1px solid #ccc;
+								box-shadow: 2px 2px 0 0 #ccc;
 							}
 						}
 					}
@@ -423,7 +411,6 @@ input::-ms-clear {
 						width: 100%;
 						line-height: 1.5;
 						height: @font-size-s*1.5*6;
-						-webkit-line-clamp: 6;
 						-webkit-box-orient: vertical;
 						overflow: hidden;
 						text-overflow: ellipsis;
@@ -510,6 +497,14 @@ hr {
 		.topic-list {
 			.list-group-item {
 				padding-left: 40px;
+				.icon.button{
+
+					i{
+						border-radius: 5px;
+						border: 1px solid #ccc;
+						box-shadow: 2px 2px 0 0 #ccc;
+					}
+				}
 			}
 		}
 	}
