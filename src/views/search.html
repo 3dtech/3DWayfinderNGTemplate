@@ -15,8 +15,10 @@
 		</div>
 		<div class="result-container" id="style-7">
 			<div class="list dragscroll">
+
 				<div class="poi row"
-				     ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage() | filter:searchPOIsNames as filtered">
+				     ng-repeat="poi in poiObjects track by $index">
+
 					<div class="texts col-xs-8 col-md-10 col-lg-9 left">
 						<div class="name col-xs-12 col-md-6" ng-click="showInfo(poi)"
 						     ng-bind-html="poi.getName(getLanguage())"></div>

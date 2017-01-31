@@ -25,7 +25,7 @@
 
 						<ul class="list-group list topic-list">
 							<li class="list-group-item poi"
-								ng-repeat="poi in group.pois | orderBy:'names.translations.'+getLanguage()">
+								ng-repeat="poi in group.pois | orderBy:'names.translations'+getLanguage()">
 								<div ng-bind-html="poi.getNames() | wfCurrentLanguage" >
 
 								</div>

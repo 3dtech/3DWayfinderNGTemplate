@@ -59,12 +59,10 @@ wfApp.controller('MainController', [
 
 		$scope.showTopic = function(group) {
 			var path = '/topics&' + group.id;
-			var tabs = wfService.getTabs();
-			for (var k in tabs) {
-				console.log(k);
-				if (k.name == "topics") {
-
-					wfService.setActiveTab(k.name);
+			var tabs = Object.keys(wfService.getTabs());
+			for (var i=0; i<tabs.length; i++) {
+				if (wfService.getTabs()[i].name == "topics") {
+					wfService.setActiveTab(wfService.getTabs()[i]);
 					break;
 				}
 			}
@@ -94,7 +92,6 @@ wfApp.controller('MainController', [
 
 		$scope.showPath = function(poi) {
 			wayfinder.showPath(poi.getNode(), poi);
-			wfService.setAtiveTab('topics');
 			$scope.$broadcast("wf.nav-menu", "hide");
 		};
 

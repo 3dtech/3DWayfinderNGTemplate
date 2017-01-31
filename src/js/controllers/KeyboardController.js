@@ -6,14 +6,14 @@ wfApp.controller('KeyboardController', [
   '$http',
   'wfangular',
   function($scope, $rootScope, $http, wayfinder) {
-    $http.get('layout.json').success(function(data) {
+/*    $http.get('layout.json').success(function(data) {
       $scope.layout = data;
     });
 
     $scope.keyPressed = function(value, action, $event) {
       $scope.someInput = value;
       $rootScope.$broadcast('keyPressed', $scope.someInput, action);
-    };
+    };*/
   }
 ]);
 

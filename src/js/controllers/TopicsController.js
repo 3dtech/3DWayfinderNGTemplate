@@ -95,6 +95,7 @@ wfApp.controller('TopicsController', [
 				for (var key in $scope.groups) {
 
 					$scope.groups[key].active = $scope.groups[key].id == $routeParams.id;
+					console.log(key,$scope.groups[key].active);
 
 				}
 			}
