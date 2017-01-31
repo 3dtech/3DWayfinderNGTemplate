@@ -451,9 +451,7 @@ input::-ms-clear {
 			display: inline-flex;
 			line-height: 1;
 			font-size: @font-size-s*1.5;
-			border-radius: 5px;
-			border: 1px solid #ccc;
-			box-shadow: 2px 2px 0 0 #ccc;
+
 		}
 
 		.name {
@@ -1019,10 +1017,17 @@ hr {
 
 	#header {
 		height: 10%;
+		font-size: 2em;
+		.button{
+			font-size: 2em;
+		}
 		.logo {
 			display: none;
 		}
 		.lang-menu {
+			.btn {
+				font-size: 1em;
+			}
 		}
 	}
 
@@ -1037,12 +1042,38 @@ hr {
 			.nav-tabs {
 				.tab-head {
 
-					font-size: 0.75rem;
+					font-size: 1rem;
 				}
 			}
 		}
 	}
+	.result-container {
+		.poi.row{
+			padding: 10px 0;
+			border-bottom: 1px solid #cecece;
+			.name{
+				padding: 0;
+			}
+		}
+	}
+	.list .row .icon {
+		font-size: 2em;
+	}
 
+	.search .search-wrapper #search-bar {
+		font-size: 1.5rem;
+	}
+	.topics .panel-group .topic .topic-head {
+		font-size: 2em;
+	}
+	.list-group-item.poi{
+		font-size: 2em;
+	}
+	.topics .panel-group .topic-list .list-group-item .icon.button i {
+		border: none;
+		box-shadow: none;
+
+	}
 }
 
 @media screen and (min-width: 640px) {
