@@ -12,12 +12,13 @@ wfApp.controller('SearchController', [
 			  wayfinder) {
 		var kbLayouts = [];
 		var searchKeyboard = {};
+		$scope.noResults = false;
 		searchKeyboard.handle = '.search-keyboard';
 		searchKeyboard.target = '#search-bar';
 		$scope.textToSearch = "";
 		$scope.showKeyboard = false;
 
-		$scope.poiObjects = wfService.getPOIs();
+		$scope.poiObjects = [];
 
 		$scope.getLanguage = function () {
 			return wayfinder.getLanguage();
@@ -57,17 +58,30 @@ wfApp.controller('SearchController', [
 		// scope.watch(scope param to watch, function (new value, old value) {}
 		$scope.$watch('textToSearch', function (data, last) {
 			if (!data) {
-				$scope.poiObjects = wfService.getPOIs();
+				$scope.poiObjects = [];
+				$scope.noResults = false;
+				return;
 			}
 			//console.debug( "filtered poiObjects:", data );
 			$timeout(function () {
 				//console.debug( "filtered:", $scope.filtered.length );
 				if ($scope.poiObjects && $scope.poiObjects.length != 0 && data.length > 1) {
-					$scope.poiObjects = wayfinder.search.searchString(data);
+					if(wayfinder.search.search(data).length == 0){
+						$scope.noResults = true;
+					} else {
+						$scope.noResults = false;
+					}
+					$scope.poiObjects = wayfinder.search.search(data);
 					wayfinder.statistics.onSearch(data, "successful");
 					console.debug("search.successful:", data)
 				}
 				else if (data.length > 1) {
+					if(wayfinder.search.search(data).length == 0){
+						$scope.noResults = true;
+					} else {
+						$scope.noResults = false;
+					}
+					$scope.poiObjects = wayfinder.search.search(data);
 					wayfinder.statistics.onSearch(data, "unsuccessful");
 					console.debug("search.unsuccessful");
 				}
@@ -126,7 +140,7 @@ wfApp.controller('SearchController', [
 			searchKeyboard.keyboard = createKeyboard(
 				searchKeyboard,
 				kbLayouts);
-			$scope.poiObjects = wfService.data.pois;
+
 			// console.log("SearchController.data.loaded");
 		}, 20);
 

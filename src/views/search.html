@@ -14,22 +14,33 @@
 			<!--/div-->
 		</div>
 		<div class="result-container" id="style-7">
-			<div class="list dragscroll">
+			<div class="list dragscroll style-7">
 
-				<div class="poi row"
-				     ng-repeat="poi in poiObjects track by $index">
+				<div class="poi row" ng-repeat="poi in poiObjects track by $index">
 
-					<div class="texts col-xs-8 col-md-10 col-lg-9 left">
+					<div class="texts col-xs-6 col-md-8 col-lg-9 left">
 						<div class="name col-xs-12 col-md-6" ng-click="showInfo(poi)"
 						     ng-bind-html="poi.getName(getLanguage())"></div>
+
 						<div class="group col-xs-12 col-md-6" ng-repeat="group in poi.getGroups()"
 						     style="color: {{group.colorRGBA}};" ng-bind-html="group.getName(getLanguage())"
 						     ng-click="showTopic(group)">
 						</div>
 					</div>
-					<div class="icons col-xs-4 col-md-2 col-lg-3 right btn-group">
+					<div class="icons col-xs-3 col-md-4 col-lg-3 right btn-group">
+
 						<i class="icon icon-iglu-goto btn" ng-click="showPath(poi)"></i>
+					</div>
+					<div class="icons col-xs-3 col-md-4 col-lg-3 right btn-group">
+
 						<i class="icon icon-iglu-info btn" ng-click="showInfo(poi)"></i>
+					</div>
+
+
+				</div>
+				<div class="poi row" ng-show="noResults">
+					<div class="col-xs-12">
+						<p>No results!</p>
 					</div>
 				</div>
 			</div>
