@@ -13,12 +13,12 @@
 			<div class="search-keyboard keyboard"></div>
 			<!--/div-->
 		</div>
-		<div class="result-container" id="style-7">
-			<div class="list dragscroll style-7">
+		<div class="result-container style-7" id="style-7">
+			<div class="list dragscroll">
 
 				<div class="poi row" ng-repeat="poi in poiObjects track by $index">
 
-					<div class="texts col-xs-6 col-md-8 col-lg-9 left">
+					<div class="texts col-xs-6 col-sm-10 col-lg-9">
 						<div class="name col-xs-12 col-md-6" ng-click="showInfo(poi)"
 						     ng-bind-html="poi.getName(getLanguage())"></div>
 
@@ -27,13 +27,13 @@
 						     ng-click="showTopic(group)">
 						</div>
 					</div>
-					<div class="icons col-xs-3 col-md-4 col-lg-3 right btn-group">
+					<div class="icons col-xs-3 col-sm-1 col-lg-3">
 
-						<i class="icon icon-iglu-goto btn" ng-click="showPath(poi)"></i>
+						<i class="icon icon-iglu-goto" ng-click="showPath(poi)"></i>
 					</div>
-					<div class="icons col-xs-3 col-md-4 col-lg-3 right btn-group">
-
-						<i class="icon icon-iglu-info btn" ng-click="showInfo(poi)"></i>
+					<br>
+					<div class="icons col-xs-3 col-sm-1 col-lg-3">
+						<i class="icon icon-iglu-info" ng-click="showInfo(poi)"></i>
 					</div>
 
 
