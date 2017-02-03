@@ -952,13 +952,19 @@ hr {
 	flex-direction: column;
 	align-items: center;
 	.floor-button {
-		display: flex;
+
 		float: right;
-		flex-grow: 1;
-		justify-content: center;
-		padding: .25rem 1rem;
-		min-width: 3rem;
-		width: 100%;
+
+
+		width: 3em;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		text-transform: uppercase;
+		padding: 0.25rem 0.25em;
+		text-align: center;
+		display: block;
+		white-space: nowrap;
+		word-wrap: break-word;
 	}
 	.floor-button:first-child {
 	}
@@ -1102,6 +1108,9 @@ hr {
 		border: none;
 		box-shadow: none;
 
+	}
+	#content-container {
+		top: @header-height-xs;
 	}
 }
 
