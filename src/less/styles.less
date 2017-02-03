@@ -378,11 +378,22 @@ input::-ms-clear {
 	color: @color-text-dark;
 	line-height: 1;
 	margin: 0 !important;
+	.info-image{
+		height: 10%;
+		img{
+			width: 100%;
+			display: block;
+			margin: 0 auto;
+		}
+	}
 	#info-head {
 		padding: .5rem 0;
 		display: flex;
 		.name {
-			font-size: @font-size-s;
+			h3{
+				margin: 0;
+			}
+			font-size: @font-size-s *2;
 			padding-left: .5em;
 			padding-right: 0;
 			height: 100%;
@@ -423,11 +434,15 @@ input::-ms-clear {
 		margin: 0 auto;
 		width: 100%;
 		line-height: 1.5;
-		height: @font-size-s*1.5*6;
+		height: 80%;
 		-webkit-box-orient: vertical;
-		overflow: hidden;
+		overflow: auto;
+		overflow-x: hidden;
 		text-overflow: ellipsis;
 		font-size: @font-size-s;
+		img{
+			height: 200px;
+		}
 	}
 	.image {
 		position: relative;
@@ -435,6 +450,7 @@ input::-ms-clear {
 		bottom: .5em;
 		background-size: contain;
 		background-repeat: no-repeat;
+		height: 30%;
 	}
 }
 

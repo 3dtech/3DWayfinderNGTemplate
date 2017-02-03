@@ -1,13 +1,23 @@
 <!-- EXTRAINFO -->
 <div class="tab-content columns small-12">
-    <div id="info" class="poi">
+    <div id="info" class="poi row">
+
         <div id="info-head" class="col-sm-12">
-            <div class="name col-sm-10" ng-bind-html="poi.names | wfCurrentLanguage"></div>
-            <div class="icon col-sm-2" ng-show="poi.getNode()" ng-click="showPath(poi)">
-                <i class="icon-iglu-goto"></i>
+			<div class="info-image col-xs-3 col-sm-2 col-md-3"><img src="{{poi.logoImage}}" alt=""></div>
+            <div class="name col-xs-7 col-sm-8 col-md-7"><h3 ng-bind-html="poi.names | wfCurrentLanguage"></h3></div>
+            <div class="icon col-xs-2 col-sm-2 col-md-2" ng-show="poi.getNode()" ng-click="showPath(poi)">
+				<i class="icon-iglu-goto"></i>
             </div>
         </div>
-        <div class="description col-sm-12" ng-show="hasDescription" ng-bind-html="poi.descriptions | wfCurrentLanguage"></div>
-        <div class="image col-sm-12" style="background-image:{{poi.backgroundImage}}"></div>
+        <div class="description style-7 col-sm-12">
+			<div class="col-xs-12">
+				<img src="{{poi.backgroundImage}}" alt="">
+			</div>
+			<div class="col-xs-12"  ng-show="hasDescription" ng-bind-html="poi.descriptions | wfCurrentLanguage">
+			
+			</div>
+
+		</div>
+
     </div>
 </div>
