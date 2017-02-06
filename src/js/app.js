@@ -165,7 +165,7 @@ wfApp.directive('floorsMenu', function() {
 	return {
 		restrict: 'AE',
 		replace: 'true',
-		templateUrl: '/templates/floorsMenu.html'
+		templateUrl: './templates/floorsMenu.html'
 	}
 });
 
@@ -173,7 +173,7 @@ wfApp.directive('shortcutsMenu', function() {
 	return {
 		restrict: 'AE',
 		replace: 'true',
-		templateUrl: '/templates/shortcutsMenu.html'
+		templateUrl: './templates/shortcutsMenu.html'
 	}
 });
 
@@ -181,7 +181,7 @@ wfApp.directive('mapControls', function() {
 	return {
 		restrict: 'AE',
 		replace: 'true',
-		templateUrl: '/templates/mapControls.html'
+		templateUrl: './templates/mapControls.html'
 	}
 });
 
