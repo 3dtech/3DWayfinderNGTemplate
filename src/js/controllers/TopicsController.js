@@ -11,7 +11,8 @@ wfApp.controller('TopicsController', [
 	'$routeParams',
 	'wfService',
 	'wfangular',
-	function($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder) {
+	'$location',
+	function($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder,$location) {
 		// console.debug("TC.loaded");
 		var topics = $scope;
 		$scope.groups = wfService.data.groups;
@@ -22,6 +23,7 @@ wfApp.controller('TopicsController', [
 		$scope.activeLetter = "";
 
 		$scope.showPath = function(poi) {
+			$location.path('/');
 			console.log("showPath.poi:", poi, wayfinder.getKiosk(),
 				wayfinder.getKioskNode());
 			$rootScope.$broadcast("wf.nav-menu", "hide");

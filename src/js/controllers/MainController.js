@@ -91,6 +91,7 @@ wfApp.controller('MainController', [
 		});
 
 		$scope.showPath = function(poi) {
+			$location.path('/');
 			wayfinder.showPath(poi.getNode(), poi);
 			$scope.$broadcast("wf.nav-menu", "hide");
 		};

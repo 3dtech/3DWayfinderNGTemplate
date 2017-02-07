@@ -9,6 +9,7 @@ wfApp.controller('InfoController', [
 	'$sce',
 	'wfService',
 	'wfangular',
+	'$location',
 	function(
 		$rootScope,
 		$scope,
@@ -16,12 +17,14 @@ wfApp.controller('InfoController', [
 		$routeParams,
 		$sce,
 		wfService,
-		wayfinder
+		wayfinder,
+		$location
 	) {
 		// console.log("wfService.getPOIs():", wfService.getPOIs());
 		// console.log("InfoController.poi", $scope.poi, $routeParams.id);
 
 		$scope.showPath = function(poi) {
+			$location.path('/');
 			$rootScope.$broadcast("wf.nav-menu", "hide");
 			wayfinder.showPath(poi.getNode(), poi);
 		};

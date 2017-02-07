@@ -9,7 +9,8 @@ wfApp.controller('AtozController', [
     '$timeout',
     'wfService',
     'wfangular',
-    function($rootScope, $scope,$routeParams, $timeout, wfService, wayfinder) {
+	'$location',
+    function($rootScope, $scope,$routeParams, $timeout, wfService, wayfinder,$location) {
         $scope.atoz = wfService.data.atoz;
         $scope.poiObjects = wfService.data.pois;
         $scope.activeLetter = "";
@@ -18,6 +19,7 @@ wfApp.controller('AtozController', [
         $scope.showPath = function(poi) {
             console.log("showPath.poi:", poi, wayfinder.getKiosk(),
                 wayfinder.getKioskNode());
+			$location.path('/');
             $rootScope.$broadcast("wf.nav-menu", "hide");
             wayfinder.showKiosk();
             wayfinder.showPath(poi.getNode(), poi);
