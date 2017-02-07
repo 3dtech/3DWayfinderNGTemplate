@@ -7,7 +7,7 @@ wfApp.controller('ControlsController', [
 	'$timeout',
 	'wfService',
 	'wfangular',
-	function($rootScope, $scope, $timeout, wfService, wayfinder) {
+	function ($rootScope, $scope, $timeout, wfService, wayfinder) {
 		$scope.floors = wfService.data.floors;
 		$scope.shortcuts = wfService.data.shortcuts;
 		$scope.activeFloor = wfService.data.activeFloor;
@@ -16,17 +16,17 @@ wfApp.controller('ControlsController', [
 		$scope.showZoomMenu = true;
 		//console.debug("wfService.data:", wfService.data);
 
-		$scope.changeFloor = function(floor) {
+		$scope.changeFloor = function (floor) {
 			wayfinder.showFloor(floor);
 		};
 
-		$scope.$on('wf.floor.change', function(event, floor) {
-			$timeout(function() {
+		$scope.$on('wf.floor.change', function (event, floor) {
+			$timeout(function () {
 				$scope.activeFloor = wfService.getActiveFloor();
 			}, 10);
 		});
 
-		$timeout(function() {
+		$timeout(function () {
 			if (!(!!$scope.floors) && !(!!$scope.shortcuts)) {
 				// console.debug(
 				// 	"checking for floors and shortcuts:",
@@ -38,19 +38,19 @@ wfApp.controller('ControlsController', [
 			}
 		}, 1000);
 
-		$scope.zoomIn = function() {
+		$scope.zoomIn = function () {
 			// console.debug("map zoom in");
 			wayfinder.zoomIn();
 		};
 
-		$scope.zoomOut = function() {
+		$scope.zoomOut = function () {
 			// console.debug("map zoom out");
 			wayfinder.zoomOut();
 		};
 
-		$scope.$on("wfService.data.loaded", function() {
+		$scope.$on("wfService.data.loaded", function () {
 			// console.debug("wfService.data.loaded caught:");
-			$scope.$apply(function() {
+			$scope.$apply(function () {
 				if (!(!!$scope.floors)) {
 					$scope.floors = wfService.data.floors;
 					$scope.showFloorsMenu = $scope.floors.length >= 2;

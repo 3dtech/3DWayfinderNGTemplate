@@ -15,88 +15,98 @@
 
 <body ng-controller="MainController">
 
-	<div id="loading-bar-container"></div>
+<div id="loading-bar-container"></div>
 
-	<div class="container" ng-click="trigger()" ng-keypress="trigger()">
+<div class="container" ng-click="trigger()" ng-keypress="trigger()">
 
-		<!-- ==================== TOP MENU BAR ==================== -->
+	<!-- ==================== TOP MENU BAR ==================== -->
 
-		<div id="header" class="row">
-			<div class="col-xs-3 col-sm-3">
-				<div class="dropdown lang-menu" ng-controller="LanguageController" ng-show="showLanguageMenu" data-dropdown-menu>
-					<button class="btn btn-default dropdown-toggle" type="button" id="languageMenu"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						{{activeLanguage.nativeName}}
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="languageMenu">
-						<li class="button" ng-repeat="language in languages" ng-class="{'active': language.active}" ng-click="setLanguage(language)" ng-bind-html="language.nativeName"></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-xs-3 col-sm-4"><div class="logo"></div></div>
-			<div class="col-xs-4 col-sm-4"><div class="title"></div></div>
-			<div class="col-xs-2 col-sm-1" id="menu">
-				<div id="nav-menu-btn" class="icon {{isNavMenuVisible()?'icon-iglu-cancel':'icon-iglu-search'}}" ng-click="toggleNavMenu(); loadDefaultView()">
-					<div class=""></div>
-				</div>
+	<div id="header" class="row">
+		<div class="col-xs-3 col-sm-3">
+			<div class="dropdown lang-menu" ng-controller="LanguageController" ng-show="showLanguageMenu"
+				 data-dropdown-menu>
+				<button class="btn btn-default dropdown-toggle" type="button" id="languageMenu"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					{{activeLanguage.nativeName}}
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="languageMenu">
+					<li class="button" ng-repeat="language in languages" ng-class="{'active': language.active}"
+						ng-click="setLanguage(language)" ng-bind-html="language.nativeName"></li>
+				</ul>
 			</div>
 		</div>
-
-
-		<!-- ==================== CONTENT CONTAINER ==================== -->
-		<div id="content-container" class="row">
-			<!-- MAP CONTAINER -->
-			<div class="map-container" id="map-tab">
-				<canvas class="map" id="map"></canvas>
-			</div>
-			<floors-menu></floors-menu>
-			<shortcuts-menu></shortcuts-menu>
-
-			<!-- ==================== ZOOM MENU ==================== -->
-			<div id="zoom-menu" class="btn-group-vertical" ng-controller="ControlsController">
-				<div id="yah-btn" class="fa fa-map-marker btn zoom" ng-click="showYAH()">
-					<div class=""></div>
-				</div>
-				<div id="zoom-in" class="zoom btn fa fa-search-plus" ng-hold="zoomIn()"></div>
-				<div id="zoom-out " class="zoom btn fa fa-search-minus" ng-hold="zoomOut()"></div>
-			</div>
-
+		<div class="col-xs-3 col-sm-4">
+			<div class="logo"></div>
 		</div>
-
-		<!-- ==================== NAV-MENU ==================== -->
-		<div id="nav-menu" class="row" ng-class="{'active':isNavMenuVisible()}">
-			<div class="tabs-container">
-				<div class="nav nav-tabs" role="tablist">
-					<div class="tab-head" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}" ng-click="go(tab.link); setActiveTab(tab);" aria-controls="home" role="tab" data-toggle="tab">
-						<div data-translation-element="{{tab.gui}}"></div>
-					</div>
-				</div>
-				<div class="tab-content row" ng-view></div>
+		<div class="col-xs-4 col-sm-4">
+			<div class="title"></div>
+		</div>
+		<div class="col-xs-2 col-sm-1" id="menu">
+			<div id="nav-menu-btn" class="icon {{isNavMenuVisible()?'icon-iglu-cancel':'icon-iglu-search'}}"
+				 ng-click="toggleNavMenu(); loadDefaultView()">
+				<div class=""></div>
 			</div>
 		</div>
 	</div>
 
-	<!-- ==================== SCRIPTS ==================== -->
-	<script type="text/javascript" src="lib/js/vendor.js"></script>
-	<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
-	<!-- @ifdef  type3D -->
-	<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
-	<!-- @endif -->
 
-	<!-- @ifdef  type2D -->
-	<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder2D.min.js"></script>
-	<!-- @endif -->
-	<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
-	<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
-	<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
-	<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
-	<script type="text/javascript" src="lib/js/main.js"></script>
-	<script>
-		/*global $, WayfinderAPI */
-		var clicked = false,
-			clickY;
-		WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
+	<!-- ==================== CONTENT CONTAINER ==================== -->
+	<div id="content-container" class="row">
+		<!-- MAP CONTAINER -->
+		<div class="map-container" id="map-tab">
+			<canvas class="map" id="map"></canvas>
+		</div>
+		<floors-menu></floors-menu>
+		<shortcuts-menu></shortcuts-menu>
+
+		<!-- ==================== ZOOM MENU ==================== -->
+		<div id="zoom-menu" class="btn-group-vertical" ng-controller="ControlsController">
+			<div id="yah-btn" class="fa fa-map-marker btn zoom" ng-click="showYAH()">
+				<div class=""></div>
+			</div>
+			<div id="zoom-in" class="zoom btn fa fa-search-plus" ng-hold="zoomIn()"></div>
+			<div id="zoom-out " class="zoom btn fa fa-search-minus" ng-hold="zoomOut()"></div>
+		</div>
+
+	</div>
+
+	<!-- ==================== NAV-MENU ==================== -->
+	<div id="nav-menu" class="row" ng-class="{'active':isNavMenuVisible()}">
+		<div class="tabs-container">
+			<div class="nav nav-tabs" role="tablist">
+				<div class="tab-head" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}"
+					 ng-click="go(tab.link); setActiveTab(tab);" aria-controls="home" role="tab" data-toggle="tab">
+					<div data-translation-element="{{tab.gui}}"></div>
+				</div>
+			</div>
+			<div class="tab-content row" ng-view></div>
+		</div>
+	</div>
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script type="text/javascript" src="lib/js/vendor.js"></script>
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
+<!-- @ifdef  type3D -->
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
+<!-- @endif -->
+
+<!-- @ifdef  type2D -->
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder2D.min.js"></script>
+<!-- @endif -->
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
+<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
+<script type="text/javascript"
+		src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
+<script type="text/javascript"
+		src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
+<script type="text/javascript" src="lib/js/main.js"></script>
+<script>
+	/*global $, WayfinderAPI */
+	var clicked = false,
+		clickY;
+	WayfinderAPI.LOCATION = "//api.3dwayfinder.com/";
 
 	$(document).on({
 		'mousemove': function (e) {

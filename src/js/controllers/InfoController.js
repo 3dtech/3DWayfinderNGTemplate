@@ -10,36 +10,34 @@ wfApp.controller('InfoController', [
 	'wfService',
 	'wfangular',
 	'$location',
-	function(
-		$rootScope,
-		$scope,
-		$timeout,
-		$routeParams,
-		$sce,
-		wfService,
-		wayfinder,
-		$location
-	) {
+	function ($rootScope,
+			  $scope,
+			  $timeout,
+			  $routeParams,
+			  $sce,
+			  wfService,
+			  wayfinder,
+			  $location) {
 		// console.log("wfService.getPOIs():", wfService.getPOIs());
 		// console.log("InfoController.poi", $scope.poi, $routeParams.id);
 
-		$scope.showPath = function(poi) {
+		$scope.showPath = function (poi) {
 			$location.path('/');
 			$rootScope.$broadcast("wf.nav-menu", "hide");
 			wayfinder.showPath(poi.getNode(), poi);
 		};
 
-		$scope.getLanguage = function() {
+		$scope.getLanguage = function () {
 			return wayfinder.getLanguage();
 		};
 
-		$scope.hasDescription = function(poi) {
+		$scope.hasDescription = function (poi) {
 			// console.debug("hasDescription",poi);
 			if (!poi) return 0;
 			return poi.getDescription(wayfinder.getLanguage()) ? 1 : 0;
 		};
 
-		$scope.getBackgroundImage = function(poi) {
+		$scope.getBackgroundImage = function (poi) {
 			if (poi == null) return;
 			// console.debug("info.getBackgroundImage:", poi.backgroundImage);
 			return 'url(' + poi.backgroundImage + ')';
@@ -48,7 +46,7 @@ wfApp.controller('InfoController', [
 		function checkRouteParams() {
 			if (!$routeParams) return;
 			console.debug("info.$routeParams:", $routeParams);
-			angular.forEach(wfService.getPOIs(), function(element) {
+			angular.forEach(wfService.getPOIs(), function (element) {
 				if (element.id == $routeParams.id) {
 					if (element.getDescription(wayfinder.getLanguage())) {
 						var desc = document.createElement("textarea");
@@ -58,7 +56,7 @@ wfApp.controller('InfoController', [
 					else {
 						$scope.description = "";
 					}
-					$scope.$apply(function() {
+					$scope.$apply(function () {
 						$scope.poi = element;
 					});
 					$rootScope.$broadcast("wf.nav-menu", "show");
@@ -67,7 +65,7 @@ wfApp.controller('InfoController', [
 			});
 		}
 
-		$scope.$on("wf.map.ready", function(event) {
+		$scope.$on("wf.map.ready", function (event) {
 			console.debug("INFO:map.ready");
 			checkRouteParams();
 		});

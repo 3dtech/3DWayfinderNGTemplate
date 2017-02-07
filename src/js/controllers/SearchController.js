@@ -66,7 +66,7 @@ wfApp.controller('SearchController', [
 			$timeout(function () {
 				//console.debug( "filtered:", $scope.filtered.length );
 				if ($scope.poiObjects && $scope.poiObjects.length != 0 && data.length > 1) {
-					if(wayfinder.search.search(data).length == 0){
+					if (wayfinder.search.search(data).length == 0) {
 						$scope.noResults = true;
 					} else {
 						$scope.noResults = false;
@@ -76,7 +76,7 @@ wfApp.controller('SearchController', [
 					console.debug("search.successful:", data)
 				}
 				else if (data.length > 1) {
-					if(wayfinder.search.search(data).length == 0){
+					if (wayfinder.search.search(data).length == 0) {
 						$scope.noResults = true;
 					} else {
 						$scope.noResults = false;
