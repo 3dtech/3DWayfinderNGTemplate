@@ -21,12 +21,12 @@
 							  ng-class="group.active ? 'fa-chevron-right':'fa-chevron-down'"></span>
 					</div>
 					<div id="collapse{{group.id}}" class="panel-collapse collapse" role="tabpanel"
-						 aria-labelledby="headingTwo" ng-click="showInfo(poi)" ng-class="group.active ? 'collapse in':''">
+						 aria-labelledby="headingTwo" ng-class="group.active ? 'collapse in':''">
 
 						<ul class="list-group list topic-list">
 							<li class="list-group-item poi"
 								ng-repeat="poi in group.pois | orderBy:'names.translations'+getLanguage()">
-								<div ng-bind-html="poi.getNames() | wfCurrentLanguage" >
+								<div ng-bind-html="poi.getNames() | wfCurrentLanguage" ng-click="showInfo(poi)">
 
 								</div>
 								<div>
