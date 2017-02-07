@@ -360,7 +360,8 @@ input::-ms-clear {
 					position: relative;
 					width: 100%;
 					height: 100%;
-					overflow-y: scroll;
+					overflow-y: auto;
+					overflow-x: hidden;
 				}
 			}
 			.active {
@@ -450,6 +451,7 @@ input::-ms-clear {
 		overflow-x: hidden;
 		text-overflow: ellipsis;
 		font-size: @font-size-s;
+		text-align: justify;
 		img {
 			width: 100%;
 		}
@@ -467,7 +469,7 @@ input::-ms-clear {
 /* ========== GENERAL TAB LIST ==========*/
 
 .list {
-	color: black;
+	color: #333;
 	.row {
 		margin: 0;
 		width: 100%;
@@ -489,9 +491,11 @@ input::-ms-clear {
 			.name {
 				width: 100%;
 			}
-			.group {
-				width: 100%;
-			}
+
+		}
+		.group {
+			width: 100%;
+			font-size: 0.75em;
 		}
 	}
 
@@ -1051,7 +1055,7 @@ hr {
 
 /* ========== MEDIA QUERIES ==========*/
 
-@media screen and (min-width: 320px) {
+@media screen and (min-width: 320px){
 	.is-dropdown-menu {
 		min-width: 0;
 	}
@@ -1068,9 +1072,9 @@ hr {
 
 	#header {
 		height: @header-height-xs;
-		font-size: 2em;
+		font-size: 1em;
 		.button {
-			font-size: 2em;
+			font-size: 1em;
 		}
 		.logo {
 			display: none;
@@ -1121,11 +1125,11 @@ hr {
 	}
 
 	.topics .panel-group .topic .topic-head {
-		font-size: 2em;
+		font-size: 1.5em;
 	}
 
 	.list-group-item.poi {
-		font-size: 2em;
+		font-size: 1em;
 	}
 
 	.topics .panel-group .topic-list .list-group-item .icon.button i {
@@ -1133,13 +1137,23 @@ hr {
 		box-shadow: none;
 
 	}
+	.list{
+		.row{
+			.name{
+				font-size: 1.3em;
+			}
+			.icon{
+				font-size: 1.3em;
+			}
+		}
+	}
 
 	#content-container {
 		top: @header-height-xs;
 	}
 }
 
-@media screen and (min-width: 640px) {
+@media screen and (min-width: 640px){
 	#header {
 		height: @header-height-s;
 		#nav-menu-btn {
@@ -1306,11 +1320,12 @@ hr {
 		}
 	}
 
+
 	.topics {
-		font-size: 0.5em;
+		font-size: 0.9em;
 		.topic {
 			.topic-head {
-				font-size: 0.5em;
+				font-size: 0.75em;
 				.topic-name {
 					font-size: inherit;
 				}
@@ -1500,7 +1515,7 @@ hr {
 
 		img {
 			width: 100%;
-			height: initial !important;;
+			height: initial !important;
 		}
 	}
 }
