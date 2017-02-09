@@ -922,13 +922,17 @@ hr {
 
 #shortcuts-menu {
 	position: absolute;
-	bottom: 1rem;
-	width: 80%;
-	left: 0;
-	right: 0;
-	margin: auto;
-	font-family: "Courier New", Courier, monospace;
+	bottom: 0.5em;
+
+	left: 4em;
+
 	#shortcut-button {
+		position: relative;
+		width: 3rem;
+		height: 3rem;
+
+		vertical-align: middle;
+		text-align: center;
 		display: inline-block;
 		color: transparent;
 		background-size: contain;
@@ -952,6 +956,12 @@ hr {
 		}
 		&.active {
 			background: @color-secondary;
+		}
+		&:first-child{
+			border-radius: 5px 0 0 5px;
+		}
+		&:last-child{
+			border-radius: 0 5px 5px 0;
 		}
 	}
 }
@@ -1229,7 +1239,7 @@ hr {
 		top: @header-height-s;
 	}
 
-	#shortcuts-menu {
+	/*#shortcuts-menu {
 		bottom: 1rem;
 		width: 80%;
 		left: 0;
@@ -1241,7 +1251,7 @@ hr {
 			overflow: hidden;
 			white-space: nowrap;
 		}
-	}
+	}*/
 
 	#map-controls {
 		position: absolute;
@@ -1366,7 +1376,7 @@ hr {
 		margin-bottom: 0;
 	}
 
-	#shortcuts-menu {
+	/*#shortcuts-menu {
 		bottom: 0.5rem;
 		width: 80%;
 		left: 0;
@@ -1378,7 +1388,7 @@ hr {
 			overflow: hidden;
 			white-space: nowrap;
 		}
-	}
+	}*/
 
 	#map-controls {
 		position: absolute;
