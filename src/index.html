@@ -16,8 +16,10 @@
 <body ng-controller="MainController">
 
 <div id="loading-bar-container"></div>
-
-<div class="container" ng-click="trigger()" ng-keypress="trigger()">
+<div id="advertisement" ng-class="adClass">
+	<advertisement></advertisement>
+</div>
+<div class="container" ng-class="containerClassWithAds" ng-click="trigger()" ng-keypress="trigger()">
 
 	<!-- ==================== TOP MENU BAR ==================== -->
 

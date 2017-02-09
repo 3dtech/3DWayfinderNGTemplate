@@ -107,7 +107,7 @@ wfApp.run([
 
 		// 2d: dc96de58dda5386c5849fa7b5df26d1c
 		// 3d: 599a8cbdf993e8f913641ea551908707
-		wayfinder.open();
+		wayfinder.open('599a8cbdf993e8f913641ea551908707');
 		wayfinder.statistics.start();
 	}
 ]);
@@ -174,6 +174,14 @@ wfApp.directive('shortcutsMenu', function () {
 		restrict: 'AE',
 		replace: 'true',
 		templateUrl: './templates/shortcutsMenu.html'
+	}
+});
+
+wfApp.directive('advertisement', function () {
+	return {
+		restrict: 'AE',
+		replace:'true',
+		templateUrl:'./templates/adSection.html'
 	}
 });
 

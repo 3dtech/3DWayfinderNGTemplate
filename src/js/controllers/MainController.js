@@ -31,6 +31,11 @@ wfApp.controller('MainController', [
 		$scope.wayfinder = wayfinder;
 		$scope.animationsEnabled = true;
 		$scope.bold = ['\<b\>', '\<\/b\>'];
+
+		// Advertisement dynamic classes
+		$scope.containerClassWithAds = wayfinder.settings.adPos ? '':'';
+		$scope.adClass = wayfinder.settings.adPos ? '':'';
+
 		console.debug("cfp.loading:", cfpLoadingBar);
 		cfpLoadingBar.start();
 
