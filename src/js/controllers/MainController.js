@@ -27,7 +27,11 @@ wfApp.controller('MainController', [
 							$rootScope,
 							$location,
 							cfpLoadingBar) {
+
+
 		$scope = $rootScope;
+		$scope.buildingLogo = false;
+		$scope.buildingTitle = false;
 		$scope.wayfinder = wayfinder;
 		$scope.animationsEnabled = true;
 		$scope.bold = ['\<b\>', '\<\/b\>'];
@@ -237,12 +241,15 @@ wfApp.controller('MainController', [
 		});
 
 		$scope.$on('wf.data.loaded', function () {
+
 			maxInactivityTime = wfService.getSessionTimeout();
 		});
 
 		$scope.$on('wf.map.ready', function (event) {
 			// console.log("map ready!");
 			cfpLoadingBar.complete();
+			$scope.buildingLogo = window.location.protocol + WayfinderAPI.getURL("images", "get", wayfinder.building.logoID);
+			$scope.buildingTitle = wayfinder.building.name;
 		});
 	}
 ]);

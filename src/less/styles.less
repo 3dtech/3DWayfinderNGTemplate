@@ -58,8 +58,8 @@ input::-ms-clear {
 	height: 100%;
 	float: left;
 }
-.container {
 
+.container {
 	position: relative;
 	max-height: 100%;
 	max-width: 100%;
@@ -123,9 +123,39 @@ input::-ms-clear {
 	}
 	.logo {
 		margin: 0 auto;
-		background: url("../img/logo.png") 50% 0 no-repeat;
 		background-size: contain;
 		text-indent: -2000px;
+		position: absolute;
+		transition: all 1s ease;
+		-webkit-transition-delay: 1s;
+		-moz-transition-delay: 1s;
+		-ms-transition-delay: 1s;
+		-o-transition-delay: 1s;
+		transition-delay: 1s;
+		visibility: hidden;
+		left: 0;
+		height:100%;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content:flex-start;
+		align-items: center;
+		img {
+			display: flex;
+			height:auto;
+			width: auto;
+			max-height: 100%;
+		}
+		&.active {
+			transition: all 1s ease;
+			-webkit-transition-delay: 0s;
+			-moz-transition-delay: 0s;
+			-ms-transition-delay: 0s;
+			-o-transition-delay: 0s;
+			transition-delay: 0s;
+			left: 0;
+			visibility: visible;
+		}
 	}
 	.button {
 		position: relative;
@@ -143,9 +173,29 @@ input::-ms-clear {
 	.lang-menu {
 		height: 100%;
 		display: inline-flex;
-		position: relative;
 		text-transform: uppercase;
 		z-index: 999;
+		position: absolute;
+		visibility: hidden;
+		left: 0;
+		flex-direction: row;
+		justify-content:flex-start;
+		align-items: center;
+		transition: all 1s ease;
+		-webkit-transition-delay: 1s;
+		-moz-transition-delay: 1s;
+		-ms-transition-delay: 1s;
+		-o-transition-delay: 1s;
+		transition-delay: 1s;
+		&.active {
+			transition: all 1s ease;
+			-webkit-transition-delay: 0s;
+			-moz-transition-delay: 0s;
+			-ms-transition-delay: 0s;
+			-o-transition-delay: 0s;
+			transition-delay: 0s;
+			visibility: visible;
+		}
 		.btn {
 			text-transform: uppercase;
 		}
@@ -211,8 +261,12 @@ input::-ms-clear {
 			content: '\e804' !important;
 		}
 	}
-	#nav-menu-btn {
-		color: #333;
+	#menu{
+		justify-content: flex-end;
+		#nav-menu-btn {
+			color: #333;
+			right: 0;
+		}
 	}
 
 }
@@ -277,7 +331,7 @@ input::-ms-clear {
 	box-sizing: border-box;
 	background: @color-tabs-active;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-	transition: .5s;
+	transition: all 1s ease-in-out;
 
 	.tabs-container {
 		position: absolute;
@@ -290,6 +344,7 @@ input::-ms-clear {
 			margin: 0;
 			position: relative;
 			display: flex;
+			border-bottom: 1px solid #ddd;
 			.tab-head {
 				position: relative;
 				color: @color-text-dark;
@@ -298,14 +353,19 @@ input::-ms-clear {
 				text-transform: uppercase;
 				line-height: 100%;
 				font-size: @font-size-s;
-				margin: auto;
-				padding: 0;
+				padding: auto;
+
 				display: inline-flex;
 				flex: 1;
 				justify-content: center;
+				>div{
+					margin: auto;
+				}
+
 				&:active, &.active {
 					box-shadow: none;
 					color: @color-primary;
+					border-bottom:1px solid #ddd
 				}
 				.icon {
 					display: flex;
@@ -511,6 +571,17 @@ input::-ms-clear {
 		.group {
 			width: 100%;
 			font-size: 0.75em;
+			div{
+				display: inline-flex;
+				margin-right: .25em;
+				&:after {
+					content: ', ';
+					color: #333;
+				}
+				&:last-child:after{
+					content: '';
+				}
+			}
 		}
 	}
 
@@ -555,6 +626,8 @@ hr {
 		}
 		.topic-list {
 			.list-group-item {
+				border: 0;
+				border-bottom: 1px solid #eee;
 				padding-left: 40px;
 				.icon.button {
 
@@ -892,19 +965,6 @@ hr {
 }
 
 //@media screen and (min-width: 320px) {
-.nav-bar-fixed-top {
-	height: @header-height-s;
-	#nav-menu-btn {
-		.icon {
-			&:before {
-				height: @nav-menu-btn-xs;
-				width: @nav-menu-btn-xs;
-				font-size: @nav-menu-btn-xs;
-			}
-		}
-	}
-
-}
 
 #content-container {
 	top: @header-height-s;
@@ -982,7 +1042,12 @@ hr {
 }
 
 .btn-default.dropdown-toggle {
+	background: none;
 	border: none;
+	&:focus,&:hover{
+		background: none;
+		background-color: #fff !important;
+	}
 }
 
 .dropdown-menu {
@@ -1097,12 +1162,14 @@ hr {
 
 	#header {
 		height: @header-height-xs;
+		position: relative;
 		font-size: 1em;
+		>div {
+		}
 		.button {
 			font-size: 1em;
 		}
 		.logo {
-			display: none;
 		}
 		.lang-menu {
 			.btn {
@@ -1134,7 +1201,7 @@ hr {
 	}
 
 	.poi.row {
-		border-bottom: 1px solid #cecece;
+		border-bottom: 1px solid #eee;
 		.name {
 			padding: 0;
 		}
@@ -1182,7 +1249,6 @@ hr {
 	#header {
 		height: @header-height-s;
 		#nav-menu-btn {
-			text-align: center;
 			.icon {
 				&:before {
 					height: @nav-menu-btn-s;
@@ -1367,7 +1433,6 @@ hr {
 		top: @header-height-s;
 		width: 20em;
 		right: -40em;
-		transition: all 1s ease-in-out;
 		.tabs-container {
 			height: 100%;
 			.nav-tabs {
@@ -1559,7 +1624,7 @@ hr {
 }
 
 @media only screen {
-	.keyboard-container {
+	.keyboard {
 		display: none;
 	}
 }

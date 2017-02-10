@@ -24,8 +24,11 @@
 	<!-- ==================== TOP MENU BAR ==================== -->
 
 	<div id="header" class="row">
-		<div class="col-xs-3 col-sm-3">
-			<div class="dropdown lang-menu" ng-controller="LanguageController" ng-show="showLanguageMenu"
+		<div class="col-xs-4 col-sm-4">
+			<div class="logo" ng-class="{'active': (buildingLogo && !isNavMenuVisible()) }">
+				<img src="{{buildingLogo}}" alt="">
+			</div>
+			<div class="dropdown lang-menu" ng-controller="LanguageController" ng-class="{'active': (showLanguageMenu && isNavMenuVisible()) }"
 				 data-dropdown-menu>
 				<button class="btn btn-default dropdown-toggle" type="button" id="languageMenu"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -38,13 +41,12 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-xs-3 col-sm-3">
-			<div class="logo"></div>
+		<div class="col-xs-4 col-sm-4">
+			<div class="title hidden-xs" ng-show="buildingTitle" ng-bind-html="buildingTitle"></div>
 		</div>
-		<div class="col-xs-3 col-sm-3">
-			<div class="title"></div>
-		</div>
-		<div class="col-xs-3 col-sm-3" id="menu">
+
+		<div class="col-xs-4 col-sm-4" id="menu">
+
 			<div id="nav-menu-btn" class="icon {{isNavMenuVisible()?'icon-iglu-cancel':'icon-iglu-search'}}"
 				 ng-click="toggleNavMenu(); loadDefaultView()">
 				<div class=""></div>
