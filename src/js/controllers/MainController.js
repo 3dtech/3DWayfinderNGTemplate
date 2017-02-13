@@ -248,7 +248,7 @@ wfApp.controller('MainController', [
 		$scope.$on('wf.map.ready', function (event) {
 			// console.log("map ready!");
 			cfpLoadingBar.complete();
-			$scope.buildingLogo = window.location.protocol + WayfinderAPI.getURL("images", "get", wayfinder.building.logoID);
+			$scope.buildingLogo = (wayfinder.building.logoID ? window.location.protocol + WayfinderAPI.getURL("images", "get", wayfinder.building.logoID): false);
 			$scope.buildingTitle = wayfinder.building.name;
 		});
 	}
