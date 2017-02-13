@@ -165,7 +165,10 @@ wfApp.directive('floorsMenu', function () {
 	return {
 		restrict: 'AE',
 		replace: 'true',
-		templateUrl: './templates/floorsMenu.html'
+		template: '<div id="floors-menu" class="btn-group" ng-show="showFloorsMenu" ng-controller="ControlsController">' +
+		'<div class="floor-button" ng-class="{\'active\':floor.active}" ng-click="changeFloor(floor)" ng-repeat="floor in floors | orderBy: \'index\' | reverse" ng-bind-html="floor.getNames() | wfCurrentLanguage">' +
+		'</div>' +
+		'</div>'
 	}
 });
 
@@ -173,7 +176,10 @@ wfApp.directive('shortcutsMenu', function () {
 	return {
 		restrict: 'AE',
 		replace: 'true',
-		templateUrl: './templates/shortcutsMenu.html'
+		template: '<div id="shortcuts-menu" class="button-group" ng-show="showShortcutsMenu" ng-controller="ControlsController">' +
+		'<div id="shortcut-button" class="button" ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts" ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\': \'url({{shortcut.backgroundImage}})\'}"> ' +
+		'</div> ' +
+		'</div>'
 	}
 });
 
@@ -181,7 +187,7 @@ wfApp.directive('advertisement', function () {
 	return {
 		restrict: 'AE',
 		replace:'true',
-		templateUrl:'./templates/adSection.html'
+		template:'<div ng-controller="adController"> </div>'
 	}
 });
 
@@ -189,7 +195,10 @@ wfApp.directive('mapControls', function () {
 	return {
 		restrict: 'AE',
 		replace: 'true',
-		templateUrl: './templates/mapControls.html'
+		template: '<div id="map-controls" ng-controller="ControlsController">' +
+		'<shortcuts-menu></shortcuts-menu>' +
+		'<floors-menu></floors-menu>' +
+		'</div>'
 	}
 });
 
