@@ -4,7 +4,7 @@
 
 		<div id="info-head" class="col-sm-12">
 			<div class="info-image" ng-class="poi.logoImage ?'col-xs-3 col-sm-2 col-md-3' : 'hidden'"><img
-					src="{{poi.logoImage}}"></div>
+					src="{{poi.logoImage}}" ng-show="poi.logoImage"></div>
 			<div class="name" ng-class="poi.logoImage ?'col-xs-9 col-sm-10 col-md-9' : 'col-xs-12 col-sm-12 col-md-12'">
 				<h3 ng-bind-html="poi.names | wfCurrentLanguage"></h3>
 				<button type="button" class="btn btn-default path-btn" ng-show="poi.getNode()" ng-click="showPath(poi)">
