@@ -13,12 +13,12 @@
 						 aria-expanded="false"
 						 aria-controls="collapseTwo"
 						 ng-click="group.active = !group.active">
-						<span class="topic-title" style="color: {{group.colorRGBA}}"
+						<div class="topic-title" style="color: {{group.colorRGBA}}"
 							  ng-bind-html="group.getNames() | wfCurrentLanguage">
 
-						</span>
-						<span class="fa button pull-right"
-							  ng-class="group.active ? 'fa-chevron-right':'fa-chevron-down'"></span>
+						</div>
+						<div class="fa button"
+							  ng-class="group.active ? 'fa-chevron-right':'fa-chevron-down'"></div>
 					</div>
 					<div id="collapse{{group.id}}" class="panel-collapse collapse" role="tabpanel"
 						 aria-labelledby="headingTwo" ng-class="group.active ? 'collapse in':''">
