@@ -79,7 +79,7 @@ wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpPr
 		// @ifdef type2D
 		wfConfig.mapType = "2d";
 		// @endif
-		wfConfig.apiLocation = "../../../api";
+		wfConfig.apiLocation = "//api.3dwayfinder.com/";
 		cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
 		cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
 		cfpLoadingBarProvider.latencyThreshold = 500;
