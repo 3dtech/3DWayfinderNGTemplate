@@ -127,7 +127,7 @@ input::-ms-clear {
 		background-size: contain;
 		text-indent: -2000px;
 		position: absolute;
-		transition: 1s ease-in;
+		transition: .5s ease-in;
 		-webkit-transition-delay: 0s;
 		-moz-transition-delay: 0s;
 		-o-transition-delay: 0s;
@@ -147,11 +147,11 @@ input::-ms-clear {
 			max-height: 100%;
 		}
 		&.active {
-			transition: 1s ease-out;
-			-webkit-transition-delay: 0s;
-			-moz-transition-delay: 0s;
-			-o-transition-delay: 0s;
-			transition-delay: 0s;
+			transition: .5s ease-out;
+			-webkit-transition-delay: .5s;
+			-moz-transition-delay: .5s;
+			-o-transition-delay: .5s;
+			transition-delay: .5s;
 			left: 0;
 			visibility: visible;
 		}
@@ -181,19 +181,18 @@ input::-ms-clear {
 		flex-direction: row;
 		justify-content: flex-start;
 		align-items: center;
-		transition: 1s ease-in;
+		transition: visibility .5s ease-in;
 		-webkit-transition-delay: 0s;
 		-moz-transition-delay: 0s;
-
 		-o-transition-delay: 0s;
 		transition-delay: 0s;
 		&.active {
-			transition: 1s ease-out;
-			-webkit-transition-delay: 0s;
-			-moz-transition-delay: 0s;
-
-			-o-transition-delay: 0s;
-			transition-delay: 0s;
+			transition: visibility .5s ease-out;
+			-webkit-transition-delay: .5s;
+			-moz-transition-delay: .5s;
+			-o-transition-delay: .5s;
+			transition-delay: .5s;
+			left: 0;
 			visibility: visible;
 		}
 		.btn {
@@ -322,6 +321,7 @@ input::-ms-clear {
 /* ========== NAV-MENU ==========*/
 
 #nav-menu {
+	padding-top: 7px;
 	position: absolute;
 	top: 100%;
 	bottom: @content-container-bottom;
@@ -331,7 +331,7 @@ input::-ms-clear {
 	box-sizing: border-box;
 	background: @color-tabs-active;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-	transition: all 1s ease-in-out;
+	transition: all .5s ease-in-out;
 
 	.tabs-container {
 		position: absolute;
@@ -349,6 +349,7 @@ input::-ms-clear {
 				position: relative;
 				color: @color-text-dark;
 				border: 0 solid;
+				border-bottom: thin solid rgba(0, 0, 0, 0);
 				background: #fff;
 				text-transform: uppercase;
 				line-height: 100%;
@@ -545,30 +546,26 @@ input::-ms-clear {
 
 .list {
 	color: #333;
-	.row {
+	.poi {
 		margin: 0;
 		width: 100%;
-
-		min-height: 4em;
+		min-height: 2em;
+		padding: .25em 0;
 		.icon {
 			display: inline-flex;
 			line-height: 1;
 			font-size: @font-size-s*1.5;
 
 		}
-
-		.name {
-			font-size: 1.25rem;
-			padding: 10px 0;
-		}
-		.texts {
-			height: 100%;
+		.locations {
+			display: flex;
+			align-items: center;
 			.name {
-				width: 100%;
+				display: flex;
 			}
 
 		}
-		.group {
+		.groups {
 			width: 100%;
 			font-size: 0.75em;
 			div {
