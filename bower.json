@@ -25,25 +25,17 @@
   ],
   "dependencies": {
     "3dwayfinder-angular": "latest",
-    "angular-animate": "~1.4.7",
-    "angular-panhandler": "~1.1.1",
-    "dragscroll": "~0.0.5",
-    "bootstrap": "~3.3.6",
-    "animate.css": "^3.5.1",
-    "font-awesome": "^4.6.1",
-    "angular-toArrayFilter": "^1.0.1",
-    "angular-route": "^1.5.6",
-    "angular-loading-bar": "^0.9.0"
-  },
-  "devDependencies": {
-    "bootstrap": "~3.3.5",
-    "grunt-cli": "~0.1.13",
-    "angular-ui": "~0.4.0",
-    "angular-sanitize": "^1.4.9",
-    "jquery-ui": "^1.11.4",
-    "watch.js": "watch#*"
-  },
-  "resolutions": {
-    "angular": "1.5.9"
+    "angular-animate": "latest",
+    "dragscroll": "latest",
+    "bootstrap": "latest",
+    "animate.css": "latest",
+    "font-awesome": "latest",
+    "angular-route": "latest",
+    "angular-loading-bar": "latest",
+    "grunt-cli": "latest",
+    "angular-ui": "latest",
+    "angular-sanitize": "latest",
+    "jquery-ui": "latest",
+    "watch.js": "latest"
   }
 }
