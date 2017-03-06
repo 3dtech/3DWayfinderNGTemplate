@@ -293,6 +293,24 @@ gulp.task('watch-bs', ['3d', 'browserSync'], function() {
 	gulp.watch('src/.htaccess', ['rewrite']);
 });
 
+gulp.task('watch-bs2d', ['2d', 'browserSync'], function() {
+	prepOpts = {
+		context: {
+			NODE_ENV: 'development',
+			DEBUG: true,
+			type3D: true
+		}
+	};
+	gulp.watch('src/*.html', ['html']);
+	gulp.watch('src/views/*.html', ['views']);
+	gulp.watch('src/less/*.less', ['less']);
+	gulp.watch('./src/font/*', ['font']);
+	gulp.watch('vendor.json', ['vendor']);
+	gulp.watch('src/images/png/*', ['img']);
+	gulp.watch('src/js/**/*.js', ['minifyJS']);
+	gulp.watch('src/.htaccess', ['rewrite']);
+});
+
 gulp.task('watch-hs', ['3d'], function() {
 	gulp.watch('src/*.html', ['html']);
 	gulp.watch('src/views/*.html', ['views']);
