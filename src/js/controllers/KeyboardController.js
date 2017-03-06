@@ -7,7 +7,7 @@ wfApp.controller('KeyboardController', [
 	'wfangular',
 	function ($scope, $rootScope, $http, wayfinder) {
 		$http.get('layout.json').success(function (data) {
-			console.log(data);
+			//console.log(data);
 			$scope.layout = data;
 		});
 

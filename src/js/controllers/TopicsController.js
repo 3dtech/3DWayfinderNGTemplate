@@ -24,8 +24,8 @@ wfApp.controller('TopicsController', [
 
 		$scope.showPath = function (poi) {
 			$location.path('/');
-			console.log("showPath.poi:", poi, wayfinder.getKiosk(),
-				wayfinder.getKioskNode());
+			//console.log("showPath.poi:", poi, wayfinder.getKiosk(),
+			//	wayfinder.getKioskNode());
 			$rootScope.$broadcast("wf.nav-menu", "hide");
 			wayfinder.showKiosk();
 			wayfinder.showPath(poi.getNode(), poi);
@@ -96,10 +96,8 @@ wfApp.controller('TopicsController', [
 			// console.debug("selected.topic:", group);
 			if ($routeParams) {
 				for (var key in $scope.groups) {
-
 					$scope.groups[key].active = $scope.groups[key].id == $routeParams.id;
-					console.log(key, $scope.groups[key].active);
-
+					//console.log(key, $scope.groups[key].active);
 				}
 			}
 		});

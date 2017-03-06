@@ -54,7 +54,7 @@ $(document).ready(function () {
 		$(this).toggleClass('active');
 	});
 	$('.floor-button').click(function (event) {
-		console.log("button pressed");
+		//console.log("button pressed");
 		event.preventDefault();
 		if ($('.floor-buttons ul').hasClass('current-floor')) {
 			$('.floor-buttons ul').toggleClass('current-floor');

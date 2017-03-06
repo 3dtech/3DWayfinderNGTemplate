@@ -50,7 +50,7 @@ wfApp.controller('MainController', [
 		$scope.loadDefaultView = function () {
 
 			if ($location.path() == '/') {
-				console.log($location.path());
+				//console.log($location.path());
 				$location.path('/topics');
 				$scope.setActiveTab('topics');
 			} else {

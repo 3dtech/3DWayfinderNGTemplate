@@ -60,7 +60,7 @@ wfApp.controller('InfoController', [
 						$scope.poi = element;
 					});
 					$rootScope.$broadcast("wf.nav-menu", "show");
-					console.log("info.poi:", element);
+					//console.log("info.poi:", element);
 				}
 			});
 		}

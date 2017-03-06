@@ -217,8 +217,8 @@ wfApp.controller('SearchController', [
 					.trigger( "keypressed" );
 				$rootScope.$broadcast( "wf.keyboard.change", val );
 				$timeout( function() {
-					console.log( "wf.keyboard.change:",
-						$scope.filtered );
+					//console.log( "wf.keyboard.change:",
+					//	$scope.filtered );
 					if ( statistics ) sendStatistics( val );
 				}, 300 );
 			};
@@ -361,31 +361,30 @@ wfApp.controller('SearchController', [
 		});
 
 		$rootScope.$on("app.reset", function (event) {
-			console.log("app.reset");
+			//console.log("app.reset");
 			$scope.textToSearch = "";
 			$scope.showKeyboard = false;
 		});
 
 		$scope.show = function () {
-			console.log("app.hide.info");
+			//console.log("app.hide.info");
 			$scope.showKeyboard = !$scope.showKeyboard;
 			$rootScope.$broadcast("app.hide.info");
 		};
 
 		$rootScope.$on("app.hide.keyboard", function (event, language) {
-			console.log("app.hide.keyboard");
+			//console.log("app.hide.keyboard");
 			$scope.showKeyboard = false;
 		});
 
 		$rootScope.$on("app.reset", function (event, language) {
-			console.log("app.reset");
+			//console.log("app.reset");
 			$scope.showKeyboard = false;
 			wfService.clearFilter();
 		});
 
 		$rootScope.$on("wf.touch", function (event, language) {
-			console.log("wf.touch");
-
+			//console.log("wf.touch");
 			$scope.showKeyboard = false;
 		});
 	}

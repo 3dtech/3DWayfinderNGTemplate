@@ -26,7 +26,7 @@
 		<div class="col-xs-4 col-sm-4">
 
 			<div class="logo" ng-class="{'active': (buildingLogo && !isNavMenuVisible()) }" ng-show="buildingLogo">
-				<img ng-src="{{buildingLogo}}" alt="">
+				<img ng-src="{{buildingLogo||''}}" alt="">
 			</div>
 			<div class="dropdown lang-menu" ng-controller="LanguageController" ng-class="{'active': (showLanguageMenu && isNavMenuVisible()) }"
 				 data-dropdown-menu>
