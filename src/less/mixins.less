@@ -1,0 +1,247 @@
+/* ========== Text Shadow ==========*/
+.text-shadow (@string: 0 1px 3px rgba(0, 0, 0, 0.25)) {
+	text-shadow: @string;
+}
+
+/* ========== Box Shadow ==========*/
+.box-shadow (@string) {
+	-webkit-box-shadow: @string;
+	-moz-box-shadow:    @string;
+	box-shadow:         @string;
+}
+
+/* ========== Drop Shadow ==========*/
+.drop-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+	-webkit-box-shadow:	@x @y @blur @spread rgba(0, 0, 0, @alpha);
+	-moz-box-shadow:	@x @y @blur @spread rgba(0, 0, 0, @alpha);
+	box-shadow:		@x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+
+/* ========== Inner Shadow ==========*/
+.inner-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+	-webkit-box-shadow: inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+	-moz-box-shadow:    inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+	box-shadow:         inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+
+/* ========== Box Sizing ==========*/
+.box-sizing (@type: border-box) {
+	-webkit-box-sizing: @type;
+	-moz-box-sizing:    @type;
+	box-sizing:         @type;
+}
+
+/* ========== Border Radius ==========*/
+.border-radius (@radius: 5px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius:    @radius;
+	border-radius:         @radius;
+}
+
+/* ========== Border Radiuses ==========*/
+.border-radiuses (@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+	-webkit-border-top-right-radius:    @topright;
+	-webkit-border-bottom-right-radius: @bottomright;
+	-webkit-border-bottom-left-radius:  @bottomleft;
+	-webkit-border-top-left-radius:     @topleft;
+
+	-moz-border-radius-topright:        @topright;
+	-moz-border-radius-bottomright:     @bottomright;
+	-moz-border-radius-bottomleft:      @bottomleft;
+	-moz-border-radius-topleft:         @topleft;
+
+	border-top-right-radius:            @topright;
+	border-bottom-right-radius:         @bottomright;
+	border-bottom-left-radius:          @bottomleft;
+	border-top-left-radius:             @topleft;
+}
+
+/* ========== Opacity ==========*/
+.opacity (@opacity: 0.5) {
+	-webkit-opacity: 	@opacity;
+	-moz-opacity: 		@opacity;
+	opacity: 		@opacity;
+}
+
+/* ========== Gradient ==========*/
+.gradient (@startColor: #eee, @endColor: white) {
+	background-color: @startColor;
+	background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+	background: -webkit-linear-gradient(top, @startColor, @endColor);
+	background: -moz-linear-gradient(top, @startColor, @endColor);
+	background: -ms-linear-gradient(top, @startColor, @endColor);
+	background: -o-linear-gradient(top, @startColor, @endColor);
+}
+
+/* ========== Horisontal Gradient ==========*/
+.horizontal-gradient (@startColor: #eee, @endColor: white) {
+	background-color: @startColor;
+	background-image: -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+	background-image: -webkit-linear-gradient(left, @startColor, @endColor);
+	background-image: -moz-linear-gradient(left, @startColor, @endColor);
+	background-image: -ms-linear-gradient(left, @startColor, @endColor);
+	background-image: -o-linear-gradient(left, @startColor, @endColor);
+}
+
+/* ========== Animation ==========*/
+.animation (@name, @duration: 300ms, @delay: 0, @ease: ease) {
+	-webkit-animation: @name @duration @delay @ease;
+	-moz-animation:    @name @duration @delay @ease;
+	-ms-animation:     @name @duration @delay @ease;
+}
+
+/* ========== Animation ==========*/
+.transition (@transition) {
+	-webkit-transition: @transition;
+	-moz-transition:    @transition;
+	-ms-transition:     @transition;
+	-o-transition:      @transition;
+}
+
+/* ========== Transform ==========*/
+.transform(@string){
+	-webkit-transform: @string;
+	-moz-transform: 	 @string;
+	-ms-transform: 		 @string;
+	-o-transform: 		 @string;
+}
+
+/* ========== Scale ==========*/
+.scale (@factor) {
+	-webkit-transform: scale(@factor);
+	-moz-transform: 	 scale(@factor);
+	-ms-transform: 		 scale(@factor);
+	-o-transform: 		 scale(@factor);
+}
+
+/* ========== Rotate ==========*/
+.rotate (@deg) {
+	-webkit-transform: rotate(@deg);
+	-moz-transform: 	 rotate(@deg);
+	-ms-transform: 		 rotate(@deg);
+	-o-transform: 		 rotate(@deg);
+}
+
+/* ========== Skew ==========*/
+.skew (@deg, @deg2) {
+	-webkit-transform:       skew(@deg, @deg2);
+	-moz-transform: 	 skew(@deg, @deg2);
+	-ms-transform: 		 skew(@deg, @deg2);
+	-o-transform: 		 skew(@deg, @deg2);
+}
+
+/* ========== Translate ==========*/
+.translate (@x, @y:0) {
+	-webkit-transform:       translate(@x, @y);
+	-moz-transform: 	 translate(@x, @y);
+	-ms-transform: 		 translate(@x, @y);
+	-o-transform: 		 translate(@x, @y);
+}
+
+/* ========== Translate 3D ==========*/
+.translate3d (@x, @y: 0, @z: 0) {
+	-webkit-transform:       translate3d(@x, @y, @z);
+	-moz-transform: 	 translate3d(@x, @y, @z);
+	-ms-transform: 		 translate3d(@x, @y, @z);
+	-o-transform: 		 translate3d(@x, @y, @z);
+}
+
+/* ========== Perspective ==========*/
+.perspective (@value: 1000) {
+	-webkit-perspective: 	@value;
+	-moz-perspective: 	@value;
+	-ms-perspective: 	@value;
+	perspective: 		@value;
+}
+
+/* ========== Transform Origin ==========*/
+.transform-origin (@x:center, @y:center) {
+	-webkit-transform-origin: @x @y;
+	-moz-transform-origin:    @x @y;
+	-ms-transform-origin:     @x @y;
+	-o-transform-origin:      @x @y;
+}
+
+/* ========== Flex ==========*/
+.flex() {
+	display: -webkit-box;
+	display: -moz-box;
+	display:-webkit-flex;
+	display: -ms-flexbox;
+	display:flex;
+}
+
+/* ========== Flex Direction ==========*/
+.flex-direction(@direction) {
+	-ms-flex-direction:@direction;
+	-webkit-flex-direction:@direction;
+	flex-direction:@direction;
+}
+
+/* ========== Flex Justify ==========*/
+.flex-justify(@justifyStyle) {
+	.ms-flex-justify(@justifyStyle);
+	-webkit-justify-content: @justifyStyle;
+	justify-content: @justifyStyle;
+}
+
+/* ========== Flex Align Items ==========*/
+.flex-align-items(@alignStyle) {
+	-ms-flex-align:@alignStyle;
+	-webkit-align-items:@alignStyle;
+	align-items: @alignStyle;
+}
+
+/* ========== Flex Align Self ==========*/
+.flex-align-self(@selfAlignStyle) {
+	.ms-flex-align-self(@selfAlignStyle);
+	-webkit-align-self:@selfAlignStyle;
+	align-self: @selfAlignStyle;
+}
+
+/* ========== Flex Order ==========*/
+.flex-order(@order) {
+	-ms-flex-order:@order;
+	-webkit-order:@order;
+	order:@order;
+}
+
+/* ========== Flex Wrap ==========*/
+.flex-wrap(@wrap) {
+	-ms-flex-wrap:@wrap;
+	-webkit-flex-wrap:@wrap;
+	flex-wrap:@wrap;
+}
+
+/* These are the conditional mixins for the different syntax for IE10 Flexbox*/
+.ms-flex-justify(@msJustify) when (@msJustify = space-between)  {
+	-ms-flex-pack:justify;
+}
+
+.ms-flex-justify(@msJustify) when (@msJustify = space-around) {
+	-ms-flex-pack:distribute;
+}
+
+.ms-flex-justify(@msJustify) when (@msJustify = flex-end) {
+	-ms-flex-pack:end;
+}
+
+.ms-flex-justify(@msJustify) when (@msJustify = flex-start) {
+	-ms-flex-pack:start;
+}
+
+.ms-flex-justify(@msJustify) when (@msJustify = center) {
+	-ms-flex-pack:center;
+}
+
+.ms-flex-align-self(@msSelfAlign) when (@msSelfAlign = flex-end) {
+	-ms-flex-item-align: end;
+}
+
+.ms-flex-align-self(@msSelfAlign) when (@msSelfAlign = flex-start) {
+	-ms-flex-item-align: start;
+}
+
+.ms-flex-align-self(@msSelfAlign) when (@msSelfAlign = auto), (@msSelfAlign = center),(@msSelfAlign = baseline), (@msSelfAlign = stretch) {
+	-ms-flex-item-align: @msSelfAlign;
+}
