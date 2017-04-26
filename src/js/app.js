@@ -106,7 +106,10 @@ wfApp.run([
 
 		// 2d: dc96de58dda5386c5849fa7b5df26d1c
 		// 3d: 599a8cbdf993e8f913641ea551908707
+
+
 		wayfinder.open();
+
 		wayfinder.statistics.start();
 	}
 ]);
@@ -182,13 +185,6 @@ wfApp.directive('shortcutsMenu', function () {
 	}
 });
 
-wfApp.directive('advertisement', function () {
-	return {
-		restrict: 'AE',
-		replace:'true',
-		template:'<div ng-controller="adController"> </div>'
-	}
-});
 
 wfApp.directive('mapControls', function () {
 	return {
@@ -216,7 +212,7 @@ wfApp.directive('ngHold', [function () {
 			};
 
 			var intervals = [];
-			($attrs.ngHoldInterval || "500").split(",").forEach(function (interval) {
+			($attrs.ngHoldInterval || "50").split(",").forEach(function (interval) {
 				intervals.push(interval.split(";"));
 			});
 			var timeout = null;
@@ -248,6 +244,19 @@ wfApp.directive('ngHold', [function () {
 				}
 			});
 			$element.on("mouseleave", function (e) {
+				if (!!timeout) {
+					$timeout.cancel(timeout);
+					$scope.$apply(onDone);
+					timeout = null;
+				}
+			});
+			$element.on('touchstart',function (e) {
+				intervalIdx = 0;
+				intervalCount = 1;
+				timeout = $timeout(timeoutFoo, intervals[intervalIdx][0]);
+				$scope.$apply(onHold);
+			});
+			$element.on("touchend", function (e) {
 				if (!!timeout) {
 					$timeout.cancel(timeout);
 					$scope.$apply(onDone);

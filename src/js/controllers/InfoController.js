@@ -22,8 +22,11 @@ wfApp.controller('InfoController', [
 		// console.log("InfoController.poi", $scope.poi, $routeParams.id);
 
 		$scope.showPath = function (poi) {
-			$location.path('/');
-			$rootScope.$broadcast("wf.nav-menu", "hide");
+
+			if(window.innerWidth<1024||(window.innerHeight > window.innerWidth)){
+				$location.path('/');
+				$rootScope.$broadcast("wf.nav-menu", "hide");
+			}
 			wayfinder.showPath(poi.getNode(), poi);
 		};
 

@@ -23,10 +23,13 @@ wfApp.controller('TopicsController', [
 		$scope.activeLetter = "";
 
 		$scope.showPath = function (poi) {
-			$location.path('/');
+
 			//console.log("showPath.poi:", poi, wayfinder.getKiosk(),
 			//	wayfinder.getKioskNode());
-			$rootScope.$broadcast("wf.nav-menu", "hide");
+			if(window.innerWidth<1024||(window.innerHeight > window.innerWidth)){
+				$location.path('/');
+				$rootScope.$broadcast("wf.nav-menu", "hide");
+			}
 			wayfinder.showKiosk();
 			wayfinder.showPath(poi.getNode(), poi);
 		};

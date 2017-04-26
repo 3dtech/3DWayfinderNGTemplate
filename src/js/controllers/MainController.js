@@ -19,16 +19,11 @@ wfApp.controller('MainController', [
 	function MainController(wfService,
 							keyboardService,
 							wayfinder,
-							//		toggleNavMenu,
-							//		hideNavMenu,
-							//		showNavMenu,
 							$scope,
 							$timeout,
 							$rootScope,
 							$location,
 							cfpLoadingBar) {
-
-
 		$scope = $rootScope;
 		$scope.buildingLogo = false;
 		$scope.buildingTitle = false;
@@ -36,11 +31,6 @@ wfApp.controller('MainController', [
 		$scope.animationsEnabled = true;
 		$scope.bold = ['\<b\>', '\<\/b\>'];
 
-		// Advertisement dynamic classes
-		$scope.containerClassWithAds = wayfinder.settings.adPos ? '':'';
-		$scope.adClass = wayfinder.settings.adPos ? '':'';
-
-		console.debug("cfp.loading:", cfpLoadingBar);
 		cfpLoadingBar.start();
 
 		var lastTouch = -1;
@@ -49,13 +39,15 @@ wfApp.controller('MainController', [
 
 		$scope.loadDefaultView = function () {
 
-			if ($location.path() == '/') {
-				//console.log($location.path());
-				$location.path('/topics');
-				$scope.setActiveTab('topics');
-			} else {
-				$location.path('/');
-
+			if(window.innerWidth<1024||(window.innerHeight > window.innerWidth)){
+				if ($location.path() === '/' && $scope.isNavMenuVisible()) {
+					//console.log($location.path());
+					$location.path('/topics');
+					$scope.setActiveTab('topics');
+				} else {
+					$location.path('/');
+					$rootScope.$broadcast("wf.nav-menu", "hide");
+				}
 			}
 		};
 
@@ -90,6 +82,7 @@ wfApp.controller('MainController', [
 		};
 
 		$scope.isNavMenuVisible = function () {
+
 			return wfService.isNavMenuVisible();
 		};
 
@@ -98,9 +91,12 @@ wfApp.controller('MainController', [
 		});
 
 		$scope.showPath = function (poi) {
-			$location.path('/');
 			wayfinder.showPath(poi.getNode(), poi);
-			$scope.$broadcast("wf.nav-menu", "hide");
+			console.log('width',screen.width);
+			if(window.innerWidth < 1024){
+				$location.path('/');
+				$rootScope.$broadcast("wf.nav-menu", "hide");
+			}
 		};
 
 		$scope.getColorRGBA = function (group) {
@@ -174,7 +170,9 @@ wfApp.controller('MainController', [
 
 		$scope.showYAH = function () {
 			wayfinder.showKiosk();
-			$scope.$broadcast("wf.nav-menu", "hide");
+			if(window.innerWidth < 1024){
+				$rootScope.$broadcast("wf.nav-menu", "hide");
+			}
 		};
 
 		$scope.cbResizeCtrl = function () {
@@ -185,7 +183,6 @@ wfApp.controller('MainController', [
 			if (params) return wayfinder.translator.get(key);
 			return wayfinder.translator.get(key, params);
 		};
-
 		$scope.setActiveTab = function (tab) {
 			//console.debug("MC: setActvieTab:", tab);
 			wfService.setActiveTab(tab);
@@ -241,11 +238,20 @@ wfApp.controller('MainController', [
 		});
 
 		$scope.$on('wf.data.loaded', function () {
+			if($.isEmptyObject(wayfinder.floorMeshes)&&$.isEmptyObject(wayfinder.pois)&&$.isEmptyObject(wayfinder.poiGroups)&&!wayfinder.kiosk){
+				$('#no-project').css({'display':'flex','z-index':'999'});
+				if($scope.getGUITranslation('no-project')==='no-project'){
+					$('#no-project>p').text('Your project is empty!');
+				} else {
+					$('#no-project>p').text($scope.getGUITranslation('no-project'));
+				}
 
+			}
 			maxInactivityTime = wfService.getSessionTimeout();
 		});
 
 		$scope.$on('wf.map.ready', function (event) {
+			$scope.loadDefaultView();
 			// console.log("map ready!");
 			cfpLoadingBar.complete();
 			$scope.buildingLogo = (wayfinder.building.logoID ? window.location.protocol + WayfinderAPI.getURL("images", "get", wayfinder.building.logoID): false);

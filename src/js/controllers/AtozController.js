@@ -19,8 +19,11 @@ wfApp.controller('AtozController', [
 		$scope.showPath = function (poi) {
 			console.log("showPath.poi:", poi, wayfinder.getKiosk(),
 				wayfinder.getKioskNode());
-			$location.path('/');
-			$rootScope.$broadcast("wf.nav-menu", "hide");
+
+			if(window.innerWidth<1024||(window.innerHeight > window.innerWidth)){
+				$location.path('/');
+				$rootScope.$broadcast("wf.nav-menu", "hide");
+			}
 			wayfinder.showKiosk();
 			wayfinder.showPath(poi.getNode(), poi);
 		};

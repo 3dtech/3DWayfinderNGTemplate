@@ -298,7 +298,7 @@ gulp.task('watch-bs2d', ['2d', 'browserSync'], function() {
 		context: {
 			NODE_ENV: 'development',
 			DEBUG: true,
-			type3D: true
+			type2D: true
 		}
 	};
 	gulp.watch('src/*.html', ['html']);

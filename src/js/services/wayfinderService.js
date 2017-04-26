@@ -316,7 +316,7 @@ wfApp.factory('wfService', [
 					if (!!self.data.atoz && !!self.data.floorPOIs && !!self.data.floors && !!self.data.groups && !!self.data.pois && !!self.data.shortcuts && !!self.data.tabs && !!self.data.timeout) {
 						$rootScope.$broadcast("wfService.data.loaded");
 					}
-				};
+				}
 			});
 
 			$rootScope.$on('wf.map.ready', function(event) {

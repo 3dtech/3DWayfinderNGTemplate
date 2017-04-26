@@ -7,6 +7,7 @@
 	<meta name="description" content="3DWayfinder WebGL">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<link rel="stylesheet" href="lib/css/loading-bar.css">
 	<link rel="stylesheet" href="lib/css/font-awesome.min.css">
 	<link rel="stylesheet" href="lib/css/styles.css">
@@ -14,17 +15,20 @@
 
 <body ng-controller="MainController">
 
-<div id="loading-bar-container"></div>
-<div id="advertisement" ng-class="adClass">
-	<advertisement></advertisement>
+<div id="no-project">
+	<p></p>
+	<div>
+		<a href="//admin.3dwayfinder.com/">&raquo; <span>Go to admin panel</span> &laquo;</a>
+	</div>
 </div>
+<div id="loading-bar-container"></div>
+<div class="ad-container" id="advertisements" template="default" wf-banner> </div>
 <div class="container" ng-class="containerClassWithAds" ng-click="trigger()" ng-keypress="trigger()">
 
 	<!-- ==================== TOP MENU BAR ==================== -->
 
 	<div id="header" class="row">
 		<div class="col-xs-4 col-sm-4">
-
 			<div class="logo" ng-class="{'active': (buildingLogo && !isNavMenuVisible()) }" ng-show="buildingLogo">
 				<img ng-src="{{buildingLogo||''}}" alt="">
 			</div>
@@ -53,7 +57,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<!-- ==================== CONTENT CONTAINER ==================== -->
 	<div id="content-container" class="row">
@@ -111,6 +114,7 @@
 	var clicked = false,
 		clickY;
 	//WayfinderAPI.LOCATION = "../../../api";
+
 
 	$(document).on({
 		'mousemove': function (e) {

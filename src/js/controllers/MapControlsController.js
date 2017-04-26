@@ -49,6 +49,7 @@ wfApp.controller('ControlsController', [
 		};
 
 		$scope.$on("wfService.data.loaded", function () {
+
 			// console.debug("wfService.data.loaded caught:");
 			$scope.$apply(function () {
 				if (!(!!$scope.floors)) {
