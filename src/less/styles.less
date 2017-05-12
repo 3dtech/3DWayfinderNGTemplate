@@ -492,6 +492,7 @@ input::-ms-clear {
 			display: block;
 			float: right;
 			height: 100%;
+
 			> div {
 				position: relative;
 				float: right;
@@ -518,13 +519,28 @@ input::-ms-clear {
 		}
 	}
 	.path-btn {
+		border: none;
+		border-radius: 5px;
 		&:hover {
 			background: none;
 		}
-		border: none;
+
+		&:visited,&:active{
+			background: none;
+			box-shadow: 0 0 -8px rgba(0, 0, 0, 0.3);
+			i{
+				box-shadow: none;
+				border-radius: 5px;
+			}
+		}
+		&:focus{
+			background: 0;
+		}
 		padding: 0;
 		i {
+			border-radius: 5px;
 			font-size: 2em;
+			box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 		}
 	}
 	.description {

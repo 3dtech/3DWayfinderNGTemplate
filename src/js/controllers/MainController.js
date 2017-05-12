@@ -30,6 +30,7 @@ wfApp.controller('MainController', [
 		$scope.wayfinder = wayfinder;
 		$scope.animationsEnabled = true;
 		$scope.bold = ['\<b\>', '\<\/b\>'];
+		$scope.advertisements = wayfinder.advertisements;
 
 		cfpLoadingBar.start();
 
