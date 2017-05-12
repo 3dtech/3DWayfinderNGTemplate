@@ -54,8 +54,9 @@ wfApp.controller('ControlsController', [
 			$scope.$apply(function () {
 				if (!(!!$scope.floors)) {
 					$scope.floors = wfService.data.floors;
+					console.log(wfService.data.floors);
 					$scope.showFloorsMenu = $scope.floors.length >= 2;
-					// console.debug("showFloorsMenu:", $scope.showFloorsMenu);
+
 				}
 				if (!(!!$scope.shortcuts)) {
 					$scope.shortcuts = wfService.data.shortcuts;

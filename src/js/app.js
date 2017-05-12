@@ -168,8 +168,8 @@ wfApp.directive('floorsMenu', function () {
 		restrict: 'AE',
 		replace: 'true',
 		template: '<div id="floors-menu" class="btn-group" ng-show="showFloorsMenu" ng-controller="ControlsController">' +
-		'<div class="floor-button" ng-class="{\'active\':floor.active}" ng-click="changeFloor(floor)" ng-repeat="floor in floors | orderBy: \'index\' | reverse" ng-bind-html="floor.getNames() | wfCurrentLanguage">' +
-		'</div>' +
+		'<div class="floor-button" ng-class="{\'active\':floor.active}" ng-click="changeFloor(floor)" ng-repeat="floor in floors | orderBy: \'index\' | reverse" ng-bind-html="floor.getNames() | wfCurrentLanguage" ng-if="floor.showInMenu">' +
+		'' +
 		'</div>'
 	}
 });
