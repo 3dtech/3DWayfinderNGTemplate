@@ -22,6 +22,14 @@ wfApp.controller('TopicsController', [
 		$scope.collapsedFloor = [];
 		$scope.activeLetter = "";
 
+		$scope.onViewLoad = function(){
+			dragscroll.reset();
+			angular.forEach($scope.groups,function (group) {
+				console.log(group.active);
+				group.active=false;
+			})
+		};
+
 		$scope.showPath = function (poi) {
 
 			//console.log("showPath.poi:", poi, wayfinder.getKiosk(),
@@ -67,6 +75,7 @@ wfApp.controller('TopicsController', [
 		});
 
 		function checkRouteParams() {
+
 			if (!$routeParams) return;
 			$scope.$apply(function () {
 				$scope.groups = wfService.data.groups;

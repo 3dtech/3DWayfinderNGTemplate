@@ -87,7 +87,7 @@
 					<div data-translation-element="{{tab.gui}}"></div>
 				</div>
 			</div>
-			<div class="tab-content row" ng-view></div>
+			<div class="tab-content row" ng-view onload="onViewLoad();"></div>
 		</div>
 	</div>
 </div>
@@ -146,7 +146,8 @@
 	var wayfinder;
 	setTimeout(function () {
 		wayfinder = angular.element(document.body).scope().wayfinder;
-	}, 1000)
+	}, 1000);
+
 </script>
 </body>
 

@@ -15,7 +15,9 @@ wfApp.controller('AtozController', [
 		$scope.poiObjects = wfService.data.pois;
 		$scope.activeLetter = "";
 		var wfAtozDataLoaded = false;
-
+		$scope.onViewLoad = function(){
+			dragscroll.reset();
+		};
 		$scope.showPath = function (poi) {
 			console.log("showPath.poi:", poi, wayfinder.getKiosk(),
 				wayfinder.getKioskNode());

@@ -23,7 +23,9 @@ wfApp.controller('SearchController', [
 		$scope.getLanguage = function () {
 			return wayfinder.getLanguage();
 		};
-
+		$scope.onViewLoad = function(){
+			dragscroll.reset();
+		};
 		var kbLayoutEt = {
 			"name": "Estonian",
 			"local_name": "Eesti",

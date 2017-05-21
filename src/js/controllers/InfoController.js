@@ -72,7 +72,9 @@ wfApp.controller('InfoController', [
 			console.debug("INFO:map.ready");
 			checkRouteParams();
 		});
-
+		$scope.onViewLoad = function(){
+			dragscroll.reset();
+		};
 		$timeout(function () {
 			checkRouteParams();
 		}, 10);
