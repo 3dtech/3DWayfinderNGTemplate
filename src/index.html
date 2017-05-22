@@ -7,7 +7,6 @@
 	<meta name="description" content="3DWayfinder WebGL">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<link rel="stylesheet" href="lib/css/loading-bar.css">
 	<link rel="stylesheet" href="lib/css/font-awesome.min.css">
 	<link rel="stylesheet" href="lib/css/styles.css">
@@ -84,7 +83,7 @@
 			<div class="nav nav-tabs" role="tablist">
 				<div class="tab-head" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}"
 					 ng-click="go(tab.link); setActiveTab(tab);" aria-controls="home" role="tab" data-toggle="tab">
-					<div data-translation-element="{{tab.gui}}"></div>
+					<div>{{getGUITranslation(tab.gui)}}</div>
 				</div>
 			</div>
 			<div class="tab-content row" ng-view onload="onViewLoad();"></div>

@@ -272,15 +272,6 @@ gulp.task('less', function() {
 			console.log("LESS::err:", err);
 	});
 
-	// return gulp.src('./src/less/styles.less')
-	//     .pipe(gulp.plumber())
-	//     .pipe(gulp.less({
-	//         paths: [path.join(__dirname, 'less')]
-	//     }))
-	//     .pipe(gulp.dest(distFolder + 'lib/css'))
-	//     .pipe(browserSync.reload({
-	//         stream: true
-	//     }));
 });
 
 
@@ -318,6 +309,8 @@ gulp.task('watch-bs', ['3d', 'browserSync'], function() {
 	gulp.watch('src/js/**/*.js', ['minifyJS']);
 	gulp.watch('src/.htaccess', ['rewrite']);
 });
+
+
 
 gulp.task('watch-bs2d', ['2d', 'browserSync'], function() {
 	prepOpts = {

@@ -39,13 +39,18 @@ wfApp.controller('MainController', [
 		var maxInactivityTime = wfService.getSessionTimeout();
 
 		$scope.loadDefaultView = function () {
+			if(window.innerWidth>=1024 || window.innerWidth<window.innerHeight){
+				if(window.innerWidth>=1024){
+					console.log('trogga');
+					$rootScope.$broadcast("wf.nav-menu", "show");
+				}
 
-			if(window.innerWidth<1024||(window.innerHeight > window.innerWidth)){
 				if ($location.path() === '/' && $scope.isNavMenuVisible()) {
 					//console.log($location.path());
 					$location.path('/topics');
 					$scope.setActiveTab('topics');
 				} else {
+					console.log('i arrive here');
 					$location.path('/');
 					$rootScope.$broadcast("wf.nav-menu", "hide");
 				}
