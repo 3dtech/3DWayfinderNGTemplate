@@ -93,37 +93,23 @@ wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpPr
 ]);
 
 wfApp.run([
-	'wfangular',
-	'wfangularConfig',
-	'$rootScope',
-	'$http',
-	'$route',
-	'$location',
-	function (wayfinder, wfConfig, $rootScope, $http, $route, $location) {
-		$route.reload();
-		if ($location.port() !== 80 || $location.port() !== 443) {
-			if (wfConfig.mapType === "3d") {
-				// @if DEBUG
-				wayfinder.options.assetsLocation = '//static.3dwayfinder.com/shared/';
-				// @endif
-				// @if !DEBUG
-				wfConfig.options.assetsLocation = "../../../shared/";
-				// @endif
-			}
-		}
-		else {
-			if (wfConfig.mapType === "3d"){
-				// @if DEBUG
-				wayfinder.options.assetsLocation = '../../../../shared';
-				// @endif
+    'wfangular',
+    'wfangularConfig',
+    '$rootScope',
+    '$http',
+    '$route',
+    '$location',
+    function(wayfinder, wfConfig, $rootScope, $http, $route, $location) {
+        $route.reload();
 
-				// @if !DEBUG
-				wfConfig.options.assetsLocation = "../../../../shared";
-				// @endif
-
-			}
-
-		}
+        if (wfConfig.mapType === "3d") {
+            // @if DEBUG
+            wayfinder.options.assetsLocation = '//static.3dwayfinder.com/shared/';
+            // @endif
+            // @if !DEBUG
+            wayfinder.options.assetsLocation = '../../../shared';
+            // @endif
+        }
 
 		// 2d: dc96de58dda5386c5849fa7b5df26d1c
 		// 3d: 599a8cbdf993e8f913641ea551908707
