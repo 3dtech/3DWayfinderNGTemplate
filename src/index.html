@@ -94,20 +94,42 @@
 
 <!-- ==================== SCRIPTS ==================== -->
 <script type="text/javascript" src="lib/js/vendor.js"></script>
+
+<!-- @if !DEBUG -->
+<script type="text/javascript" src="../../../shared/js/minified/frak-stable.min.js"></script>
+<!-- @endif -->
+<!-- @if DEBUG -->
 <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/frak-stable.min.js"></script>
-<!-- @ifdef  type3D -->
+<!-- @endif -->
+
+<!-- @ifdef type3D -->
+<!-- @if !DEBUG -->
+<script type="text/javascript" src="../../../js/dist/3d/latest/Wayfinder3D.min.js"></script>
+<!-- @endif -->
+<!-- @if DEBUG -->
 <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
+<!-- @endif -->
 <!-- @endif -->
 
 <!-- @ifdef  type2D -->
 <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder2D.min.js"></script>
 <!-- @endif -->
+
+<!-- @if !DEBUG -->
+<script type="text/javascript" src="../../../shared/js/minified/BasicUI.min.js"></script>
+<script type="text/javascript" src="../../../shared/js/ui/keyboard/Keyboard.js"></script>
+<script type="text/javascript" src="../../../shared/js/ui/keyboard/KeyboardActions.js"></script>
+<script type="text/javascript" src="../../../shared/js/ui/keyboard/KeyboardLayouts.js"></script>
+<!-- @endif -->
+<!-- @if DEBUG -->
 <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/BasicUI.min.js"></script>
 <script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/Keyboard.js"></script>
 <script type="text/javascript"
 		src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardActions.js"></script>
 <script type="text/javascript"
 		src="//static.3dwayfinder.com/projects/shared/js/ui/keyboard/KeyboardLayouts.js"></script>
+<!-- @endif -->
+
 <script type="text/javascript" src="lib/js/main.js"></script>
 <script>
 	/*global $, WayfinderAPI */

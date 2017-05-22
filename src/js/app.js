@@ -95,12 +95,12 @@ wfApp.run([
 	'$location',
 	function (wayfinder, wfConfig, $rootScope, $http, $route, $location) {
 		$route.reload();
-		if ($location.port() != 80 || $location.port() != 443) {
-			if (wfConfig.mapType == "3d")
+		if ($location.port() !== 80 || $location.port() !== 443) {
+			if (wfConfig.mapType === "3d")
 				wayfinder.options.assetsLocation = '//static.3dwayfinder.com/shared/';
 		}
 		else {
-			if (wfConfig.mapType == "3d")
+			if (wfConfig.mapType === "3d")
 				wayfinder.options.assetsLocation = '../../../../shared';
 		}
 
@@ -221,7 +221,7 @@ wfApp.directive('ngHold', [function () {
 
 			function timeoutFoo() {
 				intervalCount++;
-				var max = intervals[intervalIdx].length == 1 ? 1 : intervals[intervalIdx][1];
+				var max = intervals[intervalIdx].length === 1 ? 1 : intervals[intervalIdx][1];
 				if (intervalCount > max) {
 					intervalIdx = Math.min(intervalIdx + 1, intervals.length - 1);
 					intervalCount = 1;

@@ -36,7 +36,7 @@ gulp.task('default', ['clean'], function() {
 		'layout', 'rewrite');
 });
 
-gulp.task('production', ['clean'], function() {
+gulp.task('production-2d', ['clean'], function() {
 	uglifyOpts = {
 		compress: {
 			sequences: true,
@@ -55,6 +55,32 @@ gulp.task('production', ['clean'], function() {
 		context: {
 			NODE_ENV: 'production',
 			DEBUG: false,
+			type2D: true
+		}
+	};
+	gulp.start('default');
+});
+
+gulp.task('production-3d', ['clean'], function() {
+	uglifyOpts = {
+		compress: {
+			sequences: true,
+			properties: true,
+			dead_code: true,
+			conditionals: true,
+			comparisons: true,
+			evaluate: true,
+			booleans: true,
+			loops: true,
+			unused: true,
+			drop_console: true
+		}
+	};
+	prepOpts = {
+		context: {
+			NODE_ENV: 'production',
+			DEBUG: false,
+			type3D: true
 		}
 	};
 	gulp.start('default');
