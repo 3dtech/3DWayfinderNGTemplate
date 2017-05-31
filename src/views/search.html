@@ -2,12 +2,12 @@
 <div class="tab-content">
 	<div class="search">
 		<div class="search-wrapper">
-			<input id="search-bar" ng-model="textToSearch" ng-value="textToSearch"
+			<input id="search-bar" ng-model="textToSearch" ng-value="textToSearch" ng-click="showKeys()"
 			       placeholder="{{getGUITranslation('search-bar-placeholder')!='search-bar-placeholder' ? getGUITranslation('search-bar-placeholder'):'Search'}}">
 			<i id="search-btn" class="fa fa-search"></i>
 		</div>
 		<!-- SEARCH KEYBOARD -->
-		<div class="keyboard-container show-for-col-md" ng-show="showKeyboard">
+		<div class="keyboard-container show-for-col-md" ng-show="getActiveTab().name == 'search'">
 			<!--div class="keyboard-backdrop"-->
 			<!--div class="close-keyboard btn-circle fa fa-times" ng-click="showKeyboard = false"></div-->
 			<div class="search-keyboard keyboard"></div>

@@ -41,7 +41,6 @@ wfApp.controller('MainController', [
 		$scope.loadDefaultView = function () {
 			if(window.innerWidth>=1024 || window.innerWidth<window.innerHeight){
 				if(window.innerWidth>=1024){
-					console.log('trogga');
 					$rootScope.$broadcast("wf.nav-menu", "show");
 				}
 
@@ -50,7 +49,7 @@ wfApp.controller('MainController', [
 					$location.path('/topics');
 					$scope.setActiveTab('topics');
 				} else {
-					console.log('i arrive here');
+
 					$location.path('/');
 					$rootScope.$broadcast("wf.nav-menu", "hide");
 				}
@@ -80,6 +79,7 @@ wfApp.controller('MainController', [
 		$scope.showInfo = function (poi) {
 			var path = '/info&' + poi.id;
 			$location.path(path);
+			$scope.setActiveTab('info');
 			$scope.$broadcast("wf.nav-menu", "show");
 		};
 
@@ -97,6 +97,7 @@ wfApp.controller('MainController', [
 		});
 
 		$scope.showPath = function (poi) {
+
 			wayfinder.showPath(poi.getNode(), poi);
 			console.log('width',screen.width);
 			if(window.innerWidth < 1024){

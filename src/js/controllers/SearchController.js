@@ -16,14 +16,15 @@ wfApp.controller('SearchController', [
 		searchKeyboard.handle = '.search-keyboard';
 		searchKeyboard.target = '#search-bar';
 		$scope.textToSearch = "";
-		$scope.showKeyboard = false;
+		$scope.kioskMode = true;
+		$scope.showKeyboard = $scope.kioskMode;
 
 		$scope.poiObjects = [];
 
 		$scope.getLanguage = function () {
 			return wayfinder.getLanguage();
 		};
-		$scope.onViewLoad = function(){
+		$scope.onViewLoad = function () {
 			dragscroll.reset();
 		};
 		var kbLayoutEt = {
@@ -200,41 +201,43 @@ wfApp.controller('SearchController', [
 			}
 		};
 
-		function sendStatistics( string ) {
-			if ( $scope.filtered.length === 0 ) {
-				wayfinder.statistics.onSearch( string, "unsuccessful" );
+
+		function sendStatistics(string) {
+			if ($scope.poiObjects.length === 0) {
+				wayfinder.statistics.onSearch(string, "unsuccessful");
 			} else {
-				wayfinder.statistics.onSearch( string, "successful" );
+				wayfinder.statistics.onSearch(string, "successful");
 			}
 		}
 
-		function setupKeyboard( input, output, statistics ) {
-			var keyboard = new Keyboard( $( input ), wayfinder.getLanguage() );
-			keyboard.addLayout( 'et', kbLayoutEt );
-			keyboard.addLayout( 'ru', kbLayoutRu );
-			keyboard.addLayout( 'en', kbLayoutEn );
-			keyboard.setOutput( $( output ) );
-			keyboard.cbOnChange = function( val ) {
-				$( input )
-					.trigger( "keypressed" );
-				$rootScope.$broadcast( "wf.keyboard.change", val );
-				$timeout( function() {
+		function setupKeyboard(input, output, statistics) {
+			var keyboard = new Keyboard($(input), wayfinder.getLanguage());
+			keyboard.addLayout('et', kbLayoutEt);
+			keyboard.addLayout('ru', kbLayoutRu);
+			keyboard.addLayout('en', kbLayoutEn);
+			keyboard.setOutput($(output));
+			keyboard.cbOnChange = function (val) {
+				$(input)
+					.trigger("keypressed");
+				$rootScope.$broadcast("wf.keyboard.change", val);
+				$timeout(function () {
 					//console.log( "wf.keyboard.change:",
 					//	$scope.filtered );
-					if ( statistics ) sendStatistics( val );
-				}, 300 );
+					if (statistics) sendStatistics(val);
+				}, 300);
 			};
-			$rootScope.$on( "wf.language.change", function( event,
-															language ) {
-				keyboard.changeLayout( language );
-			} );
+			$rootScope.$on("wf.language.change", function (event,
+														   language) {
+				keyboard.changeLayout(language);
+			});
 			keyboard.construct();
 			keyboard.show();
 			return keyboard;
 		}
 
-		var searchKeyboard = setupKeyboard( ".search-keyboard",
-			"#search-bar", true );
+		var searchKeyboard = setupKeyboard(".search-keyboard",
+			"#search-bar", true);
+
 		function createKeyboard(keyboard, layouts) {
 			var newKeyboard = new Keyboard($(keyboard.handle),
 				$scope.getLanguage());
@@ -373,6 +376,7 @@ wfApp.controller('SearchController', [
 			$scope.showKeyboard = !$scope.showKeyboard;
 			$rootScope.$broadcast("app.hide.info");
 		};
+
 
 		$rootScope.$on("app.hide.keyboard", function (event, language) {
 			//console.log("app.hide.keyboard");
