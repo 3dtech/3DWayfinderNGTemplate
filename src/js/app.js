@@ -87,7 +87,7 @@ wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpPr
 		wfConfig.apiLocation = "../../../api/";
 		// @endif
 		cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-		cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
+		cfpLoadingBarProvider.spinnerTemplate = '<div class="loading-logo-container"><img src="lib/img/logo.png" alt=""></div>';
 		cfpLoadingBarProvider.latencyThreshold = 500;
 	}
 ]);

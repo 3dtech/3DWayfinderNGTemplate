@@ -33,30 +33,30 @@ wfApp.controller('SearchController', [
 			"lang": "et",
 			"keys": {
 				"default": [
-					[ "1", "2", "3", "4", "5", "6", "7", "8",
+					["1", "2", "3", "4", "5", "6", "7", "8",
 						"9", "0", {
 						"key": "&#171; Bksp",
-						"action": [ "backspace" ],
+						"action": ["backspace"],
 						"cls": "key2x"
 					}
 					],
-					[ "q", "w", "e", "r", "t", "y", "u", "i",
+					["q", "w", "e", "r", "t", "y", "u", "i",
 						"o", "p", "\u00FC", "\u00F5"
 					],
-					[ "a", "s", "d", "f", "g", "h", "j", "k",
+					["a", "s", "d", "f", "g", "h", "j", "k",
 						"l", "\u00F6", "\u00E4", {
 						"key": "Enter",
-						"action": [ "submit" ],
+						"action": ["submit"],
 						"cls": "key3x"
 					}
 					],
-					[ "z", "x", "c", "v", "b", "n", "m",
+					["z", "x", "c", "v", "b", "n", "m",
 						"\u002E", "\u005F", "\u002D", "\u0040"
 					],
-					[ {
+					[{
 						"key": " ",
 						"cls": "key_spacebar"
-					} ]
+					}]
 				]
 			}
 		};
@@ -66,71 +66,71 @@ wfApp.controller('SearchController', [
 			"lang": "ru",
 			"keys": {
 				"default": [
-					[ {
+					[{
 						"key": "en",
-						"action": [ "change_keyset", "en" ],
+						"action": ["change_keyset", "en"],
 						"cls": "change_layout"
 					}, "\u0451", "1", "2", "3", "4", "5",
 						"6", "7", "8", "9", "0", {
 						"key": "&#171; Bksp",
-						"action": [ "backspace" ],
+						"action": ["backspace"],
 						"cls": "key2x"
 					}
 					],
-					[ "\u0439", "\u0446", "\u0443", "\u043A",
+					["\u0439", "\u0446", "\u0443", "\u043A",
 						"\u0435", "\u043D", "\u0433", "\u0448",
 						"\u0449", "\u0437", "\u0445", "\u044A",
 						"\\"
 					],
-					[ "\u0444", "\u044B", "\u0432", "\u0430",
+					["\u0444", "\u044B", "\u0432", "\u0430",
 						"\u043F", "\u0440", "\u043E", "\u043B",
 						"\u0434", "\u0436", "\u044D", {
 						"key": "Enter",
-						"action": [ "submit" ],
+						"action": ["submit"],
 						"cls": "key3x"
 					}
 					],
-					[ "\u044F", "\u0447", "\u0441", "\u043C",
+					["\u044F", "\u0447", "\u0441", "\u043C",
 						"\u0438", "\u0442", "\u044C", "\u0431",
 						"\u044E", "\u002E", "\u005F", "\u002D",
 						"\u0040"
 					],
-					[ {
+					[{
 						"key": " ",
 						"cls": "key_spacebar"
-					} ]
+					}]
 				],
 				"en": [
-					[ {
+					[{
 						"key": "ru",
-						"action": [ "change_keyset",
+						"action": ["change_keyset",
 							"default"
 						],
 						"cls": "change_layout"
 					}, "1", "2", "3", "4", "5", "6", "7",
 						"8", "9", "0", {
 						"key": "&#171; Bksp",
-						"action": [ "backspace" ],
+						"action": ["backspace"],
 						"cls": "key2x"
 					}
 					],
-					[ "q", "w", "e", "r", "t", "y", "u", "i",
+					["q", "w", "e", "r", "t", "y", "u", "i",
 						"o", "p", "\\"
 					],
-					[ "a", "s", "d", "f", "g", "h", "j", "k",
+					["a", "s", "d", "f", "g", "h", "j", "k",
 						"l", {
 						"key": "Enter",
-						"action": [ "submit" ],
+						"action": ["submit"],
 						"cls": "key3x"
 					}
 					],
-					[ "z", "x", "c", "v", "b", "n", "m",
+					["z", "x", "c", "v", "b", "n", "m",
 						"\u002E", "\u005F", "\u002D", "\u0040"
 					],
-					[ {
+					[{
 						"key": " ",
 						"cls": "key_spacebar"
-					} ]
+					}]
 				]
 			}
 		};
@@ -141,62 +141,62 @@ wfApp.controller('SearchController', [
 			"lang": "en",
 			"keys": {
 				"default": [
-					[ "1", "2", "3", "4", "5", "6", "7", "8",
+					["1", "2", "3", "4", "5", "6", "7", "8",
 						"9", "0", {
 						"key": "&#171; Bksp",
-						"action": [ "backspace" ],
+						"action": ["backspace"],
 						"cls": "key2x"
 					}
 					],
-					[ "q", "w", "e", "r", "t", "y", "u", "i",
+					["q", "w", "e", "r", "t", "y", "u", "i",
 						"o", "p"
 					],
-					[ "a", "s", "d", "f", "g", "h", "j", "k",
+					["a", "s", "d", "f", "g", "h", "j", "k",
 						"l", {
 						"key": "Enter",
-						"action": [ "submit" ],
+						"action": ["submit"],
 						"cls": "key3x"
 					}
 					],
-					[ "z", "x", "c", "v", "b", "n", "m",
+					["z", "x", "c", "v", "b", "n", "m",
 						"\u002E", "\u005F", "\u002D", "\u0040"
 					],
-					[ {
+					[{
 						"key": " ",
 						"cls": "key_spacebar"
-					} ]
+					}]
 				],
 				"shift": [
-					[ "!", "@", "#", "$", "%", "^", "&", "*",
+					["!", "@", "#", "$", "%", "^", "&", "*",
 						"(", ")", "_", "+", {
 						"key": "&#171; Bksp",
 						"action": "backspace",
 						"cls": "key2x"
 					}
 					],
-					[ "Q", "W", "E", "R", "T", "Y", "U", "I",
+					["Q", "W", "E", "R", "T", "Y", "U", "I",
 						"O", "P"
 					],
-					[ "A", "S", "D", "F", "G", "H", "J", "K",
+					["A", "S", "D", "F", "G", "H", "J", "K",
 						"L", {
 						"key": "Enter",
-						"action": [ "submit" ],
+						"action": ["submit"],
 						"cls": "key3x"
 					}
 					],
-					[ {
+					[{
 						"key": "Shift",
-						"action": [ "change_keyset",
+						"action": ["change_keyset",
 							"default"
 						],
 						"cls": "key2x active"
 					}, "Z", "X", "C", "V", "B", "N", "M",
 						"\u002E", "\u005F", "\u002D", "\u0040"
 					],
-					[ {
+					[{
 						"key": " ",
 						"cls": "key_spacebar"
-					} ]
+					}]
 				]
 			}
 		};
@@ -285,9 +285,14 @@ wfApp.controller('SearchController', [
 					} else {
 						$scope.noResults = false;
 					}
+					/*console.log("/////////// new search //////////////");
+					 angular.forEach(wayfinder.search.search(data), function (item) {
+					 console.log(item.names.translations);
+					 })
+					 */
 					$scope.poiObjects = wayfinder.search.search(data);
 					wayfinder.statistics.onSearch(data, "successful");
-					console.debug("search.successful:", data)
+					console.debug("search.successful:", data);
 				}
 				else if (data.length > 1) {
 					if (wayfinder.search.search(data).length == 0) {
@@ -296,6 +301,7 @@ wfApp.controller('SearchController', [
 						$scope.noResults = false;
 					}
 					$scope.poiObjects = wayfinder.search.search(data);
+
 					wayfinder.statistics.onSearch(data, "unsuccessful");
 					console.debug("search.unsuccessful");
 				}
