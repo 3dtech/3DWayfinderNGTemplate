@@ -244,7 +244,11 @@ wfApp.controller('MainController', [
 		});
 
 		$scope.$on('wf.data.loaded', function () {
-			if($.isEmptyObject(wayfinder.floorMeshes)&&$.isEmptyObject(wayfinder.pois)&&$.isEmptyObject(wayfinder.poiGroups)&&!wayfinder.kiosk){
+			if(	$.isEmptyObject(wayfinder.floorMeshes) && 
+				$.isEmptyObject(wayfinder.pois) &&
+				$.isEmptyObject(wayfinder.poiGroups) &&
+				!wayfinder.kiosk)
+			{
 				$('#no-project').css({'display':'flex','z-index':'999'});
 				if($scope.getGUITranslation('no-project')==='no-project'){
 					$('#no-project>p').text('Your project is empty!');
@@ -252,6 +256,8 @@ wfApp.controller('MainController', [
 					$('#no-project>p').text($scope.getGUITranslation('no-project'));
 				}
 
+			} else {
+				$('#no-project').remove();
 			}
 			maxInactivityTime = wfService.getSessionTimeout();
 		});
@@ -260,6 +266,10 @@ wfApp.controller('MainController', [
 			$scope.loadDefaultView();
 			// console.log("map ready!");
 			cfpLoadingBar.complete();
+			$("#loading-bar-container").remove();
+			$timeout(function() {
+				wayfinder.resize()
+			},100);
 			$scope.buildingLogo = (wayfinder.building.logoID ? window.location.protocol + WayfinderAPI.getURL("images", "get", wayfinder.building.logoID): false);
 			$scope.buildingTitle = wayfinder.building.name;
 		});

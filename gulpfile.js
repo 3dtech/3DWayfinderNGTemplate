@@ -304,7 +304,7 @@ gulp.task('watch-bs', ['3d', 'browserSync'], function() {
 	gulp.watch('src/views/*.html', ['views']);
 	gulp.watch('src/less/*.less', ['less']);
 	gulp.watch('./src/font/*', ['font']);
-	gulp.watch('vendor.json', ['vendor']);
+	gulp.watch(['vendor.json', JSON.parse(fs.readFileSync('vendor.json'))], ['vendor']);
 	gulp.watch('src/images/png/*', ['img']);
 	gulp.watch('src/js/**/*.js', ['minifyJS']);
 	gulp.watch('src/.htaccess', ['rewrite']);
