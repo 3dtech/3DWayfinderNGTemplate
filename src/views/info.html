@@ -12,11 +12,11 @@
 				</button>
 			</div>
 		</div>
-		<div class="description style-7 col-sm-12">
+		<div class="description style-7 col-sm-12 dragscroll">
 			<div>
 				<img src="{{poi.backgroundImage}}" ng-show="poi.backgroundImage">
 			</div>
-			<div ng-show="hasDescription" ng-bind-html="poi.descriptions | wfCurrentLanguage">
+			<div class="description-text" ng-show="hasDescription" ng-bind-html="poi.descriptions | wfCurrentLanguage">
 
 			</div>
 

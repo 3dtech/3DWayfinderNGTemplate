@@ -16,14 +16,15 @@ wfApp.controller('SearchController', [
 		searchKeyboard.handle = '.search-keyboard';
 		searchKeyboard.target = '#search-bar';
 		$scope.textToSearch = "";
-		$scope.showKeyboard = false;
+		$scope.kioskMode = true;
+		$scope.showKeyboard = $scope.kioskMode;
 
 		$scope.poiObjects = [];
 
 		$scope.getLanguage = function () {
 			return wayfinder.getLanguage();
 		};
-		$scope.onViewLoad = function(){
+		$scope.onViewLoad = function () {
 			dragscroll.reset();
 		};
 		var kbLayoutEt = {
@@ -32,30 +33,30 @@ wfApp.controller('SearchController', [
 			"lang": "et",
 			"keys": {
 				"default": [
-					[ "1", "2", "3", "4", "5", "6", "7", "8",
+					["1", "2", "3", "4", "5", "6", "7", "8",
 						"9", "0", {
 						"key": "&#171; Bksp",
-						"action": [ "backspace" ],
+						"action": ["backspace"],
 						"cls": "key2x"
 					}
 					],
-					[ "q", "w", "e", "r", "t", "y", "u", "i",
+					["q", "w", "e", "r", "t", "y", "u", "i",
 						"o", "p", "\u00FC", "\u00F5"
 					],
-					[ "a", "s", "d", "f", "g", "h", "j", "k",
+					["a", "s", "d", "f", "g", "h", "j", "k",
 						"l", "\u00F6", "\u00E4", {
 						"key": "Enter",
-						"action": [ "submit" ],
+						"action": ["submit"],
 						"cls": "key3x"
 					}
 					],
-					[ "z", "x", "c", "v", "b", "n", "m",
+					["z", "x", "c", "v", "b", "n", "m",
 						"\u002E", "\u005F", "\u002D", "\u0040"
 					],
-					[ {
+					[{
 						"key": " ",
 						"cls": "key_spacebar"
-					} ]
+					}]
 				]
 			}
 		};
@@ -65,71 +66,71 @@ wfApp.controller('SearchController', [
 			"lang": "ru",
 			"keys": {
 				"default": [
-					[ {
+					[{
 						"key": "en",
-						"action": [ "change_keyset", "en" ],
+						"action": ["change_keyset", "en"],
 						"cls": "change_layout"
 					}, "\u0451", "1", "2", "3", "4", "5",
 						"6", "7", "8", "9", "0", {
 						"key": "&#171; Bksp",
-						"action": [ "backspace" ],
+						"action": ["backspace"],
 						"cls": "key2x"
 					}
 					],
-					[ "\u0439", "\u0446", "\u0443", "\u043A",
+					["\u0439", "\u0446", "\u0443", "\u043A",
 						"\u0435", "\u043D", "\u0433", "\u0448",
 						"\u0449", "\u0437", "\u0445", "\u044A",
 						"\\"
 					],
-					[ "\u0444", "\u044B", "\u0432", "\u0430",
+					["\u0444", "\u044B", "\u0432", "\u0430",
 						"\u043F", "\u0440", "\u043E", "\u043B",
 						"\u0434", "\u0436", "\u044D", {
 						"key": "Enter",
-						"action": [ "submit" ],
+						"action": ["submit"],
 						"cls": "key3x"
 					}
 					],
-					[ "\u044F", "\u0447", "\u0441", "\u043C",
+					["\u044F", "\u0447", "\u0441", "\u043C",
 						"\u0438", "\u0442", "\u044C", "\u0431",
 						"\u044E", "\u002E", "\u005F", "\u002D",
 						"\u0040"
 					],
-					[ {
+					[{
 						"key": " ",
 						"cls": "key_spacebar"
-					} ]
+					}]
 				],
 				"en": [
-					[ {
+					[{
 						"key": "ru",
-						"action": [ "change_keyset",
+						"action": ["change_keyset",
 							"default"
 						],
 						"cls": "change_layout"
 					}, "1", "2", "3", "4", "5", "6", "7",
 						"8", "9", "0", {
 						"key": "&#171; Bksp",
-						"action": [ "backspace" ],
+						"action": ["backspace"],
 						"cls": "key2x"
 					}
 					],
-					[ "q", "w", "e", "r", "t", "y", "u", "i",
+					["q", "w", "e", "r", "t", "y", "u", "i",
 						"o", "p", "\\"
 					],
-					[ "a", "s", "d", "f", "g", "h", "j", "k",
+					["a", "s", "d", "f", "g", "h", "j", "k",
 						"l", {
 						"key": "Enter",
-						"action": [ "submit" ],
+						"action": ["submit"],
 						"cls": "key3x"
 					}
 					],
-					[ "z", "x", "c", "v", "b", "n", "m",
+					["z", "x", "c", "v", "b", "n", "m",
 						"\u002E", "\u005F", "\u002D", "\u0040"
 					],
-					[ {
+					[{
 						"key": " ",
 						"cls": "key_spacebar"
-					} ]
+					}]
 				]
 			}
 		};
@@ -140,101 +141,103 @@ wfApp.controller('SearchController', [
 			"lang": "en",
 			"keys": {
 				"default": [
-					[ "1", "2", "3", "4", "5", "6", "7", "8",
+					["1", "2", "3", "4", "5", "6", "7", "8",
 						"9", "0", {
 						"key": "&#171; Bksp",
-						"action": [ "backspace" ],
+						"action": ["backspace"],
 						"cls": "key2x"
 					}
 					],
-					[ "q", "w", "e", "r", "t", "y", "u", "i",
+					["q", "w", "e", "r", "t", "y", "u", "i",
 						"o", "p"
 					],
-					[ "a", "s", "d", "f", "g", "h", "j", "k",
+					["a", "s", "d", "f", "g", "h", "j", "k",
 						"l", {
 						"key": "Enter",
-						"action": [ "submit" ],
+						"action": ["submit"],
 						"cls": "key3x"
 					}
 					],
-					[ "z", "x", "c", "v", "b", "n", "m",
+					["z", "x", "c", "v", "b", "n", "m",
 						"\u002E", "\u005F", "\u002D", "\u0040"
 					],
-					[ {
+					[{
 						"key": " ",
 						"cls": "key_spacebar"
-					} ]
+					}]
 				],
 				"shift": [
-					[ "!", "@", "#", "$", "%", "^", "&", "*",
+					["!", "@", "#", "$", "%", "^", "&", "*",
 						"(", ")", "_", "+", {
 						"key": "&#171; Bksp",
 						"action": "backspace",
 						"cls": "key2x"
 					}
 					],
-					[ "Q", "W", "E", "R", "T", "Y", "U", "I",
+					["Q", "W", "E", "R", "T", "Y", "U", "I",
 						"O", "P"
 					],
-					[ "A", "S", "D", "F", "G", "H", "J", "K",
+					["A", "S", "D", "F", "G", "H", "J", "K",
 						"L", {
 						"key": "Enter",
-						"action": [ "submit" ],
+						"action": ["submit"],
 						"cls": "key3x"
 					}
 					],
-					[ {
+					[{
 						"key": "Shift",
-						"action": [ "change_keyset",
+						"action": ["change_keyset",
 							"default"
 						],
 						"cls": "key2x active"
 					}, "Z", "X", "C", "V", "B", "N", "M",
 						"\u002E", "\u005F", "\u002D", "\u0040"
 					],
-					[ {
+					[{
 						"key": " ",
 						"cls": "key_spacebar"
-					} ]
+					}]
 				]
 			}
 		};
 
-		function sendStatistics( string ) {
-			if ( $scope.filtered.length === 0 ) {
-				wayfinder.statistics.onSearch( string, "unsuccessful" );
+
+		function sendStatistics(string) {
+			if ($scope.poiObjects.length === 0) {
+				wayfinder.statistics.onSearch(string, "unsuccessful");
 			} else {
-				wayfinder.statistics.onSearch( string, "successful" );
+				wayfinder.statistics.onSearch(string, "successful");
 			}
 		}
 
-		function setupKeyboard( input, output, statistics ) {
-			var keyboard = new Keyboard( $( input ), wayfinder.getLanguage() );
-			keyboard.addLayout( 'et', kbLayoutEt );
-			keyboard.addLayout( 'ru', kbLayoutRu );
-			keyboard.addLayout( 'en', kbLayoutEn );
-			keyboard.setOutput( $( output ) );
-			keyboard.cbOnChange = function( val ) {
-				$( input )
-					.trigger( "keypressed" );
-				$rootScope.$broadcast( "wf.keyboard.change", val );
-				$timeout( function() {
+		function setupKeyboard(input, output, statistics) {
+			var keyboard = new Keyboard($(input), wayfinder.getLanguage());
+			keyboard.addLayout('et', kbLayoutEt);
+			keyboard.addLayout('ru', kbLayoutRu);
+			keyboard.addLayout('en', kbLayoutEn);
+			keyboard.setOutput($(output));
+			keyboard.cbOnChange = function (val) {
+				$(input)
+					.trigger("keypressed");
+				$rootScope.$broadcast("wf.keyboard.change", val);
+				$timeout(function () {
 					//console.log( "wf.keyboard.change:",
 					//	$scope.filtered );
-					if ( statistics ) sendStatistics( val );
-				}, 300 );
+					if (statistics) sendStatistics(val);
+				}, 300);
 			};
-			$rootScope.$on( "wf.language.change", function( event,
-															language ) {
-				keyboard.changeLayout( language );
-			} );
+			$rootScope.$on("wf.language.change", function (event,
+														   language) {
+				keyboard.changeLayout(language);
+			});
 			keyboard.construct();
 			keyboard.show();
 			return keyboard;
 		}
 
-		var searchKeyboard = setupKeyboard( ".search-keyboard",
-			"#search-bar", true );
+		var searchKeyboard = setupKeyboard(".search-keyboard",
+			"#search-bar", true);
+
 		function createKeyboard(keyboard, layouts) {
 			var newKeyboard = new Keyboard($(keyboard.handle),
 				$scope.getLanguage());
@@ -282,9 +285,14 @@ wfApp.controller('SearchController', [
 					} else {
 						$scope.noResults = false;
 					}
+					/*console.log("/////////// new search //////////////");
+					 angular.forEach(wayfinder.search.search(data), function (item) {
+					 console.log(item.names.translations);
+					 })
+					 */
 					$scope.poiObjects = wayfinder.search.search(data);
 					wayfinder.statistics.onSearch(data, "successful");
-					console.debug("search.successful:", data)
+					console.debug("search.successful:", data);
 				}
 				else if (data.length > 1) {
 					if (wayfinder.search.search(data).length == 0) {
@@ -293,6 +301,7 @@ wfApp.controller('SearchController', [
 						$scope.noResults = false;
 					}
 					$scope.poiObjects = wayfinder.search.search(data);
+
 					wayfinder.statistics.onSearch(data, "unsuccessful");
 					console.debug("search.unsuccessful");
 				}
@@ -373,6 +382,7 @@ wfApp.controller('SearchController', [
 			$scope.showKeyboard = !$scope.showKeyboard;
 			$rootScope.$broadcast("app.hide.info");
 		};
+
 
 		$rootScope.$on("app.hide.keyboard", function (event, language) {
 			//console.log("app.hide.keyboard");

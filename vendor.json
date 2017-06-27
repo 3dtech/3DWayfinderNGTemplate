@@ -8,5 +8,6 @@
   "bower_components/angular-sanitize/angular-sanitize.min.js",
   "bower_components/angular-route/angular-route.min.js",
   "bower_components/dragscroll/dragscroll.js",
+  "src/js/external/naturalSort.js",
   "bower_components/3dwayfinder-angular/index.js"
 ]

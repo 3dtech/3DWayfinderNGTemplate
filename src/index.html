@@ -21,8 +21,15 @@
 	</div>
 </div>
 <div id="loading-bar-container"></div>
-<div class="ad-container" id="advertisements" template="default" wf-banner></div>
-<div class="container" ng-class="containerClassWithAds" ng-click="trigger()" ng-keypress="trigger()">
+
+<div class="ad-container">
+	<div id="advertisements"  class=" banner-desktop-landscape" template="default" wf-banner></div>
+
+	<div id="screensaver" class=" banner-mobile-portrait" template="default" wf-banner></div>
+
+</div>
+
+<div class="container" ng-click="trigger()" ng-keypress="trigger()">
 
 	<!-- ==================== TOP MENU BAR ==================== -->
 
@@ -74,7 +81,6 @@
 			<div id="zoom-in" class="zoom btn fa fa-search-plus" ng-hold="zoomIn()"></div>
 			<div id="zoom-out " class="zoom btn fa fa-search-minus" ng-hold="zoomOut()"></div>
 		</div>
-
 	</div>
 
 	<!-- ==================== NAV-MENU ==================== -->
@@ -106,12 +112,12 @@
 <script type="text/javascript" src="../../../js/dist/3d/latest/Wayfinder3D.min.js"></script>
 <!-- @endif -->
 <!-- @if DEBUG -->
-<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder3D.min.js"></script>
+<script type="text/javascript" src="//static.3dwayfinder.com/js/dist/3d/latest/Wayfinder3D.min.js"></script>
 <!-- @endif -->
 <!-- @endif -->
 
 <!-- @ifdef  type2D -->
-<script type="text/javascript" src="//static.3dwayfinder.com/projects/shared/js/minified/Wayfinder2D.min.js"></script>
+<script type="text/javascript" src="//static.3dwayfinder.com/js/dist/3d/latest/Wayfinder2D.min.js"></script>
 <!-- @endif -->
 
 <!-- @if !DEBUG -->
@@ -131,6 +137,7 @@
 
 <script type="text/javascript" src="lib/js/main.js"></script>
 <script>
+
 	/*global $, WayfinderAPI */
 	var clicked = false,
 		clickY;

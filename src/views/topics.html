@@ -3,7 +3,7 @@
 	<div class="topics">
 		<div class="list dragscroll style-7">
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
-				<div class="panel panel-default topic" ng-repeat="group in groups">
+				<div class="panel panel-default topic" ng-repeat="group in groups | orderBy:natural('name')">
 					<div class="panel-heading topic-head collapsed"
 						 role="tab"
 						 id="headingTwo"

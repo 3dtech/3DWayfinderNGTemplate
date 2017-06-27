@@ -34,6 +34,7 @@ var wfApp = angular.module('wfApp', [
 	'ngAnimate',
 	'cfp.loadingBar',
 	'ngRoute',
+	'naturalSort',
 	'wfangular'
 ]);
 
@@ -46,9 +47,8 @@ var wfApp = angular.module('wfApp', [
 // ------------------------------------------
 
 wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadingBarProvider',
-	function (wfConfig, $route, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
-		$route
-
+	function (wfangularConfig, $routeProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
+		$routeProvider
 			.when('/info&:id?/', {
 				templateUrl: "views/info.html",
 				controller: 'InfoController'
@@ -74,20 +74,20 @@ wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpPr
 			});
 
 		// @ifdef type3D
-		wfConfig.mapType = "3d";
+		wfangularConfig.mapType = "3d";
 		// @endif
 		// @ifdef type2D
-		wfConfig.mapType = "2d";
+		wfangularConfig.mapType = "2d";
 		// @endif
 
 		// @if DEBUG
-		wfConfig.apiLocation = "//api.3dwayfinder.com/";
+		wfangularConfig.apiLocation = "//api.3dwayfinder.com/";
 		// @endif
 		// @if !DEBUG
-		wfConfig.apiLocation = "../../../api/";
+		wfangularConfig.apiLocation = "../../../api/";
 		// @endif
 		cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-		cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
+		cfpLoadingBarProvider.spinnerTemplate = '<div class="loading-logo-container"><img src="lib/img/logo.png" alt=""></div>';
 		cfpLoadingBarProvider.latencyThreshold = 500;
 	}
 ]);
@@ -99,10 +99,11 @@ wfApp.run([
     '$http',
     '$route',
     '$location',
-    function(wayfinder, wfConfig, $rootScope, $http, $route, $location) {
+    'naturalService',
+    function(wayfinder, wfangularConfig, $rootScope, $http, $route, $location, naturalService) {
         $route.reload();
 
-        if (wfConfig.mapType === "3d") {
+        if (wfangularConfig.mapType === "3d") {
             // @if DEBUG
             wayfinder.options.assetsLocation = '//static.3dwayfinder.com/shared/';
             // @endif
