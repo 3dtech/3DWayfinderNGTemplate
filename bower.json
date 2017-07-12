@@ -38,5 +38,8 @@
     "jquery": "^3.2.1",
     "jquery-ui": "latest",
     "watch.js": "latest"
+  },
+  "resolutions": {
+    "angular": "1.6.5"
   }
 }

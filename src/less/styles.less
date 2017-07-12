@@ -8,6 +8,7 @@
 @import "mixins.less";
 
 /* ========== GENERAL ==========*/
+
 html,
 body {
 	font-size: @body-font-size;
@@ -102,6 +103,7 @@ input::-ms-clear {
 	overflow: auto;
 }
 
+
 /* ========== TOP MENU BAR ==========*/
 
 #header {
@@ -113,11 +115,11 @@ input::-ms-clear {
 	z-index: 1;
 	position: relative;
 	text-transform: uppercase;
-	> div {
+	>div {
 		height: 100%;
 		display: inline-flex;
 		position: relative;
-		> div {
+		>div {
 			display: inline-flex;
 			/* establish flex container */
 			.flex-direction(column);
@@ -218,7 +220,7 @@ input::-ms-clear {
 		.active {
 			color: @color-primary;
 		}
-		> .is-dropdown-submenu-parent {
+		>.is-dropdown-submenu-parent {
 			.flex();
 			/* establish flex container */
 			.flex-direction(column);
@@ -250,7 +252,6 @@ input::-ms-clear {
 		min-width: 2rem;
 		max-width: 3rem;
 	}
-
 	.lang-current {
 		text-transform: uppercase;
 		position: absolute;
@@ -284,8 +285,8 @@ input::-ms-clear {
 			right: 0;
 		}
 	}
-
 }
+
 
 /* ========== MAP ==========*/
 
@@ -299,7 +300,9 @@ input::-ms-clear {
 	}
 }
 
+
 /* ========== ZOOM MENU ==========*/
+
 #zoom-menu {
 	position: absolute;
 	bottom: .5rem;
@@ -335,6 +338,7 @@ input::-ms-clear {
 	}
 }
 
+
 /* ========== NAV-MENU ==========*/
 
 #nav-menu {
@@ -349,7 +353,6 @@ input::-ms-clear {
 	background: @color-tabs-active;
 	.box-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 	.transition(all .5s ease-in-out);
-
 	.tabs-container {
 		position: absolute;
 		width: 100%;
@@ -372,15 +375,14 @@ input::-ms-clear {
 				line-height: 100%;
 				font-size: @font-size-s;
 				padding: auto;
-
 				display: inline-flex;
 				flex: 1;
 				justify-content: center;
-				> div {
+				>div {
 					margin: auto;
 				}
-
-				&:active, &.active {
+				&:active,
+				&.active {
 					box-shadow: none;
 					color: @color-primary;
 					border-bottom: 1px solid #ddd
@@ -388,7 +390,6 @@ input::-ms-clear {
 				.icon {
 					.flex();
 					/* establish flex container */
-
 					/* stack flex items vertically */
 					.flex-justify(center);
 					/* center items vertically, in this case */
@@ -423,8 +424,7 @@ input::-ms-clear {
 			.tab-head.active {
 				background-color: @color-tabs-active;
 			}
-			.btn-circle {
-			}
+			.btn-circle {}
 			.left {
 				float: left;
 			}
@@ -468,7 +468,6 @@ input::-ms-clear {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-
 	color: @color-text-dark;
 	line-height: 1;
 	margin: 0 !important;
@@ -497,8 +496,7 @@ input::-ms-clear {
 			display: block;
 			float: right;
 			height: 100%;
-
-			> div {
+			>div {
 				position: relative;
 				float: right;
 				line-height: 1;
@@ -529,8 +527,8 @@ input::-ms-clear {
 		&:hover {
 			background: none;
 		}
-
-		&:visited, &:active {
+		&:visited,
+		&:active {
 			background: none;
 			box-shadow: 0 0 -8px rgba(0, 0, 0, 0.3);
 			i {
@@ -577,6 +575,7 @@ input::-ms-clear {
 	}
 }
 
+
 /* ========== GENERAL TAB LIST ==========*/
 
 .list {
@@ -590,7 +589,6 @@ input::-ms-clear {
 			display: inline-flex;
 			line-height: 1;
 			font-size: @font-size-s*1.5;
-
 		}
 		.locations {
 			display: flex;
@@ -598,7 +596,6 @@ input::-ms-clear {
 			.name {
 				display: flex;
 			}
-
 		}
 		.groups {
 			width: 100%;
@@ -616,10 +613,11 @@ input::-ms-clear {
 			}
 		}
 	}
-
 }
 
+
 /* ========== GENERAL TAB LAYOUT ==========*/
+
 hr {
 	width: 100%;
 	margin-top: 1px;
@@ -640,12 +638,15 @@ hr {
 	background-color: @color-topic-even;
 }
 
+
 /* ========== TOPICS ==========*/
+
 .topics {
 	position: relative;
 	height: 100%;
 	width: 100%;
 	overflow-x: hidden;
+	overflow-y: scroll;
 	.panel-group {
 		margin-bottom: 0;
 		.topic {
@@ -681,7 +682,6 @@ hr {
 				border-bottom: 1px solid #eee;
 				padding-left: 40px;
 				.icon.button {
-
 					i {
 						.border-radius(5px);
 						border: 1px solid #ccc;
@@ -693,7 +693,9 @@ hr {
 	}
 }
 
+
 /* ========== SEARCH TAB ==========*/
+
 .search {
 	position: relative;
 	width: 100%;
@@ -708,7 +710,6 @@ hr {
 		font-size: 2em;
 		vertical-align: middle;
 		border: none;
-
 		#search-bar {
 			position: relative;
 			height: 100%;
@@ -722,14 +723,12 @@ hr {
 				border-width: 0 0 2px 0;
 				border-color: #333;
 			}
-
 		}
 		#search-btn {
 			color: #333;
 			position: relative;
 			height: 100%;
 			width: 10%;
-
 			z-index: 2;
 			float: right;
 			text-align: center;
@@ -804,6 +803,7 @@ hr {
 	content: '\e804' !important;
 }
 
+
 /* ========== KEYBOARD ==========*/
 
 .keyboard-container {
@@ -814,7 +814,6 @@ hr {
 	top: -40px;
 	@media all and (orientation: landscape) {
 		height: 200px;
-
 	}
 	@media screen and (max-width: 1024px) {
 		display: none;
@@ -883,8 +882,7 @@ hr {
 	&.key_spacebar {
 		width: 12em;
 	}
-	&:hover {
-	}
+	&:hover {}
 	&:active {
 		background: #fafafa;
 	}
@@ -894,6 +892,7 @@ hr {
 	margin: auto;
 	clear: both;
 }
+
 
 /* ========== RESPONSIVE ==========*/
 
@@ -943,7 +942,6 @@ hr {
 }
 
 //@media screen and (min-width: 320px) {
-
 #content-container {
 	top: @header-height-s;
 	bottom: @content-container-bottom;
@@ -981,7 +979,6 @@ hr {
 	.flex-direction(column);
 	width: auto;
 	#shortcut-button {
-
 		width: 3rem;
 		height: 3rem;
 		margin-top: 0.25em;
@@ -1009,14 +1006,14 @@ hr {
 		&.active {
 			background: @color-secondary;
 		}
-
 	}
 }
 
 .btn-default.dropdown-toggle {
 	background: none;
 	border: none;
-	&:focus, &:hover {
+	&:focus,
+	&:hover {
 		background: none;
 		background-color: #fff !important;
 	}
@@ -1055,11 +1052,8 @@ hr {
 		white-space: nowrap;
 		word-wrap: break-word;
 	}
-	.floor-button:first-child {
-	}
-	.floor-button:last-child {
-	}
-
+	.floor-button:first-child {}
+	.floor-button:last-child {}
 	.floor-button {
 		.box-shadow(0 0 8px rgba(0, 0, 0, 0.3));
 		color: @color-text-dark;
@@ -1119,7 +1113,6 @@ hr {
 			.box-shadow(@color-primary 1px 0 6px 1px);
 		}
 	}
-
 	.loading-logo-container {
 		top: 20%;
 		width: 100%;
@@ -1135,23 +1128,21 @@ hr {
 	}
 }
 
+
 /* ========== MEDIA QUERIES ==========*/
 
 @media screen and (min-width: 320px) {
 	.is-dropdown-menu {
 		min-width: 0;
 	}
-
 	#floors-menu {
 		top: 0.25em;
 		left: 0.25em;
 	}
-
 	#zoom-menu {
 		bottom: 0.25em;
 		left: 0.25em;
 	}
-
 	#shortcuts-menu {
 		#shortcut-button {
 			margin-top: 0.25em;
@@ -1159,76 +1150,62 @@ hr {
 			right: 0.25em;
 		}
 	}
-
 	#header {
 		height: @header-height-xs;
 		position: relative;
 		font-size: 1em;
-		> div {
-		}
+		>div {}
 		.button {
 			font-size: 1em;
 		}
-		.logo {
-		}
+		.logo {}
 		.lang-menu {
 			.btn {
 				font-size: 1em;
 			}
 		}
 	}
-
 	#menu {
-		> div {
+		>div {
 			display: block;
 		}
 	}
-
 	#nav-menu {
 		.tabs-container {
 			height: 92%;
 			.nav-tabs {
 				.tab-head {
-
 					font-size: 1rem;
 				}
 			}
 		}
 	}
-
 	#nav-menu.active {
 		top: @header-height-xs;
 	}
-
 	.poi.row {
 		border-bottom: 1px solid #eee;
 		.name {
 			padding: 0;
 		}
 	}
-
 	.list .row .icon {
 		font-size: 2em;
 		padding: 5px 0;
 	}
-
 	.search .search-wrapper #search-bar {
 		font-size: 1.5rem;
 	}
-
 	.topics .panel-group .topic .topic-head {
 		font-size: 1.5em;
 	}
-
 	.list-group-item.poi {
 		font-size: 1em;
 	}
-
 	.topics .panel-group .topic-list .list-group-item .icon.button i {
 		border: none;
 		.box-shadow(none);
 	}
-
 	.list {
 		.row {
 			.name {
@@ -1239,63 +1216,55 @@ hr {
 			}
 		}
 	}
-	#info .description{
+	#info .description {
 		height: 75%;
 	}
-
 	#content-container {
 		top: @header-height-xs;
 	}
-	.dragscroll{
+	.dragscroll {
 		height: 98%;
 	}
-	.atoz .dragscroll{
+	.atoz .dragscroll {
 		height: 100%;
 	}
-	.search .result-container{
+	.search .result-container {
 		height: 89%;
 	}
 }
-@media screen  and (min-width:375px ){
-	#info .description{
+
+@media screen and (min-width:375px) {
+	#info .description {
 		height: 81%;
 	}
-
 	#content-container {
 		top: @header-height-xs;
 	}
-
-	.dragscroll{
+	.dragscroll {
 		height: 98%;
 	}
-
-	.atoz .dragscroll{
+	.atoz .dragscroll {
 		height: 100%;
 	}
-
-	.search .result-container{
+	.search .result-container {
 		height: 92%;
 	}
 }
 
-@media screen  and (min-width:412px ){
-	#info .description{
+@media screen and (min-width:412px) {
+	#info .description {
 		height: 81%;
 	}
-
 	#content-container {
 		top: @header-height-xs;
 	}
-
-	.dragscroll{
+	.dragscroll {
 		height: 98%;
 	}
-
-	.atoz .dragscroll{
+	.atoz .dragscroll {
 		height: 100%;
 	}
-
-	.search .result-container{
+	.search .result-container {
 		height: 92%;
 	}
 }
@@ -1323,16 +1292,13 @@ hr {
 			}
 		}
 	}
-
 	#content-container {
 		top: @header-height-s;
 		bottom: @content-container-bottom;
 	}
-
 	.keyboard {
 		height: @header-height-s;
 	}
-
 	#nav-menu {
 		height: 100% - @header-height-s;
 		.tab-head {
@@ -1346,7 +1312,6 @@ hr {
 			height: 100% - (@header-height-s);
 		}
 	}
-
 	.topics {
 		font-size: @font-size-s;
 		.topic {
@@ -1362,19 +1327,15 @@ hr {
 			font-size: @list-icon-size-s*0.75;
 		}
 	}
-
 	.atoz {
 		overflow-x: hidden;
 	}
-
 	#nav-menu {
 		height: 100% - @header-height-s;
 	}
-
 	#nav-menu.active {
 		top: @header-height-s;
 	}
-
 	#map-controls {
 		position: absolute;
 		top: 0;
@@ -1386,12 +1347,10 @@ hr {
 		top: 0.5em;
 		left: 0.5em;
 	}
-
 	#zoom-menu {
 		bottom: 0.5em;
 		left: 0.5em;
 	}
-
 	#shortcuts-menu {
 		#shortcut-button {
 			margin-top: 0.25em;
@@ -1399,9 +1358,7 @@ hr {
 			right: 0.5em;
 		}
 	}
-
 	.description {
-
 		img {
 			width: initial !important;
 			height: 200px;
@@ -1431,7 +1388,6 @@ hr {
 			}
 		}
 	}
-
 	#content-container {
 		top: @header-height-s;
 		bottom: @content-container-bottom;
@@ -1441,16 +1397,13 @@ hr {
 			}
 		}
 	}
-
 	.tab-head .icon {
 		font-size: 1.25rem;
 	}
-
 	.tab-contents {
 		padding: 1rem;
 		height: (100% - @header-height-m);
 	}
-
 	.list {
 		.locations {
 			height: 100%;
@@ -1459,7 +1412,6 @@ hr {
 			}
 		}
 	}
-
 	.topics {
 		font-size: 0.9em;
 		.topic {
@@ -1476,7 +1428,6 @@ hr {
 			}
 		}
 	}
-
 	#nav-menu {
 		top: @header-height-s;
 		width: 21em;
@@ -1487,7 +1438,6 @@ hr {
 				height: @header-height-s;
 				.tab-head {
 					font-size: 0.9em;
-
 				}
 			}
 		}
@@ -1496,21 +1446,17 @@ hr {
 			right: 0;
 		}
 	}
-
 	#zoom-menu {
 		bottom: 0.5rem;
 		left: 0.5rem;
 		width: auto;
 		margin-bottom: 0;
 	}
-
 	#map-controls {
 		position: absolute;
 		top: 0;
 	}
-
 	.description {
-
 		img {
 			width: 100% !important;
 		}
@@ -1519,19 +1465,15 @@ hr {
 
 @media screen and (min-width: 1280px) {
 	#header {
-
 		height: @header-height-m - 2;
 		#nav-menu-btn {
 			height: 100%;
-
 		}
 	}
-
 	#content-container {
 		top: @header-height-m - 2;
 		bottom: @content-container-bottom;
 	}
-
 	#nav-menu {
 		top: @header-height-m - 2;
 		height: 92%;
@@ -1540,11 +1482,9 @@ hr {
 			right: 0;
 		}
 	}
-
 	.tab-head .icon {
 		font-size: 1.75rem;
 	}
-
 	.tab-contents {
 		padding: 1rem;
 		height: 100% - (@header-height-m);
@@ -1553,19 +1493,15 @@ hr {
 
 @media screen and (min-width: 1440px) {
 	#header {
-
 		height: @header-height-m - 2;
 		#nav-menu-btn {
 			height: 100%;
-
 		}
 	}
-
 	#content-container {
 		top: @header-height-m - 2;
 		bottom: @content-container-bottom;
 	}
-
 	#nav-menu {
 		top: @header-height-m - 2;
 		height: 92%;
@@ -1574,16 +1510,13 @@ hr {
 			right: 0;
 		}
 	}
-
 	.tab-head .icon {
 		font-size: 1.75rem;
 	}
-
 	.tab-contents {
 		padding: 1rem;
 		height: 100% - (@header-height-m);
 	}
-
 }
 
 @media screen and (min-width: 1920px) {
@@ -1593,26 +1526,20 @@ hr {
 			font-size: 2rem;
 		}
 	}
-
 	#content-container {
 		top: @header-height-s;
 		bottom: @content-container-bottom;
 	}
-
 	.tab-head .icon {
 		font-size: 2rem;
 	}
-
 	.tab-contents {
 		padding: 1rem;
 		height: 100% - (@header-height-s);
 	}
-
 	#nav-menu {
-
 		top: @header-height-s;
 		height: 100% - @header-height-s;
-
 		.tabs-container {
 			.nav-tabs {
 				.tab-head {
@@ -1625,9 +1552,7 @@ hr {
 			width: 30%;
 		}
 	}
-
 	.description {
-
 		img {
 			width: 100%;
 			height: initial !important;
@@ -1640,7 +1565,6 @@ hr {
 		height: 20%;
 		width: 100%;
 	}
-
 	.top-ads {
 		height: 80%;
 		width: 100%;
@@ -1648,44 +1572,40 @@ hr {
 	}
 }
 
-@media screen and (min-width: 1024px) and  (orientation: landscape) {
+@media screen and (min-width: 1024px) and (orientation: landscape) {
 	#nav-menu {
 		right: 0 !important;
 	}
-
 	#nav-menu-btn {
 		display: none !important;
 	}
-
 	#content-container {
 		width: calc(~'100% - 21em');
 	}
 }
 
-@media screen and (min-width: 1500px) and  (orientation: landscape) {
+@media screen and (min-width: 1500px) and (orientation: landscape) {
 	#nav-menu {
 		width: 30em !important;
 	}
-
 	#content-container {
 		width: calc(~'100% - 30em');
 	}
 }
 
-@media screen and (min-width: 1024px) and  (orientation: portrait) {
+@media screen and (min-width: 1024px) and (orientation: portrait) {
 	#nav-menu {
 		width: 100%;
 		right: 0;
 		top: 100%;
 	}
-
 	body {
 		font-size: 2em;
 	}
-	h3{
+	h3 {
 		font-size: 1em;
 	}
-	#header .title{
+	#header .title {
 		font-size: 24px;
 	}
 	.tabs-container {
@@ -1699,10 +1619,8 @@ hr {
 			height: 57%;
 		}
 	}
-	#info{
-		.description {
-
-		}
+	#info {
+		.description {}
 	}
 }
 
@@ -1762,19 +1680,20 @@ hr {
 		.flex-direction(row);
 		.ad-container {
 			height: 100%;
-			width: 10%;
+			width: 250px;
 			.banner-desktop-landscape {
 				width: 100%;
 				height: 100%;
 			}
 			.banner-mobile-portrait {
-
 				display: none;
 			}
 		}
 		.container {
 			height: 100%;
-			width: 90%;
+			width: auto;
+			display: flex;
+			flex-grow: 1;
 		}
 	}
 }
