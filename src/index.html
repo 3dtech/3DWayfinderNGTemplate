@@ -142,6 +142,9 @@
 	var clicked = false,
 		clickY;
 	//WayfinderAPI.LOCATION = "../../../api";
+	<!-- @ifdef  type2D -->
+	WayfinderAPI.LOCATION = "http://api.3dwayfinder.com";
+	<!-- @endif -->
 
 	$(document).on({
 		'mousemove': function (e) {
