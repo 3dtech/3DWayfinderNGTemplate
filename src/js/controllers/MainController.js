@@ -245,7 +245,14 @@ wfApp.controller('MainController', [
 		});
 
 		$scope.$on('wf.data.loaded', function () {
-			if(	$.isEmptyObject(wayfinder.floorMeshes) && 
+			// @ifdef type3D
+			if(	($.isEmptyObject(wayfinder.floorMeshes)) &&
+			// @endif
+			// @ifdef type2D
+				if (wayfinder.building&&$.isEmptyObject(wayfinder.building.getFloors())&&
+					// @endif
+
+
 				$.isEmptyObject(wayfinder.pois) &&
 				$.isEmptyObject(wayfinder.poiGroups) &&
 				!wayfinder.kiosk)
