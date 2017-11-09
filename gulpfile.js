@@ -1,6 +1,7 @@
 var browserSync = require('browser-sync').create();
 browserSync.spa = require('browser-sync-spa');
 var gulp = require('gulp');
+gulp.babel = require('gulp-babel');
 gulp.concat = require('gulp-concat');
 gulp.debug = require('gulp-debug');
 gulp.expect = require('gulp-expect-file');
@@ -23,7 +24,8 @@ var distFolder = "dist/";
 var prepOpts = {
 	context: {
 		NODE_ENV: 'development',
-		DEBUG: true
+		DEBUG: true,
+		type3D: true
 	}
 };
 
@@ -120,15 +122,15 @@ gulp.task('browserSync', function() {
 		server: {
 			baseDir: baseDir,
 			files: baseDir + "/*"
-				/*routes: {
-				 "bower_components": "bower_components"
-				 }*/
+			/*routes: {
+			 "node_modules": "node_modules"
+			 }*/
 		},
 		ui: {
 			port: 8081
 		},
 		logLevel: "info"
-			/* https: true */
+		/* https: true */
 	})
 });
 
@@ -163,6 +165,7 @@ gulp.task('vendor', function() {
 		gulp.src(files),
 		gulp.expect(files),
 		gulp.prep(),
+		gulp.babel(),
 		gulp.uglify({
 			mangle: true
 		}),
@@ -177,7 +180,10 @@ gulp.task('vendor', function() {
 });
 
 gulp.task('font', function() {
-	return gulp.src(['./src/fonts/**/*.*', './bower_components/font-awesome/fonts/*'])
+	return gulp.src([
+			'./src/fonts/**/*.*',
+			'./node_modules/font-awesome/fonts/*'
+		])
 		.pipe(gulp.dest(distFolder + 'lib/fonts'))
 		.pipe(browserSync.reload({
 			stream: true
@@ -186,8 +192,12 @@ gulp.task('font', function() {
 
 gulp.task('controllers', [''], function() {
 	pump([
-		gulp.src(['./src/index.js', './src/js/controllers/**/*.js']),
+		gulp.src([
+			'./src/index.js',
+			'./src/js/controllers/**/*.js'
+		]),
 		gulp.prep(prepOpts),
+		gulp.babel(),
 		gulp.dest(distFolder + 'lib/js/'),
 		browserSync.reload({
 			stream: true
@@ -199,7 +209,7 @@ gulp.task('controllers', [''], function() {
 
 gulp.task('js', function() {
 	return gulp.src([
-			'bower_components/angular-loading-bar/build/loading-bar.js'
+			'node_modules/angular-loading-bar/build/loading-bar.js'
 		])
 		.pipe(gulp.dest(distFolder + 'lib/js/'))
 		.pipe(browserSync.reload({
@@ -219,6 +229,7 @@ gulp.task('minifyJS', function() {
 		]),
 		gulp.concat('main.js'),
 		gulp.prep(prepOpts),
+		gulp.babel(),
 		gulp.uglify(uglifyOpts),
 		gulp.dest(distFolder + '/lib/js'),
 		browserSync.reload({
@@ -248,8 +259,8 @@ gulp.task('img', function() {
 
 gulp.task('css', function() {
 	return gulp.src([
-			'./bower_components/font-awesome/css/font-awesome.min.css',
-			'./bower_components/angular-loading-bar/build/loading-bar.css'
+			'./node_modules/font-awesome/css/font-awesome.min.css',
+			'./node_modules/angular-loading-bar/build/loading-bar.css'
 		])
 		.pipe(gulp.dest(distFolder + 'lib/css'))
 		.pipe(browserSync.reload({
@@ -304,7 +315,10 @@ gulp.task('watch-bs', ['3d', 'browserSync'], function() {
 	gulp.watch('src/views/*.html', ['views']);
 	gulp.watch('src/less/*.less', ['less']);
 	gulp.watch('./src/font/*', ['font']);
-	gulp.watch(['vendor.json', JSON.parse(fs.readFileSync('vendor.json'))], ['vendor']);
+	gulp.watch([
+		'vendor.json',
+		JSON.parse(fs.readFileSync('vendor.json'))
+	], ['vendor']);
 	gulp.watch('src/images/png/*', ['img']);
 	gulp.watch('src/js/**/*.js', ['minifyJS']);
 	gulp.watch('src/.htaccess', ['rewrite']);
