@@ -5,7 +5,7 @@ wfApp.factory('wfService', [
 	'$timeout',
 	'wfangular',
 	function($rootScope, $timeout, wayfinder) {
-		return new(function getData() {
+		return function getData() {
 
 			var self = this;
 			var wfDataLoaded = false;
@@ -86,7 +86,6 @@ wfApp.factory('wfService', [
 						arr.push(element);
 					}
 				});
-				// console.debug("extractFloors:", arr);
 				return arr;
 			}
 
@@ -100,7 +99,6 @@ wfApp.factory('wfService', [
 						arr.push(element);
 					}
 				});
-				// console.debug("extractShrotcuts:", arr);
 				return arr;
 			}
 
@@ -157,7 +155,7 @@ wfApp.factory('wfService', [
 						if (stringToBoolean(item.showInMenu)) {
 							arr[element.index].push(item);
 						}
-					})
+					});
 				});
 				// console.debug("extractPOIsByFloor:", arr);
 				return arr;
@@ -189,10 +187,10 @@ wfApp.factory('wfService', [
 				//Function to convert hex format to a rgb textColor
 				if (!group) return;
 				var rgb = group.getColor();
-				var r = rgb["r"];
-				var g = rgb["g"];
-				var b = rgb["b"];
-				var a = rgb["a"];
+				var r = rgb.r;
+				var g = rgb.g;
+				var b = rgb.b;
+				var a = rgb.a;
 				return "#" + r.toString(16).slice(-2) + g.toString(
 					16).slice(-2) + b.toString(16).slice(-2);
 			}
@@ -201,10 +199,10 @@ wfApp.factory('wfService', [
 				//Function to convert hex format to a rgb textColor
 				if (!group) return;
 				var rgb = group.getColor();
-				var r = rgb["r"];
-				var g = rgb["g"];
-				var b = rgb["b"];
-				var a = rgb["a"];
+				var r = rgb.r;
+				var g = rgb.g;
+				var b = rgb.b;
+				var a = rgb.a;
 				return "rgba(" + parseInt(r.toString(10) * 255) +
 					"," + parseInt(g.toString(10) * 255) + "," +
 					parseInt(b.toString(10) * 255) + "," + parseInt(a.toString(
@@ -230,7 +228,7 @@ wfApp.factory('wfService', [
 			function setActiveTab(tab) {
 				angular.forEach(tabs, function(element) {
 					element.active = element.name == (tab.name || tab);
-				})
+				});
 			}
 
 			/*** SCOPE WATCHERS ***/
@@ -361,7 +359,7 @@ wfApp.factory('wfService', [
 			};
 			this.isNavMenuVisible = function() {
 				return displayNavMenu;
-			}
-		});
+			};
+		};
 	}
 ]);

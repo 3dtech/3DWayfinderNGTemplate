@@ -1,3 +1,4 @@
+/* global wfApp */
 wfApp.directive('floorButton', function() {
 	return {
 		restrict: 'E',
@@ -5,5 +6,5 @@ wfApp.directive('floorButton', function() {
 			floor: '='
 		},
 		templateUrl: 'js/directives/floorButton.html'
-	}
+	};
 });

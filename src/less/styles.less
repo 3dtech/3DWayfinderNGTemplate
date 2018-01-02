@@ -2,8 +2,8 @@
 @import "../fonts/angular_icons-glyphs/angular_icons.css";
 @import "../fonts/angular_template-glyphs/angular_template.css";
 @import "../fonts/iglu-glyphs/iglu.css";
-//@import "../../bower_components/font-awesome/less/font-awesome.less";
-@import "../../bower_components/bootstrap/less/bootstrap.less";
+//@import "../../node_modules/font-awesome/less/font-awesome.less";
+@import "../../node_modules/bootstrap/less/bootstrap.less";
 @import "variables.less";
 @import "mixins.less";
 
@@ -237,8 +237,7 @@ input::-ms-clear {
 			padding: .5rem;
 			border-radius: 5px;
 			li {
-				padding: .5rem;
-				// margin: .25rem;
+				padding: .5rem; // margin: .25rem;
 				background-color: white;
 				color: @color-button-dark;
 				&.active {
@@ -911,8 +910,7 @@ hr {
 
 .style-7::-webkit-scrollbar-thumb {
 	.border-radius(10px);
-	background-color: @color-primary;
-	//background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.9, @color-secondary), color-stop(0.4, @color-primary), color-stop(0.6, @color-primary), color-stop(0.1, @color-secondary));
+	background-color: @color-primary; //background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.9, @color-secondary), color-stop(0.4, @color-primary), color-stop(0.6, @color-primary), color-stop(0.1, @color-secondary));
 }
 
 .animate-hide {

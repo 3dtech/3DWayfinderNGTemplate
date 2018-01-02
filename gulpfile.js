@@ -6,10 +6,9 @@ gulp.debug = require('gulp-debug');
 gulp.expect = require('gulp-expect-file');
 gulp.minify = require('gulp-minify');
 gulp.less = require('gulp-less');
-gulp.plumber = require('gulp-plumber');
 gulp.prep = require('gulp-preprocess');
-gulp.sass = require('gulp-sass');
 gulp.uglify = require('gulp-uglify');
+gulp.jshint = require('gulp-jshint');
 //ggulp.watch = require('gulp-watch');
 var fs = require('fs');
 var del = require('del');
@@ -32,7 +31,7 @@ var uglifyOpts = {};
 gulp.task('default', ['clean'], function() {
 	gulp.start('html', /*'controllers',*/ 'views', 'vendor',
 		'font', 'js', 'minifyJS',
-		'json', 'img', 'css', 'less', /*'sass',*/
+		'json', 'img', 'css', 'less',
 		'layout', 'rewrite');
 });
 
@@ -120,15 +119,15 @@ gulp.task('browserSync', function() {
 		server: {
 			baseDir: baseDir,
 			files: baseDir + "/*"
-				/*routes: {
-				 "bower_components": "bower_components"
-				 }*/
+			/*routes: {
+			 "node_modules": "node_modules"
+			 }*/
 		},
 		ui: {
 			port: 8081
 		},
 		logLevel: "info"
-			/* https: true */
+		/* https: true */
 	})
 });
 
@@ -177,12 +176,18 @@ gulp.task('vendor', function() {
 });
 
 gulp.task('font', function() {
-	return gulp.src(['./src/fonts/**/*.*', './bower_components/font-awesome/fonts/*'])
+	return gulp.src(['./src/fonts/**/*.*', './node_modules/font-awesome/fonts/*'])
 		.pipe(gulp.dest(distFolder + 'lib/fonts'))
 		.pipe(browserSync.reload({
 			stream: true
 		}));
 });
+
+gulp.task('jshint', function() {
+	return gulp.src('src/js/**/*.js')
+		.pipe(gulp.jshint())
+		.pipe(gulp.jshint.reporter('default'));
+})
 
 gulp.task('controllers', [''], function() {
 	pump([
@@ -199,7 +204,7 @@ gulp.task('controllers', [''], function() {
 
 gulp.task('js', function() {
 	return gulp.src([
-			'bower_components/angular-loading-bar/build/loading-bar.js'
+			'node_modules/angular-loading-bar/build/loading-bar.js'
 		])
 		.pipe(gulp.dest(distFolder + 'lib/js/'))
 		.pipe(browserSync.reload({
@@ -248,8 +253,8 @@ gulp.task('img', function() {
 
 gulp.task('css', function() {
 	return gulp.src([
-			'./bower_components/font-awesome/css/font-awesome.min.css',
-			'./bower_components/angular-loading-bar/build/loading-bar.css'
+			'./node_modules/font-awesome/css/font-awesome.min.css',
+			'./node_modules/angular-loading-bar/build/loading-bar.css'
 		])
 		.pipe(gulp.dest(distFolder + 'lib/css'))
 		.pipe(browserSync.reload({

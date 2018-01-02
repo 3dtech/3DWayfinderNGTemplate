@@ -1,3 +1,5 @@
+/* global angular, $, WayfinderAPI, wfApp */
+
 //var keyboardModule = angular.module('wf.keyboard', ['wfangular', 'wf.languages']);
 
 wfApp.controller('KeyboardController', [
@@ -5,25 +7,25 @@ wfApp.controller('KeyboardController', [
 	'$rootScope',
 	'$http',
 	'wfangular',
-	function ($scope, $rootScope, $http, wayfinder) {
-		$http.get('layout.json').success(function (data) {
+	function($scope, $rootScope, $http, wayfinder) {
+		$http.get('layout.json').success(function(data) {
 			//console.log(data);
 			$scope.layout = data;
 		});
 
-		$scope.keyPressed = function (value, action, $event) {
+		$scope.keyPressed = function(value, action, $event) {
 			$scope.someInput = value;
 			$rootScope.$broadcast('keyPressed', $scope.someInput, action);
 		};
 	}
 ]);
 
-wfApp.directive('myText', ['$rootScope', '$document', function ($rootScope, $document) {
+wfApp.directive('myText', ['$rootScope', '$document', function($rootScope, $document) {
 	return {
-		link: function (scope, element, attrs) {
-			$rootScope.$on('keyPressed', function (e, val, action) {
+		link: function(scope, element, attrs) {
+			$rootScope.$on('keyPressed', function(e, val, action) {
 				var domElement = element[0];
-				var triggerKeydown = function () {
+				var triggerKeydown = function() {
 					/*var e = angular.element.Event('keydown');*/
 					var e = new window.KeyboardEvent('keypress', {
 						bubbles: true,
@@ -36,7 +38,7 @@ wfApp.directive('myText', ['$rootScope', '$document', function ($rootScope, $doc
 						'value': 97
 					});
 
-					$document[0].dispatchEvent(e)
+					$document[0].dispatchEvent(e);
 					/*e.which = keycode;
 					 element.trigger(e);*/
 				};
@@ -47,7 +49,8 @@ wfApp.directive('myText', ['$rootScope', '$document', function ($rootScope, $doc
 					var sel = document.selection.createRange();
 					sel.text = val;
 					domElement.focus();
-				} else if (domElement.selectionStart || domElement.selectionStart === 0) {
+				}
+				else if (domElement.selectionStart || domElement.selectionStart === 0) {
 					var startPos = domElement.selectionStart;
 					var endPos = domElement.selectionEnd;
 					var scrollTop = domElement.scrollTop;
@@ -58,7 +61,8 @@ wfApp.directive('myText', ['$rootScope', '$document', function ($rootScope, $doc
 							domElement.focus();
 							domElement.selectionStart = startPos - 1;
 							domElement.selectionEnd = startPos - 1;
-						} else {
+						}
+						else {
 							domElement.value = domElement.value.substring(0, startPos) + domElement.value.substring(endPos, domElement.value.length);
 							domElement.focus();
 							domElement.selectionStart = startPos;
@@ -66,29 +70,32 @@ wfApp.directive('myText', ['$rootScope', '$document', function ($rootScope, $doc
 						}
 
 						domElement.scrollTop = scrollTop;
-					} else if (action == 'enter') {
+					}
+					else if (action == 'enter') {
 						triggerKeydown();
-					} else {
+					}
+					else {
 						domElement.value = domElement.value.substring(0, startPos) + val + domElement.value.substring(endPos, domElement.value.length);
 						domElement.focus();
 						domElement.selectionStart = startPos + val.length;
 						domElement.selectionEnd = startPos + val.length;
 						domElement.scrollTop = scrollTop;
 					}
-				} else {
+				}
+				else {
 					domElement.value += val;
 					domElement.focus();
 				}
 			});
 		}
-	}
+	};
 }]);
 
-wfApp.directive('myEnter', function () {
-	return function (scope, element, attrs) {
-		element.bind("keydown keypress", function (event) {
+wfApp.directive('myEnter', function() {
+	return function(scope, element, attrs) {
+		element.bind("keydown keypress", function(event) {
 			if (event.which === 13) {
-				scope.$apply(function () {
+				scope.$apply(function() {
 					scope.$eval(attrs.myEnter);
 				});
 

@@ -12,7 +12,7 @@ wfApp.controller('TopicsController', [
 	'wfService',
 	'wfangular',
 	'$location',
-	function ($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder, $location) {
+	function($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder, $location) {
 		// console.debug("TC.loaded");
 		var topics = $scope;
 		$scope.groups = wfService.data.groups;
@@ -22,19 +22,18 @@ wfApp.controller('TopicsController', [
 		$scope.collapsedFloor = [];
 		$scope.activeLetter = "";
 
-		$scope.onViewLoad = function(){
-			dragscroll.reset();
-			angular.forEach($scope.groups,function (group) {
+		$scope.onViewLoad = function() {
+			angular.forEach($scope.groups, function(group) {
 				console.log(group.active);
-				group.active=false;
-			})
+				group.active = false;
+			});
 		};
 
-		$scope.showPath = function (poi) {
+		$scope.showPath = function(poi) {
 
 			//console.log("showPath.poi:", poi, wayfinder.getKiosk(),
 			//	wayfinder.getKioskNode());
-			if(window.innerWidth<1024||(window.innerHeight > window.innerWidth)){
+			if (window.innerWidth < 1024 || (window.innerHeight > window.innerWidth)) {
 				$location.path('/');
 				$rootScope.$broadcast("wf.nav-menu", "hide");
 			}
@@ -47,7 +46,7 @@ wfApp.controller('TopicsController', [
 		 * @param group
 		 * @returns {number}
 		 */
-		$scope.toggleGroupActive = function (group) {
+		$scope.toggleGroupActive = function(group) {
 			group.active = !group.active;
 		};
 
@@ -55,7 +54,7 @@ wfApp.controller('TopicsController', [
 		 * Function to fetch currently active language
 		 * @returns {*}
 		 */
-		$scope.getLanguage = function () {
+		$scope.getLanguage = function() {
 			return wayfinder.getLanguage();
 		};
 
@@ -63,26 +62,26 @@ wfApp.controller('TopicsController', [
 		 * Currently unused function
 		 * @param group
 		 */
-		$scope.expand = function (group) {
+		$scope.expand = function(group) {
 			group.show = !group.show;
 		};
 
 		/**
 		 * Watcher to check if a group is collapsed or not
 		 */
-		$scope.$watch("collapsedGroup", function (newVal, oldVal) {
+		$scope.$watch("collapsedGroup", function(newVal, oldVal) {
 			//console.log("collapsedGroup:", oldVal, "->", newVal);
 		});
 
 		function checkRouteParams() {
 
 			if (!$routeParams) return;
-			$scope.$apply(function () {
+			$scope.$apply(function() {
 				$scope.groups = wfService.data.groups;
 			});
-			angular.forEach($scope.groups, function (element, key) {
+			angular.forEach($scope.groups, function(element, key) {
 				if (element.id == $routeParams.id) {
-					$scope.$apply(function () {
+					$scope.$apply(function() {
 						$scope.groups[key].active = element.id == $routeParams.id;
 					});
 					$rootScope.$broadcast("wf.nav-menu", "show");
@@ -104,7 +103,7 @@ wfApp.controller('TopicsController', [
 		 * This watcher waits for the "wf.topic.selected" event, which is sent by the AtoZ
 		 * controller when the user selects a topics from the AtoZ menu
 		 */
-		$scope.$on('wf.topic.selected', function (event, group) {
+		$scope.$on('wf.topic.selected', function(event, group) {
 			// console.debug("selected.topic:", group);
 			if ($routeParams) {
 				for (var key in $scope.groups) {
@@ -113,12 +112,12 @@ wfApp.controller('TopicsController', [
 				}
 			}
 		});
-		$scope.$on("wf.map.ready", function (event) {
+		$scope.$on("wf.map.ready", function(event) {
 
 			checkRouteParams();
 		});
 
-		$timeout(function () {
+		$timeout(function() {
 			checkRouteParams();
 		}, 10);
 

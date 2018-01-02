@@ -47,7 +47,7 @@ var wfApp = angular.module('wfApp', [
 // ------------------------------------------
 
 wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadingBarProvider',
-	function (wfangularConfig, $routeProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
+	function(wfangularConfig, $routeProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
 		$routeProvider
 			.when('/info&:id?/', {
 				templateUrl: "views/info.html",
@@ -93,24 +93,24 @@ wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpPr
 ]);
 
 wfApp.run([
-    'wfangular',
-    'wfangularConfig',
-    '$rootScope',
-    '$http',
-    '$route',
-    '$location',
-    'naturalService',
-    function(wayfinder, wfangularConfig, $rootScope, $http, $route, $location, naturalService) {
-        $route.reload();
+	'wfangular',
+	'wfangularConfig',
+	'$rootScope',
+	'$http',
+	'$route',
+	'$location',
+	'naturalService',
+	function(wayfinder, wfangularConfig, $rootScope, $http, $route, $location, naturalService) {
+		$route.reload();
 
-        if (wfangularConfig.mapType === "3d") {
-            // @if DEBUG
-            wayfinder.options.assetsLocation = '//static.3dwayfinder.com/shared/';
-            // @endif
-            // @if !DEBUG
-            wayfinder.options.assetsLocation = '../../../shared';
-            // @endif
-        }
+		if (wfangularConfig.mapType === "3d") {
+			// @if DEBUG
+			wayfinder.options.assetsLocation = '//static.3dwayfinder.com/shared/';
+			// @endif
+			// @if !DEBUG
+			wayfinder.options.assetsLocation = '../../../shared';
+			// @endif
+		}
 
 		// 2d: dc96de58dda5386c5849fa7b5df26d1c
 		// 3d: 599a8cbdf993e8f913641ea551908707
@@ -122,48 +122,48 @@ wfApp.run([
 	}
 ]);
 
-wfApp.directive('resize', function ($window) {
+wfApp.directive('resize', function($window) {
 	return {
 		restrict: 'AEC',
 		scope: {
 			cbResize: '&cbResize'
 		},
-		link: function (scope, element) {
+		link: function(scope, element) {
 
 			var w = element[0];
-			scope.getWindowDimensions = function () {
+			scope.getWindowDimensions = function() {
 				return {
 					'h': w.clientHeight,
 					'w': w.clientWidth
 				};
 			};
 
-			scope.$watch(scope.getWindowDimensions, function (newValue) {
+			scope.$watch(scope.getWindowDimensions, function(newValue) {
 				scope.windowHeight = newValue.h;
 				scope.windowWidth = newValue.w;
 
-				scope.style = function () {
+				scope.style = function() {
 					return {
 						'height': (newValue.h - 10) +
-						'px',
+							'px',
 						'width': (newValue.w - 10) +
-						'px'
+							'px'
 					};
 				};
 
 			}, true);
 
-			angular.element($window).bind('resize', function () {
-				scope.$apply(function () {
+			angular.element($window).bind('resize', function() {
+				scope.$apply(function() {
 					scope.cbResize();
 				});
 			});
 		}
-	}
+	};
 });
 
-wfApp.filter('reverse', function () {
-	return function (items) {
+wfApp.filter('reverse', function() {
+	return function(items) {
 		if (!!items) {
 			return items.slice().reverse();
 		}
@@ -171,56 +171,56 @@ wfApp.filter('reverse', function () {
 	};
 });
 
-wfApp.directive('floorsMenu', function () {
+wfApp.directive('floorsMenu', function() {
 	return {
 		restrict: 'AE',
 		replace: 'true',
 		template: '<div id="floors-menu" class="btn-group" ng-show="showFloorsMenu" ng-controller="ControlsController">' +
-		'<div class="floor-button" ng-class="{\'active\':floor.active}" ng-click="changeFloor(floor)" ng-repeat="floor in floors | orderBy: \'index\' | reverse" ng-bind-html="floor.getNames() | wfCurrentLanguage" ng-if="floor.showInMenu">' +
-		'' +
-		'</div>'
-	}
+			'<div class="floor-button" ng-class="{\'active\':floor.active}" ng-click="changeFloor(floor)" ng-repeat="floor in floors | orderBy: \'index\' | reverse" ng-bind-html="floor.getNames() | wfCurrentLanguage" ng-if="floor.showInMenu">' +
+			'' +
+			'</div>'
+	};
 });
 
-wfApp.directive('shortcutsMenu', function () {
+wfApp.directive('shortcutsMenu', function() {
 	return {
 		restrict: 'AE',
 		replace: 'true',
 		template: '<div id="shortcuts-menu" class="button-group" ng-show="showShortcutsMenu" ng-controller="ControlsController">' +
-		'<div id="shortcut-button" class="button" ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts" ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\': \'url({{shortcut.backgroundImage}})\'}"> ' +
-		'</div> ' +
-		'</div>'
-	}
+			'<div id="shortcut-button" class="button" ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts" ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\': \'url({{shortcut.backgroundImage}})\'}"> ' +
+			'</div> ' +
+			'</div>'
+	};
 });
 
 
-wfApp.directive('mapControls', function () {
+wfApp.directive('mapControls', function() {
 	return {
 		restrict: 'AE',
 		replace: 'true',
 		template: '<div id="map-controls" ng-controller="ControlsController">' +
-		'<shortcuts-menu></shortcuts-menu>' +
-		'<floors-menu></floors-menu>' +
-		'</div>'
-	}
+			'<shortcuts-menu></shortcuts-menu>' +
+			'<floors-menu></floors-menu>' +
+			'</div>'
+	};
 });
 
-wfApp.directive('ngHold', [function () {
+wfApp.directive('ngHold', [function() {
 	return {
 		restrict: "A",
-		link: function (scope, elm, attrs) {
+		link: function(scope, elm, attrs) {
 
 		},
-		controller: ["$scope", "$element", "$attrs", "$transclude", "$timeout", function ($scope, $element, $attrs, $transclude, $timeout) {
-			var onHold = function () {
+		controller: ["$scope", "$element", "$attrs", "$transclude", "$timeout", function($scope, $element, $attrs, $transclude, $timeout) {
+			var onHold = function() {
 				return $scope.$eval($attrs.ngHold);
 			};
-			var onDone = function () {
+			var onDone = function() {
 				return $scope.$eval($attrs.ngHoldDone);
 			};
 
 			var intervals = [];
-			($attrs.ngHoldInterval || "50").split(",").forEach(function (interval) {
+			($attrs.ngHoldInterval || "50").split(",").forEach(function(interval) {
 				intervals.push(interval.split(";"));
 			});
 			var timeout = null;
@@ -238,33 +238,33 @@ wfApp.directive('ngHold', [function () {
 				onHold();
 			}
 
-			$element.on("mousedown", function (e) {
+			$element.on("mousedown", function(e) {
 				intervalIdx = 0;
 				intervalCount = 1;
 				timeout = $timeout(timeoutFoo, intervals[intervalIdx][0]);
 				$scope.$apply(onHold);
 			});
-			$element.on("mouseup", function (e) {
+			$element.on("mouseup", function(e) {
 				if (!!timeout) {
 					$timeout.cancel(timeout);
 					$scope.$apply(onDone);
 					timeout = null;
 				}
 			});
-			$element.on("mouseleave", function (e) {
+			$element.on("mouseleave", function(e) {
 				if (!!timeout) {
 					$timeout.cancel(timeout);
 					$scope.$apply(onDone);
 					timeout = null;
 				}
 			});
-			$element.on('touchstart', function (e) {
+			$element.on('touchstart', function(e) {
 				intervalIdx = 0;
 				intervalCount = 1;
 				timeout = $timeout(timeoutFoo, intervals[intervalIdx][0]);
 				$scope.$apply(onHold);
 			});
-			$element.on("touchend", function (e) {
+			$element.on("touchend", function(e) {
 				if (!!timeout) {
 					$timeout.cancel(timeout);
 					$scope.$apply(onDone);

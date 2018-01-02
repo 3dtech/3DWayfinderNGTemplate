@@ -1,45 +1,43 @@
 {
-  "name": "3dwayfinder-ng-template",
-  "version": "0.0.1",
-  "homepage": "https://github.com/3dtech/3DWayfinderNGTemplate",
-  "authors": [
-    "3D Technologies R&D <developers@3dwayfinder.com>"
-  ],
-  "description": "",
-  "main": "index.js",
-  "moduleType": [],
-  "keywords": [
-    "Angular",
-    "template",
-    "for",
-    "3D",
-    "Wayfinder"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "3dwayfinder-angular": "latest",
-    "angular-animate": "latest",
-    "dragscroll": "latest",
-    "bootstrap": "latest",
-    "animate.css": "latest",
-    "font-awesome": "latest",
-    "angular-route": "latest",
-    "angular-loading-bar": "latest",
-    "grunt-cli": "latest",
-    "angular-ui": "latest",
-    "angular-sanitize": "latest",
-    "jquery": "^3.2.1",
-    "jquery-ui": "latest",
-    "watch.js": "latest"
-  },
-  "resolutions": {
-    "angular": "1.6.5"
-  }
+	"name": "3dwayfinder-ng-template",
+	"version": "0.0.1",
+	"homepage": "https://github.com/3dtech/3DWayfinderNGTemplate",
+	"authors": [
+		"3D Technologies R&D <developers@3dwayfinder.com>"
+	],
+	"description": "",
+	"main": "index.js",
+	"moduleType": [],
+	"keywords": [
+		"Angular",
+		"template",
+		"for",
+		"3D",
+		"Wayfinder"
+	],
+	"license": "MIT",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"3dwayfinder-angular": "latest",
+		"angular": "1.6.5",
+		"angular-animate": "latest",
+		"angular-loading-bar": "latest",
+		"angular-route": "latest",
+		"angular-sanitize": "latest",
+		"angular-ui": "latest",
+		"animate.css": "latest",
+		"bootstrap": "latest",
+		"dragscroll": "latest",
+		"font-awesome": "latest",
+		"grunt-cli": "latest",
+		"jquery": "^3.2.1",
+		"jquery-ui": "latest",
+		"watch.js": "latest"
+	}
 }
