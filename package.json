@@ -27,15 +27,13 @@
     "angular": "^1.6.6",
     "angular-animate": "^1.6.6",
     "angular-loading-bar": "^0.9.0",
-    "angular-route": "^1.6.6",
     "angular-sanitize": "^1.6.6",
     "angular-ui": "^1.0.0",
     "animate.css": "^3.5.2",
     "bootstrap": "^3.3.7",
     "dragscroll": "0.0.8",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.2.1",
-    "ui-router": "^1.0.0-alpha.3"
+    "jquery": "^3.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -44,7 +42,6 @@
     "browser-sync-middleware-spa": "^1.0.0",
     "browser-sync-spa": "^1.0.3",
     "del": "^3.0.0",
-    "grunt-cli": "^1.2.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-concat": "^2.6.1",
@@ -52,7 +49,6 @@
     "gulp-expect-file": "0.0.7",
     "gulp-less": "^3.3.2",
     "gulp-minify": "^2.1.0",
-    "gulp-plumber": "^1.1.0",
     "gulp-preprocess": "^2.0.0",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",

@@ -3,12 +3,12 @@
 wfApp.controller('SearchController', [
 	'$rootScope',
 	'$scope',
-	'$routeParams',
+	'$stateParams',
 	'$timeout',
 	'wfService',
 	'keyboardService',
 	'wfangular',
-	function ($rootScope, $scope, $routeParams, $timeout, wfService, keyboardService,
+	function ($rootScope, $scope, $stateParams, $timeout, wfService, keyboardService,
 			  wayfinder) {
 		var kbLayouts = [];
 		var searchKeyboard = {};
@@ -310,7 +310,7 @@ wfApp.controller('SearchController', [
 		});
 
 		function checkRouteParams() {
-			if (!$routeParams) return;
+			if (!$stateParams) return;
 
 			$rootScope.$broadcast("wf.nav-menu", "show");
 		}

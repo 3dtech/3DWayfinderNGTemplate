@@ -5,12 +5,12 @@
 wfApp.controller('AtozController', [
 	'$rootScope',
 	'$scope',
-	'$routeParams',
+	'$stateParams',
 	'$timeout',
 	'wfService',
 	'wfangular',
 	'$location',
-	function ($rootScope, $scope, $routeParams, $timeout, wfService, wayfinder, $location) {
+	function ($rootScope, $scope, $stateParams, $timeout, wfService, wayfinder, $location) {
 		$scope.atoz = wfService.data.atoz;
 		$scope.poiObjects = wfService.data.pois;
 		$scope.activeLetter = "";
@@ -31,7 +31,7 @@ wfApp.controller('AtozController', [
 		};
 
 		function checkRouteParams() {
-			if (!$routeParams) return;
+			if (!$stateParams) return;
 			$scope.$apply(function () {
 				$scope.poiObjects = wfService.data.pois;
 			});
