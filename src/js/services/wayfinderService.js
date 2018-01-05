@@ -3,9 +3,10 @@
 wfApp.factory('wfService', [
 	'$rootScope',
 	'$timeout',
+	'$q',
 	'wfangular',
-	function($rootScope, $timeout, wayfinder) {
-		return function getData() {
+	function($rootScope, $timeout, $q, wayfinder) {
+		return new(function getData() {
 
 			var self = this;
 			var wfDataLoaded = false;
@@ -225,6 +226,12 @@ wfApp.factory('wfService', [
 				return false;
 			}
 
+			function getSessionTimeout() {
+				console.log("wfservice.getsessiontoimeout:", wayfinder.settings
+					.data["kiosk.max-inactivity"]);
+				return $q.when(self.data.timeout);
+			}
+
 			function setActiveTab(tab) {
 				angular.forEach(tabs, function(element) {
 					element.active = element.name == (tab.name || tab);
@@ -352,7 +359,7 @@ wfApp.factory('wfService', [
 				setActiveTab(tab);
 			};
 			this.getSessionTimeout = function() {
-				return self.data.timeout;
+				return getSessionTimeout();
 			};
 			this.getActiveFloor = function() {
 				return self.data.activeFloor;
@@ -360,6 +367,6 @@ wfApp.factory('wfService', [
 			this.isNavMenuVisible = function() {
 				return displayNavMenu;
 			};
-		};
+		});
 	}
 ]);
