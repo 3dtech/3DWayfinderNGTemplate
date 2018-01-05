@@ -5,7 +5,7 @@ wfApp.controller('InfoController', [
 	'$rootScope',
 	'$scope',
 	'$timeout',
-	'$routeParams',
+	'$stateParams',
 	'$sce',
 	'wfService',
 	'wfangular',
@@ -13,13 +13,13 @@ wfApp.controller('InfoController', [
 	function ($rootScope,
 			  $scope,
 			  $timeout,
-			  $routeParams,
+			  $stateParams,
 			  $sce,
 			  wfService,
 			  wayfinder,
 			  $location) {
 		// console.log("wfService.getPOIs():", wfService.getPOIs());
-		// console.log("InfoController.poi", $scope.poi, $routeParams.id);
+		// console.log("InfoController.poi", $scope.poi, $stateParams.id);
 
 		$scope.showPath = function (poi) {
 
@@ -47,10 +47,10 @@ wfApp.controller('InfoController', [
 		};
 
 		function checkRouteParams() {
-			if (!$routeParams) return;
-			console.debug("info.$routeParams:", $routeParams);
+			if (!$stateParams) return;
+			console.debug("info.$stateParams:", $stateParams);
 			angular.forEach(wfService.getPOIs(), function (element) {
-				if (element.id == $routeParams.id) {
+				if (element.id == $stateParams.id) {
 					if (element.getDescription(wayfinder.getLanguage())) {
 						var desc = document.createElement("textarea");
 						desc.innerHTML = element.getDescription(wayfinder.getLanguage());

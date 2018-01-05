@@ -8,11 +8,11 @@ wfApp.controller('TopicsController', [
 	'$rootScope',
 	'$scope',
 	'$timeout',
-	'$routeParams',
+	'$stateParams',
 	'wfService',
 	'wfangular',
 	'$location',
-	function($rootScope, $scope, $timeout, $routeParams, wfService, wayfinder, $location) {
+	function($rootScope, $scope, $timeout, $stateParams, wfService, wayfinder, $location) {
 		// console.debug("TC.loaded");
 		var topics = $scope;
 		$scope.groups = wfService.data.groups;
@@ -75,14 +75,14 @@ wfApp.controller('TopicsController', [
 
 		function checkRouteParams() {
 
-			if (!$routeParams) return;
+			if (!$stateParams) return;
 			$scope.$apply(function() {
 				$scope.groups = wfService.data.groups;
 			});
 			angular.forEach($scope.groups, function(element, key) {
-				if (element.id == $routeParams.id) {
+				if (element.id == $stateParams.id) {
 					$scope.$apply(function() {
-						$scope.groups[key].active = element.id == $routeParams.id;
+						$scope.groups[key].active = element.id == $stateParams.id;
 					});
 					$rootScope.$broadcast("wf.nav-menu", "show");
 
@@ -105,9 +105,9 @@ wfApp.controller('TopicsController', [
 		 */
 		$scope.$on('wf.topic.selected', function(event, group) {
 			// console.debug("selected.topic:", group);
-			if ($routeParams) {
+			if ($stateParams) {
 				for (var key in $scope.groups) {
-					$scope.groups[key].active = $scope.groups[key].id == $routeParams.id;
+					$scope.groups[key].active = $scope.groups[key].id == $stateParams.id;
 					//console.log(key, $scope.groups[key].active);
 				}
 			}

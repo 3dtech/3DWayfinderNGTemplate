@@ -1,15 +1,15 @@
-/* global $, angular, wfApp, WayfinderAPI */
+/* global $, angular, wfApp, WayfinderAPI, Keyboard */
 //var groupsModule = angular.module('wf.groups', ['wfangular']);
 
 wfApp.controller('SearchController', [
 	'$rootScope',
 	'$scope',
-	'$routeParams',
+	'$stateParams',
 	'$timeout',
 	'wfService',
 	'keyboardService',
 	'wfangular',
-	function($rootScope, $scope, $routeParams, $timeout, wfService, keyboardService,
+	function($rootScope, $scope, $stateParams, $timeout, wfService, keyboardService,
 		wayfinder) {
 		var kbLayouts = [];
 		$scope.noResults = false;
@@ -309,7 +309,7 @@ wfApp.controller('SearchController', [
 		});
 
 		function checkRouteParams() {
-			if (!$routeParams) return;
+			if (!$stateParams) return;
 
 			$rootScope.$broadcast("wf.nav-menu", "show");
 		}

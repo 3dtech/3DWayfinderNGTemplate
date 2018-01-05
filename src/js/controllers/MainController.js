@@ -11,9 +11,16 @@ wfApp.controller('MainController', [
 	'$scope',
 	'$timeout',
 	'$rootScope',
-	'$location',
 	'cfpLoadingBar',
-	function MainController(wfService, keyboardService, wayfinder, $scope, $timeout, $rootScope, $location, cfpLoadingBar) {
+	'$state',
+	function MainController(wfService,
+		keyboardService,
+		wayfinder,
+		$scope,
+		$timeout,
+		$rootScope,
+		cfpLoadingBar,
+		$state) {
 		$scope = $rootScope;
 		$scope.buildingLogo = false;
 		$scope.buildingTitle = false;
@@ -41,27 +48,26 @@ wfApp.controller('MainController', [
 				if (window.innerWidth >= 1024) {
 					$rootScope.$broadcast("wf.nav-menu", "show");
 				}
+				// // TODO: replace $location
+				// if ($location.path() === '/' && $scope.isNavMenuVisible()) {
+				// 	//console.log($location.path());
+				// 	$location.path('/topics');
+				// 	$scope.setActiveTab('topics');
+				// }
+				// else {
 
-				if ($location.path() === '/' && $scope.isNavMenuVisible()) {
-					//console.log($location.path());
-					$location.path('/topics');
-					$scope.setActiveTab('topics');
-				}
-				else {
-
-					$location.path('/');
-					$rootScope.$broadcast("wf.nav-menu", "hide");
-				}
+				// 	$location.path('/');
+				// 	$rootScope.$broadcast("wf.nav-menu", "hide");
+				// }
 			}
 		};
 
 		$scope.go = function(path) {
 			//  console.debug("path:", path);
-			$location.path(path);
+			$state.go(path);
 		};
 
 		$scope.showTopic = function(group) {
-			var path = '/topics&' + group.id;
 			var tabs = Object.keys(wfService.getTabs());
 			for (var i = 0; i < tabs.length; i++) {
 				if (wfService.getTabs()[i].name == "topics") {
@@ -69,15 +75,14 @@ wfApp.controller('MainController', [
 					break;
 				}
 			}
-			$location.path(path);
+			$state.go('topics', { id: group.id });
 			$timeout(function() {
 				$scope.$broadcast("wf.topic.selected", group);
 			}, 100);
 		};
 
 		$scope.showInfo = function(poi) {
-			var path = '/info&' + poi.id;
-			$location.path(path);
+			$state.go('info', { id: poi.id });
 			$scope.setActiveTab('info');
 			$scope.$broadcast("wf.nav-menu", "show");
 		};
@@ -100,7 +105,7 @@ wfApp.controller('MainController', [
 			wayfinder.showPath(poi.getNode(), poi);
 			console.log('width', screen.width);
 			if (window.innerWidth < 1024) {
-				$location.path('/');
+				$state.path('/');
 				$rootScope.$broadcast("wf.nav-menu", "hide");
 			}
 		};

@@ -1,76 +1,51 @@
 /* global $, angular */
-// var navMenu = $('#nav-menu');
-// var navMenuButton = $('#nav-menu-btn');
-// var hideNavMenu = function() {
-// 	if (navMenu.hasClass('active')) {
-// 		navMenuButton.removeClass("icon-iglu-cancel");
-// 		navMenuButton.addClass("icon-iglu-search");
-// 		navMenu.removeClass('active');
-// 	}
-// };
-// var showNavMenu = function() {
-// 	if (!navMenu.hasClass('active')) {
-// 		navMenuButton.removeClass('icon-iglu-search');
-// 		navMenuButton.addClass('icon-iglu-cancel');
-// 		navMenu.addClass('active');
-// 	}
-// };
-
-// var toggleNavMenu = function() {
-// 	if (navMenu.hasClass('active')) {
-// 		navMenuButton.removeClass("icon-iglu-cancel");
-// 		navMenuButton.addClass("icon-iglu-search");
-// 		navMenu.removeClass('active');
-// 	}
-// 	else {
-// 		navMenuButton.removeClass("icon-iglu-search").addClass("icon-iglu-cancel");
-// 		navMenu.addClass('active');
-// 	}
-// };
 
 // Declare app level module which depends on filters, and services
 var wfApp = angular.module('wfApp', [
+	'ui.router',
 	'ngSanitize',
 	'ngAnimate',
 	'cfp.loadingBar',
-	'ngRoute',
 	'naturalSort',
 	'wfangular'
+
 ]);
 
-// wfApp.value('toggleNavMenu', toggleNavMenu);
-// wfApp.value('hideNavMenu', hideNavMenu);
-// wfApp.value('showNavMenu', showNavMenu);
 
 // ------------------------------------------
 // ----------------- config -----------------
 // ------------------------------------------
 
-wfApp.config(['wfangularConfig', '$routeProvider', '$locationProvider', '$httpProvider', 'cfpLoadingBarProvider',
-	function(wfangularConfig, $routeProvider, $locationProvider, $httpProvider, cfpLoadingBarProvider) {
-		$routeProvider
-			.when('/info&:id?/', {
-				templateUrl: "views/info.html",
-				controller: 'InfoController'
-			})
-			.when('/search/', {
-				templateUrl: "views/search.html",
+
+wfApp.config(['wfangularConfig', 'cfpLoadingBarProvider', '$stateProvider', '$urlRouterProvider',
+	function(wfangularConfig, cfpLoadingBarProvider, $stateProvider, $urlRouterProvider) {
+
+		$urlRouterProvider.otherwise('/');
+		$stateProvider
+			.state('search', {
+				url: '/search',
+				templateUrl: 'views/search.html',
 				controller: 'SearchController'
 			})
-			.when('/atoz/', {
-				templateUrl: "views/atoz.html",
+			.state('atoz', {
+				url: '/atoz',
+				templateUrl: 'views/atoz.html',
 				controller: 'AtozController'
 			})
-			.when('/topics/', {
+			.state('topics', {
+				url: '/topics',
 				templateUrl: 'views/topics.html',
 				controller: 'TopicsController'
 			})
-			.when('/topics&:id?/', {
+			.state('topics.details', {
+				url: '/topics/:id',
 				templateUrl: 'views/topics.html',
 				controller: 'TopicsController'
 			})
-			.otherwise({
-				redirectTo: '/'
+			.state('info', {
+				url: '/info/:id',
+				templateUrl: 'views/info.html',
+				controller: 'InfoController'
 			});
 
 		// @ifdef type3D
@@ -97,11 +72,9 @@ wfApp.run([
 	'wfangularConfig',
 	'$rootScope',
 	'$http',
-	'$route',
-	'$location',
-	'naturalService',
-	function(wayfinder, wfangularConfig, $rootScope, $http, $route, $location, naturalService) {
-		$route.reload();
+	'$state',
+	function(wayfinder, wfangularConfig, $rootScope, $http, $state) {
+		$state.reload('info');
 
 		if (wfangularConfig.mapType === "3d") {
 			// @if DEBUG
@@ -114,7 +87,6 @@ wfApp.run([
 
 		// 2d: dc96de58dda5386c5849fa7b5df26d1c
 		// 3d: 599a8cbdf993e8f913641ea551908707
-
 
 		wayfinder.open();
 

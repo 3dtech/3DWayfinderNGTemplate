@@ -88,11 +88,11 @@
 		<div class="tabs-container">
 			<div class="nav nav-tabs" role="tablist">
 				<div class="tab-head" ng-repeat="tab in tabs" ng-class="{'active':getActiveTab().name == tab.name}"
-					 ng-click="go(tab.link); setActiveTab(tab);" aria-controls="home" role="tab" data-toggle="tab">
+					 ng-click="go(tab.name); setActiveTab(tab);" aria-controls="home" role="tab" data-toggle="tab">
 					<div>{{getGUITranslation(tab.gui)}}</div>
 				</div>
 			</div>
-			<div class="tab-content row" ng-view onload="onViewLoad();"></div>
+			<ui-view class="tab-content row" onload="onViewLoad();"></ui-view>
 		</div>
 	</div>
 </div>
