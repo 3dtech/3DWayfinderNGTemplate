@@ -14,13 +14,13 @@ wfApp.controller('MainController', [
 	'cfpLoadingBar',
 	'$state',
 	function MainController(wfService,
-							keyboardService,
-							wayfinder,
-							$scope,
-							$timeout,
-							$rootScope,
-							cfpLoadingBar,
-							$state) {
+		keyboardService,
+		wayfinder,
+		$scope,
+		$timeout,
+		$rootScope,
+		cfpLoadingBar,
+		$state) {
 		$scope = $rootScope;
 		$scope.buildingLogo = false;
 		$scope.buildingTitle = false;
@@ -28,37 +28,46 @@ wfApp.controller('MainController', [
 		$scope.animationsEnabled = true;
 		$scope.bold = ['\<b\>', '\<\/b\>'];
 		$scope.advertisements = wayfinder.advertisements;
+		$scope.maxInactivityTime = 30;
+
+		$scope.$watch('maxInactivityTime', function(newval, oldval) {
+			console.log("maxInactivityTime:", oldval, "->", newval);
+		});
 
 		cfpLoadingBar.start();
 
 		var lastTouch = -1;
 		lastTouch = (new Date()).getTime();
-		var maxInactivityTime = wfService.getSessionTimeout();
+		wfService.getSessionTimeout().then(function(result) {
+			console.log("timeout", result);
+			$scope.maxInactivityTime = result.data;
+		});
 
-		$scope.loadDefaultView = function () {
-			if(window.innerWidth>=1024 || window.innerWidth<window.innerHeight){
-				if(window.innerWidth>=1024){
+		$scope.loadDefaultView = function() {
+			if (window.innerWidth >= 1024 || window.innerWidth < window.innerHeight) {
+				if (window.innerWidth >= 1024) {
 					$rootScope.$broadcast("wf.nav-menu", "show");
 				}
+				// // TODO: replace $location
+				// if ($location.path() === '/' && $scope.isNavMenuVisible()) {
+				// 	//console.log($location.path());
+				// 	$location.path('/topics');
+				// 	$scope.setActiveTab('topics');
+				// }
+				// else {
 
-				if ($location.path() === '/' && $scope.isNavMenuVisible()) {
-					//console.log($location.path());
-					$location.path('/topics');
-					$scope.setActiveTab('topics');
-				} else {
-
-					$location.path('/');
-					$rootScope.$broadcast("wf.nav-menu", "hide");
-				}
+				// 	$location.path('/');
+				// 	$rootScope.$broadcast("wf.nav-menu", "hide");
+				// }
 			}
 		};
 
-		$scope.go = function (path) {
+		$scope.go = function(path) {
 			//  console.debug("path:", path);
 			$state.go(path);
 		};
 
-		$scope.showTopic = function (group) {
+		$scope.showTopic = function(group) {
 			var tabs = Object.keys(wfService.getTabs());
 			for (var i = 0; i < tabs.length; i++) {
 				if (wfService.getTabs()[i].name == "topics") {
@@ -66,49 +75,49 @@ wfApp.controller('MainController', [
 					break;
 				}
 			}
-			$state.go('topics',{id:group.id});
-			$timeout(function () {
+			$state.go('topics', { id: group.id });
+			$timeout(function() {
 				$scope.$broadcast("wf.topic.selected", group);
 			}, 100);
 		};
 
-		$scope.showInfo = function (poi) {
-			$state.go('info',{id:poi.id});
+		$scope.showInfo = function(poi) {
+			$state.go('info', { id: poi.id });
 			$scope.setActiveTab('info');
 			$scope.$broadcast("wf.nav-menu", "show");
 		};
 
-		$scope.toggleNavMenu = function () {
+		$scope.toggleNavMenu = function() {
 			$scope.$broadcast("wf.nav-menu", "toggle");
 		};
 
-		$scope.isNavMenuVisible = function () {
+		$scope.isNavMenuVisible = function() {
 
 			return wfService.isNavMenuVisible();
 		};
 
-		$scope.$on('wf.poi.click', function (event, poi) {
+		$scope.$on('wf.poi.click', function(event, poi) {
 			$scope.showInfo(poi);
 		});
 
-		$scope.showPath = function (poi) {
+		$scope.showPath = function(poi) {
 
 			wayfinder.showPath(poi.getNode(), poi);
-			console.log('width',screen.width);
-			if(window.innerWidth < 1024){
+			console.log('width', screen.width);
+			if (window.innerWidth < 1024) {
 				$state.path('/');
 				$rootScope.$broadcast("wf.nav-menu", "hide");
 			}
 		};
 
-		$scope.getColorRGBA = function (group) {
+		$scope.getColorRGBA = function(group) {
 			//Function to convert hex format to a rgb textColor
 			if (!group) return;
 			var rgb = group.getColor();
-			var r = rgb["r"];
-			var g = rgb["g"];
-			var b = rgb["b"];
-			var a = rgb["a"];
+			var r = rgb.r;
+			var g = rgb.g;
+			var b = rgb.b;
+			var a = rgb.a;
 			return "rgba(" + parseInt(r.toString(10) * 255) + "," + parseInt(g.toString(10) * 255) + "," + parseInt(b.toString(10) * 255) + "," + parseInt(a.toString(10) * 255) + ")";
 		};
 
@@ -130,16 +139,16 @@ wfApp.controller('MainController', [
 			//console.log("Checker! time since lastTouch", (((new Date())
 			//    .getTime() - lastTouch) / 1000), "sec");
 			var time = (new Date()).getTime();
-			if (time - lastTouch > maxInactivityTime) {
+			if (time - lastTouch > $scope.maxInactivityTime) {
 				if (lastTouch > -1) {
 					onTimeout();
 				}
 				else {
-					$timeout(checker, maxInactivityTime);
+					$timeout(checker, $scope.maxInactivityTime);
 				}
 			}
 			else {
-				$timeout(checker, maxInactivityTime - (time - lastTouch));
+				$timeout(checker, $scope.maxInactivityTime - (time - lastTouch));
 			}
 		}
 
@@ -152,7 +161,7 @@ wfApp.controller('MainController', [
 			//console.log(lastTouch);
 		}
 
-		$scope.trigger = function () {
+		$scope.trigger = function() {
 			//console.log("Trigger! time since lastTouch", (((new Date())
 			//  .getTime() - lastTouch) / 1000), "sec");
 			//reset
@@ -161,48 +170,48 @@ wfApp.controller('MainController', [
 				//first click in a while
 				hideScreensaver();
 				wayfinder.statistics.onSessionStart();
-				$timeout(checker, maxInactivityTime);
+				$timeout(checker, $scope.maxInactivityTime);
 			}
 			lastTouch = (new Date()).getTime();
 		};
 
-		$timeout(checker, maxInactivityTime);
+		$timeout(checker, $scope.maxInactivityTime);
 
 		/*** SCOPE FUNCTIONS ***/
 
-		$scope.showYAH = function () {
+		$scope.showYAH = function() {
 			wayfinder.showKiosk();
-			if(window.innerWidth < 1024){
+			if (window.innerWidth < 1024) {
 				$rootScope.$broadcast("wf.nav-menu", "hide");
 			}
 		};
 
-		$scope.cbResizeCtrl = function () {
+		$scope.cbResizeCtrl = function() {
 			wayfinder.resize();
 		};
 
-		$scope.getGUITranslation = function (key, params) {
+		$scope.getGUITranslation = function(key, params) {
 			if (params) return wayfinder.translator.get(key);
 			return wayfinder.translator.get(key, params);
 		};
-		$scope.setActiveTab = function (tab) {
+		$scope.setActiveTab = function(tab) {
 			//console.debug("MC: setActvieTab:", tab);
 			wfService.setActiveTab(tab);
 		};
 
-		$scope.getActiveTab = function () {
+		$scope.getActiveTab = function() {
 			return wfService.getActiveTab();
 		};
 
 		$scope.tabs = wfService.getTabs();
 
 
-		$scope.showGroupNearest = function (group) {
+		$scope.showGroupNearest = function(group) {
 			var pois = [];
 			var poiHasGroup = 0;
 			angular.forEach(wayfinder.getKioskNode().floor.getPOIs(),
-				function (element) {
-					angular.forEach(element.getGroups(), function (item) {
+				function(element) {
+					angular.forEach(element.getGroups(), function(item) {
 						if (item.getName(wayfinder.getLanguage()) ===
 							group.getName(wayfinder.getLanguage()))
 							poiHasGroup = 1;
@@ -231,49 +240,47 @@ wfApp.controller('MainController', [
 
 		/*** ROOTSCOPE WATCHERS ***/
 
-		$scope.$on('wf.path.finished', function (event, path) {
-			angular.forEach(wayfinder.getPOIsArray(), function (item) {
+		$scope.$on('wf.path.finished', function(event, path) {
+			angular.forEach(wayfinder.getPOIsArray(), function(item) {
 				if (item.node_id == parseInt(path[path.length - 1])) {
 					wayfinder.setHighlights([item]);
 				}
 			});
 		});
 
-		$scope.$on('wf.data.loaded', function () {
+		$scope.$on('wf.data.loaded', function() {
 			// @ifdef type3D
-			if(	($.isEmptyObject(wayfinder.floorMeshes)) &&
-			// @endif
-			// @ifdef type2D
-				if (wayfinder.building&&$.isEmptyObject(wayfinder.building.getFloors())&&
-					// @endif
-
-
+			if (($.isEmptyObject(wayfinder.floorMeshes)) &&
+				// @endif
+				// @ifdef type2D
+				//if (wayfinder.building && $.isEmptyObject(wayfinder.building.getFloors()) &&
+				// @endif
 				$.isEmptyObject(wayfinder.pois) &&
 				$.isEmptyObject(wayfinder.poiGroups) &&
-				!wayfinder.kiosk)
-			{
-				$('#no-project').css({'display':'flex','z-index':'999'});
-				if($scope.getGUITranslation('no-project')==='no-project'){
+				!wayfinder.kiosk) {
+				$('#no-project').css({ 'display': 'flex', 'z-index': '999' });
+				if ($scope.getGUITranslation('no-project') === 'no-project') {
 					$('#no-project>p').text('Your project is empty!');
-				} else {
+				}
+				else {
 					$('#no-project>p').text($scope.getGUITranslation('no-project'));
 				}
-
-			} else {
+			}
+			else {
 				$('#no-project').remove();
 			}
-			maxInactivityTime = wfService.getSessionTimeout();
+			$scope.maxInactivityTime = wfService.getSessionTimeout();
 		});
 
-		$scope.$on('wf.map.ready', function (event) {
+		$scope.$on('wf.map.ready', function(event) {
 			$scope.loadDefaultView();
 			// console.log("map ready!");
 			cfpLoadingBar.complete();
 			$("#loading-bar-container").remove();
 			$timeout(function() {
-				wayfinder.resize()
-			},100);
-			$scope.buildingLogo = (wayfinder.building.logoID ? window.location.protocol + WayfinderAPI.getURL("images", "get", wayfinder.building.logoID): false);
+				wayfinder.resize();
+			}, 100);
+			$scope.buildingLogo = (wayfinder.building.logoID ? window.location.protocol + WayfinderAPI.getURL("images", "get", wayfinder.building.logoID) : false);
 			$scope.buildingTitle = wayfinder.building.name;
 		});
 	}
