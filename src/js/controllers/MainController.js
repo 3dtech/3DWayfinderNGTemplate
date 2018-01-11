@@ -38,16 +38,23 @@ wfApp.controller('MainController', [
 
 		var lastTouch = -1;
 		lastTouch = (new Date()).getTime();
+
 		wfService.getSessionTimeout().then(function(result) {
-			console.log("timeout", result);
-			$scope.maxInactivityTime = result.data;
+
+			if(result){
+				console.log("timeout", result);
+				$scope.maxInactivityTime = result.data;
+			}
 		});
 
 		$scope.loadDefaultView = function() {
 			if (window.innerWidth >= 1024 || window.innerWidth < window.innerHeight) {
+
 				if (window.innerWidth >= 1024) {
+					$scope.setActiveTab('atoz');
 					$rootScope.$broadcast("wf.nav-menu", "show");
 				}
+
 				// // TODO: replace $location
 				// if ($location.path() === '/' && $scope.isNavMenuVisible()) {
 				// 	//console.log($location.path());
@@ -88,6 +95,11 @@ wfApp.controller('MainController', [
 		};
 
 		$scope.toggleNavMenu = function() {
+			if ($state.current.name ==="" && window.innerWidth <= 1024) {
+				$scope.setActiveTab('atoz');
+				$state.go('atoz');
+
+			}
 			$scope.$broadcast("wf.nav-menu", "toggle");
 		};
 
@@ -269,7 +281,7 @@ wfApp.controller('MainController', [
 			else {
 				$('#no-project').remove();
 			}
-			$scope.maxInactivityTime = wfService.getSessionTimeout();
+			$scope.maxInactivityTime = wfService.getSessionTimeout().$$state.value;
 		});
 
 		$scope.$on('wf.map.ready', function(event) {
