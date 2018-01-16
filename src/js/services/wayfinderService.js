@@ -52,6 +52,29 @@ wfApp.factory('wfService', [
 				tabs: tabs
 			};
 
+
+
+			function boolify(val) {
+				// console.log(val + ':' + typeof val);
+				switch (typeof val) {
+					case "undefined":
+					case "object":
+					case "array":
+						return false;
+					case "boolean":
+						return val;
+					case "string":
+						if (val.toLowerCase().match(/1|true|yes/g)) return true;
+						else if (val.toLowerCase().match(/0|false|no/g)) return false;
+						else return false;
+					case "number":
+						if ((Math.round(val) || val) > 0) return true;
+						else return false;
+					case "default":
+						break;
+				}
+			};
+
 			function stringToBoolean(string) {
 				if (angular.isString(string)) {
 					switch (string.toLowerCase().trim()) {
@@ -329,7 +352,9 @@ wfApp.factory('wfService', [
 			});
 
 			/* SERVICE SETTERS AND GETTERS */
-
+			this.boolify = function(value) {
+				return boolify(value);
+			};
 			this.getTabs = function() {
 				return self.data.tabs;
 			};

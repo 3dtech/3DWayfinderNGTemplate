@@ -1,6 +1,6 @@
 {
 	"name": "wayfinder3d-angular-template",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Free to use Angular template for 3D Wayfinder",
 	"main": "index.js",
 	"scripts": {
