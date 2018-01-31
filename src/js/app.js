@@ -159,7 +159,7 @@ wfApp.directive('shortcutsMenu', function () {
 		restrict: 'AE',
 		replace: 'true',
 		template: '<div id="shortcuts-menu" class="button-group" ng-show="showShortcutsMenu" ng-controller="ControlsController">' +
-		'<div ng-if="shortcut.pois[0]" id="shortcut-button" class="button" ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts" ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\': \'url({{shortcut.backgroundImage}})\'}"> ' +
+		'<div ng-if="shortcut.pois[0]" class="button shortcut-button" ng-bind-html="shortcut.capital" ng-repeat="shortcut in shortcuts" ng-click="showGroupNearest(shortcut)" ng-style="{\'background-image\': \'url({{shortcut.backgroundImage}})\'}"> ' +
 		'</div> ' +
 		'</div>'
 	};

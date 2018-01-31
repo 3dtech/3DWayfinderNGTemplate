@@ -219,19 +219,18 @@ wfApp.controller('MainController', [
 
 
         $scope.showGroupNearest = function (group) {
+
             var pois = [];
-            var poiHasGroup = 0;
             angular.forEach(wayfinder.getKioskNode().floor.getPOIs(),
                 function (element) {
+            	
                     angular.forEach(element.getGroups(), function (item) {
                         if (item.getName(wayfinder.getLanguage()) ===
-                            group.getName(wayfinder.getLanguage()))
-                            poiHasGroup = 1;
+                            group.getName(wayfinder.getLanguage())){
+							pois.push(element);
+						}
                     });
-                    if (poiHasGroup) {
-                        pois.push(element);
-                        poiHasGroup = 0;
-                    }
+
                 });
             if (pois.length == 0) {
                 // console.log("no pois on kiosk floor");
@@ -244,8 +243,14 @@ wfApp.controller('MainController', [
             }
             var nearest = wayfinder.getNearestPOI(wayfinder.getKiosk(),
                 pois);
-            wayfinder.showPath(nearest.getNode());
-            wayfinder.statistics.onClick(nearest.id, "route");
+           
+
+            if(nearest){
+				wayfinder.showPath(nearest.getNode());
+				wayfinder.statistics.onClick(nearest.id, "route");
+			} else {
+            	console.log("Couldn't find path to nearest POI!");
+			}
         };
 
         /*** EVENT WATCHERS ***/
