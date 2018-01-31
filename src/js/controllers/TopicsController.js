@@ -22,6 +22,7 @@ wfApp.controller('TopicsController', [
 		$scope.collapsedFloor = [];
 		$scope.activeLetter = "";
 
+
 		$scope.onViewLoad = function() {
 			angular.forEach($scope.groups, function(group) {
 				console.log(group.active);
@@ -113,7 +114,7 @@ wfApp.controller('TopicsController', [
 			}
 		});
 		$scope.$on("wf.map.ready", function(event) {
-
+			$scope.groups = wfService.data.groups;
 			checkRouteParams();
 		});
 

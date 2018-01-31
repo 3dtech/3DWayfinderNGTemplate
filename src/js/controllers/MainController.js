@@ -29,10 +29,12 @@ wfApp.controller('MainController', [
 		$scope.bold = ['\<b\>', '\<\/b\>'];
 		$scope.advertisements = wayfinder.advertisements;
 		$scope.maxInactivityTime = 30;
-
+		$scope.languages = [];
+		$scope.activeLanguage = {};
 		$scope.$watch('maxInactivityTime', function (newval, oldval) {
 			console.log("maxInactivityTime:", oldval, "->", newval);
 		});
+		$scope.isRTLValue = false;
 
 		cfpLoadingBar.start();
 
@@ -48,7 +50,19 @@ wfApp.controller('MainController', [
 				console.log("Didn't get session timeout - missing or not available!");
 			}
 		});
-
+		$scope.isRTL = function() {
+			//console.log("isArabic:", $scope.language.name === "ar");
+			if ($scope.languages.length) {
+				angular.forEach($scope.languages, function(lang) {
+					if (lang.active && lang.name==="ar") {
+						console.log(true);
+						$scope.isRTLValue = true;
+					}
+				});
+			}
+			
+			
+		};
 		$scope.loadDefaultView = function () {
 			if (window.innerWidth >= 1024 || window.innerWidth < window.innerHeight) {
 
@@ -296,10 +310,25 @@ wfApp.controller('MainController', [
 			}
 		});
 		$scope.$on('wf.language.change', function (event, language) {
-
+			if ($scope.languages.length) {
+				angular.forEach($scope.languages, function(lang) {
+					lang.active = lang.name == language;
+					if (lang.active) {
+						$scope.activeLanguage = lang;
+						$scope.isRTL();
+					}
+				});
+			}
 		});
 		$scope.$on('wf.map.ready', function (event) {
-
+			if (!$scope.languages.length) {
+				var langs = wayfinder.getLanguages();
+				angular.forEach(langs, function(lang) {
+					lang.active = lang.name == wayfinder.getLanguage();
+					$scope.languages.push(lang);
+				});
+				$scope.isRTL();
+			}
 			$scope.loadDefaultView();
 			// console.log("map ready!");
 			cfpLoadingBar.complete();

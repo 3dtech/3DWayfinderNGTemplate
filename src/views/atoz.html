@@ -6,7 +6,7 @@
 			<div class="poi row" ng-repeat="poi in poiObjects | orderBy:'names.translations.'+getLanguage()">
 
 				<div class="col-xs-12 locations">
-					<div class="col-xs-8 col-sm-10 col-md-9 col-lg-9 name" ng-click="showInfo(poi)" ng-bind-html="poi.getName(getLanguage())"></div>
+					<div class="col-xs-8 col-sm-10 col-md-9 col-lg-9 name" ng-click="showInfo(poi)" ng-bind-html="poi.getName(getLanguage())?poi.getName(getLanguage()):poi.getName('en')"></div>
 					<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
 						<div  ng-click="showPath(poi)">
 							<i class="icon icon-iglu-goto"></i>

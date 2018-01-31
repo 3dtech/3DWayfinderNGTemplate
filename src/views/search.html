@@ -18,7 +18,7 @@
 				<div class="poi row" ng-repeat="poi in poiObjects track by $index">
 					<div class="col-xs-12 locations">
 						<div class="col-xs-8 col-sm-10 col-md-9 col-lg-9 name" ng-click="showInfo(poi)"
-						     ng-bind-html="poi.getName(getLanguage())"></div>
+						     ng-bind-html="poi.getName(getLanguage())?poi.getName(getLanguage()):poi.getName('en')"></div>
 						<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
 							<i class="icon icon-iglu-goto" ng-click="showPath(poi)"></i>
 						</div>
@@ -28,7 +28,7 @@
 					</div>
 					<div class="groups col-xs-12">
 						<div class="group" ng-repeat="group in poi.getGroups()"
-						     style="color: {{group.colorRGBA}};" ng-bind-html="group.getName(getLanguage())">
+						     style="color: {{group.colorRGBA}};" ng-bind-html="group.getName(getLanguage())?group.getName(getLanguage()):group.getName('en')">
 						</div>
 					</div>
 				</div>
