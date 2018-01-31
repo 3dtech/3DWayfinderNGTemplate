@@ -44,6 +44,8 @@ wfApp.controller('MainController', [
 			if (result) {
 				console.log("timeout", result);
 				$scope.maxInactivityTime = result.data;
+			} else {
+				console.log("Didn't get session timeout - missing or not available!");
 			}
 		});
 
@@ -286,7 +288,12 @@ wfApp.controller('MainController', [
 				else {
 					$('#no-project').remove();
 				}
-			$scope.maxInactivityTime = wfService.getSessionTimeout().$$state.value;
+			if (wfService.getSessionTimeout() && wfService.getSessionTimeout().$$state && wfService.getSessionTimeout().$$state.value) {
+				$scope.maxInactivityTime = wfService.getSessionTimeout().$$state.value;
+			}
+			else {
+				console.log("Didn't get session timeout - missing or not available!");
+			}
 		});
 		$scope.$on('wf.language.change', function (event, language) {
 
