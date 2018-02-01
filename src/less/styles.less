@@ -101,6 +101,24 @@ input::-ms-clear {
 	}
 
   }
+  .topics {
+	.panel-group {
+	  .topic {
+		.topic-head {
+
+		  .flex-direction(row-reverse);
+		}
+	  }
+	  .topic-list {
+		.list-group-item {
+		  padding-left:15px;
+		  padding-right:15px;
+			.name{
+			}
+		}
+	  }
+	}
+  }
 }
 .container {
   position: relative;
@@ -177,7 +195,8 @@ input::-ms-clear {
 	}
   }
   .title-logo{
-	width: 45%;
+	width: 100%;
+	max-height:100% ;
   }
   .title {
 	position: relative;
@@ -724,6 +743,7 @@ hr {
 	}
 	.topic-list {
 	  .list-group-item {
+		display: flex;
 		border: 0;
 		border-bottom: 1px solid @topics-panel-group-topic-list-group-item-border-color;
 		padding-left: 40px;

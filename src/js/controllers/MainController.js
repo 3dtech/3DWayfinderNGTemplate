@@ -54,10 +54,8 @@ wfApp.controller('MainController', [
 			//console.log("isArabic:", $scope.language.name === "ar");
 			if ($scope.languages.length) {
 				angular.forEach($scope.languages, function(lang) {
-					if (lang.active && lang.name==="ar") {
-						console.log(true);
-						$scope.isRTLValue = true;
-					}
+					$scope.isRTLValue=lang.active && lang.name==="ar";
+					console.log("language value",);
 				});
 			}
 			
@@ -316,8 +314,9 @@ wfApp.controller('MainController', [
 					lang.active = lang.name == language;
 					if (lang.active) {
 						$scope.activeLanguage = lang;
-						$scope.isRTL();
+
 					}
+					$scope.isRTL();
 				});
 			}
 		});

@@ -88,7 +88,7 @@ wfApp.run([
 		// 2d: dc96de58dda5386c5849fa7b5df26d1c
 		// 3d: 599a8cbdf993e8f913641ea551908707
 
-		wayfinder.open('01be2b3e4a5bb5f0dfffeca0f3a12e2b');
+		wayfinder.open();
 
 		wayfinder.statistics.start();
 	}
