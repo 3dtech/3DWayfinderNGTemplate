@@ -5,7 +5,8 @@ wfApp.factory('wfService', [
 	'$timeout',
 	'$q',
 	'wfangular',
-	function($rootScope, $timeout, $q, wayfinder) {
+	'$state',
+	function($rootScope, $timeout, $q, wayfinder,$state) {
 		return new(function getData() {
 
 			var self = this;
@@ -382,6 +383,7 @@ wfApp.factory('wfService', [
 			this.setActiveTab = function(tab) {
 				//console.log( "wfService.setActiveTab", tab );
 				setActiveTab(tab);
+				$state.go(tab);
 			};
 			this.getSessionTimeout = function() {
 				return getSessionTimeout();

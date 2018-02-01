@@ -68,6 +68,7 @@ wfApp.controller('MainController', [
 
 				if (window.innerWidth >= 1024) {
 					$scope.setActiveTab('atoz');
+
 					$rootScope.$broadcast("wf.nav-menu", "show");
 				}
 
