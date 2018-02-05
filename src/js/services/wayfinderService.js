@@ -383,7 +383,6 @@ wfApp.factory('wfService', [
 			this.setActiveTab = function(tab) {
 				//console.log( "wfService.setActiveTab", tab );
 				setActiveTab(tab);
-				$state.go(tab);
 			};
 			this.getSessionTimeout = function() {
 				return getSessionTimeout();

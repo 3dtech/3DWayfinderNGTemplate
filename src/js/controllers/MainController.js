@@ -66,7 +66,7 @@ wfApp.controller('MainController', [
 
 				if (window.innerWidth >= 1024) {
 					$scope.setActiveTab('atoz');
-
+					$state.go('atoz');
 					$rootScope.$broadcast("wf.nav-menu", "show");
 				}
 
@@ -104,8 +104,9 @@ wfApp.controller('MainController', [
 		};
 
 		$scope.showInfo = function (poi) {
-			$state.go('info', {id: poi.id});
 			$scope.setActiveTab('info');
+			console.log(poi.id);
+			$state.go('info', {id: poi.id});
 			$scope.$broadcast("wf.nav-menu", "show");
 		};
 
