@@ -31,9 +31,9 @@ var prepOpts = {
 var uglifyOpts = {};
 
 gulp.task('default', ['clean'], function () {
-    gulp.start('html', /*'controllers',*/ 'views', 'vendor',
-        'font', 'js', 'minifyJS',
-        'json', 'img', 'css', 'less','dist-less',
+    gulp.start('html', 'views', 'vendor',
+        'font', 'minifyJS',
+        'img', 'css', 'less','dist-less',
         'layout', 'rewrite');
 });
 
@@ -193,33 +193,6 @@ gulp.task('jshint', function () {
     return gulp.src('src/js/**/*.js')
         .pipe(gulp.jshint())
         .pipe(gulp.jshint.reporter('default'));
-})
-
-gulp.task('controllers', [''], function () {
-    pump([
-        gulp.src([
-            './src/index.js',
-            './src/js/controllers/**/*.js'
-        ]),
-        gulp.prep(prepOpts),
-        gulp.babel(),
-        gulp.dest(distFolder + 'lib/js/'),
-        browserSync.reload({
-            stream: true
-        })
-    ], function (err) {
-        if (!!err) console.log("CONTROLLERS::err:", err);
-    })
-});
-
-gulp.task('js', function () {
-    return gulp.src([
-        'node_modules/angular-loading-bar/build/loading-bar.js'
-    ])
-        .pipe(gulp.dest(distFolder + 'lib/js/'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
 });
 
 gulp.task('minifyJS', function () {
@@ -244,14 +217,6 @@ gulp.task('minifyJS', function () {
         if (typeof err != "undefined")
             console.log("minifiJS.err:", err);
     });
-});
-
-gulp.task('json', function () {
-    return gulp.src('./src/modules/keyboard/*.json')
-        .pipe(gulp.dest(distFolder + '/'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
 });
 
 gulp.task('img', function () {
