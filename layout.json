@@ -1,21 +1,40 @@
 {
-	"id": "template-Tasku",
-	"name": "Tasku",
+	"id": "template-Iglu",
+	"name": "Iglu",
 	"stylesheet": "css/styles.less",
 
-	"expose": [
-	],
+	"expose": [],
 
-	"banners": [
-		{
-			"container": "screensaver-banner",
+	"banners": [{
+			"container": "screensaver",
 			"ratio": {
 				"x": 0.681,
 				"y": 1
 			}
 		},
 		{
+			"container": "top-banner",
+			"ratio": {
+				"x": 1,
+				"y": 1.476
+			}
+		},
+		{
+			"container": "right-banner",
+			"ratio": {
+				"x": 1,
+				"y": 1.476
+			}
+		},
+		{
 			"container": "bottom-banner",
+			"ratio": {
+				"x": 1,
+				"y": 1.476
+			}
+		},
+		{
+			"container": "left-banner",
 			"ratio": {
 				"x": 1,
 				"y": 1.476
