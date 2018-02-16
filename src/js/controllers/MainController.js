@@ -67,7 +67,9 @@ wfApp.controller('MainController', [
 				if (window.innerWidth >= 1024) {
 					$scope.setActiveTab('atoz');
 					$state.go('atoz');
-					$rootScope.$broadcast("wf.nav-menu", "show");
+					if(window.innerWidth>window.innerHeight) {
+						$rootScope.$broadcast("wf.nav-menu", "show");
+					}
 				}
 
 				// // TODO: replace $location
