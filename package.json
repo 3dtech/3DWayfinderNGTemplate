@@ -40,7 +40,7 @@
 	"devDependencies": {
 		"babel-core": "^6.26.0",
 		"brace-expansion": "^1.1.8",
-		"browser-sync": "^2.18.13",
+		"browser-sync": "^2.18.8",
 		"browser-sync-middleware-spa": "^1.0.0",
 		"browser-sync-spa": "^1.0.3",
 		"del": "^3.0.0",

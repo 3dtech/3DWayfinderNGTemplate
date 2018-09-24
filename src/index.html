@@ -4,7 +4,7 @@
 <head>
 	<title>3D Wayfinder</title>
 	<meta charset="utf-8">
-	<meta name="layout" content="wfAngular">
+	<meta name="layout" content="Iglu3D">
 	<meta name="description" content="3DWayfinder WebGL">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
@@ -22,15 +22,11 @@
 		</div>
 	</div>
 	<div id="loading-bar-container"></div>
-
-	<div class="ad-container">
-		<div id="top-banner" template="Iglu" wf-banner></div>
-		<div id="right-banner" template="Iglu" wf-banner></div>
-		<div id="bottom-banner" template="Iglu" wf-banner></div>
-		<div id="left-banner" template="Iglu" wf-banner></div>
-		<div id="screensaver" template="Iglu" wf-banner></div>
-
-	</div>
+	<div id="top-banner" class="banner" template="Iglu" wf-banner></div>
+	<div id="right-banner" class="banner" template="Iglu" wf-banner></div>
+	<div id="bottom-banner" class="banner" template="Iglu" wf-banner></div>
+	<div id="left-banner" class="banner" template="Iglu" wf-banner></div>
+	<div id="screensaver" class="banner" template="Iglu" wf-banner></div>
 
 	<div class="container" ng-click="trigger()" ng-keypress="trigger()">
 
@@ -170,9 +166,13 @@
 			$(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
 		};
 		var wayfinder;
-		setTimeout(function() {
-			wayfinder = angular.element(document.body).scope().wayfinder;
-		}, 1000);
+		(function () {
+			setTimeout(function() {
+				if (angular.element(document.body).scope()) {
+					wayfinder = angular.element(document.body).scope().wayfinder;
+				}
+			}, 1000);
+		})();
 	</script>
 </body>
 

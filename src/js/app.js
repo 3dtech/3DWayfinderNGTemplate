@@ -8,7 +8,6 @@ var wfApp = angular.module('wfApp', [
 	'cfp.loadingBar',
 	'naturalSort',
 	'wfangular'
-
 ]);
 
 
